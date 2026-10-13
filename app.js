@@ -1,0 +1,1061 @@
+const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
+// Publishable key is intended for browser use. Never place a service-role key here.
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
+const PAGE_SIZE = 100;
+const CACHE_KEY = 'borsaid-library-public-cache-v1';
+
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+const formatDate = value => value ? new Intl.DateTimeFormat('ar-EG', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(value)) : '—';
+const csvCell = value => {
+  let text = String(value ?? '');
+  if (/^[=+@\-\t\r]/.test(text)) text = `'${text}`;
+  return `"${text.replaceAll('"', '""')}"`;
+};
+
+$('#copyrightYear').textContent = String(new Date().getFullYear());
+const staffDialog = $('#staffDialog');
+const loginMessage = $('#loginMessage');
+const catalogStatus = $('#catalogStatus');
+const resultsGrid = $('#resultsGrid');
+const emptyState = $('#emptyState');
+const branchFilter = $('#branchFilter');
+let supabase = null;
+let publicSupabase = null;
+let publicBranches = [];
+let publicResults = [];
+let currentPage = 0;
+let currentSearch = { query: '', branch_id: null, available_only: false };
+let searchTimer = 0;
+let currentLibraryId = null;
+let currentMemberships = [];
+let staffBranches = [];
+let currentRole = null;
+let currentUserId = null;
+let inventoryTitles = [];
+let inventoryHoldings = [];
+let reservationRows = [];
+let requestRecords = new Map();
+let openLoans = [];
+
+function setMessage(target, text, kind = '') {
+  if (!target) return;
+  target.textContent = text || '';
+  target.className = `form-message${kind ? ` ${kind}` : ''}`;
+}
+function cacheRead() {
+  try { return JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); } catch { return null; }
+}
+function cacheWrite() {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ saved_at: new Date().toISOString(), branches: publicBranches, results: publicResults, search: currentSearch }));
+  } catch { /* Browser storage can be disabled or full; live browsing still works. */ }
+}
+function showEmpty(title, description) {
+  resultsGrid.innerHTML = '';
+  resultsGrid.hidden = true;
+  emptyState.hidden = false;
+  $('#emptyTitle').textContent = title;
+  $('#emptyDescription').textContent = description;
+  $('#moreRow').hidden = true;
+}
+function paintPublicCards(rows, append = false) {
+  if (!append) resultsGrid.innerHTML = '';
+  if (!rows.length && !append) {
+    const searching = Boolean(currentSearch.query || currentSearch.branch_id || currentSearch.available_only);
+    showEmpty(searching ? 'لم نعثر على نتائج مطابقة' : 'لا توجد عناوين منشورة بعد', searching ? 'جرّب كلمة أقصر أو أزل بعض عوامل التصفية.' : 'عند نشر سجلات الكتب من المكتبات المشاركة، ستظهر هنا للبحث.');
+    return;
+  }
+  emptyState.hidden = true;
+  resultsGrid.hidden = false;
+  resultsGrid.insertAdjacentHTML('beforeend', rows.map(row => {
+    const available = Number(row.available_copies || 0);
+    const hasCopy = available > 0;
+    const classification = row.classification ? `<span class="book-classification">${escapeHtml(row.classification)}</span>` : '<span class="book-classification">رقم عام</span>';
+    const location = row.public_shelf_label ? `<span>⌖ <strong>${escapeHtml(row.public_shelf_label)}</strong></span>` : '';
+    return `<article class="book-card">
+      <div class="book-card-top">${classification}<span class="availability-badge ${hasCopy ? '' : 'unavailable'}">${hasCopy ? `متاح · ${available}` : 'غير متاح الآن'}</span></div>
+      <h3>${escapeHtml(row.title)}</h3>
+      <div class="book-author">${row.author ? `تأليف: ${escapeHtml(row.author)}` : 'بيانات المؤلف غير مضافة'}</div>
+      <div class="book-card-divider"></div>
+      <div class="book-meta"><span>⌂ <strong>${escapeHtml(row.branch_name || row.city || 'فرع مكتبة')}</strong></span>${location}</div>
+      <div class="book-number">الرقم العام: ${escapeHtml(row.general_number)}</div>
+    </article>`;
+  }).join(''));
+}
+function paintBranches(rows) {
+  const grid = $('#branchesGrid');
+  if (!rows.length) {
+    grid.innerHTML = '<div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>تُضاف بيانات الفروع من لوحة المكتبة</strong><p>لن نعرض مواقع أو أرقام تواصل غير مؤكدة.</p></div></div>';
+    return;
+  }
+  grid.innerHTML = rows.map(branch => {
+    const location = [branch.city, branch.governorate].filter(Boolean).map(escapeHtml).join('، ');
+    const links = [];
+    if (branch.public_phone) {
+      const tel = String(branch.public_phone).replace(/[^+\d]/g, '');
+      if (tel) links.push(`<a href="tel:${escapeHtml(tel)}">☎ ${escapeHtml(branch.public_phone)}</a>`);
+    }
+    if (branch.public_email) links.push(`<a href="mailto:${escapeHtml(branch.public_email)}">✉ ${escapeHtml(branch.public_email)}</a>`);
+    return `<article class="branch-card"><span class="branch-marker" aria-hidden="true">⌖</span><div class="branch-card-body"><strong>${escapeHtml(branch.branch_name)}</strong><p>${location ? `${location}${branch.public_address ? ` · ${escapeHtml(branch.public_address)}` : ''}` : (branch.public_address ? escapeHtml(branch.public_address) : 'بيانات الموقع التفصيلية غير متاحة')}</p>${links.length ? `<div class="branch-contact">${links.join('')}</div>` : ''}</div></article>`;
+  }).join('');
+}
+function updateBranchFilter(rows) {
+  const selected = branchFilter.value;
+  branchFilter.innerHTML = '<option value="">كل المكتبات</option>' + rows.map(branch => `<option value="${escapeHtml(branch.branch_id)}">${escapeHtml(branch.branch_name)}${branch.city ? ` · ${escapeHtml(branch.city)}` : ''}</option>`).join('');
+  if (rows.some(branch => branch.branch_id === selected)) branchFilter.value = selected;
+}
+async function loadPublicBranches() {
+  const { data, error } = await publicSupabase.from('public_branches')
+    .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
+    .order('branch_name', { ascending: true });
+  if (error) throw error;
+  publicBranches = data || [];
+  paintBranches(publicBranches);
+  updateBranchFilter(publicBranches);
+}
+async function runPublicSearch({ append = false } = {}) {
+  if (!publicSupabase) return;
+  if (!append) {
+    currentPage = 0;
+    publicResults = [];
+    catalogStatus.textContent = 'جارٍ البحث في الفهرس المنشور...';
+    resultsGrid.setAttribute('aria-busy', 'true');
+  }
+  const page = append ? currentPage + 1 : 0;
+  const { data, error } = await publicSupabase.rpc('search_public_catalog', {
+    p_query: currentSearch.query || null,
+    p_branch_id: currentSearch.branch_id || null,
+    p_available_only: currentSearch.available_only,
+    p_limit: PAGE_SIZE,
+    p_offset: page * PAGE_SIZE,
+  });
+  resultsGrid.setAttribute('aria-busy', 'false');
+  if (error) {
+    const cached = cacheRead();
+    const sameSearch = cached && JSON.stringify(cached.search || {}) === JSON.stringify(currentSearch);
+    if (sameSearch && cached?.results?.length) {
+      publicBranches = cached.branches || [];
+      publicResults = cached.results || [];
+      paintBranches(publicBranches);
+      paintPublicCards(publicResults);
+      catalogStatus.textContent = `تعذّر الاتصال الآن؛ هذه نسخة عامة محفوظة في ${formatDate(cached.saved_at)}. قد تكون الإتاحة تغيّرت.`;
+    } else {
+      catalogStatus.textContent = 'تعذّر الاتصال بالفهرس؛ حاول تحديث الصفحة عند توفر الاتصال.';
+      showEmpty('الفهرس غير متاح حالياً', 'لم تُحفظ نتائج عامة على هذا الجهاز بعد.');
+    }
+    return;
+  }
+  const rows = data || [];
+  if (append && !rows.length) {
+    $('#moreRow').hidden = true;
+    catalogStatus.textContent = `عرض ${publicResults.length} نتيجة.`;
+    return;
+  }
+  currentPage = page;
+  if (append) publicResults.push(...rows); else publicResults = rows;
+  paintPublicCards(rows, append);
+  const shown = publicResults.length;
+  catalogStatus.textContent = shown ? `عرض ${shown} نتيجة${shown === 1 ? '' : ''} من السجلات المنشورة.` : (currentSearch.query ? 'لا توجد نتائج بهذه الكلمات.' : 'لا توجد عناوين منشورة للعرض حالياً.');
+  $('#resultCountLabel').textContent = `تم تحميل ${shown} نتيجة`;
+  $('#moreRow').hidden = rows.length < PAGE_SIZE;
+  $('#clearSearch').hidden = !(currentSearch.query || currentSearch.branch_id || currentSearch.available_only);
+  cacheWrite();
+}
+function submitSearch() {
+  currentSearch = {
+    query: $('#searchInput').value.trim().slice(0, 100),
+    branch_id: branchFilter.value || null,
+    available_only: $('#availableOnly').checked,
+  };
+  runPublicSearch();
+}
+$('#publicSearchForm').addEventListener('submit', event => { event.preventDefault(); submitSearch(); });
+$('#searchInput').addEventListener('input', () => {
+  window.clearTimeout(searchTimer);
+  searchTimer = window.setTimeout(submitSearch, 300);
+});
+branchFilter.addEventListener('change', submitSearch);
+$('#availableOnly').addEventListener('change', submitSearch);
+$('#clearSearch').addEventListener('click', () => {
+  $('#searchInput').value = '';
+  branchFilter.value = '';
+  $('#availableOnly').checked = false;
+  submitSearch();
+});
+$('#resetSearch').addEventListener('click', () => $('#clearSearch').click());
+$('#loadMore').addEventListener('click', () => runPublicSearch({ append: true }));
+
+const openStaff = () => {
+  if (!staffDialog.open) staffDialog.showModal();
+  if (!supabase) setMessage(loginMessage, 'الاتصال بخدمة الحسابات غير جاهز حالياً. أعد تحميل الصفحة وحاول مجدداً.', 'error');
+};
+$('#staffOpen').addEventListener('click', openStaff);
+$('#staffOpenBottom').addEventListener('click', openStaff);
+$('#featureStaffLink').addEventListener('click', event => { event.preventDefault(); openStaff(); });
+$('#closeStaffDialog').addEventListener('click', () => staffDialog.close());
+staffDialog.addEventListener('click', event => { if (event.target === staffDialog) staffDialog.close(); });
+
+function setWorkspaceMode(isSignedIn) {
+  $('#loginPane').hidden = isSignedIn;
+  $('#workspacePane').hidden = !isSignedIn;
+  $('#staffDialogTitle').textContent = isSignedIn ? 'لوحة عمل المكتبة' : 'مساحة الموظفين';
+}
+function activatePanel(panelId) {
+  $$('.staff-tab').forEach(button => button.classList.toggle('active', button.dataset.panel === panelId));
+  $$('.staff-panel').forEach(panel => {
+    const active = panel.id === panelId;
+    panel.classList.toggle('active', active);
+    panel.hidden = !active;
+  });
+}
+function configureRole(role) {
+  const manager = ['owner', 'admin', 'librarian'].includes(role);
+  const administrator = ['owner', 'admin'].includes(role);
+  const assistant = manager || role === 'reporter';
+  const circulation = manager || role === 'circulation';
+  const allowed = new Set(['catalogPanel', 'reportsPanel']);
+  if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
+  if (circulation) ['circulationPanel', 'reservationsPanel', 'visitorsPanel'].forEach(id => allowed.add(id));
+  if (administrator) allowed.add('membersPanel');
+  if (assistant) allowed.add('assistantPanel');
+  $$('.staff-tab').forEach(button => { button.hidden = !allowed.has(button.dataset.panel); });
+  $('#titleForm').hidden = !manager;
+  $('#holdingForm').hidden = !manager;
+  $('#branchForm').hidden = !manager;
+  $('#sharingSettingsForm').hidden = !administrator;
+  $('#patronForm').hidden = !circulation;
+  $('#checkoutForm').hidden = !circulation;
+  $('#reservationForm').hidden = !circulation;
+  $('#visitorForm').hidden = !circulation;
+  $('#requestForm').hidden = !manager;
+  $('#inviteForm').hidden = !administrator;
+  $('#operationalBackupCard').hidden = role !== 'owner';
+  const active = $('.staff-tab.active');
+  if (!active || active.hidden) activatePanel('catalogPanel');
+}
+$$('.staff-tab').forEach(button => button.addEventListener('click', () => activatePanel(button.dataset.panel)));
+
+async function loadMemberships() {
+  const { data: userData } = await supabase.auth.getUser();
+  currentUserId = userData?.user?.id || null;
+  const { data, error } = await supabase.from('library_memberships').select('library_id,role,status').eq('status', 'active');
+  if (error) {
+    setWorkspaceMode(true);
+    $('#membershipWarning').hidden = false;
+    $('#membershipWarning').textContent = 'تعذّر تحميل صلاحيات هذا الحساب. تواصل مع مسؤول المكتبة.';
+    return;
+  }
+  currentMemberships = data || [];
+  if (!currentMemberships.length) {
+    currentRole = null;
+    configureRole(null);
+    setWorkspaceMode(true);
+    $('#membershipWarning').hidden = false;
+    $('#membershipWarning').textContent = 'لا توجد مكتبة مرتبطة بهذا الحساب. لا يوجد تسجيل مفتوح؛ اطلب من مالك المكتبة إضافتك.';
+    $('#workspaceTitle').textContent = 'لا توجد صلاحية لمكتبة';
+    $('#staffIdentity').textContent = 'يمكنك تسجيل الخروج أو طلب دعوة من المسؤول.';
+    $('#librarySelect').innerHTML = '';
+    $('#staffStats').innerHTML = '';
+    return;
+  }
+  const ids = currentMemberships.map(item => item.library_id);
+  const { data: libraries, error: libraryError } = await supabase.from('libraries').select('id,name').in('id', ids).order('name');
+  if (libraryError || !libraries?.length) {
+    setWorkspaceMode(true);
+    $('#membershipWarning').hidden = false;
+    $('#membershipWarning').textContent = 'تعذّر فتح معلومات المكتبة. راجع صلاحيات الحساب.';
+    return;
+  }
+  $('#membershipWarning').hidden = true;
+  $('#librarySelect').innerHTML = libraries.map(library => `<option value="${escapeHtml(library.id)}">${escapeHtml(library.name)}</option>`).join('');
+  $('#staffIdentity').textContent = supabase.auth.getUser ? 'حساب موظف مُصادق عليه' : '';
+  currentLibraryId = libraries[0].id;
+  currentRole = currentMemberships.find(item => item.library_id === currentLibraryId)?.role || null;
+  configureRole(currentRole);
+  $('#librarySelect').value = currentLibraryId;
+  setWorkspaceMode(true);
+  await loadStaffData();
+}
+$('#librarySelect').addEventListener('change', async event => {
+  const nextId = event.target.value;
+  if (!currentMemberships.some(membership => membership.library_id === nextId)) return;
+  currentLibraryId = nextId;
+  currentRole = currentMemberships.find(membership => membership.library_id === nextId)?.role || null;
+  configureRole(currentRole);
+  await loadStaffData();
+});
+
+async function loadStaffData() {
+  if (!currentLibraryId) return;
+  const option = $('#librarySelect').selectedOptions[0];
+  $('#workspaceTitle').textContent = option?.textContent || 'مكتبتك';
+  $('#workspaceMessage').textContent = '';
+  await loadStaffBranches();
+  const tasks = [refreshStaffStats(), loadInventory(), loadReports()];
+  if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibrarySettings());
+  if (['owner', 'admin', 'librarian'].includes(currentRole)) tasks.push(loadInterlibraryRequests());
+  if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibraryMembers());
+  if (['owner', 'admin', 'librarian', 'circulation'].includes(currentRole)) {
+    tasks.push(loadPatrons(), loadAvailableHoldings(), loadOpenLoans(), loadVisitors(), loadReservations());
+  }
+  await Promise.all(tasks);
+}
+async function countRows(table, filters = []) {
+  let query = supabase.from(table).select('id', { count: 'exact', head: true }).eq('library_id', currentLibraryId);
+  for (const [method, column, value] of filters) query = query[method](column, value);
+  const { count, error } = await query;
+  return error ? null : count;
+}
+async function fetchAllPages(makeQuery, { pageSize = 1000, maxRows = 50000 } = {}) {
+  const rows = [];
+  for (let offset = 0; offset < maxRows; offset += pageSize) {
+    const { data, error } = await makeQuery().range(offset, offset + pageSize - 1);
+    if (error) throw error;
+    const page = data || [];
+    rows.push(...page);
+    if (page.length < pageSize) return rows;
+  }
+  throw new Error(`Result exceeded the ${maxRows} row safety limit.`);
+}
+
+async function refreshStaffStats() {
+  const [titles, copies, lost, maintenance, openLoans, overdue, waiting] = await Promise.all([
+    countRows('catalog_titles'), countRows('holdings'),
+    countRows('holdings', [['eq', 'status', 'lost']]),
+    countRows('holdings', [['eq', 'status', 'maintenance']]),
+    countRows('loans', [['is', 'returned_at', null]]),
+    countRows('loans', [['is', 'returned_at', null], ['lt', 'due_at', new Date().toISOString()]]),
+    countRows('reservations', [['eq', 'status', 'queued']]),
+  ]);
+  const stats = [['عناوين مسجلة', titles], ['نسخ في الجرد', copies], ['نسخ مفقودة', lost], ['تحت الصيانة', maintenance], ['إعارات مفتوحة', openLoans], ['متأخرة الآن', overdue], ['حجوزات انتظار', waiting]];
+  $('#staffStats').innerHTML = stats.map(([label, value]) => `<div class="stat-card"><span>${label}</span><strong>${value === null ? '—' : Number(value).toLocaleString('ar-EG')}</strong></div>`).join('');
+}
+async function loadStaffBranches() {
+  const { data, error } = await supabase.from('branches').select('id,name,governorate,city,public_address,public_phone,public_email,is_published').eq('library_id', currentLibraryId).order('name');
+  if (error) { staffBranches = []; return; }
+  staffBranches = data || [];
+  const options = '<option value="">اختر الفرع</option>' + staffBranches.map(branch => `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.name)}</option>`).join('');
+  $$('[data-branch-select]').forEach(select => { const old = select.value; select.innerHTML = options; if (staffBranches.some(branch => branch.id === old)) select.value = old; });
+  const branchEditSelect = $('#branchEditSelect');
+  const selectedBranch = branchEditSelect.value;
+  branchEditSelect.innerHTML = options;
+  if (staffBranches.some(branch => branch.id === selectedBranch)) branchEditSelect.value = selectedBranch;
+  $('#requestSourceBranchSelect').innerHTML = '<option value="">بدون تحديد</option>' + staffBranches.map(branch => `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.name)}</option>`).join('');
+  $('#staffBranches').innerHTML = staffBranches.length ? staffBranches.map(branch => `<div class="branch-admin-item"><span>${escapeHtml(branch.name)}<small>${escapeHtml([branch.city, branch.governorate].filter(Boolean).join('، '))}</small></span><span class="${branch.is_published ? 'branch-public-tag' : 'branch-public-tag branch-private-tag'}">${branch.is_published ? 'منشور' : 'داخلي'}</span></div>`).join('') : '<p class="table-empty">لا توجد فروع لهذه المكتبة بعد.</p>';
+  updateBranchFilter(publicBranches);
+}
+async function loadLibrarySettings() {
+  const form = $('#sharingSettingsForm');
+  if (!['owner','admin'].includes(currentRole)) { form.hidden = true; return; }
+  const { data, error } = await supabase.from('libraries').select('interlibrary_enabled').eq('id', currentLibraryId).maybeSingle();
+  if (error || !data) return setMessage($('#sharingSettingsMessage'), 'تعذّر تحميل إعداد المشاركة.', 'error');
+  form.elements.interlibrary_enabled.checked = Boolean(data.interlibrary_enabled);
+}
+async function loadInventory() {
+  const tbody = $('#inventoryRows');
+  try {
+    inventoryTitles = await fetchAllPages(() => supabase.from('catalog_titles')
+      .select('id,general_number,title,author,classification,is_published').eq('library_id', currentLibraryId).order('title'));
+    inventoryHoldings = await fetchAllPages(() => supabase.from('holdings')
+      .select('id,title_id,branch_id,inventory_tag,cabinet_code,shelf_code,public_shelf_label,status,created_at')
+      .eq('library_id', currentLibraryId).order('created_at'));
+  } catch (error) {
+    tbody.innerHTML = '<tr><td colspan="5" class="table-empty">تعذّر تحميل الفهرس أو النسخ؛ تحقق من الصلاحية والاتصال.</td></tr>';
+    $('#holdingRows').innerHTML = '<tr><td colspan="6" class="table-empty">تعذّر تحميل النسخ.</td></tr>';
+    return;
+  }
+  const titleOptions = '<option value="">اختر عنواناً</option>' + inventoryTitles.map(row => `<option value="${escapeHtml(row.id)}">${escapeHtml(row.title)} · ${escapeHtml(row.general_number)}</option>`).join('');
+  for (const id of ['reservationTitleSelect','holdingTitleSelect','requestMatchedTitleSelect']) {
+    const select = $(`#${id}`);
+    if (!select) continue;
+    const selected = select.value;
+    select.innerHTML = titleOptions;
+    if (inventoryTitles.some(row => row.id === selected)) select.value = selected;
+  }
+  const canManage = ['owner','admin','librarian'].includes(currentRole);
+  tbody.innerHTML = inventoryTitles.length ? inventoryTitles.map(row => `<tr><td>${escapeHtml(row.general_number)}</td><td>${escapeHtml(row.title)}</td><td>${escapeHtml(row.author || '—')}</td><td><span class="${row.is_published ? 'published-tag' : 'pending-tag'}">${row.is_published ? 'منشور' : 'داخلي'}</span></td><td>${canManage ? `<button class="loan-return" data-edit-title="${escapeHtml(row.id)}" type="button">تعديل</button>` : '—'}</td></tr>`).join('') : '<tr><td colspan="5" class="table-empty">لا توجد عناوين مسجلة لهذه المكتبة.</td></tr>';
+  const titleMap = Object.fromEntries(inventoryTitles.map(row => [row.id, row]));
+  const branchMap = Object.fromEntries(staffBranches.map(row => [row.id, row.name]));
+  const statusLabels = { available: 'متاح', on_loan: 'معار', reserved: 'محجوز', maintenance: 'صيانة', lost: 'مفقود', withdrawn: 'مستبعد' };
+  $('#holdingRows').innerHTML = inventoryHoldings.length ? inventoryHoldings.map(row => {
+    const title = titleMap[row.title_id] || {};
+    const location = [branchMap[row.branch_id], row.cabinet_code, row.shelf_code].filter(Boolean).join(' · ') || '—';
+    const blocked = ['on_loan','reserved','withdrawn'].includes(row.status);
+    const auditActions = `<button class="loan-return" data-inventory-result="found" data-holding-id="${escapeHtml(row.id)}" type="button">موجود</button>${blocked ? '' : ` <button class="loan-return" data-inventory-result="missing" data-holding-id="${escapeHtml(row.id)}" type="button">مفقود</button> <button class="loan-return" data-inventory-result="damaged" data-holding-id="${escapeHtml(row.id)}" type="button">تالف</button>`}`;
+    const statusAction = canManage && row.status === 'maintenance' ? ` <button class="loan-return" data-copy-status="available" data-holding-id="${escapeHtml(row.id)}" type="button">تم الإصلاح</button>` : canManage && row.status === 'available' ? ` <button class="loan-return" data-copy-status="withdrawn" data-holding-id="${escapeHtml(row.id)}" type="button">استبعاد</button>` : '';
+    const editAction = canManage ? `<button class="loan-return" data-edit-holding="${escapeHtml(row.id)}" type="button">الموقع</button>` : '';
+    return `<tr><td>${escapeHtml(title.general_number || '—')}</td><td>${escapeHtml(title.title || 'عنوان')}</td><td>${escapeHtml(location)}</td><td>${escapeHtml(row.inventory_tag || '—')}</td><td><span class="${row.status === 'available' ? 'published-tag' : 'pending-tag'}">${statusLabels[row.status] || escapeHtml(row.status)}</span></td><td>${auditActions}${statusAction} ${editAction}</td></tr>`;
+  }).join('') : '<tr><td colspan="6" class="table-empty">لا توجد نسخ مسجلة.</td></tr>';
+}
+async function loadPatrons() {
+  let data;
+  try { data = await fetchAllPages(() => supabase.from('patrons').select('id,member_code,full_name,is_active').eq('library_id', currentLibraryId).eq('is_active', true).order('full_name').order('id')); }
+  catch {
+    const select = $('#patronSelect');
+    select.innerHTML = '<option value="">تعذّر تحميل القائمة</option>';
+    $('#reservationPatronSelect').innerHTML = '<option value="">تعذّر تحميل القائمة</option>';
+    return;
+  }
+  const select = $('#patronSelect');
+  const options = (data || []).map(patron => `<option value="${escapeHtml(patron.id)}">${escapeHtml(patron.full_name)}${patron.member_code ? ` · ${escapeHtml(patron.member_code)}` : ''}</option>`).join('');
+  select.innerHTML = '<option value="">اختر مستعيراً</option>' + options;
+  $('#reservationPatronSelect').innerHTML = '<option value="">اختر مستعيراً</option>' + options;
+}
+async function loadAvailableHoldings() {
+  const selectedPatron = $('#patronSelect').value;
+  const select = $('#holdingSelect');
+  let data, readyReservations;
+  try {
+    [data, readyReservations] = await Promise.all([
+      fetchAllPages(() => supabase.from('holdings').select('id,inventory_tag,title_id,status').eq('library_id', currentLibraryId).in('status', ['available','reserved']).order('id')),
+      fetchAllPages(() => supabase.from('reservations').select('holding_id,patron_id').eq('library_id', currentLibraryId).eq('status', 'ready').order('created_at').order('id')),
+    ]);
+  } catch { select.innerHTML = '<option value="">تعذّر تحميل القائمة</option>'; return; }
+  const reservedFor = Object.fromEntries((readyReservations || []).filter(row => row.holding_id).map(row => [row.holding_id, row.patron_id]));
+  const rows = (data || []).filter(row => row.status === 'available' || (row.status === 'reserved' && selectedPatron && reservedFor[row.id] === selectedPatron));
+  const ids = [...new Set(rows.map(row => row.title_id))];
+  let titleMap = {};
+  if (ids.length) {
+    const { data: titles } = await supabase.from('catalog_titles').select('id,title,general_number').eq('library_id', currentLibraryId).in('id', ids);
+    titleMap = Object.fromEntries((titles || []).map(title => [title.id, title]));
+  }
+  select.innerHTML = '<option value="">اختر نسخة</option>' + rows.map(row => {
+    const title = titleMap[row.title_id];
+    return `<option value="${escapeHtml(row.id)}">${escapeHtml(title?.title || 'عنوان')} · ${escapeHtml(row.inventory_tag || title?.general_number || 'بلا رقم نسخة')}${row.status === 'reserved' ? ' · حجز هذا المستعير' : ''}</option>`;
+  }).join('');
+}
+async function loadOpenLoans() {
+  const tbody = $('#loanRows');
+  let loans;
+  try { loans = await fetchAllPages(() => supabase.from('loans').select('id,due_at,created_at,patron_id,holding_id,renewal_count').eq('library_id', currentLibraryId).is('returned_at', null).order('due_at')); }
+  catch { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">تعذّر تحميل الإعارات أو تجاوزت حد الصفحات.</td></tr>'; return; }
+  if (!loans?.length) { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">لا توجد إعارات مفتوحة.</td></tr>'; return; }
+  const patronIds = [...new Set(loans.map(loan => loan.patron_id))];
+  const holdingIds = [...new Set(loans.map(loan => loan.holding_id))];
+  const [{ data: patrons }, { data: holdings }] = await Promise.all([
+    supabase.from('patrons').select('id,full_name').eq('library_id', currentLibraryId).in('id', patronIds),
+    supabase.from('holdings').select('id,inventory_tag,title_id').eq('library_id', currentLibraryId).in('id', holdingIds),
+  ]);
+  const patronMap = Object.fromEntries((patrons || []).map(patron => [patron.id, patron.full_name]));
+  const holdingRows = holdings || [];
+  const titleIds = [...new Set(holdingRows.map(holding => holding.title_id))];
+  const { data: titles } = titleIds.length ? await supabase.from('catalog_titles').select('id,title').eq('library_id', currentLibraryId).in('id', titleIds) : { data: [] };
+  const titleMap = Object.fromEntries((titles || []).map(title => [title.id, title.title]));
+  const holdingMap = Object.fromEntries(holdingRows.map(holding => [holding.id, `${titleMap[holding.title_id] || 'كتاب'} · ${holding.inventory_tag || 'نسخة'}`]));
+  const now = Date.now();
+  tbody.innerHTML = loans.map(loan => {
+    const late = new Date(loan.due_at).getTime() < now;
+    const renewal = Number(loan.renewal_count || 0) < 2 ? `<button class="loan-return" data-renew-loan="${escapeHtml(loan.id)}" type="button">تجديد 14 يوماً</button>` : '<small>بلغ حد التجديد</small>';
+    return `<tr><td>${escapeHtml(patronMap[loan.patron_id] || 'مستعير')}</td><td>${escapeHtml(holdingMap[loan.holding_id] || 'نسخة')}</td><td>${formatDate(loan.due_at)}<small class="table-subtext">تجديدات: ${Number(loan.renewal_count || 0)} من 2</small></td><td>${late ? '<span class="late-tag">متأخرة</span>' : 'جارية'}</td><td>${renewal} <button class="loan-return" data-return-loan="${escapeHtml(loan.id)}" type="button">تسجيل الإرجاع</button></td></tr>`;
+  }).join('');
+}
+async function loadVisitors() {
+  const tbody = $('#visitorRows');
+  const { data, error } = await supabase.from('visitors').select('id,display_name,occupation,created_at').eq('library_id', currentLibraryId).order('created_at', { ascending: false }).limit(100);
+  if (error) { tbody.innerHTML = '<tr><td colspan="3" class="table-empty">تعذّر تحميل سجلات الزوار.</td></tr>'; return; }
+  if (!data?.length) { tbody.innerHTML = '<tr><td colspan="3" class="table-empty">لا توجد سجلات زوار مسجلة.</td></tr>'; return; }
+  tbody.innerHTML = data.map(visitor => `<tr><td>${escapeHtml(visitor.display_name)}</td><td>${escapeHtml(visitor.occupation || '—')}</td><td>${formatDate(visitor.created_at)}</td></tr>`).join('');
+}
+async function loadReports() {
+  const [titles, copies, lost, maintenance, open, overdue, visitors, checks, waiting, ready] = await Promise.all([
+    countRows('catalog_titles'), countRows('holdings'),
+    countRows('holdings', [['eq', 'status', 'lost']]),
+    countRows('holdings', [['eq', 'status', 'maintenance']]),
+    countRows('loans', [['is', 'returned_at', null]]),
+    countRows('loans', [['is', 'returned_at', null], ['lt', 'due_at', new Date().toISOString()]]),
+    countRows('visitors'), countRows('inventory_checks'),
+    countRows('reservations', [['eq', 'status', 'queued']]), countRows('reservations', [['eq', 'status', 'ready']]),
+  ]);
+  const cards = [['العناوين', titles], ['النسخ المسجلة', copies], ['نسخ مفقودة', lost], ['تحت الصيانة', maintenance], ['الإعارات المفتوحة', open], ['الإعارات المتأخرة', overdue], ['الزوار المسجلون', visitors], ['عمليات الجرد', checks], ['حجوزات انتظار', waiting], ['جاهزة للاستلام', ready], ['الفروع', staffBranches.length]];
+  $('#reportGrid').innerHTML = cards.map(([label, count]) => `<div class="report-card"><span>${label}</span><strong>${count === null ? '—' : Number(count).toLocaleString('ar-EG')}</strong></div>`).join('');
+}
+async function loadReservations() {
+  const tbody = $('#reservationRows');
+  let reservations;
+  try {
+    reservations = await fetchAllPages(() => supabase.from('reservations')
+      .select('id,title_id,patron_id,status,created_at,holding_id').eq('library_id', currentLibraryId)
+      .order('created_at', { ascending: false }).order('id'));
+  } catch { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">تعذّر تحميل الحجوزات.</td></tr>'; return; }
+  if (!reservations?.length) { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">لا توجد حجوزات.</td></tr>'; return; }
+  const titleIds = [...new Set(reservations.map(row => row.title_id))];
+  const patronIds = [...new Set(reservations.map(row => row.patron_id))];
+  const [{ data: titles }, { data: patrons }] = await Promise.all([
+    supabase.from('catalog_titles').select('id,title').eq('library_id', currentLibraryId).in('id', titleIds),
+    supabase.from('patrons').select('id,full_name').eq('library_id', currentLibraryId).in('id', patronIds),
+  ]);
+  const titleMap = Object.fromEntries((titles || []).map(row => [row.id, row.title]));
+  const patronMap = Object.fromEntries((patrons || []).map(row => [row.id, row.full_name]));
+  const labels = { queued: 'قيد الانتظار', ready: 'جاهز للاستلام', fulfilled: 'مكتمل', cancelled: 'ملغى', expired: 'منتهي' };
+  tbody.innerHTML = reservations.map(row => {
+    const assigned = row.holding_id ? inventoryHoldings.find(holding => holding.id === row.holding_id) : null;
+    const copyLabel = assigned ? ` · نسخة ${escapeHtml(assigned.inventory_tag || '')}` : '';
+    const action = ['queued','ready'].includes(row.status)
+      ? `<button class="loan-return" data-reservation-id="${escapeHtml(row.id)}" data-next-status="cancelled" type="button">إلغاء</button>` : '—';
+    return `<tr><td>${escapeHtml(titleMap[row.title_id] || 'عنوان')}${row.status === 'ready' ? `<small class="table-subtext">جاهز للاستلام${copyLabel}</small>` : ''}</td><td>${escapeHtml(patronMap[row.patron_id] || 'مستعير')}</td><td>${formatDate(row.created_at)}</td><td>${labels[row.status] || escapeHtml(row.status)}</td><td>${action}</td></tr>`;
+  }).join('');
+}
+async function loadInterlibraryRequests() {
+  const select = $('#requestDestinationSelect');
+  const targets = [...new Map(publicBranches.filter(branch => branch.library_id !== currentLibraryId && branch.interlibrary_enabled)
+    .map(branch => [branch.library_id, branch.library_name])).entries()];
+  select.innerHTML = '<option value="">اختر مكتبة مشاركة</option>' + targets.map(([id, name]) => `<option value="${escapeHtml(id)}">${escapeHtml(name)}</option>`).join('');
+  const tbody = $('#requestRows');
+  const [outgoingResult, incomingResult] = await Promise.all([
+    supabase.from('interlibrary_requests').select('id,source_library_id,destination_library_id,requested_title,requested_author,matched_title_id,status,created_at').eq('source_library_id', currentLibraryId).order('created_at', { ascending: false }).limit(100),
+    supabase.from('interlibrary_requests').select('id,source_library_id,destination_library_id,requested_title,requested_author,matched_title_id,status,created_at').eq('destination_library_id', currentLibraryId).order('created_at', { ascending: false }).limit(100),
+  ]);
+  if (outgoingResult.error || incomingResult.error) { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">تعذّر تحميل الطلبات؛ تحقق من عضوية المكتبة.</td></tr>'; return; }
+  const rows = [
+    ...(outgoingResult.data || []).map(row => ({ ...row, direction: 'صادر' })),
+    ...(incomingResult.data || []).map(row => ({ ...row, direction: 'وارد' })),
+  ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">لا توجد طلبات حتى الآن.</td></tr>'; return; }
+  const statusLabels = { requested: 'جديد', accepted: 'مقبول', declined: 'مرفوض', in_transit: 'قيد النقل', completed: 'مكتمل', cancelled: 'ملغى' };
+  const libraryNames = Object.fromEntries([...new Map(publicBranches.map(branch => [branch.library_id, branch.library_name])).entries()]);
+  requestRecords = new Map(rows.map(row => [row.id, row]));
+  tbody.innerHTML = rows.map(row => {
+    let controls = '—';
+    if (row.direction === 'وارد' && row.status === 'requested') controls = `<button class="loan-return" data-request-match="${escapeHtml(row.id)}" type="button">مطابقة وقبول</button> <button class="loan-return" data-request-id="${escapeHtml(row.id)}" data-next-status="declined" type="button">رفض</button>`;
+    else if (row.direction === 'صادر' && row.status === 'requested') controls = `<button class="loan-return" data-request-id="${escapeHtml(row.id)}" data-next-status="cancelled" type="button">إلغاء الطلب</button>`;
+    else if (row.direction === 'وارد' && row.status === 'accepted') controls = `<button class="loan-return" data-request-id="${escapeHtml(row.id)}" data-next-status="in_transit" type="button">إرسال</button>`;
+    else if (row.direction === 'صادر' && row.status === 'in_transit') controls = `<button class="loan-return" data-request-id="${escapeHtml(row.id)}" data-next-status="completed" type="button">تأكيد الاستلام</button>`;
+    const otherLibrary = row.direction === 'صادر' ? row.destination_library_id : row.source_library_id;
+    const matchedTitle = row.matched_title_id ? inventoryTitles.find(title => title.id === row.matched_title_id)?.title : null;
+    return `<tr><td>${escapeHtml(row.requested_title)}${matchedTitle ? `<small class="table-subtext">مطابق في السجل: ${escapeHtml(matchedTitle)}</small>` : ''}${row.requested_author ? `<small class="table-subtext">${escapeHtml(row.requested_author)}</small>` : ''}</td><td>${row.direction} · ${escapeHtml(libraryNames[otherLibrary] || 'مكتبة مشاركة')}</td><td>${statusLabels[row.status] || escapeHtml(row.status)}</td><td>${formatDate(row.created_at)}</td><td>${controls}</td></tr>`;
+  }).join('');
+}
+
+$('#loginForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!supabase) return setMessage(loginMessage, 'الاتصال غير متاح حالياً.', 'error');
+  const submit = $('.login-submit', event.currentTarget);
+  submit.disabled = true;
+  setMessage(loginMessage, 'جارٍ التحقق من الحساب...');
+  const form = new FormData(event.currentTarget);
+  const { error } = await supabase.auth.signInWithPassword({ email: form.get('email'), password: form.get('password') });
+  submit.disabled = false;
+  if (error) return setMessage(loginMessage, 'تعذّر تسجيل الدخول. تحقق من بيانات الحساب أو تواصل مع مسؤول المكتبة.', 'error');
+  event.currentTarget.reset();
+  setMessage(loginMessage, 'تم تسجيل الدخول.', 'success');
+});
+$('#signOut').addEventListener('click', async () => {
+  await supabase?.auth.signOut();
+  currentLibraryId = null;
+  currentRole = null;
+  currentUserId = null;
+  currentMemberships = [];
+  configureRole(null);
+  setWorkspaceMode(false);
+  setMessage(loginMessage, 'تم تسجيل الخروج.');
+});
+$('#titleForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!currentLibraryId) return;
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const button = $('.form-action', form);
+  button.disabled = true;
+  setMessage($('#titleMessage'), 'جارٍ حفظ العنوان والنسخة...');
+  const { error } = await supabase.rpc('create_title_with_holding', {
+    p_library_id: currentLibraryId,
+    p_branch_id: fields.get('branch_id'),
+    p_general_number: String(fields.get('general_number')).trim(),
+    p_title: String(fields.get('title')).trim(),
+    p_author: String(fields.get('author') || '').trim() || null,
+    p_classification: String(fields.get('classification') || '').trim() || null,
+    p_inventory_tag: String(fields.get('inventory_tag') || '').trim() || null,
+    p_cabinet_code: String(fields.get('cabinet_code') || '').trim() || null,
+    p_shelf_code: String(fields.get('shelf_code') || '').trim() || null,
+    p_public_shelf_label: String(fields.get('public_shelf_label') || '').trim() || null,
+    p_is_published: fields.get('is_published') === 'on',
+  });
+  button.disabled = false;
+  if (error) return setMessage($('#titleMessage'), 'لم يُحفظ العنوان والنسخة معاً. تحقق من الرقم العام المكرر والفرع والصلاحية.', 'error');
+  form.reset();
+  setMessage($('#titleMessage'), 'تم حفظ العنوان والنسخة معاً. سيظهران للعامة فقط إذا نُشرا وكانت المكتبة والفرع منشورين.', 'success');
+  await Promise.all([loadInventory(), loadAvailableHoldings(), refreshStaffStats(), loadReports()]);
+  if (fields.get('is_published') === 'on') { await loadPublicBranches().catch(() => {}); await runPublicSearch().catch(() => {}); }
+});
+$('#branchForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { error } = await supabase.from('branches').insert({
+    library_id: currentLibraryId,
+    name: String(fields.get('name')).trim(),
+    governorate: String(fields.get('governorate') || 'بورسعيد').trim(),
+    city: String(fields.get('city') || 'بورسعيد').trim(),
+    public_address: String(fields.get('public_address') || '').trim() || null,
+    public_phone: String(fields.get('public_phone') || '').trim() || null,
+    public_email: String(fields.get('public_email') || '').trim() || null,
+    is_published: fields.get('is_published') === 'on',
+  });
+  if (error) return setMessage($('#branchMessage'), 'لم يُضف الفرع؛ تحقق من صلاحية الحساب والبيانات.', 'error');
+  event.currentTarget.reset();
+  event.currentTarget.elements.governorate.value = 'بورسعيد';
+  event.currentTarget.elements.city.value = 'بورسعيد';
+  setMessage($('#branchMessage'), 'تمت إضافة الفرع.', 'success');
+  await Promise.all([loadStaffBranches(), refreshStaffStats()]);
+  await loadPublicBranches().catch(() => {});
+});
+$('#patronForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { error } = await supabase.from('patrons').insert({
+    library_id: currentLibraryId,
+    full_name: String(fields.get('full_name')).trim(),
+    member_code: String(fields.get('member_code') || '').trim() || null,
+    category: fields.get('category'),
+  });
+  if (error) return setMessage($('#patronMessage'), 'لم يُسجل المستعير. تحقق من رمز العضوية أو الصلاحية.', 'error');
+  event.currentTarget.reset();
+  setMessage($('#patronMessage'), 'تمت إضافة المستعير ضمن بيانات المكتبة الخاصة.', 'success');
+  await loadPatrons();
+});
+$('#patronSelect').addEventListener('change', loadAvailableHoldings);
+$('#checkoutForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const dueAt = new Date(`${fields.get('due_at')}T23:59:59`).toISOString();
+  const { error } = await supabase.rpc('checkout_copy', {
+    p_library_id: currentLibraryId,
+    p_holding_id: fields.get('holding_id'),
+    p_patron_id: fields.get('patron_id'),
+    p_due_at: dueAt,
+  });
+  if (error) return setMessage($('#checkoutMessage'), 'لم تتم الإعارة؛ تحقق من إتاحة النسخة وصلاحية المستخدم وتاريخ الاستحقاق.', 'error');
+  event.currentTarget.reset();
+  setMessage($('#checkoutMessage'), 'سُجلت الإعارة وتغيّرت حالة النسخة.', 'success');
+  await Promise.all([loadAvailableHoldings(), loadOpenLoans(), loadReservations(), refreshStaffStats(), loadReports()]);
+});
+$('#loanRows').addEventListener('click', async event => {
+  const renewButton = event.target.closest('[data-renew-loan]');
+  if (renewButton) {
+    renewButton.disabled = true;
+    const { error } = await supabase.rpc('renew_copy', { p_loan_id: renewButton.dataset.renewLoan, p_add_days: 14 });
+    if (error) { renewButton.disabled = false; return setMessage($('#workspaceMessage'), 'تعذّر التجديد؛ قد يوجد حجز انتظار أو بلغ القرض حد التجديد.', 'error'); }
+    setMessage($('#workspaceMessage'), 'تم تمديد موعد الإرجاع 14 يوماً.', 'success');
+    await Promise.all([loadOpenLoans(), refreshStaffStats(), loadReports()]);
+    return;
+  }
+  const button = event.target.closest('[data-return-loan]');
+  if (!button) return;
+  button.disabled = true;
+  const { error } = await supabase.rpc('return_copy', { p_loan_id: button.dataset.returnLoan });
+  if (error) {
+    button.disabled = false;
+    return setMessage($('#workspaceMessage'), 'تعذّر تسجيل الإرجاع. حدّث القائمة وحاول مرة أخرى.', 'error');
+  }
+  setMessage($('#workspaceMessage'), 'تم تسجيل الإرجاع وإعادة النسخة إلى المتاح.', 'success');
+  await Promise.all([loadAvailableHoldings(), loadOpenLoans(), loadReservations(), refreshStaffStats(), loadReports()]);
+});
+$('#visitorForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { error } = await supabase.from('visitors').insert({
+    library_id: currentLibraryId,
+    display_name: String(fields.get('display_name')).trim(),
+    occupation: String(fields.get('occupation') || '').trim() || null,
+    consent_confirmed: fields.get('consent_confirmed') === 'on',
+  });
+  if (error) return setMessage($('#visitorMessage'), 'لم يُسجل الزائر؛ تحقق من صلاحية الحساب.', 'error');
+  event.currentTarget.reset();
+  setMessage($('#visitorMessage'), 'تم تسجيل ملف الزائر داخل نطاق المكتبة.', 'success');
+  await loadVisitors();
+});
+$('#reservationForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const { error } = await supabase.rpc('create_reservation', {
+    p_library_id: currentLibraryId, p_title_id: fields.get('title_id'), p_patron_id: fields.get('patron_id'),
+  });
+  if (error) return setMessage($('#reservationMessage'), 'لم يُسجل الحجز؛ تحقق من بيانات المستعير والعنوان وصلاحية الدور.', 'error');
+  form.reset();
+  setMessage($('#reservationMessage'), 'تم تسجيل الحجز داخل سجل المكتبة.', 'success');
+  await Promise.all([loadReservations(), loadAvailableHoldings(), loadInventory(), refreshStaffStats(), loadReports()]);
+});
+$('#reservationRows').addEventListener('click', async event => {
+  const button = event.target.closest('[data-reservation-id]');
+  if (!button) return;
+  button.disabled = true;
+  const { error } = await supabase.rpc('transition_reservation', {
+    p_reservation_id: button.dataset.reservationId, p_next_status: button.dataset.nextStatus,
+  });
+  if (error) { button.disabled = false; return setMessage($('#workspaceMessage'), 'تعذّر تحديث حالة الحجز.', 'error'); }
+  await Promise.all([loadReservations(), loadInventory(), loadAvailableHoldings(), refreshStaffStats(), loadReports()]);
+});
+$('#requestForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const { error } = await supabase.rpc('create_interlibrary_request', {
+    p_source_library_id: currentLibraryId,
+    p_destination_library_id: fields.get('destination_library_id'),
+    p_source_branch_id: fields.get('source_branch_id') || null,
+    p_requested_title: String(fields.get('requested_title')).trim(),
+    p_requested_general_number: String(fields.get('requested_general_number') || '').trim() || null,
+    p_requested_author: String(fields.get('requested_author') || '').trim() || null,
+    p_request_note: String(fields.get('request_note') || '').trim() || null,
+  });
+  if (error) return setMessage($('#requestMessage'), 'لم يُرسل الطلب. تأكد أن المكتبة المستقبِلة مشاركة وأن دورك يسمح بذلك.', 'error');
+  form.reset();
+  setMessage($('#requestMessage'), 'أُرسل الطلب إلى سجل المكتبة المستقبِلة.', 'success');
+  await loadInterlibraryRequests();
+});
+$('#requestRows').addEventListener('click', async event => {
+  const button = event.target.closest('[data-request-id]');
+  const matchButton = event.target.closest('[data-request-match]');
+  if (matchButton) {
+    if (!inventoryTitles.length) return setMessage($('#workspaceMessage'), 'أضف عنواناً محلياً لمطابقة الطلب قبل قبوله.', 'error');
+    $('#requestMatchForm').elements.request_id.value = matchButton.dataset.requestMatch;
+    $('#requestMatchedTitleSelect').value = '';
+    $('#requestMatchDialog').showModal();
+    return;
+  }
+  if (!button) return;
+  button.disabled = true;
+  const row = requestRecords.get(button.dataset.requestId);
+  const { error } = await supabase.rpc('transition_interlibrary_request', {
+    p_request_id: button.dataset.requestId,
+    p_next_status: button.dataset.nextStatus,
+    p_matched_title_id: row?.matched_title_id || null,
+  });
+  if (error) { button.disabled = false; return setMessage($('#workspaceMessage'), 'تعذّر تحديث حالة الطلب؛ راجع صلاحيات المكتبة.', 'error'); }
+  await loadInterlibraryRequests();
+});
+$('#requestMatchForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const { error } = await supabase.rpc('transition_interlibrary_request', {
+    p_request_id: fields.get('request_id'), p_next_status: 'accepted', p_matched_title_id: fields.get('matched_title_id'),
+  });
+  if (error) return setMessage($('#requestMatchMessage'), 'تعذّر قبول الطلب؛ يجب مطابقة عنوان من مكتبتك.', 'error');
+  $('#requestMatchDialog').close();
+  await loadInterlibraryRequests();
+  setMessage($('#workspaceMessage'), 'قُبل الطلب بعد مطابقة العنوان المحلي.', 'success');
+});
+$('#memberRows').addEventListener('click', async event => {
+  const button = event.target.closest('[data-member-save]');
+  if (!button) return;
+  const row = button.closest('tr');
+  const role = $('.member-role', row)?.value;
+  const status = $('.member-status', row)?.value;
+  if (!role || !status) return;
+  button.disabled = true;
+  const { error } = await supabase.rpc('manage_library_membership', {
+    p_library_id: currentLibraryId,
+    p_user_id: button.dataset.memberSave,
+    p_new_role: role,
+    p_new_status: status,
+  });
+  if (error) { button.disabled = false; return setMessage($('#inviteMessage'), 'تعذّر حفظ الدور؛ تحقّق من صلاحيتك ومن وجود مالك نشط واحد على الأقل.', 'error'); }
+  setMessage($('#inviteMessage'), 'تم تحديث دور المستخدم.', 'success');
+  await loadLibraryMembers();
+});
+$('#inviteForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { data, error } = await supabase.functions.invoke('invite-library-member', {
+    body: { library_id: currentLibraryId, email: String(fields.get('email')).trim(), role: fields.get('role') },
+  });
+  if (error) return setMessage($('#inviteMessage'), 'خدمة الدعوات غير مهيأة بعد؛ يلزم نشر الوظيفة وضبط نطاق الموقع وإعادة التوجيه على الخادم.', 'error');
+  event.currentTarget.reset();
+  setMessage($('#inviteMessage'), data?.message || 'أُرسلت الدعوة وأُضيفت العضوية.', 'success');
+  await loadLibraryMembers();
+});
+$('#assistantForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const intent = new FormData(event.currentTarget).get('intent');
+  setMessage($('#assistantMessage'), 'جارٍ طلب ملخص من الوظيفة الخلفية…');
+  const { data, error } = await supabase.functions.invoke('library-assistant', { body: { library_id: currentLibraryId, intent } });
+  if (error) return setMessage($('#assistantMessage'), 'المساعد غير مفعّل بعد. يلزم نشر Edge Function وإضافة GEMINI_API_KEY في أسرار Supabase.', 'error');
+  const output = $('#assistantOutput');
+  output.innerHTML = `<p>${escapeHtml(data?.summary || 'لا يوجد ملخص.')}</p>${Array.isArray(data?.actions) ? `<ul>${data.actions.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}`;
+  output.hidden = false;
+  setMessage($('#assistantMessage'), 'ملخص إرشادي مبني على أعداد إجمالية فقط؛ راجع السجلات الأصلية قبل اتخاذ قرار.', 'success');
+});
+$('#refreshInventory').addEventListener('click', async () => { await loadInventory(); await refreshStaffStats(); });
+$('#refreshLoans').addEventListener('click', async () => { await loadOpenLoans(); await refreshStaffStats(); });
+$('#exportInventory').addEventListener('click', async () => {
+  let titles, holdings, branches;
+  try {
+    [titles, holdings, branches] = await Promise.all([
+      fetchAllPages(() => supabase.from('catalog_titles').select('id,general_number,title,author,classification').eq('library_id', currentLibraryId).order('general_number')),
+      fetchAllPages(() => supabase.from('holdings').select('id,title_id,branch_id,inventory_tag,cabinet_code,shelf_code,public_shelf_label,status').eq('library_id', currentLibraryId).order('created_at')),
+      fetchAllPages(() => supabase.from('branches').select('id,name').eq('library_id', currentLibraryId).order('name')),
+    ]);
+  } catch { return setMessage($('#workspaceMessage'), 'تعذّر تصدير الجرد أو تجاوز حد الأمان؛ تحقق من الصلاحية.', 'error'); }
+  const titleMap = Object.fromEntries((titles || []).map(title => [title.id, title]));
+  const branchMap = Object.fromEntries((branches || []).map(branch => [branch.id, branch.name]));
+  const rows = [['الرقم العام', 'عنوان الكتاب', 'المؤلف', 'التصنيف', 'الفرع', 'رقم النسخة', 'الدولاب', 'الرف الداخلي', 'وصف الرف العام', 'الحالة']];
+  for (const holding of holdings || []) {
+    const title = titleMap[holding.title_id] || {};
+    rows.push([title.general_number, title.title, title.author, title.classification, branchMap[holding.branch_id], holding.inventory_tag, holding.cabinet_code, holding.shelf_code, holding.public_shelf_label, holding.status]);
+  }
+  const csv = '\ufeff' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url; link.download = 'borsaid-library-inventory.csv'; link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setMessage($('#workspaceMessage'), 'تم تنزيل ملف الجرد. خزّنه في مكان آمن وفق سياسة المكتبة.', 'success');
+});
+
+$('#dueAtInput').min = (() => { const date = new Date(); date.setDate(date.getDate() + 1); return date.toISOString().slice(0, 10); })();
+$('#refreshInventory').addEventListener('click', () => loadReports());
+
+async function start() {
+  try {
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.57.0');
+    publicSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    });
+    supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+    });
+  } catch (error) {
+    catalogStatus.textContent = 'تعذّر تحميل مكوّن الاتصال. تحقق من اتصال الإنترنت ثم أعد المحاولة.';
+    const cached = cacheRead();
+    if (cached?.results?.length) {
+      publicBranches = cached.branches || [];
+      publicResults = cached.results || [];
+      paintBranches(publicBranches);
+      updateBranchFilter(publicBranches);
+      paintPublicCards(publicResults);
+      catalogStatus.textContent = `عرض نسخة عامة محفوظة في ${formatDate(cached.saved_at)}. قد تكون الإتاحة تغيّرت.`;
+    } else showEmpty('الاتصال غير متاح', 'يمكنك إعادة تحميل الصفحة عندما يستقر الاتصال.');
+    return;
+  }
+  try {
+    await loadPublicBranches();
+    await runPublicSearch();
+  } catch {
+    const cached = cacheRead();
+    if (cached) {
+      publicBranches = cached.branches || [];
+      publicResults = cached.results || [];
+      paintBranches(publicBranches);
+      updateBranchFilter(publicBranches);
+      paintPublicCards(publicResults);
+      catalogStatus.textContent = `عرض نسخة عامة محفوظة في ${formatDate(cached.saved_at)}. قد تكون الإتاحة تغيّرت.`;
+    } else {
+      catalogStatus.textContent = 'تعذّر الاتصال بالفهرس؛ حاول تحديث الصفحة عند توفر الاتصال.';
+      showEmpty('الفهرس غير متاح حالياً', 'لم تُحفظ نتائج عامة على هذا الجهاز بعد.');
+    }
+  }
+  const { data: authData } = await supabase.auth.getSession();
+  if (authData?.session) await loadMemberships();
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (session) {
+      window.setTimeout(() => loadMemberships(), 0);
+    } else {
+      currentLibraryId = null;
+      currentRole = null;
+      currentUserId = null;
+      currentMemberships = [];
+      configureRole(null);
+      setWorkspaceMode(false);
+    }
+  });
+}
+void start();
+async function loadLibraryMembers() {
+  const tbody = $('#memberRows');
+  let data;
+  try {
+    data = await fetchAllPages(() => supabase.from('library_memberships')
+      .select('user_id,role,status').eq('library_id', currentLibraryId).order('role').order('user_id'));
+  } catch { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">تعذّر تحميل العضويات.</td></tr>'; return; }
+  if (!data?.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">لا توجد عضويات.</td></tr>'; return; }
+  const roles = [['owner','مالك'],['admin','مسؤول'],['librarian','أمين مكتبة'],['circulation','إعارة واستلام'],['reporter','تقارير فقط']];
+  const roleLabels = Object.fromEntries(roles);
+  const statusLabels = { active: 'نشط', suspended: 'موقوف' };
+  tbody.innerHTML = data.map(member => {
+    const protectedRole = currentRole === 'admin' && ['owner','admin'].includes(member.role);
+    const roleControl = protectedRole ? escapeHtml(roleLabels[member.role]) : `<select class="member-role" aria-label="الدور" ${member.user_id === currentUserId ? 'disabled' : ''}>${roles.filter(([value]) => currentRole === 'owner' || !['owner','admin'].includes(value)).map(([value,label]) => `<option value="${value}" ${member.role === value ? 'selected' : ''}>${label}</option>`).join('')}</select>`;
+    const statusControl = protectedRole ? escapeHtml(statusLabels[member.status] || member.status) : `<select class="member-status" aria-label="الحالة" ${member.user_id === currentUserId ? 'disabled' : ''}><option value="active" ${member.status === 'active' ? 'selected' : ''}>نشط</option><option value="suspended" ${member.status === 'suspended' ? 'selected' : ''}>موقوف</option></select>`;
+    const save = protectedRole || member.user_id === currentUserId ? '—' : `<button class="loan-return" data-member-save="${escapeHtml(member.user_id)}" type="button">حفظ</button>`;
+    return `<tr><td title="${escapeHtml(member.user_id)}">${escapeHtml(member.user_id.slice(0,8))}…</td><td>${roleControl}</td><td>${statusControl}</td><td>${save}</td></tr>`;
+  }).join('');
+}
+
+$('#holdingForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const button = $('.form-action', form);
+  button.disabled = true;
+  const { error } = await supabase.from('holdings').insert({
+    library_id: currentLibraryId,
+    branch_id: fields.get('branch_id'),
+    title_id: fields.get('title_id'),
+    inventory_tag: String(fields.get('inventory_tag') || '').trim() || null,
+    cabinet_code: String(fields.get('cabinet_code') || '').trim() || null,
+    shelf_code: String(fields.get('shelf_code') || '').trim() || null,
+    public_shelf_label: String(fields.get('public_shelf_label') || '').trim() || null,
+    status: 'available',
+  });
+  button.disabled = false;
+  if (error) return setMessage($('#holdingMessage'), 'لم تُضف النسخة؛ تحقق من العنوان والفرع ورقم النسخة.', 'error');
+  form.reset();
+  setMessage($('#holdingMessage'), 'تمت إضافة النسخة. إن وُجد حجز انتظار، تُخصص له تلقائياً.', 'success');
+  await Promise.all([loadInventory(), loadAvailableHoldings(), loadReservations(), refreshStaffStats(), loadReports()]);
+});
+
+$('#inventoryRows').addEventListener('click', event => {
+  const button = event.target.closest('[data-edit-title]');
+  if (!button) return;
+  const title = inventoryTitles.find(row => row.id === button.dataset.editTitle);
+  if (!title) return;
+  const form = $('#titleEditForm');
+  for (const key of ['id','general_number','title','author','classification']) form.elements[key].value = title[key] || '';
+  form.elements.is_published.checked = Boolean(title.is_published);
+  $('#titleEditDialog').showModal();
+});
+$('#titleEditForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const { error } = await supabase.from('catalog_titles').update({
+    general_number: String(fields.get('general_number')).trim(),
+    title: String(fields.get('title')).trim(),
+    author: String(fields.get('author') || '').trim() || null,
+    classification: String(fields.get('classification') || '').trim() || null,
+    is_published: fields.get('is_published') === 'on',
+  }).eq('id', fields.get('id')).eq('library_id', currentLibraryId);
+  if (error) return setMessage($('#titleEditMessage'), 'تعذّر حفظ العنوان؛ قد يكون الرقم العام مكرراً.', 'error');
+  $('#titleEditDialog').close();
+  await Promise.all([loadInventory(), runPublicSearch().catch(() => {})]);
+  setMessage($('#workspaceMessage'), 'تم تحديث سجل العنوان.', 'success');
+});
+
+$('#holdingRows').addEventListener('click', async event => {
+  const edit = event.target.closest('[data-edit-holding]');
+  if (edit) {
+    const holding = inventoryHoldings.find(row => row.id === edit.dataset.editHolding);
+    if (!holding) return;
+    const form = $('#holdingEditForm');
+    for (const key of ['holding_id','branch_id','inventory_tag','cabinet_code','shelf_code','public_shelf_label']) {
+      const source = key === 'holding_id' ? 'id' : key;
+      form.elements[key].value = holding[source] || '';
+    }
+    $('#holdingEditDialog').showModal();
+    return;
+  }
+  const check = event.target.closest('[data-inventory-result]');
+  const statusButton = event.target.closest('[data-copy-status]');
+  const button = check || statusButton;
+  if (!button) return;
+  button.disabled = true;
+  const result = check
+    ? await supabase.rpc('record_inventory_check', { p_library_id: currentLibraryId, p_holding_id: button.dataset.holdingId, p_result: button.dataset.inventoryResult, p_note: null })
+    : await supabase.rpc('set_copy_status', { p_library_id: currentLibraryId, p_holding_id: button.dataset.holdingId, p_new_status: button.dataset.copyStatus });
+  if (result.error) {
+    button.disabled = false;
+    return setMessage($('#workspaceMessage'), 'تعذّر تحديث حالة النسخة؛ قد يمنع ذلك إعارة أو حجز نشط.', 'error');
+  }
+  setMessage($('#workspaceMessage'), check ? 'سُجلت نتيجة الجرد وتحديث الحالة.' : 'تم تحديث حالة النسخة.', 'success');
+  await Promise.all([loadInventory(), loadAvailableHoldings(), loadReservations(), refreshStaffStats(), loadReports()]);
+});
+$('#holdingEditForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { error } = await supabase.rpc('update_holding_location', {
+    p_library_id: currentLibraryId,
+    p_holding_id: fields.get('holding_id'),
+    p_branch_id: fields.get('branch_id'),
+    p_inventory_tag: String(fields.get('inventory_tag') || '').trim() || null,
+    p_cabinet_code: String(fields.get('cabinet_code') || '').trim() || null,
+    p_shelf_code: String(fields.get('shelf_code') || '').trim() || null,
+    p_public_shelf_label: String(fields.get('public_shelf_label') || '').trim() || null,
+  });
+  if (error) return setMessage($('#holdingEditMessage'), 'تعذّر حفظ الموقع؛ لا يمكن نقل نسخة معارة أو محجوزة.', 'error');
+  $('#holdingEditDialog').close();
+  await loadInventory();
+  setMessage($('#workspaceMessage'), 'تم تحديث موقع النسخة.', 'success');
+});
+$$('[data-close-dialog]').forEach(button => button.addEventListener('click', () => $(`#${button.dataset.closeDialog}`).close()));
+
+$('#exportOperationalBackup').addEventListener('click', async () => {
+  if (currentRole !== 'owner') return setMessage($('#workspaceMessage'), 'هذا التصدير متاح لمالك المكتبة فقط.', 'error');
+  const tableSpecs = {
+    branches: () => supabase.from('branches').select('*').eq('library_id', currentLibraryId).order('id'),
+    catalog_titles: () => supabase.from('catalog_titles').select('*').eq('library_id', currentLibraryId).order('id'),
+    holdings: () => supabase.from('holdings').select('*').eq('library_id', currentLibraryId).order('id'),
+    patrons: () => supabase.from('patrons').select('*').eq('library_id', currentLibraryId).order('id'),
+    loans: () => supabase.from('loans').select('*').eq('library_id', currentLibraryId).order('id'),
+    reservations: () => supabase.from('reservations').select('*').eq('library_id', currentLibraryId).order('id'),
+    visitors: () => supabase.from('visitors').select('*').eq('library_id', currentLibraryId).order('id'),
+    inventory_checks: () => supabase.from('inventory_checks').select('*').eq('library_id', currentLibraryId).order('id'),
+    interlibrary_requests: () => supabase.from('interlibrary_requests').select('*').or(`source_library_id.eq.${currentLibraryId},destination_library_id.eq.${currentLibraryId}`).order('id'),
+    library_memberships: () => supabase.from('library_memberships').select('library_id,user_id,role,status,created_at').eq('library_id', currentLibraryId).order('user_id'),
+  };
+  const button = $('#exportOperationalBackup');
+  button.disabled = true;
+  let records;
+  try {
+    records = Object.fromEntries(await Promise.all(Object.entries(tableSpecs).map(async ([name, query]) => [name, await fetchAllPages(query)])));
+  } catch {
+    button.disabled = false;
+    return setMessage($('#workspaceMessage'), 'تعذّر إنشاء التصدير؛ قد تكون بعض الجداول غير متاحة أو تجاوزت حد الأمان.', 'error');
+  }
+  button.disabled = false;
+  const backup = {
+    format: 'borsaid-school-library-operational-export-v1',
+    generated_at: new Date().toISOString(),
+    library_id: currentLibraryId,
+    library_name: $('#workspaceTitle').textContent,
+    warning: 'Sensitive operational data. Not a complete PostgreSQL backup; does not contain Auth credentials, Storage files or platform configuration.',
+    records,
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url; link.download = `borsaid-library-operational-${new Date().toISOString().slice(0,10)}.json`; link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setMessage($('#workspaceMessage'), 'تم تنزيل تصدير تشغيلي حساس؛ خزّنه مشفراً وبصلاحيات مقيدة.', 'success');
+});
+
+$('#dueAtInput').min = (() => { const date = new Date(); date.setDate(date.getDate() + 1); return date.toISOString().slice(0, 10); })();
+$('#branchEditSelect').addEventListener('change', event => {
+  const branch = staffBranches.find(row => row.id === event.target.value);
+  if (!branch) return;
+  const form = $('#branchEditForm');
+  for (const key of ['id','name','governorate','city','public_address','public_phone','public_email']) form.elements[key].value = branch[key] || '';
+  form.elements.is_published.checked = Boolean(branch.is_published);
+});
+$('#branchEditForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const fields = new FormData(event.currentTarget);
+  const { error } = await supabase.from('branches').update({
+    name: String(fields.get('name')).trim(),
+    governorate: String(fields.get('governorate') || '').trim() || null,
+    city: String(fields.get('city') || '').trim() || null,
+    public_address: String(fields.get('public_address') || '').trim() || null,
+    public_phone: String(fields.get('public_phone') || '').trim() || null,
+    public_email: String(fields.get('public_email') || '').trim() || null,
+    is_published: fields.get('is_published') === 'on',
+  }).eq('id', fields.get('id')).eq('library_id', currentLibraryId);
+  if (error) return setMessage($('#branchEditMessage'), 'تعذّر حفظ بيانات الفرع؛ تحقق من صلاحية الحساب.', 'error');
+  setMessage($('#branchEditMessage'), 'تم تحديث الفرع.', 'success');
+  await Promise.all([loadStaffBranches(), loadPublicBranches(), runPublicSearch()]);
+});
+$('#sharingSettingsForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!['owner','admin'].includes(currentRole)) return setMessage($('#sharingSettingsMessage'), 'تغيير المشاركة متاح للمالك أو المسؤول فقط.', 'error');
+  const form = event.currentTarget;
+  const button = $('.form-action', form);
+  button.disabled = true;
+  const { error } = await supabase.from('libraries').update({
+    interlibrary_enabled: form.elements.interlibrary_enabled.checked,
+  }).eq('id', currentLibraryId);
+  button.disabled = false;
+  if (error) return setMessage($('#sharingSettingsMessage'), 'تعذّر حفظ إعداد المشاركة؛ تحقق من الصلاحية والاتصال.', 'error');
+  setMessage($('#sharingSettingsMessage'), 'حُفظ إعداد المشاركة بين المكتبات.', 'success');
+  await loadPublicBranches().catch(() => {});
+  await loadInterlibraryRequests();
+});

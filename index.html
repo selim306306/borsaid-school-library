@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fc">
+  <meta name="description" content="بوابة اكتشاف الكتب ومواقع المكتبات المدرسية في بورسعيد، مع أدوات تشغيل داخلية للموظفين.">
+  <meta property="og:title" content="مكتبات بورسعيد المدرسية | كتابك أقرب">
+  <meta property="og:description" content="ابحث عن عنوان، مؤلف أو رقم عام، واكتشف النسخ المتاحة في المكتبات المشاركة.">
+  <meta property="og:type" content="website">
+  <title>مكتبات بورسعيد المدرسية — كتابك أقرب</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="announcement"><span class="announcement-dot"></span> مساحة معرفية واحدة لمكتبات بورسعيد المدرسية</div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="الصفحة الرئيسية">
+      <img src="assets/mark.svg" alt="" width="44" height="44">
+      <span class="brand-copy"><strong>مكتبات بورسعيد</strong><small>شبكة المكتبات المدرسية</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
+      <a href="#discover">اكتشف الكتب</a>
+      <a href="#branches">المكتبات</a>
+      <a href="#features">ماذا يقدّم الموقع؟</a>
+    </nav>
+    <button class="button button-outline staff-open" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span> دخول الموظفين</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-mark">✳</span> مكتبات المدارس · بورسعيد</span>
+        <h1 id="hero-title">كل كتاب أقرب<br>مما تتخيّل<span class="title-dot">.</span></h1>
+        <p class="hero-lede">بوابة واحدة تساعدك على اكتشاف الكتب، والتحقق من أماكنها، والوصول إلى مكتبات المدارس المشاركة في بورسعيد.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#discover">ابدأ البحث <span aria-hidden="true">←</span></a>
+          <a class="text-link" href="#branches">تعرّف على المكتبات <span aria-hidden="true">↙</span></a>
+        </div>
+        <div class="trust-line"><span class="trust-check" aria-hidden="true">✓</span> معلومات الإتاحة تُعرض من سجل المكتبة المنشور</div>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="assets/library-hero.webp" alt="مساحة قراءة مضيئة ورفوف كتب في مكتبة مدرسية حديثة" width="1800" height="1012" fetchpriority="high">
+        <div class="image-caption"><span class="caption-icon" aria-hidden="true">✦</span><span><strong>مساحة للقراءة والاكتشاف</strong><small>معاً نحو مكتبة أسهل وصولاً</small></span></div>
+        <div class="floating-note note-blue"><span class="note-symbol">Aa</span><span><b>ابحث بطريقتك</b><small>عنوان · مؤلف · رقم عام</small></span></div>
+        <div class="floating-note note-yellow"><span class="note-symbol">⌖</span><span><b>اعرف مكان النسخة</b><small>المكتبة · القسم · الإتاحة</small></span></div>
+      </div>
+      <span class="hero-spark spark-one" aria-hidden="true">✳</span>
+      <span class="hero-spark spark-two" aria-hidden="true">✦</span>
+    </section>
+
+    <section class="search-section section-wrap" id="discover" aria-labelledby="search-title">
+      <div class="section-heading search-heading">
+        <div><span class="eyebrow">فهرس مشترك</span><h2 id="search-title">ما الكتاب الذي تبحث عنه؟</h2><p>اكتب عنواناً أو اسم مؤلف أو رقماً عاماً، ثم استكشف النتائج المنشورة.</p></div>
+        <span class="live-pill"><i></i> بحث مباشر</span>
+      </div>
+      <form id="publicSearchForm" class="search-box" role="search">
+        <span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></span>
+        <label class="sr-only" for="searchInput">ابحث بالعنوان أو المؤلف أو الرقم العام</label>
+        <input id="searchInput" type="search" maxlength="100" placeholder="ابحث بالعنوان، المؤلف أو الرقم العام..." autocomplete="off">
+        <label class="sr-only" for="branchFilter">اختر المكتبة</label>
+        <select id="branchFilter"><option value="">كل المكتبات</option></select>
+        <label class="availability-toggle"><input id="availableOnly" type="checkbox"><span class="toggle-ui" aria-hidden="true"></span><span>المتاح فقط</span></label>
+        <button class="button button-primary search-submit" type="submit">ابحث <span aria-hidden="true">←</span></button>
+      </form>
+      <div class="search-meta"><span id="catalogStatus" role="status" aria-live="polite">جارٍ الاتصال بفهرس المكتبات...</span><button id="clearSearch" class="clear-search" type="button" hidden>مسح البحث</button></div>
+      <div class="results-grid" id="resultsGrid" aria-live="polite" aria-busy="true"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-illustration" aria-hidden="true"><span>◌</span><span>⌕</span></div>
+        <h3 id="emptyTitle">لا توجد نتائج منشورة بعد</h3>
+        <p id="emptyDescription">عند نشر سجلات الكتب من المكتبات المشاركة، ستظهر هنا للبحث.</p>
+        <button id="resetSearch" class="button button-soft" type="button">عرض كل الكتب</button>
+      </div>
+      <div class="more-row" id="moreRow" hidden><span id="resultCountLabel"></span><button id="loadMore" class="button button-outline" type="button">تحميل المزيد</button></div>
+      <div class="catalog-safety"><span class="safety-icon" aria-hidden="true">✓</span><span>المعلومات المعروضة عامة فقط. بيانات المستعيرين وسجلات الإعارة لا تظهر في البحث.</span></div>
+    </section>
+
+    <section class="branches-section section-wrap" id="branches" aria-labelledby="branches-title">
+      <div class="section-heading">
+        <div><span class="eyebrow">قريبة منك</span><h2 id="branches-title">المكتبات المشاركة</h2><p>تعرّف على الفروع المنشورة، ثم تحقق من إتاحة الكتب قبل الزيارة.</p></div>
+        <a class="text-link" href="#discover">ابحث في الفهرس <span aria-hidden="true">←</span></a>
+      </div>
+      <div id="branchesGrid" class="branches-grid" aria-live="polite">
+        <div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>تُضاف بيانات الفروع من لوحة المكتبة</strong><p>لن نعرض مواقع أو أرقام تواصل غير مؤكدة.</p></div></div>
+      </div>
+    </section>
+
+    <section class="feature-section section-wrap" id="features" aria-labelledby="features-title">
+      <div class="feature-intro"><span class="eyebrow">مصمّم لواقع المكتبات</span><h2 id="features-title">أدوات عملية،<br>بلا تعقيد.</h2><p>من تسجيل الكتاب برقم عام إلى متابعة الحركة والتقارير، كل خطوة لها مكان واضح.</p><a class="text-link" href="#staff" id="featureStaffLink">للموظفين وأمناء المكتبات <span aria-hidden="true">←</span></a></div>
+      <div class="feature-cards">
+        <article class="feature-card feature-blue"><span class="feature-number">01</span><div class="feature-icon">⌕</div><h3>اكتشاف موحّد</h3><p>ابحث عبر الفروع عن العنوان أو المؤلف أو رقم الكتاب، واعرف الإتاحة المنشورة.</p><span class="feature-line"></span></article>
+        <article class="feature-card feature-red"><span class="feature-number">02</span><div class="feature-icon">▤</div><h3>جرد أكثر وضوحاً</h3><p>رقم عام، رقم نسخة، تصنيف، فرع، دولاب ورف؛ لتقليل الالتباس وقت الجرد.</p><span class="feature-line"></span></article>
+        <article class="feature-card feature-yellow"><span class="feature-number">03</span><div class="feature-icon">↗</div><h3>تشغيل وتقارير</h3><p>إعارات ومرتجعات، حجوزات داخلية، طلبات بين الفروع، وتصدير جداول الجرد.</p><span class="feature-line"></span></article>
+      </div>
+    </section>
+
+    <section class="workflow-strip section-wrap" aria-labelledby="workflow-title">
+      <div class="workflow-heading"><span class="eyebrow">رحلة بسيطة</span><h2 id="workflow-title">من السؤال إلى الكتاب</h2></div>
+      <div class="workflow-steps">
+        <div class="workflow-step"><span class="step-number">١</span><div><strong>ابحث</strong><small>عنوان أو مؤلف أو رقم عام</small></div></div>
+        <span class="step-arrow" aria-hidden="true">←</span>
+        <div class="workflow-step"><span class="step-number step-red">٢</span><div><strong>تحقّق</strong><small>الفرع والإتاحة ومكان الرف</small></div></div>
+        <span class="step-arrow" aria-hidden="true">←</span>
+        <div class="workflow-step"><span class="step-number step-yellow">٣</span><div><strong>تواصل أو زُر</strong><small>حسب تفاصيل الفرع المنشورة</small></div></div>
+      </div>
+    </section>
+
+    <section class="cta-section section-wrap" id="staff">
+      <div class="cta-copy"><span class="eyebrow eyebrow-light">مساحة الموظفين</span><h2>تدير مكتبة؟<br>ابدأ من لوحة العمل.</h2><p>دخول مخصص للمستخدمين الذين أضافهم مسؤول المكتبة؛ لا يوجد تسجيل مفتوح.</p><button class="button button-white" id="staffOpenBottom" type="button">دخول الموظفين <span aria-hidden="true">←</span></button></div>
+      <div class="cta-ornament" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="cta-book">▤</span><span class="cta-star">✳</span><span class="cta-dot"></span></div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-wrap">
+    <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
+    <p class="footer-note">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
+    <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
+  </footer>
+
+  <dialog id="staffDialog" class="staff-dialog" aria-labelledby="staffDialogTitle">
+    <div class="dialog-shell">
+      <header class="dialog-header"><div class="dialog-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong id="staffDialogTitle">مساحة الموظفين</strong><small>بوابة داخلية بصلاحيات المكتبة</small></div></div><button class="icon-button" id="closeStaffDialog" type="button" aria-label="إغلاق">×</button></header>
+      <div class="login-pane" id="loginPane">
+        <div class="login-art"><span class="login-art-mark">▤</span><span class="login-art-star">✳</span><span class="login-art-ring"></span><div><small>دخول آمن</small><strong>أهلاً بعودتك</strong><p>سجّل الدخول بحساب الموظف الذي أنشأه مسؤول المكتبة.</p></div></div>
+        <form id="loginForm" class="login-form">
+          <h2>تسجيل الدخول</h2><p>لا يوجد إنشاء حساب ذاتي. اطلب إضافتك من مالك المكتبة.</p>
+          <label for="loginEmail">البريد الإلكتروني</label><input id="loginEmail" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="name@example.com" dir="ltr">
+          <label for="loginPassword">كلمة المرور</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required maxlength="128" placeholder="••••••••" dir="ltr">
+          <button class="button button-primary login-submit" type="submit">دخول آمن <span aria-hidden="true">←</span></button>
+          <p class="form-message" id="loginMessage" role="status" aria-live="polite"></p>
+          <small class="privacy-note">لا تُرسل بيانات تسجيل الدخول إلى أي خدمة ذكاء اصطناعي.</small>
+        </form>
+      </div>
+      <div class="workspace-pane" id="workspacePane" hidden>
+        <div class="workspace-top"><div><span class="eyebrow">لوحة العمل</span><h2 id="workspaceTitle">مكتبتك</h2><p id="staffIdentity"></p></div><div class="workspace-controls"><label class="sr-only" for="librarySelect">اختر المكتبة</label><select id="librarySelect"></select><button class="button button-outline signout-button" id="signOut" type="button">خروج</button></div></div>
+        <div id="membershipWarning" class="inline-alert" hidden></div>
+        <div class="stats-grid" id="staffStats"></div>
+        <nav class="staff-tabs" aria-label="أقسام لوحة الموظفين">
+          <button class="staff-tab active" data-panel="catalogPanel" type="button">الفهرس والجرد</button>
+          <button class="staff-tab" data-panel="branchesPanel" type="button">الفروع</button>
+          <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>
+          <button class="staff-tab" data-panel="reservationsPanel" type="button">الحجوزات</button>
+          <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
+          <button class="staff-tab" data-panel="visitorsPanel" type="button">الزوار</button>
+          <button class="staff-tab" data-panel="reportsPanel" type="button">التقارير</button>
+          <button class="staff-tab" data-panel="membersPanel" type="button">المستخدمون والصلاحيات</button>
+          <button class="staff-tab" data-panel="assistantPanel" type="button">مساعد Gemini</button>
+        </nav>
+        <section class="staff-panel active" id="catalogPanel">
+          <div class="panel-heading"><div><h3>تسجيل عنوان ونسخة</h3><p>يبدأ السجل مخفياً عن البحث العام حتى تختار نشره.</p></div></div>
+          <form id="titleForm" class="staff-form-grid">
+            <label>الرقم العام<input name="general_number" required maxlength="80" placeholder="مثال: 000123"></label>
+            <label>عنوان الكتاب<input name="title" required maxlength="240"></label>
+            <label>المؤلف<input name="author" maxlength="180"></label>
+            <label>التصنيف<input name="classification" maxlength="120"></label>
+            <label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label>
+            <label>رقم النسخة<input name="inventory_tag" maxlength="100"></label>
+            <label>الدولاب / الخزانة<input name="cabinet_code" maxlength="80"></label>
+            <label>الرف<input name="shelf_code" maxlength="80"></label>
+            <label>وصف رف ظاهر للزوار<input name="public_shelf_label" maxlength="120" placeholder="اختياري، مثل: ركن العلوم"></label>
+            <label class="check-field"><input name="is_published" type="checkbox"><span>نشر بيانات العنوان والنسخة المتاحة في الفهرس العام</span></label>
+            <button class="button button-primary form-action" type="submit">حفظ سجل الكتاب</button>
+          </form><p class="form-message" id="titleMessage" role="status" aria-live="polite"></p>
+          <div class="panel-heading list-heading"><div><h3>العناوين المسجلة</h3><p>عرض داخلي خاص بموظفي هذه المكتبة.</p></div><button class="button button-soft" id="refreshInventory" type="button">تحديث</button></div>
+          <div class="table-wrap"><table><thead><tr><th>الرقم العام</th><th>العنوان</th><th>المؤلف</th><th>الظهور العام</th><th>إجراء</th></tr></thead><tbody id="inventoryRows"><tr><td colspan="5" class="table-empty">سجّل الدخول لعرض السجلات.</td></tr></tbody></table></div>
+          <div class="panel-heading list-heading"><div><h3>إضافة نسخة إلى عنوان موجود</h3><p>لكل نسخة رقم وموقع وحالة مستقلة.</p></div></div>
+          <form id="holdingForm" class="staff-form-grid compact-form">
+            <label>العنوان<select name="title_id" id="holdingTitleSelect" required><option value="">اختر عنواناً</option></select></label>
+            <label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label>
+            <label>رقم النسخة<input name="inventory_tag" maxlength="100"></label><label>الدولاب<input name="cabinet_code" maxlength="80"></label>
+            <label>الرف الداخلي<input name="shelf_code" maxlength="80"></label><label>وصف الرف العام<input name="public_shelf_label" maxlength="120"></label>
+            <button class="button button-primary form-action" type="submit">إضافة النسخة</button>
+          </form><p class="form-message" id="holdingMessage" role="status" aria-live="polite"></p>
+          <div class="panel-heading list-heading"><div><h3>نسخ المكتبة ومواقعها</h3><p>تحديث الحالة يسجل عملية الجرد ويحدّث قائمة انتظار الحجوزات.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>الرقم العام</th><th>العنوان</th><th>الفرع والموقع</th><th>رقم النسخة</th><th>الحالة</th><th>إجراءات الجرد</th></tr></thead><tbody id="holdingRows"><tr><td colspan="6" class="table-empty">سجّل الدخول لعرض النسخ.</td></tr></tbody></table></div>
+        </section>
+        <section class="staff-panel" id="branchesPanel" hidden>
+          <div class="panel-heading"><div><h3>إدارة الفروع</h3><p>لا يظهر عنوان أو وسيلة تواصل للناس إلا بعد تفعيل النشر.</p></div></div>
+          <form id="sharingSettingsForm" class="staff-form-grid compact-form" hidden><label class="check-field"><input name="interlibrary_enabled" type="checkbox"><span>السماح باستقبال طلبات الإعارة المتبادلة من مكتبات مشاركة</span></label><button class="button button-soft form-action" type="submit">حفظ إعداد المشاركة</button></form><p class="form-message" id="sharingSettingsMessage" role="status" aria-live="polite"></p><p class="panel-note">المشاركة بين المكتبات اختيار مستقل عن نشر الفهرس أو عنوان الفرع للعامة.</p>
+          <form id="branchForm" class="staff-form-grid">
+            <label>اسم الفرع<input name="name" required maxlength="140"></label><label>المحافظة<input name="governorate" value="بورسعيد" maxlength="80"></label>
+            <label>المدينة<input name="city" value="بورسعيد" maxlength="80"></label><label>العنوان العام<input name="public_address" maxlength="240"></label>
+            <label>هاتف عام (اختياري)<input name="public_phone" inputmode="tel" maxlength="40"></label><label>بريد عام (اختياري)<input name="public_email" type="email" maxlength="160"></label>
+            <label class="check-field"><input name="is_published" type="checkbox"><span>نشر بيانات هذا الفرع للزوار</span></label>
+            <button class="button button-primary form-action" type="submit">إضافة الفرع</button>
+          </form><p class="form-message" id="branchMessage" role="status" aria-live="polite"></p>
+          <div class="branch-admin-list" id="staffBranches"></div>
+          <div class="panel-heading list-heading"><div><h3>تعديل فرع قائم</h3><p>تحديث معلومات الاتصال أو النشر العام للفروع المشاركة.</p></div></div>
+          <form id="branchEditForm" class="staff-form-grid compact-form"><label>الفرع<select name="id" id="branchEditSelect" required><option value="">اختر فرعاً</option></select></label><label>اسم الفرع<input name="name" required maxlength="140"></label><label>المحافظة<input name="governorate" maxlength="80"></label><label>المدينة<input name="city" maxlength="80"></label><label>العنوان العام<input name="public_address" maxlength="240"></label><label>هاتف عام<input name="public_phone" maxlength="40"></label><label>بريد عام<input name="public_email" type="email" maxlength="160"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر بيانات الفرع</span></label><button class="button button-primary form-action" type="submit">حفظ بيانات الفرع</button></form><p class="form-message" id="branchEditMessage" role="status" aria-live="polite"></p>
+        </section>
+        <section class="staff-panel" id="circulationPanel" hidden>
+          <div class="panel-heading"><div><h3>إعارة ومرتجعات</h3><p>يُقيد كل إجراء باسم الموظف، وتُحدّث حالة النسخة معاملةً واحدة.</p></div></div>
+          <div class="privacy-banner">بيانات المستعيرين خاصة بالمكتبة. أدخل الحد الأدنى اللازم، ولا تضف صور طلاب أو بيانات حيوية.</div>
+          <form id="patronForm" class="staff-form-grid compact-form">
+            <label>اسم المستعير<input name="full_name" required maxlength="180"></label><label>رمز عضوية داخلي (اختياري)<input name="member_code" maxlength="80"></label>
+            <label>الفئة<select name="category"><option value="student">طالب</option><option value="staff">موظف</option><option value="visitor">زائر</option><option value="general">أخرى</option></select></label>
+            <button class="button button-primary form-action" type="submit">إضافة مستعير</button>
+          </form><p class="form-message" id="patronMessage" role="status" aria-live="polite"></p>
+          <form id="checkoutForm" class="staff-form-grid compact-form">
+            <label>المستعير<select name="patron_id" id="patronSelect" required><option value="">اختر مستعيراً</option></select></label>
+            <label>النسخة المتاحة<select name="holding_id" id="holdingSelect" required><option value="">اختر نسخة</option></select></label>
+            <label>تاريخ الاستحقاق<input name="due_at" id="dueAtInput" type="date" required></label>
+            <button class="button button-primary form-action" type="submit">تسجيل الإعارة</button>
+          </form><p class="form-message" id="checkoutMessage" role="status" aria-live="polite"></p>
+          <div class="panel-heading list-heading"><div><h3>الإعارات المفتوحة</h3><p>تظهر المتأخرة بناءً على تاريخ الاستحقاق.</p></div><button class="button button-soft" id="refreshLoans" type="button">تحديث</button></div>
+          <div class="table-wrap"><table><thead><tr><th>المستعير</th><th>النسخة</th><th>تاريخ الاستحقاق</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="loanRows"><tr><td colspan="5" class="table-empty">لا توجد إعارات مفتوحة.</td></tr></tbody></table></div>
+        </section>
+        <section class="staff-panel" id="reservationsPanel" hidden>
+          <div class="panel-heading"><div><h3>حجز عنوان لمستعير</h3><p>الحجز داخلي، ولا ينشئ حساباً عاماً أو يشارك اسم المستعير.</p></div></div>
+          <form id="reservationForm" class="staff-form-grid compact-form">
+            <label>العنوان<select name="title_id" id="reservationTitleSelect" required><option value="">اختر عنواناً</option></select></label>
+            <label>المستعير<select name="patron_id" id="reservationPatronSelect" required><option value="">اختر مستعيراً</option></select></label>
+            <button class="button button-primary form-action" type="submit">تسجيل الحجز</button>
+          </form><p class="form-message" id="reservationMessage" role="status" aria-live="polite"></p>
+          <div class="table-wrap"><table><thead><tr><th>العنوان</th><th>المستعير</th><th>تاريخ الطلب</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="reservationRows"><tr><td colspan="5" class="table-empty">لا توجد حجوزات.</td></tr></tbody></table></div>
+        </section>
+        <section class="staff-panel" id="requestsPanel" hidden>
+          <div class="panel-heading"><div><h3>طلبات بين المكتبات</h3><p>تواصل تشغيل داخلي بين فروع منشورة؛ لا يُظهر أسماء المستعيرين.</p></div></div>
+          <form id="requestForm" class="staff-form-grid compact-form">
+            <label>المكتبة المستقبِلة<select name="destination_library_id" id="requestDestinationSelect" required><option value="">اختر مكتبة مشاركة</option></select></label>
+            <label>فرعك (اختياري)<select name="source_branch_id" id="requestSourceBranchSelect"><option value="">بدون تحديد</option></select></label>
+            <label>عنوان الكتاب المطلوب<input name="requested_title" required maxlength="240"></label>
+            <label>الرقم العام (اختياري)<input name="requested_general_number" maxlength="80"></label>
+            <label>المؤلف (اختياري)<input name="requested_author" maxlength="180"></label>
+            <label>ملاحظة تشغيلية قصيرة (اختياري)<input name="request_note" maxlength="500"></label>
+            <button class="button button-primary form-action" type="submit">إرسال الطلب</button>
+          </form><p class="form-message" id="requestMessage" role="status" aria-live="polite"></p>
+          <div class="table-wrap"><table><thead><tr><th>الكتاب</th><th>الاتجاه</th><th>الحالة</th><th>تاريخ الطلب</th><th>إجراء</th></tr></thead><tbody id="requestRows"><tr><td colspan="5" class="table-empty">لا توجد طلبات.</td></tr></tbody></table></div>
+        </section>
+        <section class="staff-panel" id="visitorsPanel" hidden>
+          <div class="panel-heading"><div><h3>سجل الزوار</h3><p>الاسم والمهنة فقط عند الحاجة؛ الصور اختيارية وغير مفعّلة هنا.</p></div></div>
+          <div class="privacy-banner">هذه البيانات داخلية ولا تظهر للعامة. لا تخزّن صور الطلاب أو قوالب الوجه/البصمة؛ يلزم تجهيز تخزين خاص وموافقة واضحة قبل إضافة أي صورة لزائر بالغ.</div>
+          <form id="visitorForm" class="staff-form-grid compact-form"><label>الاسم<input name="display_name" required maxlength="180"></label><label>المهنة (اختياري)<input name="occupation" maxlength="140"></label><label class="check-field"><input name="consent_confirmed" type="checkbox" required><span>أؤكد أن الزائر وافق على تسجيل هذه البيانات المحدودة</span></label><button class="button button-primary form-action" type="submit">إضافة سجل زائر</button></form>
+          <p class="form-message" id="visitorMessage" role="status" aria-live="polite"></p>
+          <div class="table-wrap"><table><thead><tr><th>الاسم</th><th>المهنة</th><th>تاريخ التسجيل</th></tr></thead><tbody id="visitorRows"><tr><td colspan="3" class="table-empty">لا توجد سجلات معروضة.</td></tr></tbody></table></div>
+        </section>
+        <section class="staff-panel" id="reportsPanel" hidden>
+          <div class="panel-heading"><div><h3>تقارير سريعة وتصدير</h3><p>مؤشرات تشغيلية مبنية على سجلات هذه المكتبة فقط.</p></div></div>
+          <div class="report-grid" id="reportGrid"></div>
+          <div class="export-card"><div><strong>تصدير جرد الفهرس إلى CSV</strong><p>يشمل بيانات الكتب والنسخ والفروع فقط؛ لا يتضمن أسماء مستعيرين.</p></div><button class="button button-primary" id="exportInventory" type="button">تنزيل ملف الجرد</button></div>
+          <div class="export-card" id="operationalBackupCard" hidden><div><strong>تصدير بيانات تشغيلية JSON</strong><p>يشمل سجلات المستعيرين والإعارة؛ ملف حساس، متاح لمالك المكتبة فقط.</p></div><button class="button button-outline" id="exportOperationalBackup" type="button">تنزيل التصدير</button></div>
+          <div class="privacy-banner">هذا تصدير تشغيلي وليس نسخة PostgreSQL كاملة. النسخ التلقائية اليومية لدى Supabase متاحة لخطط Pro وTeam وEnterprise؛ أُرفق إعداد GitHub Actions آمن للنسخ الخارجية بعد إضافة الأسرار، ولم يُفعّل بعد.</div>
+        </section>
+        <section class="staff-panel" id="membersPanel" hidden>
+          <div class="panel-heading"><div><h3>المستخدمون والصلاحيات</h3><p>لا يوجد تسجيل ذاتي؛ تُرسل الدعوات عبر وظيفة خلفية آمنة بعد تجهيز أسرارها.</p></div></div>
+          <form id="inviteForm" class="staff-form-grid compact-form"><label>البريد الإلكتروني للدعوة<input name="email" type="email" required maxlength="254" autocomplete="off"></label><label>الدور<select name="role"><option value="librarian">أمين مكتبة</option><option value="circulation">إعارة واستلام</option><option value="reporter">تقارير فقط</option><option value="admin">مسؤول</option></select></label><button class="button button-primary form-action" type="submit">دعوة مستخدم</button></form>
+          <p class="form-message" id="inviteMessage" role="status" aria-live="polite"></p><div class="table-wrap"><table><thead><tr><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="memberRows"><tr><td colspan="4" class="table-empty">لا توجد عضويات معروضة.</td></tr></tbody></table></div>
+          <div class="privacy-banner">الدعوات لا تعمل حتى تُنشر Edge Function ويُضبط نطاق الموقع وعنوان إعادة التوجيه. يظل مفتاح الخدمة خادمياً فقط ولا يوضع في الموقع أو المستودع.</div>
+        </section>
+        <section class="staff-panel" id="assistantPanel" hidden>
+          <div class="panel-heading"><div><h3>مساعد عمليات المكتبة</h3><p>ملخصات عربية للعدادات فقط؛ لا تُرسل أسماء أو سجلات مستعيرين إلى Gemini.</p></div></div>
+          <form id="assistantForm" class="staff-form-grid compact-form"><label>نوع الملخص<select name="intent"><option value="inventory_summary">الجرد والمفقود والصيانة</option><option value="circulation_summary">الإعارات والاستحقاقات</option><option value="reservation_summary">الحجوزات والانتظار</option></select></label><button class="button button-primary form-action" type="submit">إنشاء ملخص</button></form>
+          <p class="form-message" id="assistantMessage" role="status" aria-live="polite">المساعد غير مفعّل حتى تُنشر الوظيفة الخلفية ويُضف GEMINI_API_KEY إلى الأسرار الخادمية.</p><div id="assistantOutput" class="assistant-output" hidden></div>
+        </section>
+        <p class="form-message workspace-message" id="workspaceMessage" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </dialog>
+  <noscript><div class="noscript-banner">يتطلب البحث المباشر تفعيل JavaScript في المتصفح.</div></noscript>
+  <dialog id="titleEditDialog" class="small-dialog" aria-labelledby="titleEditHeading"><form id="titleEditForm" class="editor-form"><h2 id="titleEditHeading">تعديل بيانات العنوان</h2><input type="hidden" name="id"><label>الرقم العام<input name="general_number" required maxlength="80"></label><label>عنوان الكتاب<input name="title" required maxlength="240"></label><label>المؤلف<input name="author" maxlength="180"></label><label>التصنيف<input name="classification" maxlength="120"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر العنوان في الفهرس العام</span></label><p class="form-message" id="titleEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="titleEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ</button></div></form></dialog>
+  <dialog id="holdingEditDialog" class="small-dialog" aria-labelledby="holdingEditHeading"><form id="holdingEditForm" class="editor-form"><h2 id="holdingEditHeading">تعديل موقع النسخة</h2><input type="hidden" name="holding_id"><label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label><label>رقم النسخة<input name="inventory_tag" maxlength="100"></label><label>الدولاب<input name="cabinet_code" maxlength="80"></label><label>الرف الداخلي<input name="shelf_code" maxlength="80"></label><label>وصف الرف العام<input name="public_shelf_label" maxlength="120"></label><p class="form-message" id="holdingEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="holdingEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ الموقع</button></div></form></dialog>
+  <dialog id="requestMatchDialog" class="small-dialog" aria-labelledby="requestMatchHeading"><form id="requestMatchForm" class="editor-form"><h2 id="requestMatchHeading">مطابقة عنوان المكتبة</h2><input type="hidden" name="request_id"><label>العنوان المقابل في مكتبتك<select name="matched_title_id" id="requestMatchedTitleSelect" required><option value="">اختر عنواناً</option></select></label><p class="form-message" id="requestMatchMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="requestMatchDialog">إلغاء</button><button class="button button-primary" type="submit">مطابقة وقبول الطلب</button></div></form></dialog>
+  </body>
+</html>
