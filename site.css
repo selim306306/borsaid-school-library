@@ -45,3 +45,32 @@
 }
 
 .panel-note{margin:8px 0 14px;color:var(--muted);font-size:10px;line-height:1.7}
+
+
+/* Standalone Supabase password setup page */
+body.auth-page{min-height:100vh;background:#f6f8fc}
+.auth-shell{width:min(100% - 36px,520px);min-height:100vh;margin-inline:auto;padding:36px 0;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:20px}
+.auth-brand{display:flex;align-items:center;gap:11px;align-self:center;margin-bottom:4px}
+.auth-brand img{flex:0 0 auto}
+.auth-brand span{display:flex;flex-direction:column;line-height:1.35}
+.auth-brand strong{font-size:14px}
+.auth-brand small{font-size:10px;color:var(--muted);margin-top:3px}
+.auth-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,6vw,42px);box-shadow:var(--shadow)}
+.auth-card h1{font-size:clamp(25px,5vw,32px);line-height:1.35;letter-spacing:-.6px;margin:9px 0 8px}
+.auth-intro,.auth-footer{color:var(--muted);font-size:12px;line-height:1.85}
+.auth-intro{margin:0 0 22px}
+.auth-form{display:grid;gap:10px}
+.auth-form[hidden]{display:none}
+.auth-form label{font-size:12px;font-weight:600;margin-top:4px}
+.auth-form input{width:100%;min-height:48px;border:1px solid #dfe4ed;border-radius:10px;padding:9px 12px;background:#fff;color:var(--ink)}
+.auth-form .button{margin-top:10px;width:100%}
+.auth-hint{color:var(--muted);font-size:10px;margin-top:-6px}
+.auth-status{min-height:24px;margin:15px 0 8px;padding:10px 12px;border-radius:10px;background:#f5f7fb;color:#586780;font-size:11px;line-height:1.7}
+.auth-status.success{background:var(--green-soft);color:var(--green)}
+.auth-status.error{background:var(--red-soft);color:#a33440}
+.auth-return{width:100%}
+.auth-footer{text-align:center;margin:0}
+.recovery-link{justify-self:start;border:0;padding:2px 0;background:transparent;color:var(--blue);font-size:11px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.recovery-link:hover{color:var(--blue-dark)}
+.recovery-link:disabled{opacity:.6;cursor:wait}
+@media(max-width:520px){.auth-shell{width:min(100% - 24px,520px);padding:20px 0}.auth-card{border-radius:17px}}

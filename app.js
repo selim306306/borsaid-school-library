@@ -541,6 +541,25 @@ $('#loginForm').addEventListener('submit', async event => {
   event.currentTarget.reset();
   setMessage(loginMessage, 'تم تسجيل الدخول.', 'success');
 });
+$('#forgotPasswordButton').addEventListener('click', async event => {
+  if (!supabase) return setMessage(loginMessage, 'الاتصال غير متاح حالياً.', 'error');
+  const emailInput = $('#loginEmail');
+  const email = emailInput.value.trim();
+  if (!email) {
+    setMessage(loginMessage, 'أدخل بريد حساب الموظف أولاً، ثم اختر هذا الخيار مجدداً.', 'error');
+    emailInput.focus();
+    return;
+  }
+  if (!emailInput.checkValidity()) { emailInput.reportValidity(); return; }
+  const button = event.currentTarget;
+  button.disabled = true;
+  setMessage(loginMessage, 'جارٍ إرسال رابط آمن إذا كان البريد مسجلاً...');
+  const redirectTo = new URL('./set-password.html', window.location.href).href;
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+  button.disabled = false;
+  if (error) return setMessage(loginMessage, 'تعذّر إرسال الرابط الآن. تحقّق من إعداد إعادة التوجيه والاتصال ثم حاول لاحقاً.', 'error');
+  setMessage(loginMessage, 'إذا كان البريد مسجلاً، فسيصلك رابط لتعيين كلمة المرور. افحص صندوق الوارد والرسائل غير المرغوب فيها.', 'success');
+});
 $('#signOut').addEventListener('click', async () => {
   await supabase?.auth.signOut();
   currentLibraryId = null;
