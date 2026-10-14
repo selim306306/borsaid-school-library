@@ -153,7 +153,7 @@ function paintPublicCards(rows, append = false) {
   if (!append) resultsGrid.innerHTML = '';
   if (!rows.length && !append) {
     const searching = Boolean(currentSearch.query || currentSearch.branch_id || currentSearch.available_only);
-    showEmpty(searching ? 'لم نعثر على نتائج مطابقة' : 'لا توجد عناوين منشورة بعد', searching ? 'جرّب كلمة أقصر أو أزل بعض عوامل التصفية.' : 'لظهور كتاب هنا، يجب أن ينشر مالك المكتبة المكتبة نفسها والفرع والعنوان والنسخة صراحةً. لا نعرض بيانات تجريبية أو غير معتمدة.');
+    showEmpty(searching ? 'لم نعثر على نتائج مطابقة' : 'لا توجد عناوين منشورة بعد', searching ? 'جرّب كلمة أقصر أو أزل بعض عوامل التصفية.' : 'الفهرس العام لا يعرض حالياً عناوين منشورة. لا يعني ذلك عدم وجود كتب بالمكتبات؛ ستظهر السجلات عندما تنشر المكتبة بيانات العنوان والفرع والنسخة. لا نعرض بيانات تجريبية أو غير معتمدة.');
     return;
   }
   emptyState.hidden = true;
@@ -176,7 +176,7 @@ function paintPublicCards(rows, append = false) {
 function paintBranches(rows) {
   const grid = $('#branchesGrid');
   if (!rows.length) {
-    grid.innerHTML = '<div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>تُضاف بيانات الفروع من لوحة المكتبة</strong><p>لن نعرض مواقع أو أرقام تواصل غير مؤكدة.</p></div></div>';
+    grid.innerHTML = '<div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>لا تظهر فروع منشورة للزوار حالياً</strong><p>لا يعني ذلك عدم وجود فروع؛ لن نعرض إلا البيانات التي تعتمدها المكتبة وتنشرها.</p></div></div>';
     return;
   }
   grid.innerHTML = rows.map(branch => {
@@ -329,7 +329,7 @@ function publicBranchAnswer(question) {
 async function answerVisitorQuestion(question) {
   const normalized = normalizeVisitorText(question);
   if (/(اونلاين|انترنت|الكترون|pdf|تحميل|تنزيل|اقرا|قراءة|قراءه)/.test(normalized)) {
-    return { text: 'الموقع يعرض فهرساً وإتاحة النسخ، لكنه لا يستضيف حالياً نصوص الكتب أو ملفات PDF للقراءة/التنزيل. ابحث عن الكتاب ثم اسأل الفرع عن خيارات قراءة قانونية إن كانت متاحة.' };
+    return { text: 'بوابة بورسعيد لا تستضيف نصوص الكتب أو ملفاتها. افتح من الصفحة الرئيسية قسم «مصادر القراءة» للانتقال إلى مواقع القراءة الأصلية؛ قد يتطلب بعضها حساباً، وتختلف الإتاحة والحقوق حسب الكتاب والبلد.' };
   }
   if (/(استعير|استلف|اعاره|حجز|احجز|استعاره)/.test(normalized)) {
     return { text: 'ابحث عن العنوان في الفهرس، وتحقق من الفرع وعدد النسخ المتاحة وموقع الرف إن ظهر. بعد ذلك تواصل مع الفرع عبر وسيلة الاتصال المنشورة أو زره. طلب الإعارة والحجز يُدار حالياً من الموظفين داخل المكتبة؛ لا يتيح الموقع طلباً عاماً عبر الإنترنت.' };
@@ -344,7 +344,7 @@ async function answerVisitorQuestion(question) {
     return { text: 'هذه بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
   }
   const query = extractVisitorCatalogQuery(question);
-  if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو القراءة أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };
+  if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو مصادر القراءة الخارجية أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };
   if (!publicSupabase) return { text: 'الفهرس غير متصل حالياً؛ أعد المحاولة بعد استقرار الاتصال.' };
   const { data, error } = await publicSupabase.rpc('search_public_catalog', {
     p_query: query, p_branch_id: null, p_available_only: false, p_limit: 6, p_offset: 0,
