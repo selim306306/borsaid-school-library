@@ -74,6 +74,7 @@
         <h3 id="emptyTitle">لا توجد نتائج منشورة بعد</h3>
         <p id="emptyDescription">عند نشر سجلات الكتب من المكتبات المشاركة، ستظهر هنا للبحث.</p>
         <button id="resetSearch" class="button button-soft" type="button">عرض كل الكتب</button>
+        <button id="staffOpenEmpty" class="button button-outline" type="button">تدير مكتبة؟ دخول الموظفين</button>
       </div>
       <div class="more-row" id="moreRow" hidden><span id="resultCountLabel"></span><button id="loadMore" class="button button-outline" type="button">تحميل المزيد</button></div>
       <div class="catalog-safety"><span class="safety-icon" aria-hidden="true">✓</span><span>المعلومات المعروضة عامة فقط. بيانات المستعيرين وسجلات الإعارة لا تظهر في البحث.</span></div>
@@ -148,6 +149,7 @@
           <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
           <button class="staff-tab" data-panel="visitorsPanel" type="button">الزوار</button>
           <button class="staff-tab" data-panel="reportsPanel" type="button">التقارير</button>
+          <button class="staff-tab" data-panel="automationPanel" type="button">مركز الفحص الآلي</button>
           <button class="staff-tab" data-panel="membersPanel" type="button">المستخدمون والصلاحيات</button>
           <button class="staff-tab" data-panel="assistantPanel" type="button">مساعد Gemini</button>
         </nav>
@@ -181,6 +183,13 @@
         </section>
         <section class="staff-panel" id="branchesPanel" hidden>
           <div class="panel-heading"><div><h3>إدارة الفروع</h3><p>لا يظهر عنوان أو وسيلة تواصل للناس إلا بعد تفعيل النشر.</p></div></div>
+          <div class="panel-heading list-heading"><div><h3>ظهور المكتبة في الفهرس العام</h3><p>شرط مستقل عن نشر الفرع والكتب؛ يتيح إظهار السجلات التي اختارت المكتبة نشرها فقط.</p></div></div>
+          <div id="libraryPublicationStatus" class="inline-alert" role="status" aria-live="polite">جارٍ تحميل حالة النشر…</div>
+          <form id="libraryPublicationForm" class="staff-form-grid compact-form" hidden>
+            <label class="check-field"><input name="is_published" type="checkbox"><span>السماح بظهور هذه المكتبة وما نُشر صراحةً من فروع وعناوين في البحث العام</span></label>
+            <button class="button button-primary form-action" type="submit">حفظ حالة ظهور المكتبة</button>
+          </form>
+          <p class="form-message" id="libraryPublicationMessage" role="status" aria-live="polite"></p>
           <form id="sharingSettingsForm" class="staff-form-grid compact-form" hidden><label class="check-field"><input name="interlibrary_enabled" type="checkbox"><span>السماح باستقبال طلبات الإعارة المتبادلة من مكتبات مشاركة</span></label><button class="button button-soft form-action" type="submit">حفظ إعداد المشاركة</button></form><p class="form-message" id="sharingSettingsMessage" role="status" aria-live="polite"></p><p class="panel-note">المشاركة بين المكتبات اختيار مستقل عن نشر الفهرس أو عنوان الفرع للعامة.</p>
           <form id="branchForm" class="staff-form-grid">
             <label>اسم الفرع<input name="name" required maxlength="140"></label><label>المحافظة<input name="governorate" value="بورسعيد" maxlength="80"></label>
@@ -246,6 +255,12 @@
           <div class="export-card" id="operationalBackupCard" hidden><div><strong>تصدير بيانات تشغيلية JSON</strong><p>يشمل سجلات المستعيرين والإعارة؛ ملف حساس، متاح لمالك المكتبة فقط.</p></div><button class="button button-outline" id="exportOperationalBackup" type="button">تنزيل التصدير</button></div>
           <div class="privacy-banner">هذا تصدير تشغيلي وليس نسخة PostgreSQL كاملة. النسخ التلقائية اليومية لدى Supabase متاحة لخطط Pro وTeam وEnterprise؛ أُرفق إعداد GitHub Actions آمن للنسخ الخارجية بعد إضافة الأسرار، ولم يُفعّل بعد.</div>
         </section>
+        <section class="staff-panel" id="automationPanel" hidden>
+          <div class="panel-heading"><div><h3>فحص آلي وخطوات تالية</h3><p>يراجع حالة الإعداد والعدادات محلياً داخل لوحة المكتبة.</p></div><button class="button button-soft" id="runAutomationAudit" type="button">إعادة الفحص الآن</button></div>
+          <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
+          <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
+          <ol id="automationTasks" class="automation-task-list"></ol>
+        </section>
         <section class="staff-panel" id="membersPanel" hidden>
           <div class="panel-heading"><div><h3>المستخدمون والصلاحيات</h3><p>لا يوجد تسجيل ذاتي؛ تُرسل الدعوات عبر وظيفة خلفية آمنة بعد تجهيز أسرارها.</p></div></div>
           <form id="inviteForm" class="staff-form-grid compact-form"><label>البريد الإلكتروني للدعوة<input name="email" type="email" required maxlength="254" autocomplete="off"></label><label>الدور<select name="role"><option value="librarian">أمين مكتبة</option><option value="circulation">إعارة واستلام</option><option value="reporter">تقارير فقط</option><option value="admin">مسؤول</option></select></label><button class="button button-primary form-action" type="submit">دعوة مستخدم</button></form>
@@ -254,8 +269,9 @@
         </section>
         <section class="staff-panel" id="assistantPanel" hidden>
           <div class="panel-heading"><div><h3>مساعد عمليات المكتبة</h3><p>ملخصات عربية للعدادات فقط؛ لا تُرسل أسماء أو سجلات مستعيرين إلى Gemini.</p></div></div>
+          <details class="assistant-settings"><summary>إعدادات النموذج</summary><p>اختيار النموذج يُحفظ على هذا المتصفح فقط. مفتاح Gemini لا يُدخل هنا ولا يصل إلى الواجهة؛ يُضبط كسِرّ خادمي في Supabase.</p><label>النموذج<select id="assistantModel" name="model"><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — أخف وأسرع</option><option value="gemini-3.8-flash">Gemini 3.8 Flash — أكثر قدرة</option></select></label></details>
           <form id="assistantForm" class="staff-form-grid compact-form"><label>نوع الملخص<select name="intent"><option value="inventory_summary">الجرد والمفقود والصيانة</option><option value="circulation_summary">الإعارات والاستحقاقات</option><option value="reservation_summary">الحجوزات والانتظار</option></select></label><button class="button button-primary form-action" type="submit">إنشاء ملخص</button></form>
-          <p class="form-message" id="assistantMessage" role="status" aria-live="polite">المساعد غير مفعّل حتى تُنشر الوظيفة الخلفية ويُضف GEMINI_API_KEY إلى الأسرار الخادمية.</p><div id="assistantOutput" class="assistant-output" hidden></div>
+          <p class="form-message" id="assistantMessage" role="status" aria-live="polite">لا يعمل Gemini حتى تُنشر الوظيفة الخلفية وتُضبط أسرارها على Supabase.</p><div id="assistantOutput" class="assistant-output" hidden></div>
         </section>
         <p class="form-message workspace-message" id="workspaceMessage" role="status" aria-live="polite"></p>
       </div>
