@@ -267,9 +267,9 @@ const homeSearchDescription = $('#homeSearchDescription');
 $$('input[name="homeSearchScope"]').forEach(radio => radio.addEventListener('change', () => {
   if (!radio.checked) return;
   const worldSearch = radio.value === 'world';
-  homeDiscoveryInput.placeholder = worldSearch ? 'عنوان أو مؤلف أو موضوع…' : 'عنوان كتاب، مؤلف، أو رقم عام…';
+  homeDiscoveryInput.placeholder = worldSearch ? 'عنوان أو مؤلف في مصدر خارجي…' : 'عنوان كتاب، مؤلف، أو رقم عام…';
   homeSearchDescription.textContent = worldSearch
-    ? 'سيُبحث في Open Library؛ نتائج هذا الفهرس مستقلة عن مقتنيات بورسعيد.'
+    ? 'اختر فهرس الإسكندرية أو مكتبة الكونجرس؛ النتائج مستقلة عن مقتنيات بورسعيد.'
     : 'سيُبحث في السجلات التي نشرتها مكتبات بورسعيد؛ اختر القراءة العالمية للبحث خارجها.';
 }));
 homeDiscoveryForm?.addEventListener('submit', event => {

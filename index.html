@@ -20,8 +20,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261014-home-4">
   <script type="module" src="app.js?v=20261014-home-search"></script>
-  <link rel="stylesheet" href="global-reading.css?v=3">
-  <script type="module" src="global-reading.js?v=4"></script>
+  <link rel="stylesheet" href="global-reading.css?v=4">
+  <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=6">
   <script type="module" src="education-research.js?v=4"></script>
   <script type="module" src="site-news.js?v=2"></script>
@@ -54,7 +54,7 @@
     <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches">المكتبات</button>
     <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements">الإعلانات</button>
     <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about">عن الموقع</button>
-    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading">القراءة الرقمية</button>
+    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading">مصادر الكتب</button>
     <button class="view-tab" id="educationResearchTab" type="button" role="tab" aria-selected="false" aria-controls="educationResearchView" tabindex="-1" data-view="educationResearch">أخبار وأبحاث</button>
   </nav>
 
@@ -79,14 +79,14 @@
           <div class="portal-main">
             <span class="eyebrow portal-kicker"><span class="portal-kicker-mark" aria-hidden="true">ب</span> بوابة المعرفة المدرسية · بورسعيد</span>
             <h1 id="hero-title">ابدأ من بورسعيد، <span class="portal-title-accent">واقرأ أبعد.</span></h1>
-            <p class="portal-lede">فهرس كتب مكتبات بورسعيد والقراءة الرقمية العالمية، من نقطة بداية واحدة.</p>
+              <p class="portal-lede">فهرس كتب مكتبات بورسعيد ومصادر عربية وعالمية، من نقطة بداية واحدة.</p>
             <div class="portal-search-panel">
               <div class="portal-search-heading"><strong>ماذا تريد أن تكتشف؟</strong><span><i aria-hidden="true"></i> بحث مباشر</span></div>
               <form id="homeDiscoveryForm" class="portal-search-form" role="search">
                 <fieldset class="portal-scope">
                   <legend class="sr-only">اختر نطاق البحث</legend>
                   <label><input type="radio" name="homeSearchScope" value="catalog" checked><span>مقتنيات مكتبات بورسعيد</span></label>
-                  <label><input type="radio" name="homeSearchScope" value="world"><span>القراءة العالمية</span></label>
+                  <label><input type="radio" name="homeSearchScope" value="world"><span>مصادر عربية وعالمية</span></label>
                 </fieldset>
                 <div class="portal-search-row">
                   <span class="portal-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></span>
@@ -95,7 +95,7 @@
                   <button class="button portal-search-submit" type="submit">ابحث <span aria-hidden="true">←</span></button>
                 </div>
               </form>
-              <p class="portal-search-description" id="homeSearchDescription">اختر نطاق البحث؛ نتائج القراءة العالمية تأتي من Open Library.</p>
+              <p class="portal-search-description" id="homeSearchDescription">اختر نطاق البحث؛ المصادر الخارجية تشمل فهرس الإسكندرية ومكتبة الكونجرس.</p>
             </div>
           </div>
           <aside class="portal-side" aria-label="مسارات سريعة في الموقع">
@@ -145,7 +145,7 @@
         <span class="home-note-icon" aria-hidden="true">i</span>
         <div class="home-note-copy"><strong>قبل الزيارة</strong><p>الفهرس يعرض بيانات عامة تنشرها المكتبات فقط. الموقع لا يستضيف الكتب أو يدير الإعارة والحجز إلكترونياً؛ روابط القراءة أدناه تفتح المصادر الأصلية، وتختلف الإتاحة والحقوق حسب العنوان.</p></div>
         <nav class="home-quick-links" aria-label="روابط سريعة للزائر">
-          <a href="#branches">المكتبات</a><a href="#announcements">تنبيهات الزيارة</a><a href="#visitorAssistant">أسئلة عن الاستخدام</a><a href="#globalReading">القراءة الرقمية</a><a href="#educationResearch">أخبار وأبحاث</a>
+          <a href="#branches">المكتبات</a><a href="#announcements">تنبيهات الزيارة</a><a href="#visitorAssistant">أسئلة عن الاستخدام</a><a href="#globalReading">مصادر الكتب</a><a href="#educationResearch">أخبار وأبحاث</a>
         </nav>
       </aside>
     </section>
@@ -174,10 +174,22 @@
           <a class="reading-source-link" href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">ابحث في Gutenberg <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
         </article>
         <article class="reading-source-card">
-          <span class="reading-source-kind">إعارة رقمية حسب الإتاحة</span>
-          <h3>Open Library</h3>
-          <p>اكتشف الكتب واستعر نسخاً رقمية محددة عندما تكون متاحة؛ الاستعارة تتطلب حساباً لدى Open Library.</p>
-          <a class="reading-source-link" href="https://openlibrary.org/borrow" target="_blank" rel="noopener noreferrer">استكشف الإعارة الرقمية <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+          <span class="reading-source-kind">فهرس كتب عربي</span>
+          <h3>فهرس مكتبة الإسكندرية</h3>
+          <p>ابحث في بيانات مقتنيات المكتبة وفهرسها الإلكتروني؛ وجود سجل لا يعني أن نص الكتاب متاح للقراءة الرقمية.</p>
+          <a class="reading-source-link" href="https://balis.bibalex.org/AR/OPAC/Home/SearchOpac" target="_blank" rel="noopener noreferrer">افتح فهرس الإسكندرية <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+        </article>
+        <article class="reading-source-card">
+          <span class="reading-source-kind reading-source-kind-yellow">فهرس ومجموعات رقمية</span>
+          <h3>مكتبة الكونجرس</h3>
+          <p>ابحث في سجلات الكتب والمجموعات. خدمة البحث وواجهة API العامة لا تحتاجان اشتراكاً سنوياً؛ وتختلف قراءة المواد بحسب السجل والحقوق.</p>
+          <a class="reading-source-link" href="https://www.loc.gov/books/" target="_blank" rel="noopener noreferrer">ابحث في كتب مكتبة الكونجرس <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+        </article>
+        <article class="reading-source-card">
+          <span class="reading-source-kind reading-source-kind-red">موارد تعليمية وبحثية</span>
+          <h3>بنك المعرفة المصري</h3>
+          <p>بوابة موارد تعليمية وبحثية؛ يتطلب الوصول التسجيل وقد يختلف حسب فئة المستخدم والمؤسسة وشروط المنصة. نعرضه كوصلة إرشادية فقط.</p>
+          <a class="reading-source-link" href="https://www.ekb.eg/" target="_blank" rel="noopener noreferrer">افتح بنك المعرفة المصري <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
         </article>
         <article class="reading-source-card">
           <span class="reading-source-kind reading-source-kind-red">معاينة أو قراءة بحسب الحقوق</span>
@@ -194,29 +206,30 @@
       </div>
       <aside class="reading-rights-note" aria-label="حدود الربط والحقوق">
         <strong>حدود الربط والحقوق</strong>
-        <p>هذه وصلات خارجية فقط؛ لا ننسخ الكتب أو ندمج نتائجها في فهرس بورسعيد. استعارة Open Library تتطلب حساباً لدى المصدر، وإتاحة Google Books تتبع حقوق العنوان والبلد. WorldCat فهرس مقتنيات لا قارئ؛ انتهى دعم Search API 1.0 في 2024، والوصول الحالي يتطلب اشتراكات مؤسسية لدى OCLC، لذا نعرض رابطاً خارجياً فقط. <a class="reading-rights-reference" href="https://www.oclc.org/developer/api/oclc-apis/worldcat-search-api.en.html" target="_blank" rel="noopener noreferrer">تفاصيل OCLC الرسمية <span aria-hidden="true">↗</span><span class="sr-only">تفتح في موقع خارجي</span></a> لا نستضيف نصاً إلا بترخيص يسمح بذلك.</p>
+        <p>هذه مصادر خارجية مستقلة؛ لا ننسخ الكتب أو نخلط نتائجها بمقتنيات بورسعيد. فهرس الإسكندرية يعرض سجلات ببليوجرافية ولا يضمن قراءة رقمية. واجهة البحث العامة لمكتبة الكونجرس لا تحتاج اشتراكاً سنوياً، لكن وجود صيغة إلكترونية لا يعني دائماً نصاً كاملاً أو قراءة مجانية. بنك المعرفة يتبع شروط تسجيل وإتاحة خاصة به. <a class="reading-rights-reference" href="https://www.loc.gov/apis/" target="_blank" rel="noopener noreferrer">توثيق واجهات مكتبة الكونجرس <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>، و<a class="reading-rights-reference" href="https://www.oclc.org/developer/api/oclc-apis/worldcat-search-api.en.html" target="_blank" rel="noopener noreferrer">تفاصيل OCLC الرسمية <span aria-hidden="true">↗</span><span class="sr-only">تفتح في موقع خارجي</span></a>. لا نستضيف نصاً إلا بترخيص يسمح بذلك.</p>
       </aside>
     </section>
     </section>
     <section class="page-view global-reading-view" id="globalReadingView" data-view-panel="reading" role="tabpanel" aria-labelledby="globalReadingTab" tabindex="0" hidden>
       <section class="global-reading-section section-wrap" id="globalReading" aria-labelledby="globalReadingTitle">
         <div class="global-reading-heading">
-          <div><span class="eyebrow">اكتشاف من مكتبة رقمية عالمية</span><h1 id="globalReadingTitle">القراءة الرقمية العالمية</h1><p>ابحث عن الكتب في Open Library، ثم افتح المصدر الأصلي. نعرض زر القراءة أو الاستعارة فقط عندما يؤكد Open Library حالة النسخة الرقمية.</p></div>
+          <div><span class="eyebrow">اكتشاف من مصادر مستقلة</span><h1 id="globalReadingTitle">فهرس عربي ومكتبة الكونجرس</h1><p>اختر فهرس مكتبة الإسكندرية للبحث في بيانات مقتنياتها، أو مكتبة الكونجرس للبحث المباشر في سجلات الكتب والموارد الرقمية. لا يثبت أي منهما وجود كتاب في مكتبات بورسعيد.</p></div>
           <span class="global-reading-stamp">بحث مباشر · خارج فهرس بورسعيد</span>
         </div>
-        <aside class="global-reading-source-note"><span class="global-reading-source-icon" aria-hidden="true">i</span><span><strong>مصدر مستقل:</strong> النتائج آتية من Open Library وليست مقتنيات مكتبات بورسعيد. عبارة البحث تُرسل مباشرة إلى المصدر لتنفيذ الطلب فقط؛ لا تُرسل إلى Gemini ولا يخزنها هذا الموقع.</span></aside>
+        <aside class="global-reading-source-note"><span class="global-reading-source-icon" aria-hidden="true">i</span><span><strong>مصادر مستقلة:</strong> فهرس الإسكندرية ببليوجرافي، وبحث الكونجرس يعرض بياناته وموارده الرقمية عند تسجيلها. لا تُدمج النتائج مع فهرس بورسعيد؛ عبارة البحث تُرسل فقط إلى المصدر الذي تختاره ولا تُرسل إلى Gemini أو تُخزّن على هذا الموقع.</span></aside>
         <form id="globalReadingForm" class="global-reading-form" role="search">
           <div class="global-reading-field"><label for="globalReadingInput">عنوان أو مؤلف أو موضوع</label><input id="globalReadingInput" type="search" maxlength="100" placeholder="مثال: نجيب محفوظ، الفضاء، The Hobbit" autocomplete="off" aria-describedby="globalReadingPrivacy" required></div>
-          <div class="global-reading-field"><label for="globalReadingLanguage">تفضيل لغة النتائج</label><select id="globalReadingLanguage"><option value="">كل اللغات</option><option value="ar">العربية</option><option value="en">الإنجليزية</option><option value="fr">الفرنسية</option></select></div>
-          <button class="button button-primary global-reading-submit" type="submit">ابحث في العالم <span aria-hidden="true">←</span></button>
+          <div class="global-reading-field"><label for="globalReadingSource">مصدر البحث</label><select id="globalReadingSource"><option value="alexandria" selected>فهرس مكتبة الإسكندرية</option><option value="loc">مكتبة الكونجرس</option></select></div>
+          <button class="button button-primary global-reading-submit" type="submit">ابحث في المصدر <span aria-hidden="true">←</span></button>
         </form>
+        <label class="global-reading-filter" id="globalReadingDigitalFilter" hidden><input id="globalReadingOnlineOnly" type="checkbox"><span>إظهار السجلات التي تسجل صيغة إلكترونية فقط؛ لا يعني ذلك أن النص كامل أو مجاني.</span></label>
         <div class="global-reading-suggestions" aria-label="عمليات بحث مقترحة"><span class="global-reading-suggestions-label">جرّب:</span><button class="global-reading-suggestion" type="button" data-query="نجيب محفوظ">نجيب محفوظ</button><button class="global-reading-suggestion" type="button" data-query="أدب عربي">أدب عربي</button><button class="global-reading-suggestion" type="button" data-query="الفضاء للأطفال">الفضاء للأطفال</button><button class="global-reading-suggestion" type="button" data-query="The Hobbit">The Hobbit</button></div>
-        <p class="global-reading-privacy" id="globalReadingPrivacy">يبدأ البحث بعد كتابة عبارة أو اختيار اقتراح. لا توجد نتائج تجريبية، ولا نحمّل النصوص المحمية أو نرفع كتباً إلى الموقع.</p>
+        <p class="global-reading-privacy" id="globalReadingPrivacy">في الإسكندرية يفتح البحث في فهرس BALIS الرسمي؛ وفي الكونجرس تُجلب نتائج فهرس الكتب مباشرة من API العامة. لا توجد نتائج تجريبية، ولا نحمّل النصوص المحمية أو نرفع كتباً إلى الموقع.</p>
         <p class="global-reading-status" id="globalReadingStatus" role="status" aria-live="polite">اكتب عنواناً أو مؤلفاً لبدء البحث المباشر.</p>
         <div class="global-reading-grid" id="globalReadingResults" aria-live="polite" aria-busy="false"></div>
         <div class="global-reading-more-row"><button class="button button-outline" id="globalReadingMore" type="button" hidden>تحميل المزيد من النتائج</button></div>
-        <aside class="global-reading-boundary"><strong>روابط القراءة مرتبطة بحالة المصدر وحقوق النسخة</strong><p>«اقرأ» يظهر فقط عند إثبات Open Library لحالة <bdi>full access</bdi>، و«استعر» عند <bdi>lendable</bdi>. وقد تتطلب الاستعارة حساباً لدى المصدر. Google Books وWorldCat متاحان كرابطين خارجيين للبحث؛ واجهة Google Books أعادت حدّ طلبات في الاختبار، لذلك لا ندّعي وجود معاينة مدمجة. <a href="https://openlibrary.org/dev/docs/api/read" target="_blank" rel="noopener noreferrer">توثيق Read API <span aria-hidden="true">↗</span></a></p></aside>
-        <p class="global-reading-footnote">مصدر الفهرس: <a href="https://openlibrary.org/" target="_blank" rel="noopener noreferrer">Open Library</a>، مبادرة من Internet Archive. قد تختلف الإتاحة والحقوق حسب النسخة والبلد؛ تحقّق منها في المصدر قبل القراءة أو الاستعارة.</p>
+        <aside class="global-reading-boundary"><strong>السجل الرقمي لا يعني دائماً كتاباً كاملاً أو قراءة مجانية</strong><p>فهرس الإسكندرية يعرض البيانات الببليوجرافية والمقتنيات. في نتائج الكونجرس تظهر الصيغة الإلكترونية فقط عندما يسجلها المصدر؛ والفلتر يستبعد السجلات التي يذكر LOC أن الوصول الكامل إليها مقيّد داخل المكتبة، لكن حقوق القراءة وشروطها تظل لدى المصدر. لا نوفر دخولاً إلى اشتراكات أو محتوى غير مرخّص. <a href="https://www.loc.gov/apis/json-and-yaml/requests/" target="_blank" rel="noopener noreferrer">توثيق API مكتبة الكونجرس <span aria-hidden="true">↗</span></a></p></aside>
+        <p class="global-reading-footnote">المصادر: <a href="https://balis.bibalex.org/AR/OPAC/Home/SearchOpac" target="_blank" rel="noopener noreferrer">فهرس مكتبة الإسكندرية</a> و<a href="https://www.loc.gov/books/" target="_blank" rel="noopener noreferrer">فهرس الكتب في مكتبة الكونجرس</a>. السجلات الخارجية لا تثبت وجود نسخة في مكتبات بورسعيد.</p>
       </section>
     </section>
     <section class="page-view education-research-view" id="educationResearchView" data-view-panel="educationResearch" role="tabpanel" aria-labelledby="educationResearchTab" tabindex="0" hidden>

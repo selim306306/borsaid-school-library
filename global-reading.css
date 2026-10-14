@@ -26,3 +26,7 @@
 .global-reading-form select:focus-visible,
 .global-reading-form button:focus-visible,
 .global-reading-more-row button:focus-visible { outline: 3px solid #2449ad; outline-offset: 3px; }
+
+
+.global-reading-filter{display:flex;align-items:flex-start;gap:10px;max-width:780px;margin:12px 2px 0;padding:11px 13px;border:1px solid #dbe4f7;border-radius:12px;background:#f7f9ff;color:#344667;font-size:11px;line-height:1.8;cursor:pointer}.global-reading-filter[hidden]{display:none}.global-reading-filter input{flex:0 0 auto;width:17px;height:17px;margin:2px 0 0;accent-color:#385dcc}.global-reading-filter:focus-within{outline:3px solid #2449ad;outline-offset:3px}.global-reading-filter span{min-width:0}.global-reading-form select{direction:rtl}
+@media(max-width:430px){.global-reading-filter{font-size:10px;padding:10px}}
