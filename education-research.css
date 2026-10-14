@@ -71,3 +71,21 @@
 @media(max-width:940px){.education-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.education-research-heading{align-items:flex-start;flex-direction:column;gap:12px}}
 @media(max-width:680px){.education-research-section{padding-top:27px;padding-bottom:50px}.education-research-heading h1{font-size:30px}.education-section-heading{align-items:flex-start;flex-direction:column;gap:6px}.education-news-grid,.education-research-results{grid-template-columns:1fr}.education-news-card{min-height:0}.education-papers-section{padding:18px 14px;border-radius:17px}.education-research-form{grid-template-columns:1fr;gap:10px}.education-research-submit{width:100%}.education-local-news{grid-template-columns:1fr;align-items:flex-start;padding:18px}.education-local-news .education-research-link{width:100%}.education-research-index-note{align-items:flex-start;flex-direction:column}.education-research-stamp{white-space:normal}}
 @media(prefers-reduced-motion:reduce){.education-news-card{transition:none}}
+
+
+/* Section identities: institutional news, open research and local space use distinct light accents. */
+.education-research-section{border-radius:26px;background:linear-gradient(180deg,#fff 0%,#fbfcff 56%,#fffaf0 100%)}
+.education-research-stamp{border-color:#efdfb5;background:#fff8e6;color:#805f16}
+.education-research-intro{border-color:#dce5f7;border-inline-start:4px solid #5676d3;background:linear-gradient(110deg,#eef4ff 0%,#fff 54%,#fff8e6 100%)}
+.education-news-card:nth-child(5n+1){border-top:3px solid #5676d3}
+.education-news-card:nth-child(5n+2){border-top:3px solid #d85c68}
+.education-news-card:nth-child(5n+3){border-top:3px solid #dcb237}
+.education-news-card:nth-child(5n+4){border-top:3px solid #5b9a73}
+.education-news-card:nth-child(5n){border-top:3px solid #e29554}
+.education-papers-section{border-color:#dce5f7;border-inline-start:4px solid #5676d3;background:linear-gradient(145deg,#eef4ff 0%,#fff 54%,#fff7e5 100%)}
+.education-work-card:nth-child(3n+1){border-top:3px solid #5676d3}
+.education-work-card:nth-child(3n+2){border-top:3px solid #d85c68}
+.education-work-card:nth-child(3n){border-top:3px solid #dcb237}
+.education-research-index-note{border-color:#d7e9df;background:linear-gradient(110deg,#eef8f1,#f7fbff)}
+.education-local-news{border-color:#e8c968;border-inline-start:4px solid #d2a32a;background:linear-gradient(110deg,#fff5da 0%,#fff 72%)}
+.education-local-news-label{color:#805f16}

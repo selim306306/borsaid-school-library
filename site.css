@@ -241,3 +241,33 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .leadership-rail-intro{font-size:12px}
 .leadership-person-name{font-size:11px}
 .leadership-person-title,.leadership-person-source,.leadership-disclaimer,.leadership-photo-note{font-size:10px}
+
+
+/* Light, section-specific palette: keep the white canvas and distinguish each destination. */
+.hero.hero-with-rail{background:radial-gradient(circle at 15% 8%,rgba(243,200,79,.17),transparent 18rem),linear-gradient(120deg,#f4f7ff 0%,#fff 52%,#fff9e9 100%);border:1px solid #edf0f7;border-radius:30px}
+@media(max-width:700px){.hero.hero-with-rail{border-radius:22px}}
+.home-guide{border-color:#e1e8f7;background:linear-gradient(130deg,#eef4ff 0%,#fff 52%,#fff8e5 100%)}
+.home-guide-card{border-top:3px solid #5a79d5}
+.home-guide-card:nth-child(2){border-top-color:#d85c68}
+.home-guide-card:nth-child(3){border-top-color:#dcb237}
+.home-reading{border-color:#e4eaf7;background:linear-gradient(130deg,#f0f5ff 0%,#fff 52%,#fff4e0 100%)}
+.reading-source-card:nth-child(3n+1){border-top:3px solid #5a79d5}
+.reading-source-card:nth-child(3n+2){border-top:3px solid #d85c68}
+.reading-source-card:nth-child(3n){border-top:3px solid #dcb237}
+.search-section{border:1px solid #e2e8f4;background:linear-gradient(135deg,#eef4ff 0%,#fff 56%,#fff8e8 100%)}
+.branches-section{margin-top:4px;padding:26px 24px 72px;border:1px solid #e9e8d9;border-radius:26px;background:linear-gradient(135deg,#fff8e5 0%,#fff 48%,#f2f6ff 100%)}
+@media(max-width:700px){.branches-section{padding:20px 15px 46px;border-radius:20px}}
+.public-announcements{padding-inline:24px;border-radius:24px;background:linear-gradient(130deg,#fff3f1 0%,#fff 58%,#fff8e7 100%)}
+.public-notice{border-color:#f0d3c7;border-inline-start:4px solid #d85c68;background:#fff8f5}
+@media(max-width:700px){.public-announcements{padding-inline:15px;border-radius:20px}}
+.visitor-assistant{border-color:#e8e2d2;background:linear-gradient(125deg,#fff7e8 0%,#fff 48%,#eef4ff 100%)}
+#branchesTab.active{color:#805f16;background:#fff8e4}
+#branchesTab.active:after{background:#d2a32a}
+#announcementsTab.active{color:#b54855;background:#fff1f0}
+#announcementsTab.active:after{background:#d85c68}
+#aboutTab.active{color:#23734f;background:#edf9f2}
+#aboutTab.active:after{background:#45a372}
+#globalReadingTab.active{color:#3554a1;background:#eef3ff}
+#globalReadingTab.active:after{background:#5676d3}
+#educationResearchTab.active{color:#925c21;background:#fff5e6}
+#educationResearchTab.active:after{background:#e2a347}
