@@ -303,3 +303,65 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 
 .leadership-photo-note{margin:4px 2px 0;color:#596579;font-size:10px;line-height:1.6}
 .leadership-photo-credits{margin-top:5px;color:#3f4e68;font-size:10px;line-height:1.7}.leadership-photo-credits summary{width:fit-content;color:#3554a1;font-weight:700;cursor:pointer}.leadership-photo-credits p{margin:6px 0 0}.leadership-photo-credits a{color:#2449ad;text-decoration:underline;text-underline-offset:2px}
+
+
+/* Compact home landing and leadership banner. */
+.page-home > .home-news-section,
+.page-home > .home-guide,
+.page-home > .home-reading{display:none!important}
+.leadership-banner{width:min(1180px,calc(100% - 48px));margin:8px auto 0;padding:15px 17px 10px;border:1px solid #e8ecf3;border-radius:20px;background:linear-gradient(112deg,#f5f8ff 0%,#fff 58%,#fffaf0 100%)}
+.leadership-banner-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px}
+.leadership-banner-heading{margin:2px 0 0;font-size:20px;line-height:1.4;letter-spacing:-.35px}
+.leadership-banner-subtitle{margin:1px 0 0;color:#697891;font-size:10px;line-height:1.6}
+.leadership-banner-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:7px}
+.leadership-verified{position:static;display:inline-flex;align-items:center;margin:0;padding:5px 8px;border:1px solid #e4e9f3;border-radius:999px;background:#fff;color:#65738b;font-size:9px;line-height:1.4;white-space:nowrap}
+.leadership-owner{display:inline-flex;align-items:center;padding:5px 9px;border:1px solid #dce5ff;border-radius:999px;background:#edf2ff;color:#294da9;font-size:10px;font-weight:800;white-space:nowrap}
+.leadership-banner .leadership-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none;overflow:visible}
+.leadership-banner .leadership-person{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:start;gap:4px 8px;min-width:0;min-height:0;padding:9px;border:1px solid #e8ecf3;border-radius:14px;background:rgba(255,255,255,.92)}
+.leadership-banner .leadership-photo,.leadership-banner .leadership-avatar{grid-column:1;grid-row:1 / span 3;width:40px;height:40px;margin-top:1px;border:1px solid #e7ebf2;border-radius:50%;object-fit:cover;font-size:15px}
+.leadership-banner .leadership-person-copy{grid-column:2;min-width:0}
+.leadership-banner .leadership-person-name{display:block;color:#283957;font-size:10px;font-weight:800;line-height:1.5;overflow-wrap:anywhere}
+.leadership-banner .leadership-person-title{display:block;color:#66758f;font-size:9px;line-height:1.55;overflow-wrap:anywhere}
+.leadership-banner .leadership-person-source{display:inline-block;margin-top:3px;padding-top:0;color:#3554a1;font-size:8px;font-weight:700;line-height:1.5;text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.leadership-photo-credits{margin-top:7px;padding-top:6px;border-top:1px solid #e8ecf2;color:#596579;font-size:9px;line-height:1.6}
+.leadership-photo-credits summary{width:fit-content;color:#425c97;font-weight:700;cursor:pointer}
+.leadership-photo-credits p{margin:5px 0 0}
+.leadership-photo-credits a{color:#2449ad;text-decoration:underline;text-underline-offset:2px}
+.hero{display:block;min-height:0;margin:0 auto;padding:16px 0 24px}
+.hero-copy{width:100%;max-width:none;padding:19px 23px;border:1px solid #e8ecf3;border-radius:20px;background:linear-gradient(110deg,#f8faff,#fff 70%)}
+.hero h1{margin:5px 0 7px;font-size:clamp(30px,4.1vw,46px);line-height:1.3;letter-spacing:-.9px}
+.hero-lede{max-width:780px;margin:0 0 12px;color:#63718a;font-size:13px;line-height:1.75}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.hero-actions .button{min-height:41px;min-width:0;padding-inline:15px;font-size:12px}
+.hero-actions .text-link{min-height:39px;padding:8px 11px;border:1px solid #e2e7ef;border-radius:10px;background:#fff;font-size:11px}
+.trust-line{margin-top:10px;font-size:9px}
+.home-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.home-tools a{display:inline-flex;align-items:center;min-height:29px;padding:4px 10px;border:1px solid #e8ebf1;border-radius:999px;background:#fff;color:#536482;font-size:9px;font-weight:700}
+.home-tools a:hover{border-color:#b9c8ef;color:var(--blue)}
+@media(max-width:980px){.leadership-banner .leadership-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){
+  .leadership-banner{width:calc(100% - 24px);margin-top:8px;padding:12px 10px 9px;border-radius:17px}
+  .leadership-banner-head{align-items:flex-start;flex-direction:column;gap:7px;margin-bottom:8px}
+  .leadership-banner-heading{font-size:18px}
+  .leadership-banner-meta{justify-content:flex-start;gap:6px}
+  .leadership-banner .leadership-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .leadership-banner .leadership-person{grid-template-columns:32px minmax(0,1fr);gap:4px 6px;padding:7px;border-radius:12px}
+  .leadership-banner .leadership-photo,.leadership-banner .leadership-avatar{width:32px;height:32px;font-size:13px}
+  .leadership-banner .leadership-person-name{font-size:9px;line-height:1.45}
+  .leadership-banner .leadership-person-title{font-size:8px;line-height:1.45}
+  .leadership-banner .leadership-person-source{font-size:7.5px;line-height:1.45}
+  .leadership-photo-credits{font-size:8px}
+  .hero{padding:11px 0 18px}
+  .hero-copy{padding:15px 13px;border-radius:16px}
+  .hero h1{font-size:clamp(28px,8vw,37px);letter-spacing:-.6px}
+  .hero-lede{font-size:11px;line-height:1.7}
+  .hero-actions{gap:6px}
+  .hero-actions .button,.hero-actions .text-link{min-height:37px;padding:7px 9px;font-size:10px}
+  .home-tools{gap:6px;margin-top:10px}
+  .home-tools a{min-height:27px;padding-inline:8px;font-size:8px}
+}
+
+@media(min-width:641px){.hero-copy{max-width:920px;margin-inline:auto}}
+
+@media(min-width:641px){.hero-copy{max-width:760px}}
+@media(max-width:640px){.leadership-banner .leadership-person-name{font-size:10px}.leadership-banner .leadership-person-title{font-size:9px}.leadership-banner .leadership-person-source{font-size:8px}}
