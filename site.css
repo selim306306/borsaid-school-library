@@ -278,3 +278,28 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .leadership-person-source{color:#38549a}
 .leadership-person-title,.leadership-person-source,.leadership-disclaimer,.leadership-photo-note{font-size:11px}
 .leadership-disclaimer{color:#45536d;line-height:1.8}
+
+
+/* A single, restrained leadership banner sits above the home hero. */
+.leadership-banner{margin-top:16px;margin-bottom:10px;padding:19px 20px;border:1px solid #e6eaf3;border-radius:24px;background:linear-gradient(112deg,#f0f5ff 0%,#fff 52%,#fff8e7 100%);box-shadow:0 8px 24px rgba(30,47,83,.045)}
+.leadership-banner-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.leadership-banner-heading{margin:3px 0 0;font-size:21px;line-height:1.4;letter-spacing:-.02em}
+.leadership-banner-subtitle{margin:4px 0 0;color:#59677f;font-size:12px}
+.leadership-verified{flex:none;color:#596579;font-size:10px;font-weight:600}
+.leadership-banner .leadership-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:15px 0 0;padding:0;list-style:none}
+.leadership-banner .leadership-person{min-width:0;min-height:176px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:13px;border:1px solid #e8ebf2;border-radius:16px;background:rgba(255,255,255,.94)}
+.leadership-avatar,.leadership-photo{width:54px;height:54px;flex:0 0 auto;display:grid;place-items:center;border:0;border-radius:16px;background:#eaf0ff;color:#3153ac;font-size:20px;font-weight:700;object-fit:cover}
+.leadership-person:nth-child(3n+2) .leadership-avatar{background:#fff0ed;color:#b34c59}
+.leadership-person:nth-child(3n) .leadership-avatar{background:#fff6df;color:#85651b}
+.leadership-person:nth-child(4n) .leadership-avatar{background:#eaf6ef;color:#30724e}
+.leadership-person-copy{min-width:0;display:flex;flex-direction:column;gap:2px}
+.leadership-banner .leadership-person-name{font-size:12px;line-height:1.55;color:#1d2b45}
+.leadership-banner .leadership-person-title{font-size:10px;line-height:1.65;color:#596579}
+.leadership-banner .leadership-person-source{margin-top:auto;padding-top:4px;font-size:10px;line-height:1.4;color:#3554a1}
+.leadership-banner .leadership-person-source:hover{text-decoration:underline;text-underline-offset:2px}
+.leadership-banner .leadership-disclaimer{margin:12px 2px 0;color:#596579;font-size:10px;line-height:1.6}
+@media(max-width:960px){.leadership-banner .leadership-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.leadership-banner{margin-top:10px;padding:15px 13px;border-radius:20px}.leadership-banner-head{align-items:flex-start;flex-direction:column;gap:4px}.leadership-banner-heading{font-size:18px}.leadership-banner .leadership-list{display:flex;overflow-x:auto;gap:9px;padding:2px 1px 8px;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain}.leadership-banner .leadership-person{flex:0 0 min(78vw,260px);min-height:154px;scroll-snap-align:start;display:grid;grid-template-columns:50px minmax(0,1fr);align-items:start;column-gap:10px;row-gap:6px;padding:11px}.leadership-avatar,.leadership-photo{grid-row:span 2;width:48px;height:48px;border-radius:14px;font-size:18px}.leadership-person-copy{grid-column:2}.leadership-banner .leadership-person-source{grid-column:2;margin-top:0;padding-top:0}.leadership-banner .leadership-disclaimer{font-size:9px}}
+
+.leadership-photo-note{margin:4px 2px 0;color:#596579;font-size:10px;line-height:1.6}
+.leadership-photo-credits{margin-top:5px;color:#3f4e68;font-size:10px;line-height:1.7}.leadership-photo-credits summary{width:fit-content;color:#3554a1;font-weight:700;cursor:pointer}.leadership-photo-credits p{margin:6px 0 0}.leadership-photo-credits a{color:#2449ad;text-decoration:underline;text-underline-offset:2px}

@@ -18,12 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="site.css?v=4">
+  <link rel="stylesheet" href="site.css?v=5">
   <script type="module" src="app.js?v=432549f3b22e"></script>
   <link rel="stylesheet" href="global-reading.css?v=3">
   <script type="module" src="global-reading.js?v=4"></script>
-  <link rel="stylesheet" href="education-research.css?v=4">
+  <link rel="stylesheet" href="education-research.css?v=5">
   <script type="module" src="education-research.js?v=4"></script>
+  <script type="module" src="site-news.js?v=1"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -59,8 +60,24 @@
 
   <main id="top" tabindex="-1">
     <section class="page-view page-home" id="homeView" data-view-panel="home" role="tabpanel" aria-labelledby="homeTab" tabindex="0">
-    <section class="hero hero-with-rail section-wrap" aria-labelledby="hero-title">
-      <div class="hero-copy">
+      <section class="leadership-banner section-wrap" aria-labelledby="leadershipBannerTitle">
+        <div class="leadership-banner-head">
+          <div><span class="eyebrow">منظومة التعليم · بورسعيد ومصر</span><h2 class="leadership-banner-heading" id="leadershipBannerTitle">قيادات التعليم والإدارة</h2><p class="leadership-banner-subtitle">أسماء ومناصب موثقة من مصادر رسمية، مع رابط للتحقق.</p></div>
+          <span class="leadership-verified" id="leadershipVerifiedDate">آخر تحقق: ١٤ أكتوبر ٢٠٢٦</span>
+        </div>
+        <ul class="leadership-list" id="leadershipList" aria-label="مسؤولو التعليم والإدارة الذين تم التحقق من مناصبهم">
+          <li class="leadership-person"><img class="leadership-photo" src="assets/leader-sisi.jpg" alt="صورة لعبد الفتاح السيسي" width="382" height="507" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">عبد الفتاح السيسي</strong><span class="leadership-person-title">رئيس جمهورية مصر العربية</span><a class="leadership-person-source" href="https://www.presidency.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3/" target="_blank" rel="noopener noreferrer">رئاسة الجمهورية · السيرة الرسمية ↗</a></div></li>
+          <li class="leadership-person"><img class="leadership-photo" src="assets/leader-mohamed-abdel-latif.jpg" alt="صورة لمحمد عبد اللطيف" width="852" height="956" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">محمد عبد اللطيف</strong><span class="leadership-person-title">وزير التربية والتعليم والتعليم الفني</span><a class="leadership-person-source" href="https://moe.gov.eg/what-s-on/news/oct12-2026/" target="_blank" rel="noopener noreferrer">وزارة التعليم · ١٢ أكتوبر ٢٠٢٦ ↗</a></div></li>
+          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">ب</span><div class="leadership-person-copy"><strong class="leadership-person-name">إبراهيم أبو ليمون</strong><span class="leadership-person-title">محافظ بورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111377" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · مصدر رسمي ↗</a></div></li>
+          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">م</span><div class="leadership-person-copy"><strong class="leadership-person-name">محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
+          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">ش</span><div class="leadership-person-copy"><strong class="leadership-person-name">أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية ببورسعيد</span><a class="leadership-person-source" href="https://www.facebook.com/portsedu/posts/1658923188931060/" target="_blank" rel="noopener noreferrer">مديرية التعليم · ١٣ أكتوبر ٢٠٢٦ ↗</a></div></li>
+        </ul>
+        <p class="leadership-disclaimer">للتعريف والتحقق فقط؛ لا يعني ظهور الأسماء وجود شراكة أو رعاية أو تأييد للموقع. المناصب موثقة حتى تاريخ التحقق وقد تتغير.</p>
+        <p class="leadership-photo-note">أُدرجت الصور التي ثبت حق استخدامها؛ بقية الصور بانتظار مصدر يجيز إعادة النشر.</p>
+        <details class="leadership-photo-credits" id="leaderImageCredits"><summary>مصادر الصور والتراخيص</summary><p>عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ من القانون ٨٢ لسنة ٢٠٠٢.</p></details>
+      </section>
+      <section class="hero section-wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
         <span class="eyebrow"><span class="eyebrow-mark">✳</span> مكتبات المدارس · بورسعيد</span>
         <h1 id="hero-title">كل كتاب أقرب<br>مما تتخيّل<span class="title-dot">.</span></h1>
         <p class="hero-lede">بوابة واحدة تساعدك على اكتشاف الكتب، والتحقق من أماكنها، والوصول إلى مكتبات المدارس المشاركة في بورسعيد.</p>
@@ -76,25 +93,16 @@
         <div class="floating-note note-blue"><span class="note-symbol">Aa</span><span><b>ابحث بطريقتك</b><small>عنوان · مؤلف · رقم عام</small></span></div>
         <div class="floating-note note-yellow"><span class="note-symbol">⌖</span><span><b>اعرف مكان النسخة</b><small>المكتبة · القسم · الإتاحة</small></span></div>
       </div>
-      <aside class="leadership-rail" aria-labelledby="leadershipRailTitle">
-        <span class="leadership-rail-kicker">مبادرة رقمية من بورسعيد</span>
-        <h2>من مكتبات المدارس إلى مصادر القراءة المفتوحة.</h2>
-        <p class="leadership-rail-intro">بوابة رقمية للمكتبات المدرسية تتيح البحث في Open Library، وتوضح القراءة أو الاستعارة عندما يؤكدها المصدر الأصلي.</p>
-        <hr class="leadership-rail-divider">
-        <h3 id="leadershipRailTitle">مسؤولون ورد ذكرهم في مصادر عامة</h3>
-        <p class="leadership-disclaimer">هذه إحالات تعريفية للتحقق من أسماء وصفات واردة في مصادر عامة؛ لا تعني شراكة أو اعتماداً أو تأييداً، ولا تثبت مشاركة أي جهة في البوابة. <span class="leadership-source-date" id="leadershipVerifiedDate">آخر تحقق: ١٤ أكتوبر ٢٠٢٦.</span></p>
-        <ul class="leadership-list" id="leadershipList" aria-label="أسماء ومسميات مرتبطة بمصادر رسمية وتواريخها">
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">ر</span><div><strong class="leadership-person-name">عبد الفتاح السيسي</strong><span class="leadership-person-title">رئيس جمهورية مصر العربية وفق السيرة الرسمية</span><a class="leadership-person-source" href="https://www.presidency.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3/" target="_blank" rel="noopener noreferrer">سيرة رسمية · غير مؤرخة ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">و</span><div><strong class="leadership-person-name">محمد عبد اللطيف</strong><span class="leadership-person-title">وزير التربية والتعليم والتعليم الفني وفق خبر ١٢ أكتوبر ٢٠٢٦</span><a class="leadership-person-source" href="https://moe.gov.eg/ar/what-s-on/news/oct12-2026/" target="_blank" rel="noopener noreferrer">وزارة التعليم · ١٢ أكتوبر ٢٠٢٦ ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">ب</span><div><strong class="leadership-person-name">إبراهيم أبو ليمون</strong><span class="leadership-person-title">محافظ بورسعيد وفق خبر ١١ أكتوبر ٢٠٢٦</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111377" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١١ أكتوبر ٢٠٢٦ ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">م</span><div><strong class="leadership-person-name">محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد وفق خبر ١٣ سبتمبر ٢٠٢٦</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">ش</span><div><strong class="leadership-person-name">أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية وفق منشور ١٢ أكتوبر ٢٠٢٦</span><a class="leadership-person-source" href="https://www.facebook.com/EdartShamal/posts/%EF%B8%8F%D8%A7%D9%84%D8%A7%D8%AB%D9%86%D9%8A%D9%86-%D9%A1%D9%A2-%D8%A3%D9%83%D8%AA%D9%88%D8%A8%D8%B1-%D9%A2%D9%A0%D9%A2%D6%A6%D8%A3%D9%85%D9%8A%D8%B1%D8%A9-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D8%B7%D9%8A%D9%81-%D8%AA%D9%88%D8%A7%D8%B5%D9%84-%D8%AC%D9%88%D9%84%D8%A7%D8%AA%D9%87%D8%A7-%D8%A7%D9%84%D9%85%D9%8A%D8%AF%D8%A7%D9%86%D9%8A%D8%A9-%D9%84%D9%85%D8%AA%D8%A7%D8%A8%D8%B9%D8%A9-%D8%A7%D9%86%D8%AA%D8%B8%D8%A7%D9%85/1546995010786815/" target="_blank" rel="noopener noreferrer">إدارة شمال · ١٢ أكتوبر ٢٠٢٦ ↗</a></div></li>
-        </ul>
-        <p class="leadership-photo-note">لم تُدرج صور شخصية؛ لم نجد في الصفحات الرسمية التي راجعناها إذناً صريحاً أو ترخيصاً لإعادة استخدامها.</p>
-      </aside>
       <span class="hero-spark spark-one" aria-hidden="true">✳</span>
       <span class="hero-spark spark-two" aria-hidden="true">✦</span>
 	    </section>
+      <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
+        <header class="home-news-heading"><div><span class="eyebrow">موجز يحدّثه المساعد الذكي</span><h2 id="homeNewsTitle">أخبار التعليم بالعربية</h2><p>خلاصة مفهومة للخبر، مع تاريخه ومصدره الأصلي بدل الاكتفاء بقائمة روابط.</p></div><p class="news-updated" id="homeNewsUpdated">يبحث المساعد عن المستجدات كل ٤ ساعات</p></header>
+        <p class="news-ai-note">المواد الأجنبية تُترجم وتُلخّص بالعربية بمساعدة الذكاء الاصطناعي؛ افتح المصدر الأصلي للتحقق من التفاصيل. وقد لا تظهر قصة جديدة إذا لم يجد المساعد خبرًا موثقًا.</p>
+        <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
+        <div class="education-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
+        <a class="education-research-link home-news-all" href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a>
+      </section>
     <section class="home-guide section-wrap" id="homeGuide" aria-labelledby="homeGuideTitle">
       <div class="home-guide-heading">
         <div><span class="eyebrow">دليل الزائر</span><h2 id="homeGuideTitle">اكتشف، تحقّق، ثم اختر خطوتك</h2></div>
@@ -201,21 +209,16 @@
     <section class="page-view education-research-view" id="educationResearchView" data-view-panel="educationResearch" role="tabpanel" aria-labelledby="educationResearchTab" tabindex="0" hidden>
       <section class="education-research-section section-wrap" id="educationResearch" aria-labelledby="educationResearchTitle">
         <header class="education-research-heading">
-          <div><span class="eyebrow">رصد عالمي · مصادر أصلية</span><h1 id="educationResearchTitle">آخر أخبار التعليم والبحوث</h1><p>تابع مستجدات التعليم من جهات دولية، وابحث في بيانات أوراق ومنشورات تعليمية مفتوحة الوصول. نوجّهك إلى الناشر أو سجل البحث الأصلي بدلاً من نسخ المقالات.</p></div>
-          <span class="education-research-stamp">أخبار · تقارير · دوريات</span>
+          <div><span class="eyebrow">موجز عربي · مصدر أصلي</span><h1 id="educationResearchTitle">أخبار التعليم والبحوث</h1><p>خلاصات عربية واضحة للأخبار المتحققة، مع رابط كل مصدر أصلي؛ وأسفلها بحث مباشر في بيانات الأوراق والمنشورات التعليمية المفتوحة.</p></div>
+          <span class="education-research-stamp">أخبار عربية · أبحاث مفتوحة</span>
         </header>
-        <aside class="education-research-intro"><span class="education-research-icon" aria-hidden="true">i</span><div><strong>ماذا ستجد هنا؟</strong><p>روابط مباشرة لصفحات أخبار وتقارير رسمية، وبحث حي في بيانات OpenAlex. فهرسة البحث لا تثبت التحكيم العلمي ولا تضمن أن لكل نتيجة ملف PDF مجانيّاً؛ تحقّق من شروط المصدر قبل الاستخدام.</p></div></aside>
+        <aside class="education-research-intro"><span class="education-research-icon" aria-hidden="true">i</span><div><strong>ماذا ستجد هنا؟</strong><p>ملخصات وترجمات عربية موجزة للأخبار، تليها روابط المصادر للتحقق. أما البحث في OpenAlex ففهرسة آلية لا تثبت التحكيم العلمي ولا تضمن توفر ملف PDF مجانيّ؛ راجع شروط المصدر قبل الاستخدام.</p></div></aside>
 
         <section class="education-news-section" aria-labelledby="educationNewsTitle">
-          <div class="education-section-heading"><div><span class="eyebrow">مصادر متابعة مؤسسية</span><h2 id="educationNewsTitle">أخبار وتقارير التعليم حول العالم</h2><p>تتضمن الروابط فهارس أخبار وصفحات تجميع ومخرجات وموجزات RSS؛ تختلف طريقة عرض المواد وتواريخها من مصدر لآخر.</p></div></div>
-          <div class="education-news-grid">
-            <article class="education-news-card"><div class="education-news-card-top"><span class="education-source-mark" aria-hidden="true">UNESCO</span><span class="education-source-kind">أخبار التعليم</span></div><h3>UNESCO · أخبار التعليم</h3><p>أخبار عن برامج ومبادرات التعليم من اليونسكو، مع إمكان التصفّح حسب البلد والسنة.</p><a class="education-research-link" href="https://www.unesco.org/en/education/news" target="_blank" rel="noopener noreferrer">افتح أخبار التعليم <span aria-hidden="true">↗</span><span class="sr-only">في موقع اليونسكو</span></a><small>المصدر: UNESCO</small></article>
-            <article class="education-news-card"><div class="education-news-card-top"><span class="education-source-mark" aria-hidden="true">IIEP</span><span class="education-source-kind">رصد دولي</span></div><h3>Education Watch · UNESCO IIEP</h3><p>رصد منتقى لأخبار ومقالات وتقارير وطنية ودولية حول تخطيط التعليم وإدارته؛ قد تعبّر المواد عن وجهات نظر ناشريها الأصليين.</p><a class="education-research-link" href="https://www.iiep.unesco.org/en/curated/education-watch/web-watch" target="_blank" rel="noopener noreferrer">افتح رصد التعليم <span aria-hidden="true">↗</span><span class="sr-only">في موقع معهد اليونسكو للتخطيط التربوي</span></a><small>المصدر: International Institute for Educational Planning</small></article>
-            <article class="education-news-card"><div class="education-news-card-top"><span class="education-source-mark" aria-hidden="true">WB</span><span class="education-source-kind">أخبار وأبحاث</span></div><h3>World Bank · التعليم والمهارات</h3><p>صفحة تجمع الأخبار والقصص والتقارير والمصادر البحثية حول التعليم والمهارات في بلدان مختلفة.</p><a class="education-research-link" href="https://www.worldbank.org/ext/en/topic/education" target="_blank" rel="noopener noreferrer">افتح صفحة التعليم <span aria-hidden="true">↗</span><span class="sr-only">في موقع مجموعة البنك الدولي</span></a><small>المصدر: World Bank Group</small></article>
-            <article class="education-news-card"><div class="education-news-card-top"><span class="education-source-mark" aria-hidden="true">OECD</span><span class="education-source-kind">تعريف ومخرجات</span></div><h3>OECD · التعليم والمهارات</h3><p>صفحة تعريف بالمديرية وروابط إلى مخرجات منشورة، منها تقارير وأوراق عمل وملخصات سياسات؛ ليست موجز RSS.</p><a class="education-research-link" href="https://www.oecd.org/en/about/directorates/directorate-for-education-and-skills.html" target="_blank" rel="noopener noreferrer">استكشف المخرجات <span aria-hidden="true">↗</span><span class="sr-only">في موقع منظمة التعاون الاقتصادي والتنمية</span></a><small>المصدر: OECD Directorate for Education and Skills</small></article>
-            <article class="education-news-card"><div class="education-news-card-top"><span class="education-source-mark" aria-hidden="true">TVET</span><span class="education-source-kind">صفحة موجز RSS</span></div><h3>UNESCO-UNEVOC · التدريب المهني</h3><p>صفحة تعريف تربط بموجزات XML لأخبار وفعاليات التعليم والتدريب التقني والمهني؛ لا تعرض المواد الحية نفسها.</p><a class="education-research-link" href="https://unevoc.unesco.org/home/rss-feed" target="_blank" rel="noopener noreferrer">تفاصيل موجزات RSS <span aria-hidden="true">↗</span><span class="sr-only">في موقع UNESCO-UNEVOC</span></a><small>المصدر: UNESCO-UNEVOC</small></article>
-          </div>
-          <p class="education-feed-note">هذه روابط إلى مواقعها الأصلية وليست تغطية تحريرية صادرة عن مكتبات بورسعيد. لا ننسخ الأخبار الخارجية أو نصفها بأنها حصرية.</p>
+          <div class="education-section-heading"><div><span class="eyebrow">ملخصات آلية · مصادر موثوقة</span><h2 id="educationNewsTitle">أحدث أخبار التعليم بالعربية</h2><p>يرصد المساعد الأخبار الجديدة كل أربع ساعات، ويضيف ترجمة أو خلاصة مختصرة مع تاريخ النشر ورابط المصدر الأصلي.</p></div></div>
+          <p class="education-news-status" id="educationNewsStatus" role="status" aria-live="polite"></p>
+          <div class="education-news-grid live-news-grid" id="educationNewsGrid" aria-live="polite" aria-busy="true"></div>
+          <p class="education-feed-note" id="educationNewsUpdated">سيعرض الموجز فقط أخبارًا يمكن التحقق من مصدرها وتاريخها؛ لا يعني ظهور خبر تأييدًا أو شراكة مع الجهة الناشرة.</p>
         </section>
 
         <section class="education-papers-section" aria-labelledby="educationPapersTitle">

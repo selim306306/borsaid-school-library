@@ -97,3 +97,33 @@
 .education-research-suggestions-label { color: #596579; }
 .education-research-field input::placeholder { color: #64748b; }
 .education-research-more:focus-visible { outline: 3px solid #2449ad; outline-offset: 3px; }
+
+
+/* Arabic editorial feed: show useful summaries first and the source second. */
+.home-news-section{margin-top:8px;margin-bottom:30px;padding:26px 25px 24px;border:1px solid #e2e8f4;border-radius:24px;background:linear-gradient(128deg,#eef4ff 0%,#fff 52%,#fff8e8 100%)}
+.home-news-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px}
+.home-news-heading h2{margin:5px 0 4px;font-size:25px;line-height:1.4}
+.home-news-heading p{max-width:720px;margin:0;color:#596579;font-size:12px}
+.news-updated{margin:0;color:#596579;font-size:10px;font-weight:600;white-space:nowrap}
+.news-ai-note{margin:12px 0;padding:9px 12px;border-inline-start:3px solid #d2a32a;border-radius:5px 10px 10px 5px;background:#fffdf6;color:#596579;font-size:10px;line-height:1.7}
+.live-news-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}
+.live-news-card{min-height:245px;border-top:3px solid #5676d3}
+.live-news-card:nth-child(3n+2){border-top-color:#d85c68}
+.live-news-card:nth-child(3n){border-top-color:#dcb237}
+.news-source-name{max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:700;color:#3554a1}
+.news-language-tag,.news-category{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#fff5df;color:#765a19;font-size:9px;font-weight:700}
+.news-card-title{font-size:16px!important;line-height:1.55!important}
+.news-card-summary{font-size:12px!important;line-height:1.8!important;color:#4f5d74!important}
+.news-card-metadata{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding:0 0 10px}
+.news-date{color:#596579;font-size:10px}
+.news-source-link{min-height:35px!important;margin-top:0!important}
+.home-news-status{min-height:20px;margin:8px 0;color:#596579;font-size:11px}
+.home-news-status.is-error{color:#9a3945}
+.home-news-all{margin-top:15px}
+.education-news-section .live-news-grid{margin-top:14px}
+.education-news-section .live-news-card{min-height:235px}
+.education-news-status{min-height:21px;margin:8px 0;color:#596579;font-size:11px}
+.education-news-status.is-error{color:#9a3945}
+@media(max-width:940px){.live-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.home-news-section{margin-top:2px;padding:19px 14px;border-radius:20px}.home-news-heading{align-items:flex-start;flex-direction:column;gap:5px}.home-news-heading h2{font-size:21px}.news-updated{white-space:normal}.live-news-grid{grid-template-columns:1fr}.live-news-card,.education-news-section .live-news-card{min-height:0}.news-card-metadata{margin-top:3px}.news-source-link{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.leadership-banner .leadership-person,.live-news-card{scroll-behavior:auto;transition:none}}
