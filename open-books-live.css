@@ -1,0 +1,509 @@
+.livealert-section,
+.openbooks-section {
+  direction: rtl;
+  min-width: 0;
+  max-width: 1180px;
+  margin-inline: auto;
+  color: var(--ink, #182744);
+}
+
+.livealert-section {
+  margin-top: 20px;
+  margin-bottom: 28px;
+  padding: 26px 28px 20px;
+  border: 1px solid #f1d5d7;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #fffafa 0%, #fff 65%);
+  box-shadow: 0 12px 34px rgba(95, 47, 54, .055);
+}
+
+.livealert-heading,
+.openbooks-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  min-width: 0;
+}
+
+.livealert-heading-copy,
+.openbooks-heading-copy {
+  min-width: 0;
+}
+
+.livealert-title,
+.openbooks-heading-title {
+  margin: 5px 0 4px;
+  font-size: clamp(21px, 2.5vw, 28px);
+  line-height: 1.4;
+  letter-spacing: -.4px;
+}
+
+.livealert-description,
+.openbooks-intro {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted, #66758f);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.livealert-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+  flex: 0 0 auto;
+}
+
+.livealert-cadence {
+  padding: 6px 10px;
+  border: 1px solid #f1dddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #79575c;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.livealert-refresh,
+.openbooks-search-button {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--blue, #385dcc);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background .18s, transform .18s;
+}
+
+.livealert-refresh:hover,
+.openbooks-search-button:hover {
+  background: var(--blue-dark, #2449ad);
+  transform: translateY(-1px);
+}
+
+.livealert-refresh:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.livealert-status,
+.openbooks-search-status {
+  min-height: 22px;
+  margin: 13px 0 10px;
+  color: #62718a;
+  font-size: 11px;
+}
+
+.livealert-status.is-error {
+  color: #a2343d;
+}
+
+.livealert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+  min-width: 0;
+}
+
+.livealert-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 15px 16px 14px;
+  border: 1px solid #eceef3;
+  border-radius: 15px;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.livealert-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  color: #78869c;
+  font-size: 10px;
+}
+
+.livealert-source {
+  color: #a83c45;
+  font-weight: 700;
+}
+
+.livealert-card-title {
+  margin: 9px 0 5px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.livealert-card-summary {
+  margin: 0 0 12px;
+  color: #68768c;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.livealert-source-link {
+  align-self: flex-start;
+  margin-top: auto;
+  color: var(--blue-dark, #2449ad);
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.livealert-empty {
+  grid-column: 1 / -1;
+  padding: 17px 18px;
+  border: 1px dashed #e9cfd1;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .85);
+}
+
+.livealert-empty strong {
+  font-size: 12px;
+}
+
+.livealert-empty p {
+  margin: 4px 0 0;
+  color: #718097;
+  font-size: 11px;
+}
+
+.livealert-note {
+  margin: 12px 0 0;
+  color: #78859a;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.openbooks-section {
+  margin-top: 42px;
+  margin-bottom: 48px;
+  padding: 31px 30px 29px;
+  border: 1px solid #e6ebf4;
+  border-radius: 23px;
+  background: linear-gradient(145deg, #f9fbff 0%, #fff 70%);
+}
+
+.openbooks-count {
+  flex: 0 0 auto;
+  margin-top: 8px;
+  padding: 6px 11px;
+  border: 1px solid #e0e6f2;
+  border-radius: 999px;
+  background: #fff;
+  color: #536792;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.openbooks-rights-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 17px 0 18px;
+  padding: 12px 14px;
+  border: 1px solid #e4eaf5;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.openbooks-rights-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #edf2ff;
+  color: var(--blue, #385dcc);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.openbooks-rights-note p {
+  margin: 0;
+  color: #66758d;
+  font-size: 10px;
+  line-height: 1.85;
+}
+
+.openbooks-search {
+  margin: 0 0 16px;
+}
+
+.openbooks-search-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #53617a;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.openbooks-search-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 0;
+}
+
+.openbooks-search-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 45px;
+  padding: 0 13px;
+  border: 1px solid #dfe5ef;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink, #182744);
+  font-size: 12px;
+}
+
+.openbooks-search-input::placeholder {
+  color: #9aa5b6;
+}
+
+.openbooks-search-button {
+  flex: 0 0 auto;
+  min-width: 74px;
+}
+
+.openbooks-search-status {
+  margin: 7px 0 0;
+}
+
+.openbooks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  min-width: 0;
+}
+
+.openbooks-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 16px 16px 14px;
+  border: 1px solid #e7ebf2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(30, 48, 84, .035);
+  overflow-wrap: anywhere;
+}
+
+.openbooks-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.openbooks-kind,
+.openbooks-language {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: #f0f4ff;
+  color: #4761aa;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.openbooks-language {
+  background: #f4f6f8;
+  color: #68768c;
+}
+
+.openbooks-title {
+  margin: 12px 0 4px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.openbooks-author,
+.openbooks-subject,
+.openbooks-availability,
+.openbooks-attribution {
+  margin: 0 0 5px;
+  color: #68768c;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.openbooks-subject {
+  min-height: 38px;
+}
+
+.openbooks-availability {
+  color: #28714f;
+  font-weight: 700;
+}
+
+.openbooks-attribution {
+  margin-top: 4px;
+  color: #707d91;
+  font-size: 9px;
+}
+
+.openbooks-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.openbooks-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 37px;
+  padding: 0 12px;
+  border: 1px solid #dfe5ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #34476e;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  transition: border-color .18s, background .18s;
+}
+
+.openbooks-action:hover {
+  border-color: #aebce2;
+  background: #f6f8ff;
+}
+
+.openbooks-download {
+  border-color: #385dcc;
+  background: #385dcc;
+  color: #fff;
+}
+
+.openbooks-download:hover {
+  border-color: #2449ad;
+  background: #2449ad;
+}
+
+.openbooks-citation {
+  margin-top: 11px;
+  padding-top: 9px;
+  border-top: 1px solid #edf0f4;
+  color: #63718a;
+  font-size: 9px;
+  line-height: 1.8;
+}
+
+.openbooks-source-link,
+.openbooks-license-link {
+  color: #3e58a1;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.openbooks-empty {
+  grid-column: 1 / -1;
+  padding: 24px 18px;
+  border: 1px dashed #dce3ee;
+  border-radius: 14px;
+  background: #fff;
+  text-align: center;
+}
+
+.openbooks-empty strong {
+  font-size: 12px;
+}
+
+.openbooks-empty p {
+  margin: 5px 0 0;
+  color: #748198;
+  font-size: 10px;
+}
+
+.portal-side-books .portal-side-icon {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.livealert-section a:focus-visible,
+.livealert-section button:focus-visible,
+.openbooks-section a:focus-visible,
+.openbooks-section button:focus-visible,
+.openbooks-section input:focus-visible {
+  outline: 3px solid rgba(56, 93, 204, .35);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .openbooks-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .livealert-section,
+  .openbooks-section {
+    width: min(100% - 28px, 1180px);
+    padding: 21px 16px 18px;
+    border-radius: 17px;
+  }
+
+  .livealert-heading,
+  .openbooks-heading {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .livealert-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .livealert-grid,
+  .openbooks-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .openbooks-count {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .livealert-section,
+  .openbooks-section {
+    width: calc(100% - 22px);
+    padding-inline: 13px;
+  }
+
+  .livealert-cadence {
+    font-size: 9px;
+    white-space: normal;
+  }
+
+  .livealert-refresh {
+    min-height: 38px;
+    padding-inline: 11px;
+  }
+
+  .openbooks-search-row {
+    gap: 6px;
+  }
+
+  .openbooks-search-button {
+    min-width: 65px;
+    padding-inline: 10px;
+  }
+}
