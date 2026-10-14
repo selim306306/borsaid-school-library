@@ -89,3 +89,11 @@
 .education-research-index-note{border-color:#d7e9df;background:linear-gradient(110deg,#eef8f1,#f7fbff)}
 .education-local-news{border-color:#e8c968;border-inline-start:4px solid #d2a32a;background:linear-gradient(110deg,#fff5da 0%,#fff 72%)}
 .education-local-news-label{color:#805f16}
+
+/* Keep small research notes readable and expose keyboard focus on pagination. */
+.education-news-card small,
+.education-source-kind,
+.education-research-footnote,
+.education-research-suggestions-label { color: #596579; }
+.education-research-field input::placeholder { color: #64748b; }
+.education-research-more:focus-visible { outline: 3px solid #2449ad; outline-offset: 3px; }

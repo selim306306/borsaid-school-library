@@ -12,6 +12,7 @@ const API_URL = 'https://api.openalex.org/works';
 const PAGE_SIZE = 5;
 const MAX_PAGES = 4;
 const MIN_REQUEST_GAP_MS = 1100;
+const REQUEST_TIMEOUT_MS = 25000;
 let query = '';
 let page = 0;
 let total = 0;
@@ -38,9 +39,23 @@ function limitedJson(url, signal) {
     if (wait) await delayWithAbort(wait, signal);
     if (signal.aborted) throw abortError();
     lastRequestStarted = Date.now();
-    const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
-    if (!response.ok) throw new Error(`http_${response.status}`);
-    return response.json();
+    const requestController = new AbortController();
+    let timedOut = false;
+    const timeout = window.setTimeout(() => { timedOut = true; requestController.abort(); }, REQUEST_TIMEOUT_MS);
+    const abortRequest = () => requestController.abort();
+    if (signal.aborted) abortRequest();
+    else signal.addEventListener('abort', abortRequest, { once: true });
+    try {
+      const response = await fetch(url, { signal: requestController.signal, headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error(`http_${response.status}`);
+      return await response.json();
+    } catch (error) {
+      if (timedOut) throw new Error('http_timeout');
+      throw error;
+    } finally {
+      window.clearTimeout(timeout);
+      signal.removeEventListener('abort', abortRequest);
+    }
   };
   const request = requestQueue.then(run, run);
   requestQueue = request.catch(() => {});
@@ -89,14 +104,20 @@ function makeExternalLink(label, href, className = 'education-research-link') {
 
 function formatDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return 'التاريخ غير متاح';
-  const parsed = new Date(`${value}T12:00:00Z`);
-  if (Number.isNaN(parsed.getTime())) return 'التاريخ غير متاح';
+  const [year, month, day] = value.split('-').map(Number);
+  const parsed = new Date(Date.UTC(year, month - 1, day, 12));
+  if (year < 1000 || parsed.getUTCFullYear() !== year || parsed.getUTCMonth() + 1 !== month || parsed.getUTCDate() !== day) return 'التاريخ غير متاح';
   return new Intl.DateTimeFormat('ar-EG', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(parsed);
 }
 
 function formatCount(value) {
   const count = Number(value);
   return Number.isFinite(count) && count >= 0 ? new Intl.NumberFormat('ar-EG').format(count) : '—';
+}
+
+function formatYear(value) {
+  const year = Number(value);
+  return Number.isInteger(year) && year > 0 ? new Intl.NumberFormat('ar-EG', { useGrouping: false }).format(year) : '—';
 }
 
 function typeLabel(type) {
@@ -110,7 +131,8 @@ function typeLabel(type) {
     editorial: 'افتتاحية',
     proceedings: 'ورقة مؤتمر',
   };
-  return labels[String(type || '').toLowerCase()] || 'منشور بحثي';
+  const rawType = typeof type === 'string' ? type.trim().toLowerCase() : '';
+  return labels[rawType] || (rawType ? `نوع OpenAlex غير معروض بالعربية: ${rawType.slice(0, 60)}` : 'نوع المنشور غير محدد في السجل');
 }
 
 function createWorkCard(work) {
@@ -150,12 +172,15 @@ function createWorkCard(work) {
   topic.className = 'education-work-source';
   topic.textContent = `الموضوع المصنّف لدى OpenAlex: ${typeof topicName === 'string' && topicName.trim() ? topicName : 'غير محدد في السجل'}`;
 
-  const dateValue = typeof work.publication_date === 'string'
-    ? work.publication_date
-    : (Number.isInteger(work.publication_year) ? `${work.publication_year}-01-01` : '');
+  const dateValue = typeof work.publication_date === 'string' ? work.publication_date : '';
   const date = document.createElement('p');
   date.className = 'education-work-date';
-  date.textContent = `تاريخ النشر المسجّل: ${formatDate(dateValue)}`;
+  const formattedDate = formatDate(dateValue);
+  date.textContent = formattedDate !== 'التاريخ غير متاح'
+    ? `تاريخ النشر المسجّل: ${formattedDate}`
+    : (Number.isInteger(work.publication_year) && work.publication_year > 0
+      ? `سنة النشر المسجّلة: ${formatYear(work.publication_year)}`
+      : 'تاريخ النشر غير مسجّل في السجل');
 
   const actions = document.createElement('div');
   actions.className = 'education-work-actions';
@@ -248,7 +273,7 @@ async function searchWorks({ append = false } = {}) {
   moreButton.hidden = true;
   status.textContent = append
     ? 'جارٍ تحميل مجموعة أخرى من المصدر…'
-    : 'جارٍ البحث مباشرة في OpenAlex عن منشورات مفتوحة الوصول؛ لا تُحفظ عبارة البحث في هذا الموقع.';
+    : 'جارٍ البحث مباشرة في OpenAlex عن سجلات مصنّفة مفتوحة الوصول؛ لا تُحفظ عبارة البحث في هذا الموقع.';
 
   try {
     const data = await limitedJson(makeApiUrl(query, requestedPage), signal);
@@ -270,8 +295,10 @@ async function searchWorks({ append = false } = {}) {
     total = Number(data.meta?.count) || 0;
     const shown = results.querySelectorAll('.education-work-card').length;
     const endReached = works.length < PAGE_SIZE || page >= MAX_PAGES || shown >= total;
+    const capped = page >= MAX_PAGES && shown < total;
     moreButton.hidden = endReached;
-    status.textContent = `عرض ${formatCount(shown)} من ${formatCount(total)} سجل مفتوح الوصول، مصنّف ضمن مجال التعليم لدى OpenAlex وحتى تاريخ اليوم. هذا الفهرس لا يثبت التحكيم العلمي ولا يضمن وجود ملف PDF لكل سجل.`;
+    const capNotice = capped ? ` وصلنا إلى حد العرض (${formatCount(PAGE_SIZE * MAX_PAGES)} سجلًا)؛ قد توجد نتائج إضافية لدى OpenAlex.` : '';
+    status.textContent = `عرض ${formatCount(shown)} من ${formatCount(total)} سجل مصنّف مفتوح الوصول ضمن مجال التعليم لدى OpenAlex وحتى تاريخ اليوم.${capNotice} هذا الفهرس لا يثبت التحكيم العلمي ولا يضمن وجود ملف PDF لكل سجل.`;
   } catch (error) {
     if (error?.name === 'AbortError' || requestId !== generation) return;
     if (append) {

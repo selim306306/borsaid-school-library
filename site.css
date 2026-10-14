@@ -271,3 +271,10 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 #globalReadingTab.active:after{background:#5676d3}
 #educationResearchTab.active{color:#925c21;background:#fff5e6}
 #educationResearchTab.active:after{background:#e2a347}
+
+
+/* Keep source dates and the non-endorsement notice readable in the compact hero rail. */
+.leadership-person-title{color:#56657c}
+.leadership-person-source{color:#38549a}
+.leadership-person-title,.leadership-person-source,.leadership-disclaimer,.leadership-photo-note{font-size:11px}
+.leadership-disclaimer{color:#45536d;line-height:1.8}
