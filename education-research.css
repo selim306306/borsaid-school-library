@@ -1,0 +1,73 @@
+.education-research-section{padding:44px 0 76px;color:var(--ink)}
+.education-research-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:24px}
+.education-research-heading h1{margin:8px 0 8px;font-size:clamp(30px,4vw,44px);line-height:1.3;letter-spacing:-.035em}
+.education-research-heading p{margin:0;color:var(--muted);max-width:760px}
+.education-research-stamp{flex:none;border:1px solid #dbe4fb;background:#f3f6ff;color:#3554a1;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:700}
+.education-research-intro{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;margin:0 0 38px;border:1px solid #e4eaf7;border-radius:16px;background:linear-gradient(110deg,#f7f9ff,#fff);color:#43516d}
+.education-research-intro strong{color:var(--ink)}
+.education-research-intro p{margin:3px 0 0;font-size:13px}
+.education-research-icon{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:9px;background:#e8efff;color:#365cc2;font-weight:800}
+.education-news-section,.education-papers-section{margin-top:42px}
+.education-section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
+.education-section-heading h2{font-size:25px;line-height:1.35;margin:5px 0 4px;letter-spacing:-.02em}
+.education-section-heading p{color:var(--muted);font-size:13px;margin:0;max-width:660px}
+.education-news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.education-news-card{position:relative;display:flex;flex-direction:column;min-height:226px;padding:21px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 8px 24px rgba(30,47,83,.045);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.education-news-card:hover{transform:translateY(-2px);border-color:#cad6f5;box-shadow:0 16px 34px rgba(30,47,83,.09)}
+.education-news-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.education-source-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#eef2ff;color:#354fa1;font-size:11px;font-weight:800;letter-spacing:.02em}
+.education-news-card:nth-child(3n+2) .education-source-mark{background:#fff2e7;color:#9a5a2b}
+.education-news-card:nth-child(3n) .education-source-mark{background:#edf7f1;color:#28734f}
+.education-source-kind{font-size:10px;color:#67758f;background:#f6f7fa;border-radius:999px;padding:5px 9px;font-weight:700}
+.education-news-card h3{font-size:17px;line-height:1.5;margin:0 0 8px}
+.education-news-card p{font-size:12px;line-height:1.75;color:var(--muted);margin:0 0 17px}
+.education-news-card .education-research-link{margin-top:auto;align-self:flex-start}
+.education-news-card small{font-size:10px;color:#7b879a;margin-top:9px}
+.education-feed-note{margin:15px 2px 0;color:#65728a;font-size:11px}
+.education-research-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:fit-content;min-height:38px;padding:8px 13px;border:1px solid #d8e0f1;border-radius:11px;background:#fff;color:#3554a1;font-size:12px;font-weight:700;text-decoration:none}
+.education-research-link:hover{border-color:#9fb2e5;background:#f7f9ff}
+.education-research-link:focus-visible,.education-research-suggestion:focus-visible,.education-research-form input:focus-visible,.education-research-form select:focus-visible,.education-research-form button:focus-visible{outline:3px solid rgba(56,93,204,.3);outline-offset:2px}
+.education-research-link-primary{border-color:#385dcc;background:#385dcc;color:#fff}
+.education-research-link-primary:hover{background:#2449ad;color:#fff}
+.education-research-link-muted{background:#f8f9fc;color:#53627d}
+.education-papers-section{padding:28px;border:1px solid #e6eaf2;border-radius:22px;background:linear-gradient(145deg,#fbfcff,#f7f9fd)}
+.education-research-form{display:grid;grid-template-columns:minmax(0,1fr) 190px auto;align-items:end;gap:12px;margin-top:20px}
+.education-research-field{display:flex;flex-direction:column;gap:7px}
+.education-research-field label{font-size:12px;font-weight:700;color:#42516c}
+.education-research-field input,.education-research-field select{width:100%;height:48px;min-width:0;padding:0 13px;border:1px solid #dfe4ee;border-radius:12px;background:#fff;color:var(--ink)}
+.education-research-field input::placeholder{color:#99a3b4}
+.education-research-submit{height:48px;white-space:nowrap}
+.education-research-submit:disabled,.education-research-more:disabled{opacity:.55;cursor:wait}
+.education-research-suggestions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:13px}
+.education-research-suggestions-label{font-size:11px;color:#71809a}
+.education-research-suggestion{border:1px solid #e0e5ef;border-radius:999px;padding:6px 11px;background:#fff;color:#475773;font-size:11px;cursor:pointer}
+.education-research-suggestion:hover{background:#edf2ff;border-color:#cbd7f6}
+.education-research-privacy{margin:13px 0 0;padding:10px 12px;border-inline-start:3px solid #f0c44b;background:#fffdf6;border-radius:5px 10px 10px 5px;color:#65718a;font-size:11px}
+.education-research-status{min-height:25px;margin:15px 0 10px;color:#4d5c77;font-size:12px}
+.education-research-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.education-work-card{display:flex;flex-direction:column;min-width:0;padding:18px;border:1px solid #e3e8f1;border-radius:16px;background:#fff;box-shadow:0 5px 18px rgba(32,50,88,.035)}
+.education-work-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.education-work-type,.education-work-access{display:inline-flex;max-width:65%;padding:5px 9px;border-radius:999px;font-size:10px;line-height:1.4;font-weight:700;background:#f1f3f8;color:#5c6880}
+.education-work-access{background:#fff5e3;color:#8c621a;text-align:center}
+.education-work-access.is-open{background:#eaf7ef;color:#2f7651}
+.education-work-card h3{font-size:15px;line-height:1.6;margin:1px 0 10px;overflow-wrap:anywhere}
+.education-work-authors,.education-work-source,.education-work-date{font-size:11px;line-height:1.7;color:#66738b;margin:3px 0;overflow-wrap:anywhere}
+.education-work-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:13px}
+.education-research-more-row{display:flex;justify-content:center;margin-top:18px}
+.education-research-more{min-width:210px}
+.education-research-message{grid-column:1/-1;padding:18px;border:1px dashed #d8dfec;border-radius:15px;background:#fff;color:#495873}
+.education-research-message strong{display:block;color:var(--ink);margin-bottom:4px}
+.education-research-message p{font-size:12px;margin:0 0 12px;color:#68758d}
+.education-research-retry{background:#fff8e8;color:#765313;border-color:#efd699;cursor:pointer}
+.education-research-index-note{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:19px;padding:14px 16px;border:1px solid #dfe8ed;border-radius:14px;background:#f5fafc}
+.education-research-index-note strong{font-size:13px}
+.education-research-index-note p{font-size:11px;color:#617286;margin:3px 0 0}
+.education-local-news{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;margin-top:28px;padding:22px 24px;border:1px dashed #cfd8ea;border-radius:18px;background:#fbfcff}
+.education-local-news h2{font-size:19px;margin:0 0 5px}
+.education-local-news p{font-size:12px;color:var(--muted);margin:0;max-width:760px}
+.education-local-news-label{display:inline-block;margin-bottom:8px;color:#5c6f99;font-size:10px;font-weight:700}
+.education-research-footnote{margin:18px 2px 0;color:#7a879a;font-size:10px;line-height:1.7}
+.education-research-footnote a{color:#3554a1;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:940px){.education-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.education-research-heading{align-items:flex-start;flex-direction:column;gap:12px}}
+@media(max-width:680px){.education-research-section{padding-top:27px;padding-bottom:50px}.education-research-heading h1{font-size:30px}.education-section-heading{align-items:flex-start;flex-direction:column;gap:6px}.education-news-grid,.education-research-results{grid-template-columns:1fr}.education-news-card{min-height:0}.education-papers-section{padding:18px 14px;border-radius:17px}.education-research-form{grid-template-columns:1fr;gap:10px}.education-research-submit{width:100%}.education-local-news{grid-template-columns:1fr;align-items:flex-start;padding:18px}.education-local-news .education-research-link{width:100%}.education-research-index-note{align-items:flex-start;flex-direction:column}.education-research-stamp{white-space:normal}}
+@media(prefers-reduced-motion:reduce){.education-news-card{transition:none}}

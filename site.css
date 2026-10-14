@@ -204,7 +204,7 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 @media(max-width:700px){.home-guide{margin-bottom:50px;padding:18px;border-radius:20px}.home-guide-heading{display:block;margin-bottom:15px}.home-guide-heading h2{font-size:23px}.home-guide-heading p{margin-top:7px;font-size:12px}.home-guide-grid{grid-template-columns:1fr;gap:9px}.home-guide-card,.home-guide-card:last-child{grid-column:auto;min-height:0;padding:15px}.home-guide-card h3{margin-top:11px}.home-guide-card p{font-size:11px}.home-visit-note{align-items:flex-start;flex-wrap:wrap;padding:13px}.home-note-copy{min-width:calc(100% - 48px)}.home-quick-links{width:100%;padding-inline-start:43px}.home-quick-links a{min-height:36px;font-size:10px}}
 @media(max-width:380px){.home-guide{padding:14px}.home-guide-heading h2{font-size:21px}.home-quick-links{padding-inline-start:0}.home-quick-links a{padding-inline:8px;font-size:9px}}
 
-/* Main visitor navigation: accessible five-view tabs. */
+/* Main visitor navigation: accessible seven-view tabs. */
 .desktop-nav,.mobile-nav{display:none!important}
 .site-tabs{display:flex;align-items:stretch;gap:6px;overflow-x:auto;overscroll-behavior-inline:contain;margin:0 auto 12px;border-bottom:1px solid var(--line);scrollbar-width:none}
 .site-tabs::-webkit-scrollbar{display:none}
@@ -219,3 +219,25 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .public-notice p{margin:0;color:var(--muted);font-size:12px}
 @media(max-width:700px){.site-tabs{gap:4px;margin-bottom:8px}.view-tab{min-height:46px;padding-inline:14px;font-size:11px}.public-announcements{padding-top:24px;padding-bottom:48px}.public-notice{padding:15px}}
 @media(max-width:360px){.view-tab{padding-inline:10px;font-size:10px}}
+
+
+/* Ambition and public-source leadership rail: RTL order places it on the left at desktop. */
+.hero.hero-with-rail{grid-template-columns:minmax(245px,.88fr) minmax(290px,1.12fr) minmax(270px,.9fr);gap:22px;min-height:0;align-items:stretch}.hero.hero-with-rail .hero-copy{grid-area:copy;align-self:center}.hero.hero-with-rail .hero-image-wrap{grid-area:visual;margin-left:0;align-self:center}.leadership-rail{grid-area:rail;align-self:stretch;display:flex;flex-direction:column;gap:10px;padding:19px 17px;border:1px solid #e7ebf4;border-radius:21px;background:linear-gradient(155deg,#f6f8ff 0%,#fff 72%);box-shadow:0 12px 34px rgba(37,57,99,.07)}.leadership-rail-kicker{display:inline-flex;align-self:flex-start;padding:5px 9px;border:1px solid #e3e8f7;border-radius:999px;background:#fff;color:#425fa9;font-size:9px;font-weight:800}.leadership-rail h2{margin:0;color:#182744;font-size:clamp(16px,1.7vw,21px);line-height:1.55;letter-spacing:-.35px}.leadership-rail-intro{margin:0;color:#65738b;font-size:10px;line-height:1.85}.leadership-rail-divider{height:1px;margin:2px 0;border:0;background:#e8ebf2}.leadership-rail h3{margin:0;color:#354663;font-size:11px}.leadership-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}.leadership-person{display:grid;grid-template-columns:35px minmax(0,1fr);align-items:center;gap:8px;padding:7px 8px;border:1px solid #ebeff5;border-radius:12px;background:rgba(255,255,255,.82)}.leadership-avatar{display:flex;align-items:center;justify-content:center;width:35px;height:35px;overflow:hidden;border:1px solid #e8ecf4;border-radius:50%;background:#f2f5fc;color:#566b9d;font-size:9px;font-weight:800}.leadership-avatar img{width:100%;height:100%;object-fit:cover}.leadership-person-name{display:block;color:#283957;font-size:9px;font-weight:800;line-height:1.5}.leadership-person-title{display:block;color:#738097;font-size:8px;line-height:1.6}.leadership-person-source{display:inline-block;margin-top:2px;color:#4260a8;font-size:8px;font-weight:700;text-decoration:underline;text-underline-offset:2px}.leadership-disclaimer{margin:0;color:#7e889b;font-size:8px;line-height:1.75}.leadership-source-date{font-weight:700;color:#596884}
+@media(min-width:981px){.hero.hero-with-rail{grid-template-areas:"copy visual rail"}}
+@media(max-width:980px){.hero.hero-with-rail{grid-template-columns:.95fr 1.05fr;grid-template-areas:"copy visual" "rail rail";gap:20px;padding-top:35px;padding-bottom:55px}.hero.hero-with-rail .hero-copy{grid-area:copy}.hero.hero-with-rail .hero-image-wrap{grid-area:visual}.leadership-rail{grid-area:rail}}
+@media(max-width:700px){.hero.hero-with-rail{display:flex;flex-direction:column;align-items:stretch;gap:16px;padding-top:19px;padding-bottom:42px}.hero.hero-with-rail .hero-copy{order:1}.hero.hero-with-rail .hero-image-wrap{order:0;margin:0 7px 0 0}.leadership-rail{order:2;padding:15px;border-radius:18px}.leadership-rail h2{font-size:18px}.leadership-person{grid-template-columns:34px minmax(0,1fr)}}
+
+.leadership-photo-note{margin:0;padding-top:6px;border-top:1px solid #e8ebf2;color:#6c778a;font-size:8px;line-height:1.7}
+
+/* Keep names, roles and attribution notes readable across desktop and mobile layouts. */
+.leadership-rail-kicker{font-size:10px}
+.leadership-rail-intro{font-size:11px}
+.leadership-person-name{font-size:10px}
+.leadership-person-title,.leadership-person-source,.leadership-disclaimer,.leadership-photo-note{font-size:9px}
+
+
+/* Final type scale adjustment after visual review of the leadership rail. */
+.leadership-rail-kicker{font-size:11px}
+.leadership-rail-intro{font-size:12px}
+.leadership-person-name{font-size:11px}
+.leadership-person-title,.leadership-person-source,.leadership-disclaimer,.leadership-photo-note{font-size:10px}
