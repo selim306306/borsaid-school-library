@@ -23,9 +23,10 @@
       <img src="assets/mark.svg" alt="" width="44" height="44">
       <span class="brand-copy"><strong>مكتبات بورسعيد</strong><small>شبكة المكتبات المدرسية</small></span>
     </a>
-    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
-      <a href="#discover">اكتشف الكتب</a>
-      <a href="#branches">المكتبات</a>
+	    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
+	      <a href="#discover">اكتشف الكتب</a>
+	      <a href="#visitorAssistant">اسأل المساعد</a>
+	      <a href="#branches">المكتبات</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
     </nav>
     <button class="button button-outline staff-open" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span> دخول الموظفين</button>
@@ -51,9 +52,19 @@
       </div>
       <span class="hero-spark spark-one" aria-hidden="true">✳</span>
       <span class="hero-spark spark-two" aria-hidden="true">✦</span>
-    </section>
+	    </section>
 
-    <section class="search-section section-wrap" id="discover" aria-labelledby="search-title">
+	    <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
+	      <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
+	      <div class="visitor-assistant-box">
+	        <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
+	        <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
+	        <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
+	        <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
+	      </div>
+	    </section>
+
+	    <section class="search-section section-wrap" id="discover" aria-labelledby="search-title">
       <div class="section-heading search-heading">
         <div><span class="eyebrow">فهرس مشترك</span><h2 id="search-title">ما الكتاب الذي تبحث عنه؟</h2><p>اكتب عنواناً أو اسم مؤلف أو رقماً عاماً، ثم استكشف النتائج المنشورة.</p></div>
         <span class="live-pill"><i></i> بحث مباشر</span>
@@ -255,12 +266,19 @@
           <div class="export-card" id="operationalBackupCard" hidden><div><strong>تصدير بيانات تشغيلية JSON</strong><p>يشمل سجلات المستعيرين والإعارة؛ ملف حساس، متاح لمالك المكتبة فقط.</p></div><button class="button button-outline" id="exportOperationalBackup" type="button">تنزيل التصدير</button></div>
           <div class="privacy-banner">هذا تصدير تشغيلي وليس نسخة PostgreSQL كاملة. النسخ التلقائية اليومية لدى Supabase متاحة لخطط Pro وTeam وEnterprise؛ أُرفق إعداد GitHub Actions آمن للنسخ الخارجية بعد إضافة الأسرار، ولم يُفعّل بعد.</div>
         </section>
-        <section class="staff-panel" id="automationPanel" hidden>
-          <div class="panel-heading"><div><h3>فحص آلي وخطوات تالية</h3><p>يراجع حالة الإعداد والعدادات محلياً داخل لوحة المكتبة.</p></div><button class="button button-soft" id="runAutomationAudit" type="button">إعادة الفحص الآن</button></div>
-          <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
-          <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
-          <ol id="automationTasks" class="automation-task-list"></ol>
-        </section>
+	        <section class="staff-panel" id="automationPanel" hidden>
+	          <div class="panel-heading"><div><h3>مدير التشغيل ومركز الفحص</h3><p>مراجعة تشغيلية عند الطلب؛ التوصيات لا تنفذ عمليات نيابةً عن الموظف.</p></div><button class="button button-soft" id="runAutomationAudit" type="button">إعادة الفحص الآن</button></div>
+	          <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
+	          <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
+	          <ol id="automationTasks" class="automation-task-list"></ol>
+	          <section class="manager-assistant-card" id="managerAssistantCard" hidden aria-labelledby="managerAssistantTitle">
+	            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط</span><h3 id="managerAssistantTitle">مساعد مدير المكتبة</h3><p>ملخص ذكي للأعداد والإعدادات المجمعة، يُنشأ عند الطلب ولا يقرأ أسماء أو سجلات أفراد.</p></div></div>
+	            <form id="managerAssistantForm"><button class="button button-primary" type="submit">أنشئ ملخص المدير الآن</button></form>
+	            <p class="form-message" id="managerAssistantMessage" role="status" aria-live="polite">يحتاج إلى نشر وظيفة Gemini وضبط أسرارها خادمياً قبل أن يعمل.</p>
+	            <div id="managerAssistantOutput" class="assistant-output" hidden></div>
+	            <details class="telegram-setup-note"><summary>تنبيهات Telegram (اختياري — غير مفعّلة)</summary><p>لا يوجد بوت منشأ أو رسائل مرسلة. إذا رغبت لاحقاً، يلزم إذنك الصريح أولاً، وتحديد نوع التنبيه ومستلمه وحدوده، ثم إعداد الأسرار في الخادم فقط واختبار قناة خاصة مع إمكانية إيقافها. لا تدخل رمز بوت أو بيانات هنا.</p></details>
+	          </section>
+	        </section>
         <section class="staff-panel" id="membersPanel" hidden>
           <div class="panel-heading"><div><h3>المستخدمون والصلاحيات</h3><p>لا يوجد تسجيل ذاتي؛ تُرسل الدعوات عبر وظيفة خلفية آمنة بعد تجهيز أسرارها.</p></div></div>
           <form id="inviteForm" class="staff-form-grid compact-form"><label>البريد الإلكتروني للدعوة<input name="email" type="email" required maxlength="254" autocomplete="off"></label><label>الدور<select name="role"><option value="librarian">أمين مكتبة</option><option value="circulation">إعارة واستلام</option><option value="reporter">تقارير فقط</option><option value="admin">مسؤول</option></select></label><button class="button button-primary form-action" type="submit">دعوة مستخدم</button></form>
@@ -268,10 +286,20 @@
           <div class="privacy-banner">الدعوات لا تعمل حتى تُنشر Edge Function ويُضبط نطاق الموقع وعنوان إعادة التوجيه. يظل مفتاح الخدمة خادمياً فقط ولا يوضع في الموقع أو المستودع.</div>
         </section>
         <section class="staff-panel" id="assistantPanel" hidden>
-          <div class="panel-heading"><div><h3>مساعد عمليات المكتبة</h3><p>ملخصات عربية للعدادات فقط؛ لا تُرسل أسماء أو سجلات مستعيرين إلى Gemini.</p></div></div>
+          <div class="panel-heading"><div><h3>مساعد المكتبة الذكي</h3><p>ملخصات للعدادات ودردشة إرشادية لأعضاء المكتبة المصرّح لهم.</p></div><button class="button button-outline" id="assistantTestButton" type="button">اختبار اتصال Gemini</button></div>
+	          <div class="privacy-banner">اختبار الاتصال يرسل طلباً ثابتاً بلا بيانات مكتبة. الدردشة الإرشادية خاصة بوظائف الموقع والعمل المكتبي ولا تُرفق سجلات المكتبة؛ يُرسل نص السؤال إلى Gemini فقط بعد موافقتك. لا تكتب أسماء طلاب أو مستعيرين أو أرقام عضوية أو هاتفاً أو بريداً أو سجلات إعارة. لا تُحفظ المحادثة في قاعدة البيانات.</div>
+          <p class="form-message" id="assistantTestMessage" role="status" aria-live="polite">لم يُجر اختبار الاتصال بعد.</p>
           <details class="assistant-settings"><summary>إعدادات النموذج</summary><p>اختيار النموذج يُحفظ على هذا المتصفح فقط. مفتاح Gemini لا يُدخل هنا ولا يصل إلى الواجهة؛ يُضبط كسِرّ خادمي في Supabase.</p><label>النموذج<select id="assistantModel" name="model"><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — أخف وأسرع</option><option value="gemini-3.8-flash">Gemini 3.8 Flash — أكثر قدرة</option></select></label></details>
           <form id="assistantForm" class="staff-form-grid compact-form"><label>نوع الملخص<select name="intent"><option value="inventory_summary">الجرد والمفقود والصيانة</option><option value="circulation_summary">الإعارات والاستحقاقات</option><option value="reservation_summary">الحجوزات والانتظار</option></select></label><button class="button button-primary form-action" type="submit">إنشاء ملخص</button></form>
           <p class="form-message" id="assistantMessage" role="status" aria-live="polite">لا يعمل Gemini حتى تُنشر الوظيفة الخلفية وتُضبط أسرارها على Supabase.</p><div id="assistantOutput" class="assistant-output" hidden></div>
+	          <section class="assistant-chat" aria-labelledby="assistantChatTitle"><div class="panel-heading"><div><h4 id="assistantChatTitle">مساعد الموظفين</h4><p>إرشاد لمهام الموقع والسياسات؛ لا يرى السجلات ولا ينفذ إجراءً.</p></div></div>
+	            <div class="assistant-prompt-chips" aria-label="أسئلة سريعة"><button type="button" data-staff-prompt="اشرح خطوات إضافة عنوان ونسخة ونشرها للعامة، مع التنبيه إلى ما يحتاج مراجعة.">إضافة كتاب ونشره</button><button type="button" data-staff-prompt="اشرح سير الإعارة والإرجاع والحجز للموظفين دون التعامل مع بيانات مستعير بعينه.">الإعارة والحجوزات</button><button type="button" data-staff-prompt="اشرح صلاحيات أدوار الموظفين وكيف أحافظ على خصوصية السجلات.">الأدوار والخصوصية</button></div>
+            <div class="assistant-chat-log" id="assistantChatLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="رسائل مساعد المكتبة"><p class="assistant-chat-empty">اسأل عن خطوات تنظيم العمل أو استخدام وظائف الموقع.</p></div>
+            <form id="assistantChatForm" class="assistant-chat-form"><label for="assistantChatInput">اكتب سؤالك (حتى 800 حرف)</label><textarea id="assistantChatInput" name="message" rows="3" maxlength="800" required placeholder="مثال: ما أفضل طريقة لمراجعة الجرد؟"></textarea>
+              <label class="assistant-chat-consent"><input name="consent" type="checkbox" required><span>أؤكد أن السؤال لا يتضمن بيانات أشخاص، وأوافق على إرسال نصه إلى Gemini للإجابة.</span></label>
+              <button class="button button-primary" type="submit">إرسال السؤال</button>
+            </form><p class="form-message" id="assistantChatMessage" role="status" aria-live="polite"></p>
+          </section>
         </section>
         <p class="form-message workspace-message" id="workspaceMessage" role="status" aria-live="polite"></p>
       </div>

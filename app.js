@@ -206,6 +206,123 @@ $('#clearSearch').addEventListener('click', () => {
 $('#resetSearch').addEventListener('click', () => $('#clearSearch').click());
 $('#loadMore').addEventListener('click', () => runPublicSearch({ append: true }));
 
+function normalizeVisitorText(value = '') {
+  return String(value).normalize('NFKD').replace(/[\u064b-\u065f\u0670\u06d6-\u06ed]/g, '')
+    .replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ـ/g, '').toLowerCase().trim();
+}
+const VISITOR_STOP_WORDS = new Set(['هل', 'ممكن', 'عايز', 'عايزة', 'عاوز', 'عاوزة', 'اريد', 'ابحث', 'بحث', 'عن', 'عندكم', 'يوجد', 'توجد', 'موجود', 'موجودة', 'كتاب', 'الكتاب', 'كتب', 'لو', 'سمحت', 'فين', 'اين', 'ما', 'هو', 'هي', 'في', 'من', 'المكتبة', 'مكتبه', 'رقم', 'عنوان']);
+function extractVisitorCatalogQuery(question) {
+  return normalizeVisitorText(question).split(/[^\p{L}\p{N}]+/u).filter(word => word && !VISITOR_STOP_WORDS.has(word)).join(' ').slice(0, 100);
+}
+function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '' } = {}) {
+  const log = $('#visitorAssistantLog');
+  const item = document.createElement('article');
+  item.className = `visitor-assistant-message ${kind}`;
+  const label = document.createElement('strong');
+  label.textContent = kind === 'user' ? 'أنت' : 'مساعد الزوار';
+  const body = document.createElement('p');
+  body.textContent = text;
+  item.append(label, body);
+  if (books.length) {
+    const list = document.createElement('ul');
+    books.slice(0, 6).forEach(book => {
+      const row = document.createElement('li');
+      const available = Number(book.available_copies || 0);
+      row.textContent = `${book.title || 'عنوان منشور'} — ${book.branch_name || book.city || 'فرع منشور'} — ${available ? `متاح ${available}` : 'غير متاح الآن'}`;
+      list.append(row);
+    });
+    item.append(list);
+  }
+  if (searchQuery) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'visitor-search-action';
+    button.dataset.visitorSearch = searchQuery;
+    button.textContent = 'فتح النتائج في الفهرس العام';
+    item.append(button);
+  }
+  log.append(item);
+  log.scrollTop = log.scrollHeight;
+}
+function publicBranchAnswer(question) {
+  const normalized = normalizeVisitorText(question);
+  const match = publicBranches.find(branch => normalized.includes(normalizeVisitorText(branch.branch_name)));
+  const branches = match ? [match] : publicBranches.slice(0, 5);
+  if (!branches.length) return 'لا توجد حالياً بيانات فروع منشورة يمكن عرضها. راجع هذه الصفحة لاحقاً؛ ساعات العمل غير معروضة هنا.';
+  const details = branches.map(branch => {
+    const place = [branch.city, branch.governorate, branch.public_address].filter(Boolean).join('، ');
+    const contact = [branch.public_phone, branch.public_email].filter(Boolean).join(' · ');
+    return `${branch.branch_name}${place ? ` — ${place}` : ''}${contact ? ` — ${contact}` : ''}`;
+  }).join('\n');
+  return `${match ? 'هذه بيانات الفرع المنشورة:' : 'هذه بعض بيانات الفروع المنشورة؛ افتح قسم المكتبات لرؤية القائمة كاملة:'}\n${details}\nلا تتوفر هنا معلومات مؤكدة عن مواعيد العمل.`;
+}
+async function answerVisitorQuestion(question) {
+  const normalized = normalizeVisitorText(question);
+  if (/(اونلاين|انترنت|الكترون|pdf|تحميل|تنزيل|اقرا|قراءة|قراءه)/.test(normalized)) {
+    return { text: 'الموقع يعرض فهرساً وإتاحة النسخ، لكنه لا يستضيف حالياً نصوص الكتب أو ملفات PDF للقراءة/التنزيل. ابحث عن الكتاب ثم اسأل الفرع عن خيارات قراءة قانونية إن كانت متاحة.' };
+  }
+  if (/(استعير|استلف|اعاره|حجز|احجز|استعاره)/.test(normalized)) {
+    return { text: 'ابحث عن العنوان في الفهرس، وتحقق من الفرع وعدد النسخ المتاحة وموقع الرف إن ظهر. بعد ذلك تواصل مع الفرع عبر وسيلة الاتصال المنشورة أو زره. طلب الإعارة والحجز يُدار حالياً من الموظفين داخل المكتبة؛ لا يتيح الموقع طلباً عاماً عبر الإنترنت.' };
+  }
+  if (/(عامل|موظف|امين|امناء|مسؤول|مسوول|شغال|يعمل|القائمين|فريق|اسماء)/.test(normalized)) {
+    return { text: 'لا ينشر الموقع حالياً أسماء الموظفين أو بياناتهم الشخصية. يعرض فقط بيانات الفروع ووسائل الاتصال التي اعتمدتها المكتبة ونشرتها؛ يمكنك مراجعة قسم المكتبات.' };
+  }
+  if (/(فرع|فروع|تليفون|هاتف|تواصل|مكان|مواعيد|دوام|ساعات|فين|اين)/.test(normalized) || /عنوان\s+(?:الفرع|المكتبة)/.test(normalized)) {
+    return { text: publicBranchAnswer(question) };
+  }
+  if (/(من نحن|عن المكتبة|عن الموقع|تعريف|هدف|ما هي المكتبة|ما هي مكتبات|مكتبات بورسعيد|المكتبات المدرسية|ماهو الموقع|ايه الموقع|الموقع ده)/.test(normalized)) {
+    return { text: 'هذه بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
+  }
+  const query = extractVisitorCatalogQuery(question);
+  if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو القراءة أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };
+  if (!publicSupabase) return { text: 'الفهرس غير متصل حالياً؛ أعد المحاولة بعد استقرار الاتصال.' };
+  const { data, error } = await publicSupabase.rpc('search_public_catalog', {
+    p_query: query, p_branch_id: null, p_available_only: false, p_limit: 6, p_offset: 0,
+  });
+  if (error) return { text: 'تعذّر البحث في الفهرس العام الآن. جرّب البحث من صندوق الفهرس أو أعد المحاولة لاحقاً.' };
+  const books = data || [];
+  return books.length
+    ? { text: `وجدت ${books.length} نتيجة منشورة مطابقة أو قريبة. الإتاحة قد تتغير؛ تأكد منها مع الفرع قبل الزيارة.`, books, searchQuery: query }
+    : { text: `لم أجد عنواناً منشوراً يطابق «${query}». جرّب كلمة أقصر أو ابحث مباشرة في الفهرس؛ قد لا تكون كل الكتب مسجلة أو منشورة.`, searchQuery: query };
+}
+let visitorAssistantBusy = false;
+async function sendVisitorQuestion(question) {
+  const text = String(question || '').trim().slice(0, 300);
+  if (!text || visitorAssistantBusy) return;
+  visitorAssistantBusy = true;
+  appendVisitorAssistantMessage('user', text);
+  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة من دليل الموقع والفهرس العام…');
+  const submit = $('#visitorAssistantForm button[type="submit"]');
+  submit.disabled = true;
+  try {
+    const answer = await answerVisitorQuestion(text);
+    appendVisitorAssistantMessage('assistant', answer.text, answer);
+    setMessage($('#visitorAssistantStatus'), 'الإجابة مبنية على معلومات الموقع العامة؛ لا تُعد تأكيداً للإتاحة اللحظية إلا بعد مراجعة الفرع.');
+  } catch {
+    setMessage($('#visitorAssistantStatus'), 'تعذّر إكمال الإجابة الآن؛ يمكنك استخدام البحث والفروع المنشورة مباشرةً.', 'error');
+  } finally {
+    visitorAssistantBusy = false;
+    submit.disabled = false;
+  }
+}
+$('#visitorAssistantForm').addEventListener('submit', event => {
+  event.preventDefault();
+  const input = $('#visitorAssistantInput');
+  const question = input.value;
+  input.value = '';
+  sendVisitorQuestion(question);
+});
+$$('[data-visitor-question]').forEach(button => button.addEventListener('click', () => sendVisitorQuestion(button.dataset.visitorQuestion)));
+$('#visitorAssistantLog').addEventListener('click', event => {
+  const button = event.target.closest('[data-visitor-search]');
+  if (!button) return;
+  $('#searchInput').value = button.dataset.visitorSearch;
+  branchFilter.value = '';
+  $('#availableOnly').checked = false;
+  submitSearch();
+  $('#discover').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 const openStaff = () => {
   if (!staffDialog.open) staffDialog.showModal();
   if (!supabase) setMessage(loginMessage, 'الاتصال بخدمة الحسابات غير جاهز حالياً. أعد تحميل الصفحة وحاول مجدداً.', 'error');
@@ -254,6 +371,7 @@ function configureRole(role) {
   $('#requestForm').hidden = !manager;
   $('#inviteForm').hidden = !administrator;
   $('#operationalBackupCard').hidden = role !== 'owner';
+  $('#managerAssistantCard').hidden = !administrator;
   const active = $('.staff-tab.active');
   if (!active || active.hidden) activatePanel('catalogPanel');
 }
@@ -304,6 +422,7 @@ async function loadMemberships() {
 $('#librarySelect').addEventListener('change', async event => {
   const nextId = event.target.value;
   if (!currentMemberships.some(membership => membership.library_id === nextId)) return;
+  clearAssistantChat();
   currentLibraryId = nextId;
   currentRole = currentMemberships.find(membership => membership.library_id === nextId)?.role || null;
   configureRole(currentRole);
@@ -624,6 +743,7 @@ $('#forgotPasswordButton').addEventListener('click', async event => {
 });
 $('#signOut').addEventListener('click', async () => {
   await supabase?.auth.signOut();
+  clearAssistantChat();
   currentLibraryId = null;
   currentRole = null;
   currentUserId = null;
@@ -919,13 +1039,58 @@ async function assistantErrorMessage(error) {
     try { reason = (await response.clone().json())?.error || ''; } catch { /* Use status-only guidance. */ }
   }
   if (reason === 'server_configuration_missing' || status === 503) return 'إعداد الخادم ناقص: تحقّق من GEMINI_API_KEY وAPP_ORIGIN وأسرار Supabase، ثم أعد المحاولة.';
-  if (reason === 'origin_not_allowed' || status === 403) return 'نطاق الموقع غير مسموح به في APP_ORIGIN أو أن الحساب لا يملك صلاحية المساعد.';
+  if (reason === 'origin_not_allowed') return 'نطاق الموقع غير مسموح به في APP_ORIGIN.';
+  if (reason === 'not_authorized' || status === 403) return 'هذا الحساب لا يملك صلاحية استخدام مساعد المكتبة.';
   if (reason === 'authentication_required' || status === 401) return 'انتهت جلسة الدخول؛ سجّل الخروج ثم ادخل مجددًا.';
+  if (reason === 'consent_required') return 'أكّد موافقتك على إرسال السؤال بعد التأكد من خلوه من بيانات الأشخاص.';
+  if (reason === 'personal_data_not_allowed') return 'رُفض السؤال لأنه يبدو أنه يتضمن بيانات اتصال أو معرّفاً أو تفاصيل سجل؛ احذف بيانات الأشخاص وأعد صياغته كسؤال عام.';
   if (reason === 'invalid_request') return 'اختيار النموذج أو نوع الملخص غير مدعوم؛ اختر نموذجًا من القائمة ثم أعد المحاولة.';
   if (reason === 'metrics_unavailable') return 'تعذّر قراءة العدادات بصلاحيات هذا الحساب؛ لم تُرسل بيانات إلى Gemini.';
   if (reason === 'assistant_provider_failed' || status === 502) return 'رفض Gemini الطلب أو النموذج؛ تحقّق من المفتاح الخادمي وإتاحة النموذج في حساب Google.';
   return 'تعذّر الاتصال بالمساعد. راجع نشر Edge Function وأسرار الخادم والاتصال، دون إدخال المفتاح في الموقع.';
 }
+function appendAssistantChatMessage(kind, text) {
+  const log = $('#assistantChatLog');
+  if (!log) return;
+  log.querySelector('.assistant-chat-empty')?.remove();
+  const item = document.createElement('article');
+  item.className = `assistant-chat-message ${kind}`;
+  const label = document.createElement('strong');
+  label.textContent = kind === 'user' ? 'أنت' : 'مساعد المكتبة';
+  const body = document.createElement('p');
+  body.textContent = text;
+  item.append(label, body);
+  log.append(item);
+  log.scrollTop = log.scrollHeight;
+}
+function clearAssistantChat() {
+  const log = $('#assistantChatLog');
+  if (log) {
+    log.replaceChildren();
+    const empty = document.createElement('p');
+    empty.className = 'assistant-chat-empty';
+    empty.textContent = 'اسأل عن خطوات تنظيم العمل أو استخدام وظائف الموقع.';
+    log.append(empty);
+  }
+  $('#assistantChatForm')?.reset();
+  setMessage($('#assistantChatMessage'), 'المحادثة مؤقتة في هذه الجلسة ولا تُحفظ في قاعدة البيانات.');
+}
+$('#assistantTestButton').addEventListener('click', async event => {
+  const button = event.currentTarget;
+  if (!supabase || !currentLibraryId) return setMessage($('#assistantTestMessage'), 'سجّل الدخول بحساب مكتبة مخوّل أولاً.', 'error');
+  button.disabled = true;
+  setMessage($('#assistantTestMessage'), 'جارٍ اختبار الاتصال بطلب ثابت بلا بيانات مكتبة…');
+  try {
+    const { data, error } = await supabase.functions.invoke('library-assistant', {
+      body: { library_id: currentLibraryId, mode: 'test', model: $('#assistantModel').value },
+    });
+    if (error) return setMessage($('#assistantTestMessage'), await assistantErrorMessage(error), 'error');
+    if (!data?.ok) return setMessage($('#assistantTestMessage'), 'لم يؤكد الخادم نجاح الاتصال؛ تحقق من نشر الوظيفة والإعدادات.', 'error');
+    setMessage($('#assistantTestMessage'), `الاتصال ناجح — ${data.model || $('#assistantModel').value}.`, 'success');
+  } catch {
+    setMessage($('#assistantTestMessage'), 'تعذّر إكمال اختبار الاتصال؛ تحقق من الوظيفة الخلفية والاتصال.', 'error');
+  } finally { button.disabled = false; }
+});
 $('#assistantForm').addEventListener('submit', async event => {
   event.preventDefault();
   const intent = new FormData(event.currentTarget).get('intent');
@@ -941,6 +1106,62 @@ $('#assistantForm').addEventListener('submit', async event => {
   output.hidden = false;
   setMessage($('#assistantMessage'), 'ملخص إرشادي مبني على أعداد إجمالية فقط؛ راجع السجلات الأصلية قبل اتخاذ قرار.', 'success');
 });
+$('#managerAssistantForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!['owner', 'admin'].includes(currentRole)) return setMessage($('#managerAssistantMessage'), 'ملخص مدير المكتبة متاح للمالك أو المسؤول فقط.', 'error');
+  if (!supabase || !currentLibraryId) return setMessage($('#managerAssistantMessage'), 'سجّل الدخول بحساب مالك أو مسؤول للمكتبة أولاً.', 'error');
+  const form = event.currentTarget;
+  const button = $('button[type="submit"]', form);
+  button.disabled = true;
+  setMessage($('#managerAssistantMessage'), 'جارٍ طلب ملخص إجمالي من الوظيفة الخلفية…');
+  try {
+    const { data, error } = await supabase.functions.invoke('library-assistant', {
+      body: { library_id: currentLibraryId, mode: 'summary', intent: 'manager_summary', model: $('#assistantModel').value },
+    });
+    if (error) return setMessage($('#managerAssistantMessage'), await assistantErrorMessage(error), 'error');
+    const output = $('#managerAssistantOutput');
+    output.innerHTML = `<p>${escapeHtml(data?.summary || 'لا يوجد ملخص.')}</p>${Array.isArray(data?.actions) ? `<ul>${data.actions.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}`;
+    output.hidden = false;
+    setMessage($('#managerAssistantMessage'), 'ملخص استرشادي يعتمد على أعداد وإعدادات مجمعة فقط. لا يرسل تنبيهاً ولا يغيّر بيانات المكتبة.', 'success');
+  } catch {
+    setMessage($('#managerAssistantMessage'), 'تعذّر الاتصال بمساعد المدير؛ لم يتغير أي سجل.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
+$('#assistantChatForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const message = String(new FormData(form).get('message') || '').trim();
+  if (!message || message.length > 800) return setMessage($('#assistantChatMessage'), 'اكتب سؤالاً لا يتجاوز 800 حرف.', 'error');
+  if (!form.elements.consent.checked) return setMessage($('#assistantChatMessage'), 'أكّد الموافقة بعد التأكد من عدم تضمين بيانات شخصية.', 'error');
+  if (!supabase || !currentLibraryId) return setMessage($('#assistantChatMessage'), 'سجّل الدخول بحساب مكتبة مخوّل أولاً.', 'error');
+  const button = $('button[type="submit"]', form);
+  button.disabled = true;
+  form.elements.message.disabled = true;
+  appendAssistantChatMessage('user', message);
+  setMessage($('#assistantChatMessage'), 'جارٍ إرسال السؤال إلى Gemini…');
+  try {
+    const { data, error } = await supabase.functions.invoke('library-assistant', {
+      body: { library_id: currentLibraryId, mode: 'chat', model: $('#assistantModel').value, message, consent: true },
+    });
+    if (error) return setMessage($('#assistantChatMessage'), await assistantErrorMessage(error), 'error');
+    if (typeof data?.text !== 'string' || !data.text.trim()) return setMessage($('#assistantChatMessage'), 'لم تصل إجابة صالحة من Gemini؛ حاول مرة أخرى.', 'error');
+    appendAssistantChatMessage('assistant', data.text);
+    form.reset();
+    setMessage($('#assistantChatMessage'), 'تمت الإجابة. راجع الإرشاد ولا تعتبره إجراءً منفّذاً.', 'success');
+  } catch {
+    setMessage($('#assistantChatMessage'), 'تعذّر الاتصال بالمساعد؛ لم تُحفظ الرسائل في قاعدة البيانات.', 'error');
+  } finally {
+    button.disabled = false;
+    form.elements.message.disabled = false;
+  }
+});
+$$('[data-staff-prompt]').forEach(button => button.addEventListener('click', () => {
+  const input = $('#assistantChatInput');
+  input.value = button.dataset.staffPrompt;
+  input.focus();
+}));
 $('#refreshInventory').addEventListener('click', async () => { await loadInventory(); await refreshStaffStats(); });
 $('#refreshLoans').addEventListener('click', async () => { await loadOpenLoans(); await refreshStaffStats(); });
 $('#exportInventory').addEventListener('click', async () => {
