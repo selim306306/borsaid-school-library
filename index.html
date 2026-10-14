@@ -17,6 +17,7 @@
   <script type="module" src="app.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
   <div class="announcement"><span class="announcement-dot"></span> مساحة معرفية واحدة لمكتبات بورسعيد المدرسية</div>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="الصفحة الرئيسية">
@@ -25,14 +26,20 @@
     </a>
 	    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
 	      <a href="#discover">اكتشف الكتب</a>
-	      <a href="#visitorAssistant">اسأل المساعد</a>
 	      <a href="#branches">المكتبات</a>
+	      <a href="#visitorAssistant">اسأل المساعد</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
     </nav>
     <button class="button button-outline staff-open" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span> دخول الموظفين</button>
   </header>
+  <nav class="mobile-nav section-wrap" aria-label="تنقل سريع">
+    <a href="#discover">اكتشف الكتب</a>
+    <a href="#branches">المكتبات</a>
+    <a href="#visitorAssistant">اسأل المساعد</a>
+    <a href="#features">مزايا الموقع</a>
+  </nav>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
     <section class="hero section-wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
         <span class="eyebrow"><span class="eyebrow-mark">✳</span> مكتبات المدارس · بورسعيد</span>
@@ -52,16 +59,6 @@
       </div>
       <span class="hero-spark spark-one" aria-hidden="true">✳</span>
       <span class="hero-spark spark-two" aria-hidden="true">✦</span>
-	    </section>
-
-	    <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-	      <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
-	      <div class="visitor-assistant-box">
-	        <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
-	        <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
-	        <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
-	        <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
-	      </div>
 	    </section>
 
 	    <section class="search-section section-wrap" id="discover" aria-labelledby="search-title">
@@ -98,6 +95,16 @@
       </div>
       <div id="branchesGrid" class="branches-grid" aria-live="polite">
         <div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>تُضاف بيانات الفروع من لوحة المكتبة</strong><p>لن نعرض مواقع أو أرقام تواصل غير مؤكدة.</p></div></div>
+      </div>
+    </section>
+
+    <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
+      <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
+      <div class="visitor-assistant-box">
+        <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
+        <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
+        <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
+        <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
       </div>
     </section>
 
@@ -152,7 +159,7 @@
         <div class="workspace-top"><div><span class="eyebrow">لوحة العمل</span><h2 id="workspaceTitle">مكتبتك</h2><p id="staffIdentity"></p></div><div class="workspace-controls"><label class="sr-only" for="librarySelect">اختر المكتبة</label><select id="librarySelect"></select><button class="button button-outline signout-button" id="signOut" type="button">خروج</button></div></div>
         <div id="membershipWarning" class="inline-alert" hidden></div>
         <div class="stats-grid" id="staffStats"></div>
-        <nav class="staff-tabs" aria-label="أقسام لوحة الموظفين">
+        <nav class="staff-tabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام لوحة الموظفين">
           <button class="staff-tab active" data-panel="catalogPanel" type="button">الفهرس والجرد</button>
           <button class="staff-tab" data-panel="branchesPanel" type="button">الفروع</button>
           <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>

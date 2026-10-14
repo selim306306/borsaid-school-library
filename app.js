@@ -340,9 +340,24 @@ function setWorkspaceMode(isSignedIn) {
   $('#staffDialogTitle').textContent = isSignedIn ? 'لوحة عمل المكتبة' : 'مساحة الموظفين';
 }
 function activatePanel(panelId) {
-  $$('.staff-tab').forEach(button => button.classList.toggle('active', button.dataset.panel === panelId));
+  const tabs = $$('.staff-tab');
+  const selectedTab = tabs.find(button => button.dataset.panel === panelId && !button.hidden);
+  if (!selectedTab) return;
+  tabs.forEach(button => {
+    const active = button === selectedTab;
+    button.id ||= `${button.dataset.panel}Tab`;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', button.dataset.panel);
+    button.setAttribute('aria-selected', String(active));
+    button.tabIndex = active ? 0 : -1;
+    button.classList.toggle('active', active);
+  });
   $$('.staff-panel').forEach(panel => {
     const active = panel.id === panelId;
+    const tab = tabs.find(button => button.dataset.panel === panel.id);
+    panel.setAttribute('role', 'tabpanel');
+    if (tab) panel.setAttribute('aria-labelledby', tab.id || `${panel.id}Tab`);
+    panel.tabIndex = 0;
     panel.classList.toggle('active', active);
     panel.hidden = !active;
   });
@@ -373,9 +388,28 @@ function configureRole(role) {
   $('#operationalBackupCard').hidden = role !== 'owner';
   $('#managerAssistantCard').hidden = !administrator;
   const active = $('.staff-tab.active');
-  if (!active || active.hidden) activatePanel('catalogPanel');
+  activatePanel(active && !active.hidden ? active.dataset.panel : 'catalogPanel');
 }
-$$('.staff-tab').forEach(button => button.addEventListener('click', () => activatePanel(button.dataset.panel)));
+$$('.staff-tab').forEach(button => {
+  button.addEventListener('click', () => activatePanel(button.dataset.panel));
+  button.addEventListener('keydown', event => {
+    const visibleTabs = $$('.staff-tab').filter(tab => !tab.hidden);
+    const index = visibleTabs.indexOf(button);
+    if (index < 0 || !visibleTabs.length) return;
+    let nextIndex;
+    if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = visibleTabs.length - 1;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const nextKey = document.documentElement.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+      const step = event.key === nextKey ? 1 : -1;
+      nextIndex = (index + step + visibleTabs.length) % visibleTabs.length;
+    } else return;
+    event.preventDefault();
+    const nextTab = visibleTabs[nextIndex];
+    activatePanel(nextTab.dataset.panel);
+    nextTab.focus({ preventScroll: true });
+  });
+});
 
 async function loadMemberships() {
   const { data: userData } = await supabase.auth.getUser();
