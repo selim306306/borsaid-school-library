@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="site.css?v=5">
-  <script type="module" src="app.js?v=432549f3b22e"></script>
+  <link rel="stylesheet" href="site.css?v=20261014-home">
+  <script type="module" src="app.js?v=20261014-home-search"></script>
   <link rel="stylesheet" href="global-reading.css?v=3">
   <script type="module" src="global-reading.js?v=4"></script>
   <link rel="stylesheet" href="education-research.css?v=5">
@@ -72,28 +72,49 @@
           <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">م</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيد محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
           <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">أ</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيدة أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية ببورسعيد</span><a class="leadership-person-source" href="https://www.facebook.com/portsedu/posts/1658923188931060/" target="_blank" rel="noopener noreferrer">مديرية التعليم · ١٣ أكتوبر ٢٠٢٦ ↗</a></div></li>
         </ul>
-        <details class="leadership-photo-credits" id="leaderImageCredits"><summary>حقوق استخدام الصور</summary><p>صورة السيد الرئيس عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. صورة السيد محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ من القانون ٨٢ لسنة ٢٠٠٢.</p></details>
+        <details class="leadership-photo-credits" id="leaderImageCredits"><summary>تفاصيل إضافية</summary><p>صورة السيد الرئيس عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. صورة السيد محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ من القانون ٨٢ لسنة ٢٠٠٢.</p></details>
       </section>
-      <section class="hero section-wrap" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <span class="eyebrow"><span class="eyebrow-mark">✳</span> مكتبات المدارس · بورسعيد</span>
-          <h1 id="hero-title">كل كتاب أقرب مما تتخيّل<span class="title-dot">.</span></h1>
-          <p class="hero-lede">ابحث في الكتب، وتعرّف على المكتبات، واسأل المساعد من مكان واحد.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#discover">ابحث عن كتاب <span aria-hidden="true">←</span></a>
-            <a class="text-link" href="#branches">تعرّف على المكتبات <span aria-hidden="true">↙</span></a>
-            <a class="text-link" href="#visitorAssistant">اسأل المساعد <span aria-hidden="true">↙</span></a>
+      <section class="hero section-wrap portal-hero" aria-labelledby="hero-title">
+        <div class="portal-layout">
+          <div class="portal-main">
+            <span class="eyebrow portal-kicker"><span class="portal-kicker-mark" aria-hidden="true">ب</span> بوابة المعرفة المدرسية · بورسعيد</span>
+            <h1 id="hero-title">ابدأ من بورسعيد، <span class="portal-title-accent">واقرأ أبعد.</span></h1>
+            <p class="portal-lede">فهرس كتب مكتبات بورسعيد والقراءة الرقمية العالمية، من نقطة بداية واحدة.</p>
+            <div class="portal-search-panel">
+              <div class="portal-search-heading"><strong>ماذا تريد أن تكتشف؟</strong><span><i aria-hidden="true"></i> بحث مباشر</span></div>
+              <form id="homeDiscoveryForm" class="portal-search-form" role="search">
+                <fieldset class="portal-scope">
+                  <legend class="sr-only">اختر نطاق البحث</legend>
+                  <label><input type="radio" name="homeSearchScope" value="catalog" checked><span>مقتنيات مكتبات بورسعيد</span></label>
+                  <label><input type="radio" name="homeSearchScope" value="world"><span>القراءة العالمية</span></label>
+                </fieldset>
+                <div class="portal-search-row">
+                  <span class="portal-search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></span>
+                  <label class="sr-only" for="homeDiscoveryInput">عنوان كتاب أو مؤلف أو موضوع</label>
+                  <input id="homeDiscoveryInput" type="search" minlength="2" maxlength="100" placeholder="عنوان كتاب، مؤلف، أو موضوع…" autocomplete="off" aria-describedby="homeSearchDescription" required>
+                  <button class="button portal-search-submit" type="submit">ابحث <span aria-hidden="true">←</span></button>
+                </div>
+              </form>
+              <p class="portal-search-description" id="homeSearchDescription">اختر نطاق البحث؛ نتائج القراءة العالمية تأتي من Open Library.</p>
+            </div>
           </div>
-          <div class="trust-line"><span class="trust-check" aria-hidden="true">✓</span> تُعرض الإتاحة بحسب السجلات المنشورة للمكتبات</div>
-          <nav class="home-tools" aria-label="أدوات إضافية"><a href="#globalReading">القراءة الرقمية</a><a href="#educationResearch">أخبار وأبحاث</a><a href="#announcements">الإعلانات</a></nav>
+          <aside class="portal-side" aria-label="مسارات سريعة في الموقع">
+            <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
+            <nav class="portal-side-links">
+              <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+              <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>اسأل المساعد</strong><small>إرشاد سريع للبحث والاستخدام</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+              <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار التعليم</strong><small>موجز عربي وأبحاث مفتوحة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+            </nav>
+          </aside>
         </div>
       </section>
       <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
-      <header class="home-news-heading"><div><span class="eyebrow">موجز يحدّثه المساعد الذكي</span><h2 id="homeNewsTitle">أخبار التعليم بالعربية</h2><p>خلاصة مفهومة للخبر، مع تاريخه ومصدره الأصلي بدل الاكتفاء بقائمة روابط.</p></div><p class="news-updated" id="homeNewsUpdated">يبحث المساعد عن المستجدات كل ٤ ساعات</p></header>
-      <p class="news-ai-note">المواد الأجنبية تُترجم وتُلخّص بالعربية بمساعدة الذكاء الاصطناعي؛ افتح المصدر الأصلي للتحقق من التفاصيل. وقد لا تظهر قصة جديدة إذا لم يجد المساعد خبرًا موثقًا.</p>
-      <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
-      <div class="education-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
-      <a class="education-research-link home-news-all" href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a>
+        <header class="home-news-heading">
+          <div><span class="eyebrow">موجز عربي مختصر</span><h2 id="homeNewsTitle">آخر أخبار التعليم</h2></div>
+          <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">يتجدد الموجز دوريًا</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
+        </header>
+        <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
+        <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
       </section>
     <section class="home-guide section-wrap" id="homeGuide" aria-labelledby="homeGuideTitle">
       <div class="home-guide-heading">

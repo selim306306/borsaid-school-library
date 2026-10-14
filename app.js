@@ -261,6 +261,35 @@ function submitSearch() {
   runPublicSearch();
 }
 $('#publicSearchForm').addEventListener('submit', event => { event.preventDefault(); submitSearch(); });
+const homeDiscoveryForm = $('#homeDiscoveryForm');
+const homeDiscoveryInput = $('#homeDiscoveryInput');
+const homeSearchDescription = $('#homeSearchDescription');
+$$('input[name="homeSearchScope"]').forEach(radio => radio.addEventListener('change', () => {
+  if (!radio.checked) return;
+  const worldSearch = radio.value === 'world';
+  homeDiscoveryInput.placeholder = worldSearch ? 'عنوان أو مؤلف أو موضوع…' : 'عنوان كتاب، مؤلف، أو رقم عام…';
+  homeSearchDescription.textContent = worldSearch
+    ? 'سيُبحث في Open Library؛ نتائج هذا الفهرس مستقلة عن مقتنيات بورسعيد.'
+    : 'سيُبحث في السجلات التي نشرتها مكتبات بورسعيد؛ اختر القراءة العالمية للبحث خارجها.';
+}));
+homeDiscoveryForm?.addEventListener('submit', event => {
+  event.preventDefault();
+  const query = homeDiscoveryInput.value.trim().slice(0, 100);
+  if (query.length < 2) return;
+  const worldSearch = new FormData(homeDiscoveryForm).get('homeSearchScope') === 'world';
+  if (worldSearch) {
+    $('#globalReadingInput').value = query;
+    activateView('reading', { updateHistory: true, hash: '#globalReading' });
+    $('#globalReadingForm').requestSubmit();
+  } else {
+    $('#searchInput').value = query;
+    branchFilter.value = '';
+    $('#availableOnly').checked = false;
+    activateView('discover', { updateHistory: true, hash: '#discover' });
+    submitSearch();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 $('#searchInput').addEventListener('input', () => {
   window.clearTimeout(searchTimer);
   searchTimer = window.setTimeout(submitSearch, 300);
