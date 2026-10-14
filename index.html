@@ -38,8 +38,16 @@
     <a href="#visitorAssistant">اسأل المساعد</a>
     <a href="#features">مزايا الموقع</a>
   </nav>
+  <nav class="site-tabs section-wrap" id="visitorTabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام الموقع">
+    <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home">الرئيسية</button>
+    <button class="view-tab" id="discoverTab" type="button" role="tab" aria-selected="false" aria-controls="discoverView" tabindex="-1" data-view="discover">الكتب</button>
+    <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches">المكتبات</button>
+    <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements">الإعلانات</button>
+    <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about">عن الموقع</button>
+  </nav>
 
   <main id="top" tabindex="-1">
+    <section class="page-view page-home" id="homeView" data-view-panel="home" role="tabpanel" aria-labelledby="homeTab" tabindex="0">
     <section class="hero section-wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
         <span class="eyebrow"><span class="eyebrow-mark">✳</span> مكتبات المدارس · بورسعيد</span>
@@ -60,7 +68,8 @@
       <span class="hero-spark spark-one" aria-hidden="true">✳</span>
       <span class="hero-spark spark-two" aria-hidden="true">✦</span>
 	    </section>
-
+    </section>
+    <section class="page-view" id="discoverView" data-view-panel="discover" role="tabpanel" aria-labelledby="discoverTab" tabindex="0" hidden>
 	    <section class="search-section section-wrap" id="discover" aria-labelledby="search-title">
       <div class="section-heading search-heading">
         <div><span class="eyebrow">فهرس مشترك</span><h2 id="search-title">ما الكتاب الذي تبحث عنه؟</h2><p>اكتب عنواناً أو اسم مؤلف أو رقماً عاماً، ثم استكشف النتائج المنشورة.</p></div>
@@ -87,7 +96,8 @@
       <div class="more-row" id="moreRow" hidden><span id="resultCountLabel"></span><button id="loadMore" class="button button-outline" type="button">تحميل المزيد</button></div>
       <div class="catalog-safety"><span class="safety-icon" aria-hidden="true">✓</span><span>المعلومات المعروضة عامة فقط. بيانات المستعيرين وسجلات الإعارة لا تظهر في البحث.</span></div>
     </section>
-
+    </section>
+    <section class="page-view" id="branchesView" data-view-panel="branches" role="tabpanel" aria-labelledby="branchesTab" tabindex="0" hidden>
     <section class="branches-section section-wrap" id="branches" aria-labelledby="branches-title">
       <div class="section-heading">
         <div><span class="eyebrow">قريبة منك</span><h2 id="branches-title">المكتبات المشاركة</h2><p>تعرّف على الفروع المنشورة، ثم تحقق من إتاحة الكتب قبل الزيارة.</p></div>
@@ -97,7 +107,14 @@
         <div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>تُضاف بيانات الفروع من لوحة المكتبة</strong><p>لن نعرض مواقع أو أرقام تواصل غير مؤكدة.</p></div></div>
       </div>
     </section>
-
+  </section>
+    <section class="page-view" id="announcementsView" data-view-panel="announcements" role="tabpanel" aria-labelledby="announcementsTab" tabindex="0" hidden>
+      <section class="public-announcements section-wrap" id="announcements" aria-labelledby="announcementsTitle">
+        <div class="section-heading"><div><span class="eyebrow">إعلانات ومعلومات للزوار</span><h2 id="announcementsTitle">تنبيهات الزيارة</h2><p>معلومات ثابتة للاستخدام العام؛ لا تُعرض هنا إعلانات غير معتمدة.</p></div></div>
+        <article class="public-notice"><strong>تحقّق من الإتاحة قبل الزيارة</strong><p>قد تتغير حالة النسخ المنشورة؛ راجع الفرع ووسيلة التواصل المعتمدة قبل التوجه. لا توجد إعلانات تشغيلية أخرى منشورة في هذا القسم حالياً.</p></article>
+      </section>
+    </section>
+    <section class="page-view" id="aboutView" data-view-panel="about" role="tabpanel" aria-labelledby="aboutTab" tabindex="0" hidden>
     <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
       <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
       <div class="visitor-assistant-box">
@@ -131,6 +148,7 @@
     <section class="cta-section section-wrap" id="staff">
       <div class="cta-copy"><span class="eyebrow eyebrow-light">مساحة الموظفين</span><h2>تدير مكتبة؟<br>ابدأ من لوحة العمل.</h2><p>دخول مخصص للمستخدمين الذين أضافهم مسؤول المكتبة؛ لا يوجد تسجيل مفتوح.</p><button class="button button-white" id="staffOpenBottom" type="button">دخول الموظفين <span aria-hidden="true">←</span></button></div>
       <div class="cta-ornament" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="cta-book">▤</span><span class="cta-star">✳</span><span class="cta-dot"></span></div>
+    </section>
     </section>
   </main>
 
@@ -287,10 +305,10 @@
 	          </section>
 	        </section>
         <section class="staff-panel" id="membersPanel" hidden>
-          <div class="panel-heading"><div><h3>المستخدمون والصلاحيات</h3><p>لا يوجد تسجيل ذاتي؛ تُرسل الدعوات عبر وظيفة خلفية آمنة بعد تجهيز أسرارها.</p></div></div>
-          <form id="inviteForm" class="staff-form-grid compact-form"><label>البريد الإلكتروني للدعوة<input name="email" type="email" required maxlength="254" autocomplete="off"></label><label>الدور<select name="role"><option value="librarian">أمين مكتبة</option><option value="circulation">إعارة واستلام</option><option value="reporter">تقارير فقط</option><option value="admin">مسؤول</option></select></label><button class="button button-primary form-action" type="submit">دعوة مستخدم</button></form>
-          <p class="form-message" id="inviteMessage" role="status" aria-live="polite"></p><div class="table-wrap"><table><thead><tr><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="memberRows"><tr><td colspan="4" class="table-empty">لا توجد عضويات معروضة.</td></tr></tbody></table></div>
-          <div class="privacy-banner">الدعوات لا تعمل حتى تُنشر Edge Function ويُضبط نطاق الموقع وعنوان إعادة التوجيه. يظل مفتاح الخدمة خادمياً فقط ولا يوضع في الموقع أو المستودع.</div>
+          <div class="panel-heading"><div><h3>المستخدمون والصلاحيات</h3><p>لا يوجد تسجيل ذاتي؛ خدمة الدعوات متوقفة حتى نشر الوظيفة الخلفية للمشروع.</p></div></div>
+          <form id="inviteForm" class="staff-form-grid compact-form" aria-disabled="true"><label>البريد الإلكتروني للدعوة<input name="email" type="email" required maxlength="254" autocomplete="off" disabled></label><label>الدور<select name="role" disabled><option value="librarian">أمين مكتبة</option><option value="circulation">إعارة واستلام</option><option value="reporter">تقارير فقط</option><option value="admin">مسؤول</option></select></label><button class="button button-primary form-action" type="submit" disabled>الدعوات غير متاحة</button></form>
+          <p class="form-message" id="inviteMessage" role="status" aria-live="polite">الدعوات متوقفة: وظيفة invite-library-member غير منشورة في هذا المشروع.</p><div class="table-wrap"><table><thead><tr><th>معرّف الحساب</th><th>الدور</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="memberRows"><tr><td colspan="4" class="table-empty">لا توجد عضويات معروضة.</td></tr></tbody></table></div>
+          <div class="privacy-banner">لا تُرسل دعوات من هذه اللوحة حالياً؛ لم تُنشر وظيفة الدعوات في Supabase لهذا المشروع. إدارة أدوار العضويات الحالية تبقى متاحة حسب الصلاحية.</div>
         </section>
         <section class="staff-panel" id="assistantPanel" hidden>
           <div class="panel-heading"><div><h3>مساعد المكتبة الذكي</h3><p>ملخصات للعدادات ودردشة إرشادية لأعضاء المكتبة المصرّح لهم.</p></div><button class="button button-outline" id="assistantTestButton" type="button">اختبار اتصال Gemini</button></div>

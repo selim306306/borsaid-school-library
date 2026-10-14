@@ -153,3 +153,19 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .mobile-nav{display:none}
 @media(max-width:700px){.mobile-nav{display:flex;align-items:center;gap:7px;overflow-x:auto;overscroll-behavior-inline:contain;padding:2px 0 12px;scrollbar-width:none}.mobile-nav::-webkit-scrollbar{display:none}.mobile-nav a{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 13px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#455674;font-size:11px;font-weight:600}.mobile-nav a:first-child{background:var(--blue-soft);border-color:#dfe6ff;color:var(--blue)}.mobile-nav a:hover{border-color:#b7c7f0;color:var(--blue)}}
 @media(max-width:380px){.mobile-nav{gap:5px}.mobile-nav a{padding-inline:10px;font-size:10px}}
+
+/* Main visitor navigation: accessible five-view tabs. */
+.desktop-nav,.mobile-nav{display:none!important}
+.site-tabs{display:flex;align-items:stretch;gap:6px;overflow-x:auto;overscroll-behavior-inline:contain;margin:0 auto 12px;border-bottom:1px solid var(--line);scrollbar-width:none}
+.site-tabs::-webkit-scrollbar{display:none}
+.view-tab{position:relative;flex:0 0 auto;min-height:48px;padding:0 18px;border:0;border-radius:12px 12px 0 0;background:transparent;color:#62708a;font-size:12px;font-weight:600;white-space:nowrap}
+.view-tab:hover{background:#f7f9ff;color:var(--blue)}
+.view-tab.active{color:var(--blue);background:#f4f6ff}
+.view-tab.active:after{content:"";position:absolute;bottom:-1px;right:12px;left:12px;height:3px;border-radius:3px 3px 0 0;background:var(--blue)}
+.page-view[hidden]{display:none!important}
+.public-announcements{padding-top:34px;padding-bottom:72px}
+.public-notice{padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:#fbfcfe}
+.public-notice strong{display:block;font-size:14px;margin-bottom:5px}
+.public-notice p{margin:0;color:var(--muted);font-size:12px}
+@media(max-width:700px){.site-tabs{gap:4px;margin-bottom:8px}.view-tab{min-height:46px;padding-inline:14px;font-size:11px}.public-announcements{padding-top:24px;padding-bottom:48px}.public-notice{padding:15px}}
+@media(max-width:360px){.view-tab{padding-inline:10px;font-size:10px}}

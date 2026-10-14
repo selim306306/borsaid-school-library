@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /borsaid-school-library/
+Sitemap: https://selim306306.github.io/borsaid-school-library/sitemap.xml

@@ -3,11 +3,81 @@ const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const PAGE_SIZE = 100;
 const CACHE_KEY = 'borsaid-library-public-cache-v1';
+const INVITATIONS_ENABLED = false; // invite-library-member is not deployed for this project.
 const ASSISTANT_MODELS = new Set(['gemini-3.5-flash-lite', 'gemini-3.8-flash']);
 const DEFAULT_ASSISTANT_MODEL = 'gemini-3.5-flash-lite';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+const viewTabs = $$('.view-tab');
+const viewPanels = $$('[data-view-panel]');
+function activateView(viewName, { updateHistory = false, hash = '' } = {}) {
+  const panel = viewPanels.find(item => item.dataset.viewPanel === viewName);
+  if (!panel) return false;
+  viewPanels.forEach(item => { item.hidden = item !== panel; });
+  viewTabs.forEach(tab => {
+    const selected = tab.dataset.view === viewName;
+    tab.setAttribute('aria-selected', String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    tab.classList.toggle('active', selected);
+  });
+  if (updateHistory) history.pushState({ view: viewName }, '', hash || `#${panel.id}`);
+  return true;
+}
+function activateViewFromHash() {
+  const fragment = window.location.hash.slice(1);
+  const target = fragment ? document.getElementById(fragment) : null;
+  const panel = target?.closest('[data-view-panel]');
+  activateView(panel?.dataset.viewPanel || 'home');
+}
+viewTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    if (!activateView(tab.dataset.view, { updateHistory: true })) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  tab.addEventListener('keydown', event => {
+    const index = viewTabs.indexOf(tab);
+    let nextIndex;
+    if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = viewTabs.length - 1;
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const forwardKey = document.documentElement.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+      const step = event.key === forwardKey ? 1 : -1;
+      nextIndex = (index + step + viewTabs.length) % viewTabs.length;
+    } else return;
+    event.preventDefault();
+    const nextTab = viewTabs[nextIndex];
+    activateView(nextTab.dataset.view, { updateHistory: true });
+    nextTab.focus({ preventScroll: true });
+  });
+});
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#"]');
+  if (!link || event.defaultPrevented) return;
+  const fragment = link.getAttribute('href').slice(1);
+  if (!fragment) return;
+  if (fragment === 'top') {
+    if (viewPanels.find(panel => panel.dataset.viewPanel === 'home')?.hidden) {
+      event.preventDefault();
+      activateView('home', { updateHistory: true, hash: '#top' });
+      $('#top').focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    return;
+  }
+  const target = document.getElementById(fragment);
+  const panel = target?.closest('[data-view-panel]');
+  if (!panel || !panel.hidden) return;
+  event.preventDefault();
+  activateView(panel.dataset.viewPanel, { updateHistory: true, hash: `#${fragment}` });
+  target.setAttribute('tabindex', target.getAttribute('tabindex') || '-1');
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+window.addEventListener('popstate', activateViewFromHash);
+window.addEventListener('hashchange', activateViewFromHash);
+activateViewFromHash();
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const formatDate = value => value ? new Intl.DateTimeFormat('ar-EG', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(value)) : '—';
 const csvCell = value => {
@@ -993,6 +1063,7 @@ $('#memberRows').addEventListener('click', async event => {
 });
 $('#inviteForm').addEventListener('submit', async event => {
   event.preventDefault();
+  if (!INVITATIONS_ENABLED) return setMessage($('#inviteMessage'), 'الدعوات متوقفة؛ لم تُنشر وظيفة الدعوات في هذا المشروع.', 'error');
   const fields = new FormData(event.currentTarget);
   const { data, error } = await supabase.functions.invoke('invite-library-member', {
     body: { library_id: currentLibraryId, email: String(fields.get('email')).trim(), role: fields.get('role') },
