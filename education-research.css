@@ -127,3 +127,24 @@
 @media(max-width:940px){.live-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.home-news-section{margin-top:2px;padding:19px 14px;border-radius:20px}.home-news-heading{align-items:flex-start;flex-direction:column;gap:5px}.home-news-heading h2{font-size:21px}.news-updated{white-space:normal}.live-news-grid{grid-template-columns:1fr}.live-news-card,.education-news-section .live-news-card{min-height:0}.news-card-metadata{margin-top:3px}.news-source-link{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.leadership-banner .leadership-person,.live-news-card{scroll-behavior:auto;transition:none}}
+
+
+/* Archive pagination exposes every saved news item instead of truncating the feed. */
+.education-news-section .news-source-name{font-size:11px}
+.education-news-section .news-language-tag,.education-news-section .news-category{font-size:10px}
+.education-news-section .news-card-title{font-size:18px!important;line-height:1.5!important}
+.education-news-section .news-card-summary{font-size:13px!important;line-height:1.7!important}
+.education-news-section .news-date{font-size:11px}
+.news-pagination{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;padding:13px 0;border-top:1px solid #e6eaf2}
+.news-pagination[hidden]{display:none!important}
+.news-pagination-summary{color:#4c5b76;font-size:12px;font-weight:700;text-align:center}
+.news-page-button{min-width:100px;min-height:42px;font-size:13px}
+.news-page-button:disabled{opacity:.55;cursor:not-allowed}
+.news-page-button:focus-visible{outline:3px solid #2449ad;outline-offset:3px}
+@media(max-width:680px){
+  .education-news-section .news-card-title{font-size:17px!important}
+  .education-news-section .news-card-summary{font-size:12.5px!important}
+  .news-pagination{gap:7px;margin-top:13px;padding:10px 0}
+  .news-pagination-summary{font-size:10.5px;line-height:1.5}
+  .news-page-button{min-width:78px;min-height:40px;padding-inline:9px;font-size:11px}
+}

@@ -1,9 +1,13 @@
 const NEWS_PATH = new URL('./news.json', import.meta.url);
-const NEWS_LIMIT_HOME = 3;
-const NEWS_LIMIT_ALL = 9;
+const NEWS_HOME_COUNT = 1;
+const NEWS_ARCHIVE_PAGE_SIZE = 6;
 
 const homeGrid = document.querySelector('#homeNewsGrid');
 const educationGrid = document.querySelector('#educationNewsGrid');
+const archivePagination = document.querySelector('#educationNewsPagination');
+const archivePageSummary = document.querySelector('#educationNewsPageSummary');
+const previousPageButton = document.querySelector('#educationNewsPrevious');
+const nextPageButton = document.querySelector('#educationNewsNext');
 const statusNodes = [
   document.querySelector('#homeNewsStatus'),
   document.querySelector('#educationNewsStatus'),
@@ -12,6 +16,9 @@ const updatedNodes = [
   document.querySelector('#homeNewsUpdated'),
   document.querySelector('#educationNewsUpdated'),
 ].filter(Boolean);
+
+let archivedItems = [];
+let currentArchivePage = 1;
 
 function setStatus(message, isError = false) {
   for (const node of statusNodes) {
@@ -29,6 +36,21 @@ function formatArabicDate(value) {
   }).format(date);
 }
 
+function formatArabicNumber(value) {
+  return new Intl.NumberFormat('ar-EG').format(value);
+}
+
+function formatCadence(data) {
+  const configuredSeconds = Number(data.schedule_interval_seconds);
+  const intervalSeconds = Number.isFinite(configuredSeconds) && configuredSeconds > 0
+    ? configuredSeconds
+    : Number(data.schedule_interval_hours) * 3600;
+  const hours = intervalSeconds / 3600;
+  return Number.isInteger(hours) && hours > 0
+    ? `المراجعة كل ${formatArabicNumber(hours)} ساعة`
+    : 'دورية المراجعة غير محددة';
+}
+
 function validHttpsUrl(value) {
   try {
     const url = new URL(value);
@@ -36,6 +58,29 @@ function validHttpsUrl(value) {
   } catch {
     return null;
   }
+}
+
+function canonicalSourceUrl(value) {
+  const safeUrl = validHttpsUrl(value);
+  if (!safeUrl) return '';
+  const url = new URL(safeUrl);
+  url.search = '';
+  url.hash = '';
+  url.pathname = url.pathname.replace(/\/+$/, '') || '/';
+  return `${url.origin}${url.pathname}`;
+}
+
+function deduplicateItems(items) {
+  const seenIds = new Set();
+  const seenUrls = new Set();
+  return items.filter(item => {
+    const id = String(item.id ?? '').trim().toLocaleLowerCase();
+    const sourceUrl = canonicalSourceUrl(item.source_url);
+    if ((id && seenIds.has(id)) || (sourceUrl && seenUrls.has(sourceUrl))) return false;
+    if (id) seenIds.add(id);
+    if (sourceUrl) seenUrls.add(sourceUrl);
+    return true;
+  });
 }
 
 function makeText(tag, className, value) {
@@ -86,12 +131,41 @@ function createNewsCard(item) {
   return article;
 }
 
-function renderGrid(grid, items, limit) {
+function renderGrid(grid, items) {
   if (!grid) return;
   grid.replaceChildren();
-  for (const item of items.slice(0, limit)) grid.append(createNewsCard(item));
+  for (const item of items) grid.append(createNewsCard(item));
   grid.setAttribute('aria-busy', 'false');
 }
+
+function renderArchivePage() {
+  const pageCount = Math.max(1, Math.ceil(archivedItems.length / NEWS_ARCHIVE_PAGE_SIZE));
+  currentArchivePage = Math.min(Math.max(currentArchivePage, 1), pageCount);
+  const startIndex = (currentArchivePage - 1) * NEWS_ARCHIVE_PAGE_SIZE;
+  const pageItems = archivedItems.slice(startIndex, startIndex + NEWS_ARCHIVE_PAGE_SIZE);
+  renderGrid(educationGrid, pageItems);
+
+  if (archivePagination) archivePagination.hidden = archivedItems.length === 0;
+  if (archivePageSummary) {
+    const firstItem = archivedItems.length ? startIndex + 1 : 0;
+    const lastItem = Math.min(startIndex + NEWS_ARCHIVE_PAGE_SIZE, archivedItems.length);
+    archivePageSummary.textContent = `الأخبار ${formatArabicNumber(firstItem)}–${formatArabicNumber(lastItem)} من ${formatArabicNumber(archivedItems.length)} · الصفحة ${formatArabicNumber(currentArchivePage)} من ${formatArabicNumber(pageCount)}`;
+  }
+  if (previousPageButton) previousPageButton.disabled = currentArchivePage <= 1;
+  if (nextPageButton) nextPageButton.disabled = currentArchivePage >= pageCount;
+}
+
+previousPageButton?.addEventListener('click', () => {
+  if (currentArchivePage <= 1) return;
+  currentArchivePage -= 1;
+  renderArchivePage();
+});
+nextPageButton?.addEventListener('click', () => {
+  const pageCount = Math.ceil(archivedItems.length / NEWS_ARCHIVE_PAGE_SIZE);
+  if (currentArchivePage >= pageCount) return;
+  currentArchivePage += 1;
+  renderArchivePage();
+});
 
 async function loadNews() {
   for (const grid of [homeGrid, educationGrid].filter(Boolean)) grid.setAttribute('aria-busy', 'true');
@@ -99,23 +173,30 @@ async function loadNews() {
     const response = await fetch(`${NEWS_PATH.href}?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw new Error('news_unavailable');
     const data = await response.json();
-    const items = Array.isArray(data.items) ? data.items.filter(item =>
-      item && typeof item.title_ar === 'string' && item.title_ar.trim() &&
-      typeof item.summary_ar === 'string' && item.summary_ar.trim() &&
-      typeof item.source_name === 'string' && typeof item.source_url === 'string' &&
-      validHttpsUrl(item.source_url) && item.published_at,
-    ) : [];
-    items.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
-    renderGrid(homeGrid, items, NEWS_LIMIT_HOME);
-    renderGrid(educationGrid, items, NEWS_LIMIT_ALL);
+    const validItems = Array.isArray(data.items) ? data.items.filter(item => {
+      const publishedAt = item?.published_at ? new Date(item.published_at).getTime() : NaN;
+      return item && typeof item.title_ar === 'string' && item.title_ar.trim() &&
+        typeof item.summary_ar === 'string' && item.summary_ar.trim() &&
+        typeof item.source_name === 'string' && validHttpsUrl(item.source_url) &&
+        Number.isFinite(publishedAt);
+    }) : [];
+
+    archivedItems = deduplicateItems(validItems).sort((a, b) => {
+      const dateDifference = new Date(b.published_at) - new Date(a.published_at);
+      return dateDifference || String(a.id ?? '').localeCompare(String(b.id ?? ''));
+    });
+    currentArchivePage = 1;
+    renderGrid(homeGrid, archivedItems.slice(0, NEWS_HOME_COUNT));
+    renderArchivePage();
 
     if (data.updated_at) {
-      const updated = `آخر تحديث للموجز: ${formatArabicDate(data.updated_at)} · يرصد المساعد المصادر كل ٤ ساعات`;
+      const updated = `آخر تحديث للأخبار: ${formatArabicDate(data.updated_at)} · ${formatCadence(data)}`;
       for (const node of updatedNodes) node.textContent = updated;
     }
-    setStatus(items.length ? '' : 'لا توجد أخبار موثقة حالياً؛ سيبقى القسم هادئاً بدلاً من عرض خبر غير متحقق منه.');
+    setStatus(archivedItems.length ? '' : 'لا توجد أخبار موثقة حالياً؛ سيبقى القسم هادئاً بدلاً من عرض خبر غير متحقق منه.');
   } catch {
     for (const grid of [homeGrid, educationGrid].filter(Boolean)) grid.setAttribute('aria-busy', 'false');
+    if (archivePagination) archivePagination.hidden = true;
     setStatus('تعذّر تحميل موجز الأخبار الآن. حاول تحديث الصفحة لاحقاً.', true);
   }
 }

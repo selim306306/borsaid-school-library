@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
   "updated_at": "2026-10-14T18:18:59+03:00",
-  "schedule_interval_hours": 4,
+  "schedule_interval_hours": 24,
+  "schedule_interval_seconds": 86400,
   "items": [
     {
       "id": "moe-2026-10-13-applied-technology-school",

@@ -18,13 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="site.css?v=20261014-home-2">
+  <link rel="stylesheet" href="site.css?v=20261014-home-4">
   <script type="module" src="app.js?v=20261014-home-search"></script>
   <link rel="stylesheet" href="global-reading.css?v=3">
   <script type="module" src="global-reading.js?v=4"></script>
-  <link rel="stylesheet" href="education-research.css?v=5">
+  <link rel="stylesheet" href="education-research.css?v=6">
   <script type="module" src="education-research.js?v=4"></script>
-  <script type="module" src="site-news.js?v=1"></script>
+  <script type="module" src="site-news.js?v=2"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -228,9 +228,14 @@
         <aside class="education-research-intro"><span class="education-research-icon" aria-hidden="true">i</span><div><strong>ماذا ستجد هنا؟</strong><p>ملخصات وترجمات عربية موجزة للأخبار، تليها روابط المصادر للتحقق. أما البحث في OpenAlex ففهرسة آلية لا تثبت التحكيم العلمي ولا تضمن توفر ملف PDF مجانيّ؛ راجع شروط المصدر قبل الاستخدام.</p></div></aside>
 
         <section class="education-news-section" aria-labelledby="educationNewsTitle">
-          <div class="education-section-heading"><div><span class="eyebrow">ملخصات آلية · مصادر موثوقة</span><h2 id="educationNewsTitle">أحدث أخبار التعليم بالعربية</h2><p>يرصد المساعد الأخبار الجديدة كل أربع ساعات، ويضيف ترجمة أو خلاصة مختصرة مع تاريخ النشر ورابط المصدر الأصلي.</p></div></div>
+          <div class="education-section-heading"><div><span class="eyebrow">ملخصات آلية · مصادر موثوقة</span><h2 id="educationNewsTitle">أحدث أخبار التعليم بالعربية</h2><p>فترة المراجعة المحددة ٢٤ ساعة؛ تُضاف الأخبار الجديدة إلى الأرشيف ولا تُحذف الأخبار السابقة، مع تاريخ كل خبر ورابط مصدره الأصلي.</p></div></div>
           <p class="education-news-status" id="educationNewsStatus" role="status" aria-live="polite"></p>
           <div class="education-news-grid live-news-grid" id="educationNewsGrid" aria-live="polite" aria-busy="true"></div>
+          <nav class="news-pagination" id="educationNewsPagination" aria-label="التنقل بين صفحات أرشيف الأخبار" hidden>
+            <button class="button button-outline news-page-button" id="educationNewsPrevious" type="button" aria-label="صفحة الأخبار السابقة" aria-controls="educationNewsGrid">السابق</button>
+            <span class="news-pagination-summary" id="educationNewsPageSummary" aria-live="polite"></span>
+            <button class="button button-outline news-page-button" id="educationNewsNext" type="button" aria-label="صفحة الأخبار التالية" aria-controls="educationNewsGrid">التالي</button>
+          </nav>
           <p class="education-feed-note" id="educationNewsUpdated">سيعرض الموجز فقط أخبارًا يمكن التحقق من مصدرها وتاريخها؛ لا يعني ظهور خبر تأييدًا أو شراكة مع الجهة الناشرة.</p>
         </section>
 
