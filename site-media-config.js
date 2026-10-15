@@ -11,11 +11,24 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
   {
     key: 'header-feature-image',
     category: 'هوية الموقع',
-    title: 'صورة الترويسة في الجهة اليسرى',
-    usage: 'صورة اختيارية كبيرة في الجهة اليسرى من الترويسة؛ يمكن استبدالها أو استعادة الافتراضية من مكتبة الصور.',
+    title: 'الصورة الأولى في البنر',
+    usage: 'الشريحة الأولى في البنر أعلى الصفحة؛ يمكن استبدالها من مكتبة الصور مع حفظ النسخ السابقة.',
     defaultSrc: 'assets/header-photo-placeholder.svg',
-    defaultAlt: 'مساحة صورة قابلة للاستبدال في يسار الترويسة',
+    defaultAlt: 'صورة نشاط مكتبي في مكتبة مدرسية',
     selectors: ['#brandHeaderPhoto'],
+  },
+  {
+    key: 'header-feature-image-2',
+    category: 'هوية الموقع',
+    title: 'الصورة الثانية في البنر',
+    usage: 'الشريحة الثانية في البنر الدوّار؛ يمكنك استبدالها من مكتبة الصور أو استعادة الصورة التوضيحية الافتراضية.',
+    defaultSrc: 'assets/reading-room-illustrative.webp',
+    defaultAlt: 'صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا',
+    defaultCredit: {
+      text: 'صورة توضيحية · صامويل زيلر / CC0',
+      href: 'https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg',
+    },
+    selectors: ['#brandHeaderPhotoTwo'],
   },
   {
     key: 'site-favicon',

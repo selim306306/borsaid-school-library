@@ -1,37 +1,4 @@
-const BOOKS = [
-  {
-    title: 'حي بن يقظان',
-    author: 'ابن طفيل',
-    subject: 'فلسفة عربية، قصة رمزية، التفكير والملاحظة، التراث الأندلسي',
-    language: 'العربية',
-    kind: 'كتاب كامل',
-    availability: 'PDF متاح للقراءة والتنزيل',
-    pdf: 'hayy-ibn-yaqzan.pdf',
-    source: 'https://ar.wikisource.org/wiki/حي_بن_يقظان',
-  },
-  {
-    title: 'رسالة الغفران',
-    author: 'أبو العلاء المعري',
-    subject: 'أدب عربي، نقد أدبي، شعر، رحلة تخيّلية، التراث العباسي',
-    language: 'العربية',
-    kind: 'الكتاب: الجزآن الأول والثاني',
-    availability: 'PDF متاح للقراءة والتنزيل',
-    pdf: 'risalat-al-ghufran.pdf',
-    source: 'https://ar.wikisource.org/wiki/رسالة_الغفران',
-  },
-  {
-    title: 'كليلة ودمنة: باب الأسد والثور',
-    author: 'عبد الله بن المقفع',
-    subject: 'حكايات، حكم، قصص تراثية، تحليل الشخصيات، الأدب العربي',
-    language: 'العربية',
-    kind: 'فصل قصصي من الكتاب، وليس الكتاب كاملًا',
-    availability: 'PDF متاح للقراءة والتنزيل',
-    pdf: 'kalila-wa-dimna-lion-and-bull.pdf',
-    source: 'https://ar.wikisource.org/wiki/كليلة_ودمنة/باب_الأسد_والثور_وهو_أول_الكتاب',
-  },
-];
-
-const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/deed.ar';
+import { PUBLIC_READABLE_BOOKS as BOOKS, PUBLIC_READING_LICENSE_URL as LICENSE_URL } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const NEWS_ENDPOINT = `${SUPABASE_URL}/functions/v1/education-news`;

@@ -5,7 +5,6 @@ const BOT_URL = 'https://t.me/PortSaidSchoolLibrariesBot';
 const STORAGE_KEY = 'borsaid-visitor-question-tickets-v1';
 const form = document.querySelector('#visitorQuestionForm');
 const questionField = document.querySelector('#visitorQuestionText');
-const consentField = document.querySelector('#visitorQuestionConsent');
 const honeypotField = document.querySelector('#visitorQuestionWebsite');
 const statusField = document.querySelector('#visitorQuestionStatus');
 const ticketList = document.querySelector('#visitorQuestionTickets');
@@ -102,11 +101,6 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
-    if (!consentField?.checked) {
-      consentField?.focus();
-      statusField.textContent = 'وافق على معالجة السؤال آليًا قبل الإرسال.';
-      return;
-    }
     submitButton.disabled = true;
     statusField.textContent = 'جارٍ إعداد إجابة خاصة من معلومات الموقع العامة…';
     try {
@@ -114,14 +108,13 @@ if (form && questionField && statusField && ticketList && submitButton) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
         cache: 'no-store',
-        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '', consent: true }),
+        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '' }),
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) {
         const messages = {
           owner_not_linked: 'خدمة الرسائل لم تكتمل تهيئتها بعد. حاول لاحقًا.',
           assistant_unavailable: 'المساعد الآلي وقناة المتابعة غير متاحين مؤقتًا. حاول لاحقًا.',
-          consent_required: 'وافق على معالجة السؤال آليًا قبل الإرسال.',
           rate_limited: 'أرسلت أسئلة كثيرة خلال وقت قصير؛ انتظر قليلًا ثم حاول مجددًا.',
           notification_failed: 'تعذر إرسال السؤال الآن. لم يُسجّل السؤال؛ حاول مرة أخرى بعد قليل.',
           service_not_ready: 'خدمة الرسائل غير متاحة مؤقتًا. حاول لاحقًا.',
@@ -146,7 +139,6 @@ if (form && questionField && statusField && ticketList && submitButton) {
       saveTickets();
       renderTickets();
       questionField.value = '';
-      if (consentField) consentField.checked = false;
       statusField.textContent = result.auto_answered
         ? 'أجابك المساعد تلقائيًا؛ الرد محفوظ ويظهر لك وحدك هنا.'
         : 'تعذّر الرد الآلي؛ وصل سؤالك لفريق المكتبة عبر Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.';

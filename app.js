@@ -1,6 +1,7 @@
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-header-photo-1';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-header-carousel-2';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
+import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -229,9 +230,30 @@ function setPublicDirectoryVisibility(enabled) {
     else panel.hidden = true;
   }
 }
-function publicLogoUrl(path) {
+function publicLogoUrl(path, { original = false } = {}) {
   if (!path || !publicSupabase) return '';
-  return publicSupabase.storage.from('school-branding').getPublicUrl(path).data?.publicUrl || '';
+  const storage = publicSupabase.storage.from('school-branding');
+  const originalUrl = storage.getPublicUrl(path).data?.publicUrl || '';
+  if (original || !originalUrl) return originalUrl;
+  return storage.getPublicUrl(path, {
+    transform: { width: 128, height: 128, resize: 'contain', format: 'webp', quality: 65 },
+  }).data?.publicUrl || originalUrl;
+}
+function bindPublicLogoFallback(image, originalUrl) {
+  if (!image) return;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  image.fetchPriority = 'low';
+  image.dataset.logoOriginalUrl = originalUrl || '';
+  image.dataset.logoFallbackApplied = 'false';
+  if (image.dataset.logoFallbackBound === 'true') return;
+  image.addEventListener('error', () => {
+    const fallback = image.dataset.logoOriginalUrl;
+    if (!fallback || image.dataset.logoFallbackApplied === 'true' || image.currentSrc === fallback) return;
+    image.dataset.logoFallbackApplied = 'true';
+    image.src = fallback;
+  });
+  image.dataset.logoFallbackBound = 'true';
 }
 function deduplicatePublicSchoolProfiles(profiles = []) {
   const preferredByName = new Map();
@@ -258,7 +280,10 @@ function updatePublicBranding(profiles = []) {
   const governorateUrl = governorateProfile ? publicLogoUrl(governorateProfile.governorate_logo_path) : '';
   defaultLogo.hidden = false;
   governorateLogo.hidden = !governorateUrl;
-  if (governorateUrl) governorateLogo.src = governorateUrl;
+  if (governorateUrl) {
+    bindPublicLogoFallback(governorateLogo, publicLogoUrl(governorateProfile.governorate_logo_path, { original: true }));
+    governorateLogo.src = governorateUrl;
+  }
   else governorateLogo.removeAttribute('src');
   title.textContent = 'بوابة مدارس بورسعيد';
   subtitle.replaceChildren();
@@ -277,8 +302,7 @@ function updatePublicBranding(profiles = []) {
       logo.className = 'brand-school-logo';
       logo.src = schoolUrl;
       logo.alt = '';
-      logo.loading = 'lazy';
-      logo.decoding = 'async';
+      bindPublicLogoFallback(logo, publicLogoUrl(profile.school_logo_path, { original: true }));
       identity.append(logo);
     } else {
       const placeholder = document.createElement('span');
@@ -301,9 +325,11 @@ function paintBranches(rows, profiles = publicLibraryProfiles) {
   const schoolCards = displayProfiles.map(profile => {
     const schoolLogo = publicLogoUrl(profile.school_logo_path);
     const governorateLogo = publicLogoUrl(profile.governorate_logo_path);
+    const schoolLogoOriginal = publicLogoUrl(profile.school_logo_path, { original: true });
+    const governorateLogoOriginal = publicLogoUrl(profile.governorate_logo_path, { original: true });
     const logos = [
-      schoolLogo ? `<img class="school-profile-public-logo" src="${escapeHtml(schoolLogo)}" alt="شعار ${escapeHtml(profile.school_name)}" loading="lazy">` : '<span class="branch-marker" aria-hidden="true">⌂</span>',
-      governorateLogo ? `<img class="school-profile-public-logo governorate" src="${escapeHtml(governorateLogo)}" alt="شعار المحافظة" loading="lazy">` : '',
+      schoolLogo ? `<img class="school-profile-public-logo" src="${escapeHtml(schoolLogo)}" data-logo-original="${escapeHtml(schoolLogoOriginal)}" alt="شعار ${escapeHtml(profile.school_name)}" loading="lazy">` : '<span class="branch-marker" aria-hidden="true">⌂</span>',
+      governorateLogo ? `<img class="school-profile-public-logo governorate" src="${escapeHtml(governorateLogo)}" data-logo-original="${escapeHtml(governorateLogoOriginal)}" alt="شعار المحافظة" loading="lazy">` : '',
     ].join('');
     const administration = profile.educational_administration ? `<p class="school-profile-meta">${escapeHtml(profile.educational_administration)}</p>` : '';
     const librarian = profile.librarian_name ? `<p class="school-profile-librarian">أخصائي المكتبات: ${escapeHtml(profile.librarian_name)}</p>` : '';
@@ -328,6 +354,9 @@ function paintBranches(rows, profiles = publicLibraryProfiles) {
     return `<article class="branch-card"><span class="branch-marker" aria-hidden="true">⌖</span><div class="branch-card-body"><strong>${escapeHtml(branch.branch_name)}</strong><p>${location ? `${location}${branch.public_address ? ` · ${escapeHtml(branch.public_address)}` : ''}` : (branch.public_address ? escapeHtml(branch.public_address) : 'بيانات الموقع التفصيلية غير متاحة')}</p>${links.length ? `<div class="branch-contact">${links.join('')}</div>` : ''}</div></article>`;
   });
   grid.innerHTML = [...schoolCards, ...branchCards].join('');
+  grid.querySelectorAll('.school-profile-public-logo').forEach(image => {
+    bindPublicLogoFallback(image, image.dataset.logoOriginal || '');
+  });
   grid.setAttribute('aria-busy', 'false');
   setPublicDirectoryVisibility(schoolCards.length + branchCards.length > 0);
 }
@@ -460,7 +489,7 @@ const VISITOR_STOP_WORDS = new Set(['هل', 'ممكن', 'عايز', 'عايزة'
 function extractVisitorCatalogQuery(question) {
   return normalizeVisitorText(question).split(/[^\p{L}\p{N}]+/u).filter(word => word && !VISITOR_STOP_WORDS.has(word)).join(' ').slice(0, 100);
 }
-function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '' } = {}) {
+function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [] } = {}) {
   const log = $('#visitorAssistantLog');
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
@@ -475,6 +504,26 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
       const row = document.createElement('li');
       const available = Number(book.available_copies || 0);
       row.textContent = `${book.title || 'عنوان منشور'} — ${book.branch_name || book.city || 'فرع منشور'} — ${available ? `متاح ${available}` : 'غير متاح الآن'}`;
+      list.append(row);
+    });
+    item.append(list);
+  }
+  if (readingLinks.length) {
+    const list = document.createElement('ul');
+    list.className = 'visitor-assistant-reading-links';
+    readingLinks.slice(0, 3).forEach(link => {
+      const row = document.createElement('li');
+      const anchor = document.createElement('a');
+      anchor.href = link.href;
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.textContent = link.label;
+      row.append(anchor);
+      if (link.note) {
+        const note = document.createElement('span');
+        note.textContent = ` — ${link.note}`;
+        row.append(note);
+      }
       list.append(row);
     });
     item.append(list);
@@ -505,7 +554,20 @@ function publicBranchAnswer(question) {
 async function answerVisitorQuestion(question) {
   const normalized = normalizeVisitorText(question);
   if (/(اونلاين|انترنت|الكترون|pdf|تحميل|تنزيل|اقرا|قراءة|قراءه)/.test(normalized)) {
-    return { text: 'بوابة بورسعيد لا تستضيف نصوص الكتب أو ملفاتها. افتح من الصفحة الرئيسية قسم «مصادر القراءة» للانتقال إلى مواقع القراءة الأصلية؛ قد يتطلب بعضها حساباً، وتختلف الإتاحة والحقوق حسب الكتاب والبلد.' };
+    const matches = findPublicReadableBooks(question);
+    const booksToShow = matches.length ? matches : PUBLIC_READABLE_BOOKS;
+    const readingLinks = booksToShow.map(book => ({
+      label: `${book.title} — فتح PDF`,
+      href: new URL(book.pdf, import.meta.url).href,
+      note: book.kind,
+    }));
+    const asksAboutUnknownTitle = hasSpecificUnknownPublicReading(question, matches);
+    const text = matches.length
+      ? `نعم، يوجد على الموقع ملف PDF لكتاب «${matches[0].title}» (${matches[0].kind}). إليك رابطه المباشر؛ ويمكنك رؤية المصدر والترخيص في قسم القراءة الرقمية.`
+      : asksAboutUnknownTitle
+        ? 'لا أجد على الموقع ملف PDF مباشرًا لهذا العنوان أو الموضوع ضمن المجموعة المحلية الحالية. يستضيف الموقع ثلاثة ملفات محددة فقط؛ الروابط أدناه تعرضها، ويمكن مراجعة قسم القراءة الرقمية للمصدر والترخيص.'
+        : 'نعم، يستضيف الموقع ثلاثة ملفات PDF عربية قابلة للقراءة والتنزيل. «كليلة ودمنة» هنا باب الأسد والثور فقط، و«رسالة الغفران» تشمل الجزأين الأول والثاني. إليك الروابط المباشرة؛ والمصدر والترخيص موضحان في قسم القراءة الرقمية.';
+    return { text, readingLinks };
   }
   if (/(استعير|استلف|اعاره|حجز|احجز|استعاره)/.test(normalized)) {
     return { text: 'ابحث عن العنوان في الفهرس، وتحقق من الفرع وعدد النسخ المتاحة وموقع الرف إن ظهر. بعد ذلك تواصل مع الفرع عبر وسيلة الاتصال المنشورة أو زره. طلب الإعارة والحجز يُدار حالياً من الموظفين داخل المكتبة؛ لا يتيح الموقع طلباً عاماً عبر الإنترنت.' };

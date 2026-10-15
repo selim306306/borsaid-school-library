@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.0';
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261015-header-photo-2';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-header-carousel-2';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -42,7 +42,7 @@ function imageTargets(item) {
   return item.selectors.flatMap(selector => [...document.querySelectorAll(selector)]);
 }
 
-function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, defaultSrc, srcSet = '', originalSource = '') {
+function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, defaultSrc, srcSet = '', originalSource = '', creditText = '', creditHref = '') {
   image.dataset.siteMediaDefault = defaultSrc;
   const fallbackUrl = new URL(defaultSrc, document.baseURI).href;
   image.dataset.siteMediaKey = mediaKey;
@@ -52,11 +52,14 @@ function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, 
   image.dataset.siteMediaOriginalUrl = isCustom ? (originalSource || source) : '';
   image.dataset.siteMediaOriginalFallbackApplied = 'false';
   image.dataset.siteMediaDefaultAlt = defaultAlt;
+  image.dataset.siteMediaCreditText = creditText || '';
+  image.dataset.siteMediaCreditHref = creditHref || '';
   image.alt = altText || defaultAlt;
-  if (mediaKey === 'header-feature-image') {
-    image.loading = 'eager';
+  if (mediaKey.startsWith('header-feature-image')) {
+    const isPrimaryHeaderImage = mediaKey === 'header-feature-image';
+    image.loading = isPrimaryHeaderImage ? 'eager' : 'lazy';
     image.decoding = 'async';
-    image.setAttribute('fetchpriority', 'high');
+    image.setAttribute('fetchpriority', isPrimaryHeaderImage ? 'high' : 'low');
     if (srcSet) {
       image.setAttribute('srcset', srcSet);
       image.setAttribute('sizes', '(max-width: 700px) min(410px, calc(100vw - 48px)), 380px');
@@ -64,6 +67,12 @@ function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, 
       image.removeAttribute('srcset');
       image.removeAttribute('sizes');
     }
+  }
+  if (mediaKey === 'site-mark') {
+    const isPrimaryLogo = image.id === 'brandDefaultLogo';
+    image.loading = isPrimaryLogo ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    image.setAttribute('fetchpriority', isPrimaryLogo ? 'high' : 'low');
   }
   if (!image.dataset.siteMediaFallbackBound) {
     image.addEventListener('error', () => {
@@ -93,6 +102,21 @@ const HEADER_IMAGE_VARIANTS = Object.freeze([
   { width: 480, height: 360, quality: 78 },
   { width: 960, height: 720, quality: 78 },
 ]);
+const SITE_MARK_VARIANT = Object.freeze({ width: 144, height: 144, quality: 80 });
+
+async function createResponsiveSiteMarkUrl(asset) {
+  if (!asset?.storage_path) return '';
+  try {
+    const { data, error } = await publicClient.storage.from(SITE_MEDIA_BUCKET).createSignedUrl(
+      asset.storage_path,
+      SIGNED_URL_TTL_SECONDS,
+      { transform: { ...SITE_MARK_VARIANT, resize: 'contain', format: 'webp' } },
+    );
+    return error || !data?.signedUrl ? '' : data.signedUrl;
+  } catch {
+    return '';
+  }
+}
 
 async function createResponsiveHeaderImageUrls(asset) {
   if (!asset?.storage_path) return [];
@@ -125,22 +149,32 @@ export async function refreshPublicSiteMedia() {
     if (assetIds.length) {
       const { data, error } = await publicClient
         .from('site_media_assets')
-        .select('id,media_key,storage_path,alt_text,mime_type')
+        .select('id,media_key,storage_path,alt_text,mime_type,description')
         .in('id', assetIds);
       if (error || !data) return false;
       assets = data;
     }
     const assetById = new Map(assets.map(asset => [asset.id, asset]));
     const paths = assets.map(asset => asset.storage_path);
-    const headerAsset = assets.find(asset => asset.media_key === 'header-feature-image');
+    const headerAssets = assets.filter(asset => asset.media_key.startsWith('header-feature-image'));
     const signedRequest = paths.length
       ? publicClient.storage.from(SITE_MEDIA_BUCKET).createSignedUrls(paths, SIGNED_URL_TTL_SECONDS)
       : Promise.resolve({ data: [], error: null });
-    const headerVariantsRequest = headerAsset
-      ? createResponsiveHeaderImageUrls(headerAsset)
-      : Promise.resolve([]);
-    const [signedResponse, headerVariants] = await Promise.all([signedRequest, headerVariantsRequest]);
+    const headerVariantsRequest = Promise.all(headerAssets.map(async asset => [
+      asset.media_key,
+      await createResponsiveHeaderImageUrls(asset),
+    ]));
+    const siteMarkAsset = assets.find(asset => asset.media_key === 'site-mark');
+    const siteMarkVariantRequest = siteMarkAsset
+      ? createResponsiveSiteMarkUrl(siteMarkAsset)
+      : Promise.resolve('');
+    const [signedResponse, headerVariantEntries, siteMarkVariant] = await Promise.all([
+      signedRequest,
+      headerVariantsRequest,
+      siteMarkVariantRequest,
+    ]);
     if (signedResponse.error || !signedResponse.data) return false;
+    const headerVariantsByKey = new Map(headerVariantEntries);
     const signedByPath = new Map();
     for (const result of signedResponse.data) {
       if (result.path && result.signedUrl && !result.error) signedByPath.set(result.path, result.signedUrl);
@@ -151,8 +185,9 @@ export async function refreshPublicSiteMedia() {
       if (!slot) continue;
       const asset = slot.current_asset_id ? assetById.get(slot.current_asset_id) : null;
       const signedUrl = asset ? signedByPath.get(asset.storage_path) : '';
-      const responsiveHeaderSources = item.key === 'header-feature-image' ? headerVariants : [];
-      if (slot.current_asset_id && !signedUrl && !responsiveHeaderSources.length) continue;
+      const responsiveHeaderSources = headerVariantsByKey.get(item.key) || [];
+      const responsiveSiteMark = item.key === 'site-mark' ? siteMarkVariant : '';
+      if (slot.current_asset_id && !signedUrl && !responsiveHeaderSources.length && !responsiveSiteMark) continue;
       const imageUrl = signedUrl || item.defaultSrc;
       const altText = asset?.alt_text || item.defaultAlt;
       if (item.key === 'site-favicon' || item.key === 'social-preview') {
@@ -160,12 +195,12 @@ export async function refreshPublicSiteMedia() {
         continue;
       }
       const headerSrcSet = responsiveHeaderSources.map(variant => `${variant.url} ${variant.width}w`).join(', ');
-      const displayUrl = responsiveHeaderSources.length
+      const displayUrl = responsiveSiteMark || (responsiveHeaderSources.length
         ? responsiveHeaderSources[responsiveHeaderSources.length - 1].url
-        : imageUrl;
+        : imageUrl);
       imageTargets(item).forEach(image => {
         if (!(image instanceof HTMLImageElement)) return;
-        const isUnchangedBootstrapImage = item.key === 'header-feature-image'
+        const isUnchangedBootstrapImage = (item.key === 'header-feature-image' || item.key === 'site-mark')
           && asset?.storage_path
           && image.dataset.siteMediaBootstrapPath === asset.storage_path
           && image.getAttribute('src') === image.dataset.siteMediaBootstrapSrc;
@@ -173,12 +208,14 @@ export async function refreshPublicSiteMedia() {
           image,
           isUnchangedBootstrapImage ? image.dataset.siteMediaBootstrapSrc : displayUrl,
           altText,
-          Boolean(signedUrl || responsiveHeaderSources.length),
+          Boolean(signedUrl || responsiveHeaderSources.length || responsiveSiteMark),
           item.defaultAlt,
           item.key,
           item.defaultSrc,
           isUnchangedBootstrapImage ? '' : headerSrcSet,
-          item.key === 'header-feature-image' ? signedUrl : '',
+          item.key === 'site-mark' || item.key.startsWith('header-feature-image') ? signedUrl : '',
+          asset?.description || item.defaultCredit?.text || '',
+          asset ? '' : (item.defaultCredit?.href || ''),
         );
       });
     }

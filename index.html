@@ -21,19 +21,21 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://esm.sh">
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
+  <link rel="preload" as="image" href="assets/egypt-mark.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/header-photo-initial.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
+  <link rel="stylesheet" href="site.css?v=20261016-pdf-assistant-2">
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
-  <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-6">
-  <link rel="stylesheet" href="visitor-questions.css?v=20261015-automatic-replies-1">
+  <link rel="stylesheet" href="header-photo.css?v=20261016-header-carousel-2">
+  <link rel="stylesheet" href="visitor-questions.css?v=20261016-auto-send-notice-2">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="site-media-public.js?v=20261015-header-photo-4"></script>
-  <script type="module" src="app.js?v=20261015-aggregate-page-views-2"></script>
+  <script type="module" src="site-media-public.js?v=20261016-site-mark-webp-1"></script>
+  <script type="module" src="header-photo-carousel.js?v=20261016-header-carousel-1"></script>
+  <script type="module" src="app.js?v=20261016-public-pdf-guide-2"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -41,8 +43,8 @@
   <script type="module" src="education-research.js?v=4"></script>
   <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
-  <script type="module" src="open-books-live.js?v=20261015-rss-proxy-1"></script>
-  <script type="module" src="visitor-questions.js?v=20261015-automatic-replies-1"></script>
+  <script type="module" src="open-books-live.js?v=20261016-public-pdf-guide-2"></script>
+  <script type="module" src="visitor-questions.js?v=20261016-auto-send-notice-2"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
@@ -54,7 +56,7 @@
     <a class="brand" id="siteBrand" href="#top" aria-label="بوابة مدارس بورسعيد">
       <span class="brand-logo-group" id="brandLogoGroup">
         <span class="brand-flag-photo-stack">
-          <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
+          <img id="brandDefaultLogo" src="assets/egypt-mark.webp" data-site-media-bootstrap-src="assets/egypt-mark.webp" data-site-media-bootstrap-path="media/site-mark/db7748cc-05f3-4ee3-b280-ce8ada32135d.png" alt="علم جمهورية مصر العربية" width="144" height="144" loading="eager" fetchpriority="high" decoding="async">
         </span>
         <img class="brand-logo-extra" id="brandGovernorateLogo" alt="شعار محافظة بورسعيد" width="34" height="34" hidden>
       </span>
@@ -67,8 +69,20 @@
       <a href="#features">ماذا يقدّم الموقع؟</a>
       <a href="#visitorQuestions">اسأل أمين المكتبة</a>
     </nav>
-    <div class="header-feature-image-slot">
-      <img class="brand-header-photo" id="brandHeaderPhoto" src="assets/header-photo-initial.webp" data-site-media-bootstrap-src="assets/header-photo-initial.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="مساحة صورة قابلة للاستبدال أسفل علم مصر" width="960" height="720" loading="eager" fetchpriority="high" decoding="async">
+    <div class="header-feature-image-slot" role="region" aria-roledescription="carousel" aria-label="صور المكتبات والقراءة">
+      <img class="brand-header-photo is-active" id="brandHeaderPhoto" src="assets/header-photo-initial.webp" data-site-media-bootstrap-src="assets/header-photo-initial.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="صورة نشاط مكتبي في مكتبة مدرسية" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false">
+      <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <span class="header-photo-attribution" id="headerPhotoAttribution" hidden></span>
+      <a class="header-telegram-shortcut" id="headerTelegramShortcut" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer" aria-label="افتح مساعد مكتبات بورسعيد الذكي على Telegram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.6 18.2 19c-.2 1-1 1.2-1.8.7l-4.9-3.6-2.4 2.3c-.3.3-.6.6-1.2.6l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L5.6 12.8l-4.8-1.5c-1-.3-1-1 .2-1.5l18.8-7.2c.9-.3 1.7.2 1.6 2z"></path></svg>
+        <span>مساعد Telegram الذكي</span><span aria-hidden="true">↗</span>
+      </a>
+      <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
+        <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
+        <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
+        <button class="header-photo-control" id="headerPhotoNext" type="button" aria-label="الصورة التالية">›</button>
+      </div>
+      <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
     </div>
   </header>
   <nav class="mobile-nav section-wrap" aria-label="تنقل سريع">
@@ -179,7 +193,7 @@
       </div>
       <aside class="home-visit-note" aria-label="معلومات مهمة للزائر">
         <span class="home-note-icon" aria-hidden="true">i</span>
-        <div class="home-note-copy"><strong>قبل الزيارة</strong><p>الفهرس يعرض بيانات عامة تنشرها المكتبات فقط. الموقع لا يستضيف الكتب أو يدير الإعارة والحجز إلكترونياً؛ روابط القراءة أدناه تفتح المصادر الأصلية، وتختلف الإتاحة والحقوق حسب العنوان.</p></div>
+        <div class="home-note-copy"><strong>قبل الزيارة</strong><p>الفهرس يعرض بيانات عامة تنشرها المكتبات فقط، والموقع يستضيف ثلاثة ملفات PDF عربية موضحة في قسم القراءة الرقمية. مصادر القراءة الأخرى تفتح لدى جهاتها الأصلية، ولا يدير الموقع الإعارة أو الحجز إلكترونياً.</p></div>
         <nav class="home-quick-links" aria-label="روابط سريعة للزائر">
           <a href="#branches">المكتبات</a><a href="#announcements">تنبيهات الزيارة</a><a href="#visitorAssistant">أسئلة عن الاستخدام</a><a href="#globalReading">مصادر الكتب</a><a href="#educationResearch">أخبار وأبحاث</a>
         </nav>
@@ -420,17 +434,16 @@
         <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
         <p>سيجيب مساعد المكتبة تلقائيًا عن الأسئلة العامة بالاستناد إلى معلومات الموقع والفهرس المنشور. يظهر رد كل سؤال لصاحبه فقط في هذه الصفحة.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note">يُعالج نص السؤال ونتائج الفهرس العام المطابقة عبر Gemini؛ لا يستطيع المساعد قراءة سجلات الطلاب أو المستعيرين. إذا تعذّر الرد الآلي، يرسل السؤال إلى صاحب الموقع عبر البوت للمتابعة.</p>
-        <p class="visitor-privacy-note">لا تكتب اسم طالب أو مستعير، أو رقم عضوية، أو هاتفًا، أو بريدًا، أو أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
+        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">عند الضغط على «اسأل المساعد»، يُرسل نص سؤالك ونتائج الفهرس العامة المطابقة إلى Gemini لإعداد الإجابة، ويُحفظ السؤال والرد في قاعدة خاصة ليظهر الرد لك وحدك. إذا تعذّر الرد الآلي، يُرسل نص السؤال إلى مالك الموقع عبر Telegram للمتابعة. لا يستطيع المساعد قراءة سجلات الطلاب أو المستعيرين أو بيانات الموظفين الخاصة.</p>
+        <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لا تكتب اسم طالب أو مستعير أو موظف، أو رقم عضوية، أو هاتفًا، أو بريدًا، أو أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
         <label for="visitorQuestionText">نص السؤال</label>
-        <textarea id="visitorQuestionText" name="question" maxlength="1500" rows="5" required placeholder="اكتب سؤالك هنا…"></textarea>
+        <textarea id="visitorQuestionText" name="question" maxlength="1500" rows="5" required aria-describedby="visitorAIProcessingNotice visitorQuestionPrivacy" placeholder="اكتب سؤالك هنا…"></textarea>
         <div class="visitor-question-honeypot" aria-hidden="true">
           <label for="visitorQuestionWebsite">اترك هذا الحقل فارغًا</label>
           <input id="visitorQuestionWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
-        <label class="visitor-ai-consent" for="visitorQuestionConsent"><input id="visitorQuestionConsent" name="consent" type="checkbox" required><span>أوافق على معالجة نص السؤال آليًا عبر Gemini للإجابة، وأؤكد أنه لا يتضمن بيانات شخصية أو معلومات سرية.</span></label>
         <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">اسأل المساعد</button>
         <p class="visitor-question-status" id="visitorQuestionStatus" role="status" aria-live="polite"></p>
         <div class="visitor-question-tickets" id="visitorQuestionTickets" aria-live="polite"></div>

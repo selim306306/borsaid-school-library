@@ -129,6 +129,7 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .visitor-assistant-message strong{display:block;margin-bottom:3px;color:var(--blue);font-size:calc((10px) + var(--site-font-step, 2px))}
 .visitor-assistant-message p{margin:0;font-size:calc((11px) + var(--site-font-step, 2px));line-height:1.8;white-space:pre-line}
 .visitor-assistant-message ul{padding-inline-start:20px;margin:6px 0 0;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.visitor-assistant-reading-links a{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .visitor-question-chips,.assistant-prompt-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
 .visitor-question-chips button,.assistant-prompt-chips button{border:1px solid #e0e6f1;border-radius:20px;background:#fff;color:#4c5d7b;padding:6px 10px;font-size:calc((10px) + var(--site-font-step, 2px))}
 .visitor-question-chips button:hover,.assistant-prompt-chips button:hover{border-color:#b7c7f0;background:#f7f9ff;color:var(--blue)}
