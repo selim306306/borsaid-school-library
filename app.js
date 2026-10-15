@@ -1,5 +1,6 @@
 import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-header-photo-1';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
+import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -607,6 +608,7 @@ function configureRole(role) {
   $$('.staff-tab').forEach(button => { button.hidden = !allowed.has(button.dataset.panel); });
   $('#titleForm').hidden = !manager;
   $('#holdingForm').hidden = !manager;
+  $('#bookImportCard').hidden = !manager;
   $('#branchForm').hidden = !manager;
   $('#schoolProfileTab').hidden = !owner;
   $('#siteMediaTab').hidden = !hasSiteMediaOwnership();
@@ -1521,7 +1523,7 @@ async function loadInventory() {
     if (inventoryTitles.some(row => row.id === selected)) select.value = selected;
   }
   const canManage = ['owner','admin','librarian'].includes(currentRole);
-  tbody.innerHTML = inventoryTitles.length ? inventoryTitles.map(row => `<tr><td>${escapeHtml(row.general_number)}</td><td>${escapeHtml(row.title)}${row.series_name ? `<small class="catalog-series-label">السلسلة: ${escapeHtml(row.series_name)}</small>` : ''}</td><td>${escapeHtml(row.author || '—')}</td><td><span class="${row.is_published ? 'published-tag' : 'pending-tag'}">${row.is_published ? 'منشور' : 'داخلي'}</span></td><td>${canManage ? `<button class="loan-return" data-edit-title="${escapeHtml(row.id)}" type="button">تعديل</button>` : '—'}</td></tr>`).join('') : '<tr><td colspan="5" class="table-empty">لا توجد عناوين مسجلة لهذه المكتبة.</td></tr>';
+  renderInventoryTitles();
   const titleMap = Object.fromEntries(inventoryTitles.map(row => [row.id, row]));
   const branchMap = Object.fromEntries(staffBranches.map(row => [row.id, row.name]));
   const statusLabels = { available: 'متاح', on_loan: 'معار', reserved: 'محجوز', maintenance: 'صيانة', lost: 'مفقود', withdrawn: 'مستبعد' };
@@ -1535,6 +1537,17 @@ async function loadInventory() {
     return `<tr><td>${escapeHtml(title.general_number || '—')}</td><td>${escapeHtml(title.title || 'عنوان')}</td><td>${escapeHtml(location)}</td><td>${escapeHtml(row.inventory_tag || '—')}</td><td><span class="${row.status === 'available' ? 'published-tag' : 'pending-tag'}">${statusLabels[row.status] || escapeHtml(row.status)}</span></td><td>${auditActions}${statusAction} ${editAction}</td></tr>`;
   }).join('') : '<tr><td colspan="6" class="table-empty">لا توجد نسخ مسجلة.</td></tr>';
   renderAutomationTasks();
+}
+function renderInventoryTitles() {
+  const tbody = $('#inventoryRows');
+  if (!tbody) return;
+  const query = String($('#inventorySearch')?.value || '').normalize('NFKC').toLocaleLowerCase('ar-EG').trim();
+  const visibleTitles = inventoryTitles.filter(row => !query || [row.general_number, row.title, row.author, row.classification, row.isbn, row.series_name]
+    .some(value => String(value || '').normalize('NFKC').toLocaleLowerCase('ar-EG').includes(query)));
+  const count = $('#inventorySearchCount');
+  if (count) count.textContent = `${visibleTitles.length.toLocaleString('ar-EG')} من ${inventoryTitles.length.toLocaleString('ar-EG')} عنوان`;
+  const canManage = ['owner', 'admin', 'librarian'].includes(currentRole);
+  tbody.innerHTML = visibleTitles.length ? visibleTitles.map(row => `<tr><td>${escapeHtml(row.general_number)}</td><td>${escapeHtml(row.title)}${row.series_name ? `<small class="catalog-series-label">السلسلة: ${escapeHtml(row.series_name)}</small>` : ''}</td><td>${escapeHtml(row.author || '—')}</td><td><span class="${row.is_published ? 'published-tag' : 'pending-tag'}">${row.is_published ? 'منشور' : 'داخلي'}</span></td><td>${canManage ? `<button class="loan-return" data-edit-title="${escapeHtml(row.id)}" type="button">تعديل</button>` : '—'}</td></tr>`).join('') : `<tr><td colspan="5" class="table-empty">${inventoryTitles.length && query ? 'لا توجد عناوين تطابق البحث.' : 'لا توجد عناوين مسجلة لهذه المكتبة.'}</td></tr>`;
 }
 async function loadPatrons() {
   let data;
@@ -2424,9 +2437,68 @@ $('#exportInventory').addEventListener('click', async () => {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   setMessage($('#workspaceMessage'), 'تم تنزيل ملف الجرد. خزّنه في مكان آمن وفق سياسة المكتبة.', 'success');
 });
+$('#exportLoanReport').addEventListener('click', async event => {
+  const button = event.currentTarget;
+  button.disabled = true;
+  try {
+    const [loans, holdings, titles, branches] = await Promise.all([
+      fetchAllPages(() => supabase.from('loans').select('holding_id,due_at,returned_at,created_at').eq('library_id', currentLibraryId).order('created_at')),
+      fetchAllPages(() => supabase.from('holdings').select('id,title_id,branch_id').eq('library_id', currentLibraryId).order('id')),
+      fetchAllPages(() => supabase.from('catalog_titles').select('id,general_number,title').eq('library_id', currentLibraryId).order('general_number')),
+      fetchAllPages(() => supabase.from('branches').select('id,name').eq('library_id', currentLibraryId).order('name')),
+    ]);
+    const holdingMap = new Map(holdings.map(row => [row.id, row]));
+    const titleMap = new Map(titles.map(row => [row.id, row]));
+    const branchMap = new Map(branches.map(row => [row.id, row.name]));
+    const grouped = new Map();
+    const now = Date.now();
+    for (const loan of loans) {
+      const holding = holdingMap.get(loan.holding_id);
+      const title = holding ? titleMap.get(holding.title_id) : null;
+      if (!holding || !title) continue;
+      const key = `${title.id}\u0000${holding.branch_id}`;
+      if (!grouped.has(key)) grouped.set(key, { title, branch: branchMap.get(holding.branch_id) || 'فرع غير محدد', total: 0, open: 0, overdue: 0, returned: 0 });
+      const summary = grouped.get(key);
+      summary.total += 1;
+      if (loan.returned_at) summary.returned += 1;
+      else {
+        summary.open += 1;
+        if (loan.due_at && new Date(loan.due_at).getTime() < now) summary.overdue += 1;
+      }
+    }
+    const rows = [['الرقم العام المحلي', 'عنوان الكتاب', 'الفرع', 'إجمالي الإعارات', 'المفتوحة', 'المتأخرة', 'المرتجعة']];
+    [...grouped.values()].sort((a, b) => String(a.title.title).localeCompare(String(b.title.title), 'ar-EG') || a.branch.localeCompare(b.branch, 'ar-EG'))
+      .forEach(row => rows.push([row.title.general_number, row.title.title, row.branch, row.total, row.open, row.overdue, row.returned]));
+    const csv = '\ufeff' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'borsaid-library-circulation-report.csv'; link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setMessage($('#workspaceMessage'), loans.length ? 'تم تنزيل التقرير المجمع؛ لا يحتوي أسماء أو رموز مستعيرين.' : 'لا توجد إعارات مسجلة؛ نُزّل تقرير بعناوين الأعمدة فقط.', 'success');
+  } catch {
+    setMessage($('#workspaceMessage'), 'تعذّر إنشاء تقرير الإعارات؛ تحقق من صلاحية المكتبة والاتصال.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
 
 $('#dueAtInput').min = (() => { const date = new Date(); date.setDate(date.getDate() + 1); return date.toISOString().slice(0, 10); })();
 $('#refreshInventory').addEventListener('click', () => loadReports());
+$('#inventorySearch').addEventListener('input', renderInventoryTitles);
+initializeBookImportControls({
+  getSupabase: () => supabase,
+  getLibraryId: () => currentLibraryId,
+  getRole: () => currentRole,
+  getBranches: () => staffBranches,
+  getTitles: () => inventoryTitles,
+  normalizeDeweyNumber,
+  normalizeCatalogIsbn,
+  escapeHtml,
+  csvCell,
+  onImported: async () => {
+    await Promise.allSettled([loadInventory(), refreshStaffStats(), loadReports()]);
+  },
+});
 
 async function start() {
   try {

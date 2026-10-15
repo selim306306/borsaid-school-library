@@ -22,13 +22,14 @@
   <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
+  <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-6">
   <link rel="stylesheet" href="visitor-questions.css?v=20261015-automatic-replies-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-2"></script>
-  <script type="module" src="app.js?v=20261015-camera-title-page-1"></script>
+  <script type="module" src="app.js?v=20261015-staff-parity-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -546,7 +547,24 @@
           </datalist>
           <p class="form-message" id="titleMessage" role="status" aria-live="polite"></p>
           <div class="panel-heading list-heading"><div><h3>العناوين المسجلة</h3><p>عرض داخلي خاص بموظفي هذه المكتبة.</p></div><button class="button button-soft" id="refreshInventory" type="button">تحديث</button></div>
+          <div class="inventory-search-row"><label class="sr-only" for="inventorySearch">ابحث في عناوين هذه المكتبة</label><input id="inventorySearch" type="search" autocomplete="off" placeholder="بحث داخلي بالعنوان أو المؤلف أو الرقم العام أو ISBN أو ديوي"><small id="inventorySearchCount" role="status" aria-live="polite">—</small></div>
           <div class="table-wrap"><table><thead><tr><th>الرقم العام</th><th>العنوان</th><th>المؤلف</th><th>الظهور العام</th><th>إجراء</th></tr></thead><tbody id="inventoryRows"><tr><td colspan="5" class="table-empty">سجّل الدخول لعرض السجلات.</td></tr></tbody></table></div>
+          <section class="book-bulk-import-card" id="bookImportCard" hidden aria-labelledby="bookImportHeading">
+            <div class="book-bulk-import-heading"><div><h4 id="bookImportHeading">استيراد جرد من Excel أو CSV</h4><p>كل صف يمثل نسخة مادية، وتُقرأ الورقة الأولى محلياً في المتصفح. لا تُرسل الملفات إلى Gemini؛ وبعد موافقتك تُحفظ حقول الكتب والنسخ المعروفة فقط في قاعدة المكتبة، وتُتجاهل الأعمدة الأخرى. لا يتغير أي سجل قبل مراجعة المعاينة.</p></div><button class="button button-outline" id="downloadBookImportTemplate" type="button">تنزيل قالب CSV</button></div>
+            <div class="book-bulk-import-controls">
+              <label for="bookImportFile">ملف Excel أو CSV<input id="bookImportFile" type="file" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"></label>
+              <label for="bookImportDefaultBranch">الفرع الافتراضي للصفوف التي لا تحدد فرعاً<select id="bookImportDefaultBranch" data-branch-select><option value="">اختر عند الحاجة</option></select></label>
+              <button class="button button-soft" id="prepareBookImport" type="button" disabled>قراءة الملف ومعاينته</button>
+              <button class="button button-primary" id="confirmBookImport" type="button" disabled>تنفيذ الاستيراد</button>
+            </div>
+            <p class="book-bulk-import-note">الأعمدة المطلوبة: الرقم العام المحلي، عنوان الكتاب، والفرع أو اختيار فرع افتراضي. الأعمدة الاختيارية: المؤلف، ديوي، ISBN، السلسلة، رقم النسخة، الدولاب، الرف، ووصف الرف العام. تُعامل الصفوف ذات الرقم العام نفسه كنسخ للعنوان نفسه إذا تطابقت بياناته. يُحفظ كل الملف كوحدة ذرية: إما ينجح كله أو لا يُحفظ منه شيء.</p>
+            <p class="book-import-status" id="bookImportStatus" role="status" aria-live="polite"></p>
+            <div class="book-import-preview" id="bookImportPreview" hidden aria-live="polite">
+              <div class="book-import-preview-heading"><strong id="bookImportSummary"></strong><span id="bookImportIssueCount"></span></div>
+              <ul class="book-import-issues" id="bookImportIssues"></ul>
+              <div class="table-wrap"><table><thead><tr><th>صف الملف</th><th>الرقم العام</th><th>العنوان</th><th>الفرع</th><th>رقم النسخة</th><th>التحقق</th></tr></thead><tbody id="bookImportPreviewRows"></tbody></table></div>
+            </div>
+          </section>
           <div class="panel-heading list-heading"><div><h3>إضافة نسخة إلى عنوان موجود</h3><p>لكل نسخة رقم وموقع وحالة مستقلة.</p></div></div>
           <form id="holdingForm" class="staff-form-grid compact-form">
             <label>العنوان<select name="title_id" id="holdingTitleSelect" required><option value="">اختر عنواناً</option></select></label>
@@ -684,6 +702,7 @@
           <div class="panel-heading"><div><h3>تقارير سريعة وتصدير</h3><p>مؤشرات تشغيلية مبنية على سجلات هذه المكتبة فقط.</p></div></div>
           <div class="report-grid" id="reportGrid"></div>
           <div class="export-card"><div><strong>تصدير جرد الفهرس إلى CSV</strong><p>يشمل بيانات الكتب والنسخ والفروع فقط؛ لا يتضمن أسماء مستعيرين.</p></div><button class="button button-primary" id="exportInventory" type="button">تنزيل ملف الجرد</button></div>
+          <div class="export-card"><div><strong>تصدير تقرير الإعارات المجمّع إلى CSV</strong><p>تجميع حسب الكتاب والفرع: إجمالي الإعارات والمفتوحة والمتأخرة والمرتجعة؛ بلا أسماء أو رموز مستعيرين أو تفاصيل إعارة فردية.</p></div><button class="button button-outline" id="exportLoanReport" type="button">تنزيل تقرير الإعارات</button></div>
           <div class="export-card" id="operationalBackupCard" hidden><div><strong>تصدير بيانات تشغيلية JSON</strong><p>يشمل سجلات المستعيرين والإعارة؛ ملف حساس، متاح لمالك المكتبة فقط.</p></div><button class="button button-outline" id="exportOperationalBackup" type="button">تنزيل التصدير</button></div>
           <div class="privacy-banner">هذا تصدير تشغيلي وليس نسخة PostgreSQL كاملة. النسخ التلقائية اليومية لدى Supabase متاحة لخطط Pro وTeam وEnterprise؛ أُرفق إعداد GitHub Actions آمن للنسخ الخارجية بعد إضافة الأسرار، ولم يُفعّل بعد.</div>
         </section>
