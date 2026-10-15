@@ -24,9 +24,9 @@
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
-  <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-1">
+  <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-2">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="site-media-public.js?v=20261015-header-photo-1"></script>
+  <script type="module" src="site-media-public.js?v=20261015-header-photo-2"></script>
   <script type="module" src="app.js?v=20261015-camera-title-page-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
@@ -48,7 +48,6 @@
       <span class="brand-logo-group" id="brandLogoGroup">
         <span class="brand-flag-photo-stack">
           <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
-          <img class="brand-header-photo" id="brandHeaderPhoto" src="assets/header-photo-placeholder.svg" alt="مساحة صورة قابلة للاستبدال أسفل علم مصر" width="42" height="42" loading="lazy" decoding="async">
         </span>
         <img class="brand-logo-extra" id="brandGovernorateLogo" alt="شعار محافظة بورسعيد" width="34" height="34" hidden>
       </span>
@@ -56,11 +55,13 @@
     </a>
     <nav class="desktop-nav" aria-label="التنقل الرئيسي">
       <a href="#discover">اكتشف الكتب</a>
-	      <a href="#branches">المكتبات</a>
-	      <a href="#visitorAssistant">اسأل المساعد</a>
+      <a href="#branches">المكتبات</a>
+      <a href="#visitorAssistant">اسأل المساعد</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
     </nav>
-    <button class="button button-outline staff-open" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span> دخول الموظفين</button>
+    <div class="header-feature-image-slot">
+      <img class="brand-header-photo" id="brandHeaderPhoto" src="assets/header-photo-placeholder.svg" alt="مساحة صورة قابلة للاستبدال في يسار الترويسة" width="92" height="92" loading="lazy" decoding="async">
+    </div>
   </header>
   <nav class="mobile-nav section-wrap" aria-label="تنقل سريع">
     <a href="#discover">اكتشف الكتب</a>
@@ -68,14 +69,17 @@
     <a href="#visitorAssistant">اسأل المساعد</a>
     <a href="#features">مزايا الموقع</a>
   </nav>
-  <nav class="site-tabs section-wrap" id="visitorTabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام الموقع">
-    <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9M9 21v-7h6v7"></path></svg><span>الرئيسية</span></button>
+  <nav class="site-tabs section-wrap" id="visitorTabs" aria-label="أقسام الموقع">
+    <button class="button button-outline staff-open staff-nav-button" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span><span class="staff-label">دخول الموظفين</span></button>
+    <div class="site-view-tabs" role="tablist" aria-orientation="horizontal">
+      <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9M9 21v-7h6v7"></path></svg><span>الرئيسية</span></button>
     <button class="view-tab" id="discoverTab" type="button" role="tab" aria-selected="false" aria-controls="discoverView" tabindex="-1" data-view="discover"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"></path><path d="M4 5.5v13A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 11h7"></path></svg><span>الكتب</span></button>
     <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches" hidden><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01M10 21v-4h4v4"></path></svg><span>المكتبات</span></button>
     <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14V9a2 2 0 0 1 2-2h2l9-4v17l-9-4H6a2 2 0 0 1-2-2z"></path><path d="m8 16 2 5h4l-2-4M20 8l2-2M20 15l2 2"></path></svg><span>الإعلانات</span></button>
     <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 7h.01"></path></svg><span>عن الموقع</span></button>
     <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M12 7C9 4.5 5.5 4 3 5v14c3-.8 6.4-.4 9 2M12 7c3-2.5 6.5-3 9-2v14c-3-.8-6.4-.4-9 2"></path></svg><span>القراءة</span></button>
     <button class="view-tab" id="educationResearchTab" type="button" role="tab" aria-selected="false" aria-controls="educationResearchView" tabindex="-1" data-view="educationResearch"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"></path><path d="m16.5 17.5 2 2 3-4"></path></svg><span>أخبار وأبحاث</span></button>
+    </div>
   </nav>
 
   <main id="top" tabindex="-1">

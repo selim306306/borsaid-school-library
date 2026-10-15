@@ -11,10 +11,10 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
   {
     key: 'header-feature-image',
     category: 'هوية الموقع',
-    title: 'صورة مربعة أسفل علم مصر',
-    usage: 'صورة اختيارية في مربع أسفل العلم داخل الترويسة؛ يمكن استبدالها أو استعادة الافتراضية من مكتبة الصور.',
+    title: 'صورة الترويسة في الجهة اليسرى',
+    usage: 'صورة اختيارية كبيرة في الجهة اليسرى من الترويسة؛ يمكن استبدالها أو استعادة الافتراضية من مكتبة الصور.',
     defaultSrc: 'assets/header-photo-placeholder.svg',
-    defaultAlt: 'مساحة صورة قابلة للاستبدال أسفل علم مصر',
+    defaultAlt: 'مساحة صورة قابلة للاستبدال في يسار الترويسة',
     selectors: ['#brandHeaderPhoto'],
   },
   {
