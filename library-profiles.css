@@ -48,3 +48,48 @@
 .leadership-photo-hamed{object-position:center 9%}
 .leadership-photo-first-supervisor{object-fit:contain;border-radius:8px;background:#fff}
 @media(max-width:700px){.school-profile-panel{padding:14px}.school-profile-grid{grid-template-columns:1fr}.school-profile-action{width:100%}.school-profile-check{grid-column:auto}.school-profile-card{grid-column:auto}.brand-copy{max-width:min(48vw,210px)}.brand-logo-group img{width:38px;height:38px}.brand-logo-group .brand-logo-extra{width:27px;height:27px}.school-profile-leadership p{font-size:calc((9px) + var(--site-font-step, 2px))}}
+
+
+/* School identity is repeated per public profile; no school logo is hidden behind a single selection. */
+.brand-school-identities{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;max-width:100%;margin-top:3px;color:#596780;font-size:calc((9px) + var(--site-font-step, 2px));line-height:1.3}
+.brand-school-identity{display:flex;align-items:center;gap:5px;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.brand-school-logo,.brand-school-placeholder{width:22px;height:22px;flex:0 0 22px;object-fit:contain;padding:2px;border:1px solid #e7ebf2;border-radius:6px;background:#fff}
+.brand-school-placeholder{display:grid;place-items:center;color:#385dcc;font-size:calc((12px) + var(--site-font-step, 2px))}
+.brand-school-name{min-width:0;overflow-wrap:anywhere}
+.school-profile-library-context{grid-column:1/-1;margin:0;padding:9px 11px;border:1px solid #dfe7f6;border-radius:10px;background:#f5f8ff;color:#354d7d;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.7;overflow-wrap:anywhere}
+.school-profile-leadership-fields{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;padding:13px;border:1px solid #dce5f6;border-radius:13px;background:#f7f9ff}
+.school-profile-leadership-fields h4{grid-column:1/-1;margin:0;color:#344b85;font-size:calc((12px) + var(--site-font-step, 2px))}
+.school-profile-leadership-fields label{display:grid;gap:6px;min-width:0;color:#53627a;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700}
+.site-footer-editor{margin-top:20px;padding:16px;border:1px solid #dce5f6;border-radius:16px;background:linear-gradient(145deg,#f7f9ff,#fff 65%,#fffaf0)}
+.site-footer-editor[hidden]{display:none!important}
+.site-footer-editor .panel-heading{margin-bottom:12px}
+.site-footer-editor-form{display:grid;gap:10px}
+.site-footer-editor-form>label{display:grid;gap:6px;color:#53627a;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700}
+.site-footer-editor-form textarea{width:100%;min-width:0;min-height:76px;padding:9px 11px;border:1px solid #dfe5ef;border-radius:10px;background:#fff;color:#182744;font:inherit;font-weight:400;resize:vertical}
+.site-footer-preview-wrap{padding:10px 12px;border:1px dashed #cbd7ec;border-radius:11px;background:#fff;overflow-wrap:anywhere}
+.site-footer-preview-wrap strong{color:#344b85;font-size:calc((10px) + var(--site-font-step, 2px))}
+.site-footer-preview{min-height:1.7em;margin:4px 0 0;color:#66758f;font-size:calc((11px) + var(--site-font-step, 2px));line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.site-footer-save{justify-self:start;min-width:180px}
+@media(max-width:700px){
+  .site-header{height:auto;min-height:58px;align-items:center;gap:7px;padding-block:6px}
+  .brand{flex:1 1 auto;min-width:0;align-items:flex-start;gap:7px}
+  .brand-logo-group{gap:3px;padding-top:2px}
+  .brand-logo-group img{width:34px;height:34px}
+  .brand-logo-group .brand-logo-extra{width:25px;height:25px}
+  .brand-copy{flex:1;min-width:0;max-width:none}
+  .brand-copy strong{font-size:calc((11px) + var(--site-font-step, 2px));white-space:normal;line-height:1.25}
+  .brand-school-identities{margin-top:3px;font-size:calc((10px) + var(--site-font-step, 2px));font-weight:600;line-height:1.25}
+  .brand-school-identity{gap:4px}
+  .brand-school-logo,.brand-school-placeholder{width:19px;height:19px;flex-basis:19px}
+  .staff-open{flex:0 0 auto;max-width:112px;padding-inline:8px}
+  .school-profile-leadership-fields{grid-template-columns:1fr}
+  .school-profile-leadership-fields h4{grid-column:auto}
+  .site-footer-save{width:100%}
+}
+@media(max-width:380px){
+  .site-header{width:calc(100% - 24px)}
+  .brand-logo-group img{width:31px;height:31px}
+  .brand-logo-group .brand-logo-extra{width:23px;height:23px}
+  .brand-copy strong{font-size:calc((10px) + var(--site-font-step, 2px))}
+  .brand-school-identities{font-size:calc((9px) + var(--site-font-step, 2px));font-weight:600}
+}

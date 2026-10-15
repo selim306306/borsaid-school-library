@@ -19,9 +19,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261015-font-step-2">
-  <link rel="stylesheet" href="library-profiles.css?v=20261015-font-step-2">
+  <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="app.js?v=20261015-school-leadership-3"></script>
+  <script type="module" src="app.js?v=20261015-school-identity-footer-2"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
@@ -41,9 +41,8 @@
       <span class="brand-logo-group" id="brandLogoGroup">
         <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
         <img class="brand-logo-extra" id="brandGovernorateLogo" alt="شعار محافظة بورسعيد" width="34" height="34" hidden>
-        <img class="brand-logo-extra" id="brandSchoolLogo" alt="" width="34" height="34" hidden>
       </span>
-      <span class="brand-copy"><strong id="siteBrandTitle">بوابة مدارس بورسعيد</strong><small id="siteBrandSubtitle">شبكة المكتبات المدرسية</small></span>
+      <span class="brand-copy"><strong id="siteBrandTitle">بوابة مدارس بورسعيد</strong><span class="brand-school-identities" id="siteBrandSubtitle" aria-label="المدارس المشاركة">شبكة المكتبات المدرسية</span></span>
     </a>
     <nav class="desktop-nav" aria-label="التنقل الرئيسي">
       <a href="#discover">اكتشف الكتب</a>
@@ -397,7 +396,7 @@
 
   <footer class="site-footer section-wrap">
     <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
-    <p class="footer-note">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
+    <p class="footer-note" id="footerDescription">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
     <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
   </footer>
 
@@ -490,10 +489,14 @@
               <label>اسم المدرسة الرسمي<input name="school_name" required minlength="2" maxlength="160" autocomplete="organization" placeholder="اكتب الاسم المعتمد"></label>
               <label>الإدارة التعليمية<input name="educational_administration" maxlength="160" autocomplete="off" placeholder="اكتب اسم الإدارة المعتمد"></label>
               <label>اسم أخصائي المكتبات<input name="librarian_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
-              <label>اسم مدير المدرسة<input name="principal_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
-              <label class="school-profile-multiline-field">أسماء الوكلاء<textarea name="deputy_names" rows="3" maxlength="1200" placeholder="اكتب اسم كل وكيل في سطر"></textarea></label>
-              <label>اسم الموجه العام<input name="general_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
-              <label>اسم الموجه الأول<input name="first_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              <p class="school-profile-library-context" id="schoolProfileLibraryContext" role="status" aria-live="polite">يُحمّل ملف المدرسة المحدد بعد تسجيل الدخول.</p>
+              <div class="school-profile-leadership-fields">
+                <h4>قيادة المدرسة المحددة</h4>
+                <label>اسم مدير المدرسة<input name="principal_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+                <label class="school-profile-multiline-field">أسماء الوكلاء<textarea name="deputy_names" rows="3" maxlength="1200" placeholder="اكتب اسم كل وكيل في سطر"></textarea></label>
+                <label>اسم الموجه العام<input name="general_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+                <label>اسم الموجه الأول<input name="first_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              </div>
               <div class="school-profile-logo-field"><label for="schoolLogoFile">شعار المدرسة</label><input id="schoolLogoFile" name="school_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="schoolLogoPreview" hidden><img id="schoolLogoImage" alt="معاينة شعار المدرسة"><span id="schoolLogoCaption"></span></div><label class="school-profile-check"><input name="remove_school_logo" type="checkbox"><span>إزالة الشعار الحالي عند الحفظ</span></label></div>
               <div class="school-profile-logo-field"><label for="governorateLogoFile">شعار المحافظة</label><input id="governorateLogoFile" name="governorate_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="governorateLogoPreview" hidden><img id="governorateLogoImage" alt="معاينة شعار المحافظة"><span id="governorateLogoCaption"></span></div><label class="school-profile-check"><input name="remove_governorate_logo" type="checkbox"><span>إزالة شعار المحافظة الحالي عند الحفظ</span></label></div>
               <label class="school-profile-check"><input name="is_public" type="checkbox"><span>إظهار ملف المدرسة وشعاراتها وبيانات القيادات في دليل المكتبات العامة</span></label>
@@ -516,6 +519,15 @@
               <p class="school-profile-status" id="createSchoolStatus" role="status" aria-live="polite"></p>
             </div>
           </details>
+          <section class="site-footer-editor" id="siteFooterEditor" hidden aria-labelledby="siteFooterEditorTitle">
+            <div class="panel-heading"><div><h3 id="siteFooterEditorTitle">وصف أسفل الموقع</h3><p>يظهر النص للزوار، ولا يستطيع تغييره إلا مالك إحدى المكتبتين.</p></div></div>
+            <form id="siteFooterForm" class="site-footer-editor-form">
+              <label for="siteFooterInput">النص الظاهر أسفل الموقع<textarea id="siteFooterInput" name="footer_description" rows="3" maxlength="500" required></textarea></label>
+              <div class="site-footer-preview-wrap"><strong>معاينة</strong><p class="site-footer-preview" id="siteFooterPreview" dir="rtl"></p></div>
+              <button class="button button-primary site-footer-save" type="submit">حفظ وصف التذييل</button>
+              <p class="school-profile-status" id="siteFooterStatus" role="status" aria-live="polite"></p>
+            </form>
+          </section>
         </section>
         <section class="staff-panel" id="circulationPanel" hidden>
           <div class="panel-heading"><div><h3>إعارة ومرتجعات</h3><p>يُقيد كل إجراء باسم الموظف، وتُحدّث حالة النسخة معاملةً واحدة.</p></div></div>
