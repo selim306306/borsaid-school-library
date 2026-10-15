@@ -11,3 +11,9 @@ verify_jwt = true
 
 [functions.education-news]
 verify_jwt = false
+
+[functions.visitor-questions]
+verify_jwt = false
+
+[functions.telegram-webhook]
+verify_jwt = false
