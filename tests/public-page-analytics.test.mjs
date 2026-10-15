@@ -33,13 +33,18 @@ test('the database stores only daily section totals and blocks direct visitor ac
   assert.match(sql, /grant execute on function public\.record_public_page_view\(text\) to anon, authenticated/i);
 });
 
-test('the tracking function rejects unknown sections and the notice explains aggregate limits', () => {
+test('the tracking function rejects unknown sections and aggregate limits remain staff-only', () => {
   for (const section of expectedSections) {
     assert.ok(sql.includes(`'${section}'`), `SQL whitelist includes ${section}`);
   }
   assert.match(sql, /Unsupported public section/);
-  assert.match(html, /إحصاءات مجمّعة/);
-  assert.match(html, /وليست عددًا موثوقًا للأشخاص الفريدين/);
+  const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+  assert.ok(footer, 'public footer exists');
+  assert.doesNotMatch(footer, /privacyNotice|site-analytics-public-note|لتحسين الموقع، نسجل/);
+  const analyticsPanel = html.match(/<section class="staff-panel" id="siteAnalyticsPanel"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(analyticsPanel, 'staff-only analytics panel remains available');
+  assert.match(analyticsPanel, /أعداد يومية مجمّعة حسب القسم/);
+  assert.match(analyticsPanel, /وليست عددًا موثوقًا للأشخاص الفريدين/);
 });
 
 test('admin check is not executable by visitors and tracking RPC is anon-only', () => {
