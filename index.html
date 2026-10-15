@@ -14,14 +14,17 @@
   <meta property="og:image" content="https://selim306306.github.io/borsaid-school-library/assets/library-hero.webp">
   <meta property="og:image:alt" content="مساحة قراءة مضيئة ورفوف كتب في مكتبة مدرسية حديثة">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://selim306306.github.io/borsaid-school-library/assets/library-hero.webp">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="site.css?v=20261015-font-step-2">
+  <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
+  <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="app.js?v=20261015-school-identity-footer-2"></script>
+  <script type="module" src="site-media-public.js?v=20261015-site-media-2"></script>
+  <script type="module" src="app.js?v=20261015-site-media-library-2"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
@@ -59,13 +62,13 @@
     <a href="#features">مزايا الموقع</a>
   </nav>
   <nav class="site-tabs section-wrap" id="visitorTabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام الموقع">
-    <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home">الرئيسية</button>
-    <button class="view-tab" id="discoverTab" type="button" role="tab" aria-selected="false" aria-controls="discoverView" tabindex="-1" data-view="discover">الكتب</button>
-    <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches" hidden>المكتبات</button>
-    <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements">الإعلانات</button>
-    <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about">عن الموقع</button>
-    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading">القراءة</button>
-    <button class="view-tab" id="educationResearchTab" type="button" role="tab" aria-selected="false" aria-controls="educationResearchView" tabindex="-1" data-view="educationResearch">أخبار وأبحاث</button>
+    <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9M9 21v-7h6v7"></path></svg><span>الرئيسية</span></button>
+    <button class="view-tab" id="discoverTab" type="button" role="tab" aria-selected="false" aria-controls="discoverView" tabindex="-1" data-view="discover"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"></path><path d="M4 5.5v13A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 11h7"></path></svg><span>الكتب</span></button>
+    <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches" hidden><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01M10 21v-4h4v4"></path></svg><span>المكتبات</span></button>
+    <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14V9a2 2 0 0 1 2-2h2l9-4v17l-9-4H6a2 2 0 0 1-2-2z"></path><path d="m8 16 2 5h4l-2-4M20 8l2-2M20 15l2 2"></path></svg><span>الإعلانات</span></button>
+    <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 7h.01"></path></svg><span>عن الموقع</span></button>
+    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14M12 7C9 4.5 5.5 4 3 5v14c3-.8 6.4-.4 9 2M12 7c3-2.5 6.5-3 9-2v14c-3-.8-6.4-.4-9 2"></path></svg><span>القراءة</span></button>
+    <button class="view-tab" id="educationResearchTab" type="button" role="tab" aria-selected="false" aria-controls="educationResearchView" tabindex="-1" data-view="educationResearch"><svg class="view-tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"></path><path d="m16.5 17.5 2 2 3-4"></path></svg><span>أخبار وأبحاث</span></button>
   </nav>
 
   <main id="top" tabindex="-1">
@@ -423,6 +426,7 @@
           <button class="staff-tab active" data-panel="catalogPanel" type="button">الفهرس والجرد</button>
           <button class="staff-tab" data-panel="branchesPanel" type="button">الفروع</button>
           <button class="staff-tab" id="schoolProfileTab" data-panel="schoolProfilePanel" type="button" hidden>بيانات المدرسة</button>
+          <button class="staff-tab" id="siteMediaTab" data-panel="siteMediaPanel" type="button" hidden>صور الموقع</button>
           <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>
           <button class="staff-tab" data-panel="reservationsPanel" type="button">الحجوزات</button>
           <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
@@ -528,6 +532,13 @@
               <p class="school-profile-status" id="siteFooterStatus" role="status" aria-live="polite"></p>
             </form>
           </section>
+        </section>
+        <section class="staff-panel site-media-panel" id="siteMediaPanel" hidden aria-labelledby="siteMediaPanelTitle">
+          <div class="panel-heading"><div><h3 id="siteMediaPanelTitle">مكتبة صور الموقع</h3><p>استبدال الصور العامة للموقع ومعاينتها، مع حفظ الصور السابقة لاستعادتها لاحقاً.</p></div></div>
+          <p class="site-media-intro">تظهر هذه العناصر العامة فقط. شعارات المدرسة والمحافظة تبقى في تبويب «بيانات المدرسة» لكل مكتبة على حدة؛ وصور قيادات المحافظة والمديرية والمكتبات منفصلة عن مدير المدرسة.</p>
+          <div class="site-media-categories" id="siteMediaList" aria-live="polite"></div>
+          <p class="site-media-archive-note">الرفع يقبل PNG أو JPEG أو WebP حتى 5 ميغابايت. لا تُحذف الملفات القديمة: اختيار «الصورة الافتراضية» يعيد الأصل بأمان، وتبقى النسخ المرفوعة في الأرشيف الخاص بالمالك.</p>
+          <p class="school-profile-status" id="siteMediaManagerStatus" role="status" aria-live="polite">تظهر هذه اللوحة لمالك/مدير المنصة المصرح فقط.</p>
         </section>
         <section class="staff-panel" id="circulationPanel" hidden>
           <div class="panel-heading"><div><h3>إعارة ومرتجعات</h3><p>يُقيد كل إجراء باسم الموظف، وتُحدّث حالة النسخة معاملةً واحدة.</p></div></div>

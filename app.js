@@ -1,3 +1,5 @@
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-site-media-2';
+
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -19,11 +21,19 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const viewTabs = $$('.view-tab');
 const viewPanels = $$('[data-view-panel]');
 let publicDirectoryAvailable = false;
+const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+const scrollBehavior = () => prefersReducedMotion() ? 'instant' : 'smooth';
 function activateView(viewName, { updateHistory = false, hash = '' } = {}) {
   if (viewName === 'branches' && !publicDirectoryAvailable) return false;
   const panel = viewPanels.find(item => item.dataset.viewPanel === viewName);
   if (!panel) return false;
+  const entering = panel.hidden;
   viewPanels.forEach(item => { item.hidden = item !== panel; });
+  if (entering && !prefersReducedMotion() && typeof panel.animate === 'function') {
+    panel.animate([{ opacity: 0, transform: 'translateY(7px)' }, { opacity: 1, transform: 'translateY(0)' }], {
+      duration: 190, easing: 'cubic-bezier(.2,.75,.25,1)',
+    });
+  }
   viewTabs.forEach(tab => {
     const selected = tab.dataset.view === viewName;
     tab.setAttribute('aria-selected', String(selected));
@@ -42,7 +52,7 @@ function activateViewFromHash() {
 viewTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     if (!activateView(tab.dataset.view, { updateHistory: true })) return;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
   });
   tab.addEventListener('keydown', event => {
     const visibleTabs = viewTabs.filter(item => !item.hidden);
@@ -72,7 +82,7 @@ document.addEventListener('click', event => {
       event.preventDefault();
       activateView('home', { updateHistory: true, hash: '#top' });
       $('#top').focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: scrollBehavior() });
     }
     return;
   }
@@ -83,7 +93,7 @@ document.addEventListener('click', event => {
   activateView(panel.dataset.viewPanel, { updateHistory: true, hash: `#${fragment}` });
   target.setAttribute('tabindex', target.getAttribute('tabindex') || '-1');
   target.focus({ preventScroll: true });
-  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  target.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
 });
 window.addEventListener('popstate', activateViewFromHash);
 window.addEventListener('hashchange', activateViewFromHash);
@@ -572,6 +582,7 @@ function configureRole(role) {
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
   if (owner) allowed.add('schoolProfilePanel');
+  if (hasSiteMediaOwnership()) allowed.add('siteMediaPanel');
   if (circulation) ['circulationPanel', 'reservationsPanel', 'visitorsPanel'].forEach(id => allowed.add(id));
   if (administrator) allowed.add('membersPanel');
   if (assistant) allowed.add('assistantPanel');
@@ -581,6 +592,7 @@ function configureRole(role) {
   $('#holdingForm').hidden = !manager;
   $('#branchForm').hidden = !manager;
   $('#schoolProfileTab').hidden = !owner;
+  $('#siteMediaTab').hidden = !hasSiteMediaOwnership();
   $('#schoolProfileForm').hidden = !owner;
   $('#siteFooterEditor').hidden = !hasSiteFooterOwnership();
   $('#createSchoolForm').hidden = !owner;
@@ -627,6 +639,10 @@ function libraryProfileLabel(profile) {
 function hasSiteFooterOwnership() {
   return currentMemberships.some(membership => membership.status === 'active'
     && membership.role === 'owner' && SITE_OWNER_LIBRARY_IDS.has(membership.library_id));
+}
+function hasSiteMediaOwnership() {
+  return currentMemberships.some(membership => membership.status === 'active'
+    && ['owner', 'admin'].includes(membership.role) && SITE_OWNER_LIBRARY_IDS.has(membership.library_id));
 }
 function updateLibraryProfileChoice(profile) {
   currentLibraryProfileChoices.set(profile.library_id, profile);
@@ -714,6 +730,7 @@ async function loadStaffData() {
   await loadStaffBranches();
   const tasks = [refreshStaffStats(), loadInventory(), loadReports(), loadLibrarySettings()];
   if (currentRole === 'owner') tasks.push(loadSchoolProfile(), loadSiteFooter());
+  if (hasSiteMediaOwnership()) tasks.push(loadSiteMediaManager());
   if (['owner', 'admin', 'librarian'].includes(currentRole)) tasks.push(loadInterlibraryRequests());
   if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibraryMembers());
   if (['owner', 'admin', 'librarian', 'circulation'].includes(currentRole)) {
@@ -877,6 +894,397 @@ $('#siteFooterForm').addEventListener('submit', async event => {
   }
 });
 
+const SITE_MEDIA_ASSET_COLUMNS = 'id,media_key,storage_path,original_file_name,mime_type,byte_size,alt_text,description,created_at';
+let siteMediaLoadGeneration = 0;
+function setSiteMediaManagerStatus(text, kind = '') {
+  const status = $('#siteMediaManagerStatus');
+  if (!status) return;
+  status.textContent = text || '';
+  status.className = `school-profile-status site-media-manager-status${kind ? ` ${kind}` : ''}`;
+}
+function createMediaField(labelText, control) {
+  const label = document.createElement('label');
+  label.className = 'site-media-field';
+  const caption = document.createElement('span');
+  caption.textContent = labelText;
+  label.append(caption, control);
+  return label;
+}
+function safeMediaDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  return Number.isNaN(date.valueOf()) ? '' : new Intl.DateTimeFormat('ar-EG', { dateStyle: 'short' }).format(date);
+}
+async function validateSiteMediaFile(file) {
+  const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
+  if (!file || !allowedTypes.has(file.type) || file.size < 1 || file.size > SITE_MEDIA_MAX_BYTES) {
+    throw new Error('اختر صورة PNG أو JPEG أو WebP لا يتجاوز حجمها 5 ميغابايت.');
+  }
+  const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+  const png = bytes.length >= 8 && [137, 80, 78, 71, 13, 10, 26, 10].every((value, index) => bytes[index] === value);
+  const jpeg = bytes.length >= 3 && bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+  const webp = bytes.length >= 12
+    && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+    && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+  const signatureMatches = file.type === 'image/png' ? png : file.type === 'image/jpeg' ? jpeg : webp;
+  if (!signatureMatches) throw new Error('محتوى الملف لا يطابق صورة PNG أو JPEG أو WebP صالحة.');
+  if (typeof createImageBitmap === 'function') {
+    let bitmap;
+    try { bitmap = await createImageBitmap(file); }
+    catch { throw new Error('تعذّر فك الصورة؛ اختر ملف صورة صالحاً.'); }
+    finally { bitmap?.close?.(); }
+  }
+  return true;
+}
+function createSiteMediaCard(item, slot, currentAsset, mediaAssets, currentUrl) {
+  const card = document.createElement('form');
+  card.className = 'site-media-card';
+  card.dataset.mediaKey = item.key;
+  card.noValidate = true;
+
+  const previewWrap = document.createElement('div');
+  previewWrap.className = `site-media-card-preview${item.key === 'social-preview' ? ' is-wide' : ''}`;
+  const preview = document.createElement('img');
+  preview.loading = 'lazy';
+  preview.decoding = 'async';
+  preview.alt = currentAsset?.alt_text || item.defaultAlt;
+  let temporaryPreviewUrl = '';
+  const defaultPreviewUrl = new URL(item.defaultSrc, document.baseURI).href;
+  preview.addEventListener('error', () => {
+    if (preview.dataset.fallbackTried === 'true' || preview.src === defaultPreviewUrl) return;
+    preview.dataset.fallbackTried = 'true';
+    preview.src = defaultPreviewUrl;
+  });
+  const setPreview = (src, altText) => {
+    if (temporaryPreviewUrl && !String(src).startsWith('blob:')) {
+      URL.revokeObjectURL(temporaryPreviewUrl);
+      temporaryPreviewUrl = '';
+    }
+    preview.dataset.fallbackTried = 'false';
+    preview.alt = altText || item.defaultAlt;
+    preview.src = src || item.defaultSrc;
+  };
+  setPreview(currentUrl || item.defaultSrc, currentAsset?.alt_text || item.defaultAlt);
+  previewWrap.append(preview);
+
+  const body = document.createElement('div');
+  body.className = 'site-media-card-body';
+  const title = document.createElement('h5');
+  title.textContent = item.title;
+  const usage = document.createElement('p');
+  usage.className = 'site-media-use';
+  usage.textContent = item.usage;
+  const currentFile = document.createElement('p');
+  currentFile.className = 'site-media-current-file';
+  const currentLabel = document.createElement('strong');
+  currentLabel.textContent = 'المستخدم الآن: ';
+  const currentName = document.createElement('span');
+  currentName.textContent = currentAsset?.original_file_name || 'الصورة الافتراضية في الموقع';
+  currentFile.append(currentLabel, currentName);
+
+  const choice = document.createElement('select');
+  choice.name = 'asset_choice';
+  choice.setAttribute('aria-label', `اختيار صورة محفوظة لـ ${item.title}`);
+  const unchanged = document.createElement('option');
+  unchanged.value = '__unchanged__';
+  unchanged.textContent = 'اترك الصورة الحالية كما هي';
+  choice.append(unchanged);
+  const useDefault = document.createElement('option');
+  useDefault.value = '__default__';
+  useDefault.textContent = 'العودة للصورة الافتراضية (لا تحذف الملف)';
+  choice.append(useDefault);
+  for (const asset of mediaAssets) {
+    if (asset.media_key !== item.key) continue;
+    const option = document.createElement('option');
+    option.value = asset.id;
+    option.textContent = `${asset.original_file_name} · ${safeMediaDate(asset.created_at) || 'محفوظة'}`;
+    choice.append(option);
+  }
+
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.name = 'new_file';
+  fileInput.accept = 'image/png,image/jpeg,image/webp';
+  fileInput.setAttribute('aria-label', `رفع صورة جديدة لـ ${item.title}`);
+  const fileName = document.createElement('input');
+  fileName.type = 'text';
+  fileName.name = 'original_file_name';
+  fileName.maxLength = 255;
+  fileName.autocomplete = 'off';
+  fileName.value = currentAsset?.original_file_name || '';
+  fileName.setAttribute('aria-label', `اسم الملف المعروض لـ ${item.title}`);
+  const description = document.createElement('input');
+  description.type = 'text';
+  description.name = 'description';
+  description.maxLength = 500;
+  description.autocomplete = 'off';
+  description.value = currentAsset?.description || '';
+  description.setAttribute('aria-label', `وصف الصورة لـ ${item.title}`);
+  const altText = document.createElement('input');
+  altText.type = 'text';
+  altText.name = 'alt_text';
+  altText.maxLength = 300;
+  altText.required = true;
+  altText.autocomplete = 'off';
+  altText.value = currentAsset?.alt_text || item.defaultAlt;
+  altText.setAttribute('aria-label', `النص البديل للصورة لـ ${item.title}`);
+
+  const saveButton = document.createElement('button');
+  saveButton.type = 'submit';
+  saveButton.className = 'button button-primary';
+  saveButton.textContent = 'حفظ الصورة';
+  const defaultButton = document.createElement('button');
+  defaultButton.type = 'button';
+  defaultButton.className = 'button button-outline';
+  defaultButton.textContent = 'معاينة الافتراضية';
+  const actions = document.createElement('div');
+  actions.className = 'site-media-actions';
+  actions.append(saveButton, defaultButton);
+  const status = document.createElement('p');
+  status.className = 'site-media-status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+
+  choice.addEventListener('change', async () => {
+    fileInput.value = '';
+    if (choice.value === '__default__') {
+      fileName.value = '';
+      description.value = '';
+      altText.value = item.defaultAlt;
+      setPreview(item.defaultSrc, item.defaultAlt);
+      status.textContent = 'معاينة الصورة الافتراضية فقط؛ احفظ لتطبيقها على الموقع.';
+      status.className = 'site-media-status';
+      return;
+    }
+    if (choice.value === '__unchanged__') {
+      fileName.value = currentAsset?.original_file_name || '';
+      description.value = currentAsset?.description || '';
+      altText.value = currentAsset?.alt_text || item.defaultAlt;
+      setPreview(currentUrl || item.defaultSrc, currentAsset?.alt_text || item.defaultAlt);
+      status.textContent = 'لم يُحفظ أي تغيير بعد.';
+      status.className = 'site-media-status';
+      return;
+    }
+    const selectedAsset = mediaAssets.find(asset => asset.id === choice.value && asset.media_key === item.key);
+    if (!selectedAsset) return;
+    fileName.value = selectedAsset.original_file_name;
+    description.value = selectedAsset.description || '';
+    altText.value = selectedAsset.alt_text || item.defaultAlt;
+    status.textContent = 'جارٍ تجهيز معاينة من الأرشيف الخاص…';
+    try {
+      const { data, error } = await supabase.storage.from(SITE_MEDIA_BUCKET).createSignedUrl(selectedAsset.storage_path, 3600);
+      if (error || !data?.signedUrl) throw new Error('preview_failed');
+      setPreview(data.signedUrl, selectedAsset.alt_text || item.defaultAlt);
+      status.textContent = 'معاينة من نسخة محفوظة؛ لم تُنشر بعد.';
+      status.className = 'site-media-status';
+    } catch {
+      setPreview(item.defaultSrc, item.defaultAlt);
+      status.textContent = 'تعذّرت معاينة النسخة؛ بقيت الصورة المنشورة كما هي.';
+      status.className = 'site-media-status error';
+    }
+  });
+
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    status.textContent = 'جارٍ التحقق من نوع الصورة وحجمها…';
+    try {
+      await validateSiteMediaFile(file);
+      if (temporaryPreviewUrl) URL.revokeObjectURL(temporaryPreviewUrl);
+      temporaryPreviewUrl = URL.createObjectURL(file);
+      choice.value = '__unchanged__';
+      fileName.value = file.name;
+      setPreview(temporaryPreviewUrl, altText.value || item.defaultAlt);
+      status.textContent = 'معاينة محلية فقط؛ لن تتغير صورة الزوار حتى يكتمل الرفع والحفظ.';
+      status.className = 'site-media-status';
+    } catch (error) {
+      fileInput.value = '';
+      setPreview(currentUrl || item.defaultSrc, currentAsset?.alt_text || item.defaultAlt);
+      status.textContent = error.message || 'الملف غير مقبول.';
+      status.className = 'site-media-status error';
+    }
+  });
+
+  altText.addEventListener('input', () => {
+    if (temporaryPreviewUrl) preview.alt = altText.value || item.defaultAlt;
+  });
+  defaultButton.addEventListener('click', () => {
+    fileInput.value = '';
+    if (temporaryPreviewUrl) {
+      URL.revokeObjectURL(temporaryPreviewUrl);
+      temporaryPreviewUrl = '';
+    }
+    choice.value = '__default__';
+    choice.dispatchEvent(new Event('change'));
+  });
+
+  card.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!hasSiteMediaOwnership() || !supabase || !currentUserId) {
+      status.textContent = 'هذه العملية متاحة لمالك/مدير المنصة المصرح فقط.';
+      status.className = 'site-media-status error';
+      return;
+    }
+    const newFile = fileInput.files?.[0] || null;
+    const choiceValue = choice.value;
+    const nextFileName = String(fileName.value || '').trim();
+    const nextDescription = String(description.value || '').trim();
+    const nextAltText = String(altText.value || '').trim();
+    if (choiceValue !== '__default__' && (!nextAltText || Array.from(nextAltText).length > 300 || !/[\u0600-\u06FF]/.test(nextAltText))) {
+      status.textContent = 'اكتب نصاً بديلاً عربياً واضحاً (يتضمن حروفاً عربية) لا يتجاوز 300 حرف.';
+      status.className = 'site-media-status error';
+      return;
+    }
+    if (nextDescription.length > 500 || (newFile || (choiceValue !== '__default__' && choiceValue !== '__unchanged__')) && (!nextFileName || nextFileName.length > 255)) {
+      status.textContent = 'راجع اسم الملف والوصف؛ الاسم حتى 255 حرفاً والوصف حتى 500 حرف.';
+      status.className = 'site-media-status error';
+      return;
+    }
+    if (!newFile && choiceValue === '__unchanged__' && !slot.current_asset_id) {
+      status.textContent = 'ارفع صورة أو اختر صورة محفوظة، أو اختر الرجوع إلى الصورة الافتراضية.';
+      status.className = 'site-media-status error';
+      return;
+    }
+    saveButton.disabled = true;
+    defaultButton.disabled = true;
+    status.textContent = 'جارٍ الحفظ بأمان؛ ستظل الصورة الحالية ظاهرة حتى اكتمال العملية…';
+    status.className = 'site-media-status';
+    try {
+      let nextAssetId = null;
+      if (choiceValue === '__default__' && !newFile) {
+        nextAssetId = null;
+      } else if (newFile) {
+        await validateSiteMediaFile(newFile);
+        const extension = newFile.type === 'image/jpeg' ? 'jpg' : newFile.type === 'image/webp' ? 'webp' : 'png';
+        const storagePath = `media/${item.key}/${crypto.randomUUID()}.${extension}`;
+        const { error: uploadError } = await supabase.storage.from(SITE_MEDIA_BUCKET).upload(storagePath, newFile, {
+          cacheControl: '3600', upsert: false, contentType: newFile.type,
+        });
+        if (uploadError) throw new Error('تعذّر رفع الصورة؛ بقيت الصورة الحالية ظاهرة.');
+        const { data: uploadedAsset, error: assetError } = await supabase.from('site_media_assets').insert({
+          media_key: item.key,
+          storage_path: storagePath,
+          original_file_name: nextFileName,
+          mime_type: newFile.type,
+          byte_size: newFile.size,
+          alt_text: nextAltText,
+          description: nextDescription,
+          uploaded_by: currentUserId,
+        }).select(SITE_MEDIA_ASSET_COLUMNS).single();
+        if (assetError || !uploadedAsset) throw new Error('تعذّر حفظ بيانات الصورة؛ بقيت الصورة السابقة مستخدمة ولم يُحذف الملف المرفوع.');
+        nextAssetId = uploadedAsset.id;
+      } else if (choiceValue === '__unchanged__') {
+        nextAssetId = slot.current_asset_id;
+      } else {
+        const selectedAsset = mediaAssets.find(asset => asset.id === choiceValue && asset.media_key === item.key);
+        if (!selectedAsset) throw new Error('الصورة المختارة غير متاحة لهذا الموضع.');
+        nextAssetId = selectedAsset.id;
+      }
+
+      if (nextAssetId) {
+        const { data: updatedAsset, error: metadataError } = await supabase.from('site_media_assets')
+          .update({ original_file_name: nextFileName, description: nextDescription, alt_text: nextAltText })
+          .eq('id', nextAssetId).eq('media_key', item.key)
+          .select('id').maybeSingle();
+        if (metadataError || !updatedAsset) throw new Error('تعذّر حفظ الوصف أو النص البديل؛ الصورة الحالية لم تتغير.');
+      }
+
+      const { data: updatedSlot, error: slotError } = await supabase.from('site_media_slots')
+        .update({ current_asset_id: nextAssetId, updated_at: new Date().toISOString() })
+        .eq('media_key', item.key).select('media_key,current_asset_id').maybeSingle();
+      if (slotError || !updatedSlot) throw new Error('تعذّر تفعيل الصورة؛ ظلت الصورة الحالية كما هي، ولم تُحذف النسخ المحفوظة.');
+      window.dispatchEvent(new Event('site-media-updated'));
+      await loadSiteMediaManager({ statusText: choiceValue === '__default__' && !newFile
+        ? `عاد ${item.title} إلى الأصل الافتراضي؛ الملف السابق محفوظ ويمكن اختياره مجدداً.`
+        : `تم حفظ ${item.title} وتحديث معاينته للزوار.` });
+    } catch (error) {
+      status.textContent = error.message || 'تعذّر الحفظ؛ الصورة القديمة ما زالت هي المعروضة للزوار.';
+      status.className = 'site-media-status error';
+      setSiteMediaManagerStatus('لم يتغير موضع الصورة المنشور؛ تحقق من الاتصال وصلاحية الحساب ثم أعد المحاولة.', 'error');
+    } finally {
+      saveButton.disabled = false;
+      defaultButton.disabled = false;
+    }
+  });
+
+  body.append(
+    title,
+    usage,
+    currentFile,
+    createMediaField('اختيار صورة محفوظة أو الرجوع للأصل', choice),
+    createMediaField('رفع صورة جديدة (PNG/JPEG/WebP)', fileInput),
+    createMediaField('اسم الملف للعرض', fileName),
+    createMediaField('وصف الصورة', description),
+    createMediaField('النص البديل بالعربية', altText),
+    actions,
+  );
+  card.append(previewWrap, body, status);
+  return card;
+}
+async function loadSiteMediaManager({ statusText = '' } = {}) {
+  if (!hasSiteMediaOwnership() || !supabase) return false;
+  const generation = ++siteMediaLoadGeneration;
+  const container = $('#siteMediaList');
+  setSiteMediaManagerStatus(statusText || 'جارٍ تحميل صور الموقع والنسخ المحفوظة…');
+  try {
+    const [{ data: slots, error: slotError }, { data: mediaAssets, error: assetsError }] = await Promise.all([
+      supabase.from('site_media_slots').select('media_key,title,usage_description,current_asset_id,is_published,updated_at').order('media_key'),
+      supabase.from('site_media_assets').select(SITE_MEDIA_ASSET_COLUMNS).order('created_at', { ascending: false }).limit(500),
+    ]);
+    if (generation !== siteMediaLoadGeneration) return false;
+    if (slotError || assetsError || !slots || !mediaAssets) throw new Error('تعذّر تحميل سجل الصور وصلاحياته.');
+    let allMediaAssets = mediaAssets;
+    const missingCurrentIds = slots.map(slot => slot.current_asset_id).filter(Boolean)
+      .filter(id => !allMediaAssets.some(asset => asset.id === id));
+    if (missingCurrentIds.length) {
+      const { data: currentRecords, error: currentError } = await supabase.from('site_media_assets')
+        .select(SITE_MEDIA_ASSET_COLUMNS).in('id', missingCurrentIds);
+      if (currentError || !currentRecords) throw new Error('تعذّر تحميل الصور المستخدمة حالياً.');
+      allMediaAssets = [...allMediaAssets, ...currentRecords];
+    }
+    const slotByKey = new Map(slots.map(slot => [slot.media_key, slot]));
+    const assetById = new Map(allMediaAssets.map(asset => [asset.id, asset]));
+    const currentAssets = slots.map(slot => assetById.get(slot.current_asset_id)).filter(Boolean);
+    const currentUrls = new Map();
+    if (currentAssets.length) {
+      const { data: signed, error } = await supabase.storage.from(SITE_MEDIA_BUCKET)
+        .createSignedUrls(currentAssets.map(asset => asset.storage_path), 3600);
+      if (!error && signed) {
+        for (const item of signed) if (item.path && item.signedUrl && !item.error) currentUrls.set(item.path, item.signedUrl);
+      }
+    }
+    if (generation !== siteMediaLoadGeneration) return false;
+    container.replaceChildren();
+    const groups = new Map();
+    for (const item of SITE_MEDIA_ITEMS) {
+      if (!groups.has(item.category)) {
+        const group = document.createElement('section');
+        group.className = 'site-media-category';
+        const heading = document.createElement('h4');
+        heading.textContent = item.category;
+        const grid = document.createElement('div');
+        grid.className = 'site-media-grid';
+        group.append(heading, grid);
+        groups.set(item.category, { group, grid });
+        container.append(group);
+      }
+      const slot = slotByKey.get(item.key);
+      if (!slot) continue;
+      const currentAsset = assetById.get(slot.current_asset_id) || null;
+      const signedUrl = currentAsset ? currentUrls.get(currentAsset.storage_path) || '' : '';
+      groups.get(item.category).grid.append(createSiteMediaCard(
+        item, slot, currentAsset, allMediaAssets, signedUrl,
+      ));
+    }
+    if (statusText) setSiteMediaManagerStatus(statusText, 'success');
+    else setSiteMediaManagerStatus(`تم تحميل ${SITE_MEDIA_ITEMS.length} موضع صورة؛ ${allMediaAssets.length} نسخة محفوظة قابلة لإعادة الاختيار.`, 'success');
+    return true;
+  } catch {
+    if (generation === siteMediaLoadGeneration) setSiteMediaManagerStatus('تعذّر تحميل مكتبة الصور. لم تُغيّر الصور العامة؛ أعد المحاولة بعد التحقق من الاتصال والصلاحية.', 'error');
+    return false;
+  }
+}
+
 const SCHOOL_LOGO_MAX_BYTES = 2 * 1024 * 1024;
 const SCHOOL_LOGO_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp']);
 const SCHOOL_BRANDING_FIELDS = [
@@ -966,15 +1374,12 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
   if (schoolName.length < 2 || schoolName.length > 160) return setSchoolProfileStatus('أدخل اسم المدرسة الرسمي، من حرفين إلى 160 حرفاً.', 'error');
   const button = $('.school-profile-action', form);
   button.disabled = true;
-  const uploadedPaths = [];
-  const oldPaths = SCHOOL_BRANDING_FIELDS.map(field => currentLibraryProfile?.[field.key]).filter(Boolean);
   try {
     const logoPaths = {};
     for (const field of SCHOOL_BRANDING_FIELDS) {
       const file = form.elements[field.fileName].files?.[0];
       if (file) {
         logoPaths[field.key] = await uploadSchoolLogo(field, file);
-        uploadedPaths.push(logoPaths[field.key]);
       } else if (fields.get(field.removeName) === 'on') {
         logoPaths[field.key] = null;
       } else {
@@ -1007,12 +1412,9 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
       form.elements[field.removeName].checked = false;
       renderSchoolLogoPreview(field, data[field.key] || null);
     }
-    const pathsToRemove = oldPaths.filter(path => ![data.school_logo_path, data.governorate_logo_path].includes(path));
-    if (pathsToRemove.length) await supabase.storage.from('school-branding').remove(pathsToRemove).catch(() => {});
     setSchoolProfileStatus('تم حفظ بيانات هذه المدرسة فقط. إعداد النشر العام لم يتغير.', 'success');
     await loadPublicBranches().catch(() => {});
   } catch (error) {
-    if (uploadedPaths.length) await supabase.storage.from('school-branding').remove(uploadedPaths).catch(() => {});
     setSchoolProfileStatus(error?.message?.includes('2 ميغابايت')
       ? error.message
       : 'تعذّر حفظ البيانات أو رفع أحد الشعارات. لم تُغيّر حالة نشر المكتبة؛ تحقق من الحقول والاتصال ثم أعد المحاولة.', 'error');
