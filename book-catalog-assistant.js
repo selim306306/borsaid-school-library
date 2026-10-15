@@ -18,16 +18,35 @@ const coverVideo = document.querySelector('#bookCoverVideo');
 const coverConsent = form?.elements.namedItem('allow_cover_ai');
 const analyzeCoverButton = document.querySelector('#analyzeBookCoverButton');
 const coverPreview = document.querySelector('#bookCoverPreview');
+const retakeCoverPhotoButton = document.querySelector('#retakeCoverPhotoButton');
+const deleteCoverPhotoButton = document.querySelector('#deleteCoverPhotoButton');
+const titlePageInput = document.querySelector('#bookTitlePageInput');
+const chooseTitlePageImageButton = document.querySelector('#chooseTitlePageImageButton');
+const openTitlePageCameraButton = document.querySelector('#openTitlePageCameraButton');
+const captureTitlePagePhotoButton = document.querySelector('#captureTitlePagePhotoButton');
+const stopTitlePageCameraButton = document.querySelector('#stopTitlePageCameraButton');
+const retakeTitlePagePhotoButton = document.querySelector('#retakeTitlePagePhotoButton');
+const deleteTitlePagePhotoButton = document.querySelector('#deleteTitlePagePhotoButton');
+const titlePageVideo = document.querySelector('#bookTitlePageVideo');
+const titlePageConsent = form?.elements.namedItem('allow_title_page_ai');
+const analyzeTitlePageButton = document.querySelector('#analyzeTitlePageButton');
+const titlePagePreview = document.querySelector('#bookTitlePagePreview');
 
 let scannerStream = null;
 let scannerActive = false;
 let barcodeDetector = null;
 let coverCameraStream = null;
+let coverCameraRequest = 0;
+let titlePageCameraStream = null;
+let titlePageCameraRequest = 0;
 let candidateResults = [];
 let activeSearch = { isbn: '', title: '' };
 let selectedCoverFile = null;
 let coverPreviewUrl = '';
 let coverAnalysisPending = false;
+let selectedTitlePageFile = null;
+let titlePagePreviewUrl = '';
+let titlePageAnalysisPending = false;
 
 const arabicDigits = '٠١٢٣٤٥٦٧٨٩';
 function westernDigits(value) {
@@ -207,6 +226,37 @@ async function runLookup() {
 function updateCoverButton() {
   if (analyzeCoverButton) analyzeCoverButton.disabled = !selectedCoverFile || !coverConsent?.checked || coverAnalysisPending;
 }
+function updateTitlePageButton() {
+  if (analyzeTitlePageButton) analyzeTitlePageButton.disabled = !selectedTitlePageFile || !titlePageConsent?.checked || titlePageAnalysisPending;
+}
+function waitForVideoFrame(targetVideo, timeoutMs = 9000) {
+  return new Promise((resolve, reject) => {
+    const deadline = Date.now() + timeoutMs;
+    const check = () => {
+      if (targetVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && targetVideo.videoWidth > 0 && targetVideo.videoHeight > 0) {
+        resolve();
+      } else if (Date.now() >= deadline) {
+        reject(new Error('camera_frame_timeout'));
+      } else {
+        window.setTimeout(check, 80);
+      }
+    };
+    check();
+  });
+}
+function cameraErrorMessage(error, purpose) {
+  const fallback = purpose === 'ISBN'
+    ? 'تعذّر تشغيل الكاميرا. أدخل ISBN يدوياً أو استخدم صورة الغلاف.'
+    : `تعذّر تشغيل الكاميرا لـ${purpose}. استخدم اختيار صورة من الجهاز كبديل.`;
+  if (error?.name === 'NotAllowedError' || error?.name === 'SecurityError' || error?.name === 'PermissionDeniedError') {
+    return `لم يُسمح باستخدام الكاميرا لـ${purpose}. اسمح بها لموقع المكتبة من إعدادات المتصفح، ثم أعد المحاولة أو اختر صورة من الجهاز.`;
+  }
+  if (error?.name === 'NotFoundError' || error?.name === 'DevicesNotFoundError') return `لم يعثر المتصفح على كاميرا متاحة لـ${purpose}. اختر صورة من الجهاز.`;
+  if (error?.name === 'NotReadableError' || error?.name === 'TrackStartError') return `الكاميرا مشغولة أو تعذّر الوصول إليها لـ${purpose}. أغلق تطبيقاً آخر يستخدمها ثم أعد المحاولة.`;
+  if (error?.name === 'OverconstrainedError') return `تعذّر تشغيل الكاميرا المطلوبة لـ${purpose}. جرّب كاميرا أخرى أو اختر صورة من الجهاز.`;
+  if (error?.message === 'camera_frame_timeout') return `لم يصل إطار صالح من كاميرا ${purpose}. أوقفها وأعد فتحها، أو اختر صورة من الجهاز.`;
+  return fallback;
+}
 function releaseCoverPreview() {
   if (coverPreviewUrl) URL.revokeObjectURL(coverPreviewUrl);
   coverPreviewUrl = '';
@@ -216,16 +266,21 @@ function releaseCoverPreview() {
   }
 }
 function setCoverImage(file) {
+  if (coverConsent) coverConsent.checked = false;
   if (file && (!file.type.startsWith('image/') || file.size > 12 * 1024 * 1024)) {
     selectedCoverFile = null;
     if (coverInput) coverInput.value = '';
     releaseCoverPreview();
+    if (retakeCoverPhotoButton) retakeCoverPhotoButton.hidden = true;
+    if (deleteCoverPhotoButton) deleteCoverPhotoButton.hidden = true;
     status.textContent = 'اختر صورة غلاف بحجم لا يتجاوز 12 ميغابايت.';
     updateCoverButton();
     return false;
   }
   selectedCoverFile = file || null;
   releaseCoverPreview();
+  if (retakeCoverPhotoButton) retakeCoverPhotoButton.hidden = !selectedCoverFile;
+  if (deleteCoverPhotoButton) deleteCoverPhotoButton.hidden = !selectedCoverFile;
   if (!selectedCoverFile) {
     updateCoverButton();
     return false;
@@ -237,18 +292,73 @@ function setCoverImage(file) {
   updateCoverButton();
   return true;
 }
+function releaseTitlePagePreview() {
+  if (titlePagePreviewUrl) URL.revokeObjectURL(titlePagePreviewUrl);
+  titlePagePreviewUrl = '';
+  if (titlePagePreview) {
+    titlePagePreview.hidden = true;
+    titlePagePreview.removeAttribute('src');
+  }
+}
+function setTitlePageImage(file) {
+  if (titlePageConsent) titlePageConsent.checked = false;
+  if (file && (!file.type.startsWith('image/') || file.size > 12 * 1024 * 1024)) {
+    selectedTitlePageFile = null;
+    if (titlePageInput) titlePageInput.value = '';
+    releaseTitlePagePreview();
+    if (retakeTitlePagePhotoButton) retakeTitlePagePhotoButton.hidden = true;
+    if (deleteTitlePagePhotoButton) deleteTitlePagePhotoButton.hidden = true;
+    status.textContent = 'اختر صورة صفحة عنوان بصيغة صورة وحجم لا يتجاوز 12 ميغابايت.';
+    updateTitlePageButton();
+    return false;
+  }
+  selectedTitlePageFile = file || null;
+  releaseTitlePagePreview();
+  if (retakeTitlePagePhotoButton) retakeTitlePagePhotoButton.hidden = !selectedTitlePageFile;
+  if (deleteTitlePagePhotoButton) deleteTitlePagePhotoButton.hidden = !selectedTitlePageFile;
+  if (!selectedTitlePageFile) {
+    updateTitlePageButton();
+    return false;
+  }
+  titlePagePreviewUrl = URL.createObjectURL(selectedTitlePageFile);
+  titlePagePreview.src = titlePagePreviewUrl;
+  titlePagePreview.hidden = false;
+  status.textContent = 'تم التقاط صفحة العنوان ومعاينتها محلياً. لن تُرسل إلا بعد الموافقة المنفصلة والضغط على زر الاستخراج.';
+  updateTitlePageButton();
+  return true;
+}
+function clearTitlePageImage() {
+  selectedTitlePageFile = null;
+  if (titlePageInput) titlePageInput.value = '';
+  if (titlePageConsent) titlePageConsent.checked = false;
+  releaseTitlePagePreview();
+  titlePageAnalysisPending = false;
+  const review = document.querySelector('#bookTitlePageReview');
+  if (review) {
+    review.replaceChildren();
+    review.hidden = true;
+  }
+  if (retakeTitlePagePhotoButton) retakeTitlePagePhotoButton.hidden = true;
+  if (deleteTitlePagePhotoButton) deleteTitlePagePhotoButton.hidden = true;
+  updateTitlePageButton();
+}
 function clearCoverPreview() {
   stopScanner();
   stopCoverCamera();
+  stopTitlePageCamera();
   selectedCoverFile = null;
   if (coverInput) coverInput.value = '';
+  if (coverConsent) coverConsent.checked = false;
   releaseCoverPreview();
   coverAnalysisPending = false;
+  if (retakeCoverPhotoButton) retakeCoverPhotoButton.hidden = true;
+  if (deleteCoverPhotoButton) deleteCoverPhotoButton.hidden = true;
   const numberReview = document.querySelector('#bookCoverNumberReview');
   if (numberReview) {
     numberReview.replaceChildren();
     numberReview.hidden = true;
   }
+  clearTitlePageImage();
   updateCoverButton();
 }
 async function compressCover(file) {
@@ -314,6 +424,7 @@ async function startScanner() {
       return;
     }
     stopCoverCamera();
+    stopTitlePageCamera();
     barcodeDetector = new window.BarcodeDetector({ formats: ['ean_13'] });
     scannerStream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: { ideal: 'environment' } },
@@ -326,23 +437,29 @@ async function startScanner() {
     captureIsbnButton.disabled = true;
     stopScanButton.hidden = false;
     await video.play();
+    await waitForVideoFrame(video);
     scannerActive = true;
     captureIsbnButton.disabled = false;
     status.textContent = 'وجّه الكاميرا إلى باركود ISBN الخلفي، ثم اضغط «التقاط الرقم الآن». لا تُلتقط صورة ولا تُرسل بيانات أثناء المسح.';
   } catch (error) {
     stopScanner();
-    status.textContent = error?.name === 'NotAllowedError'
-      ? 'لم يُسمح باستخدام الكاميرا. اسمح بها للصفحة أو اختر صورة الغلاف/أدخل ISBN يدوياً.'
-      : 'تعذّر تشغيل الكاميرا. اختر صورة من الجهاز أو أدخل ISBN يدوياً.';
+    status.textContent = cameraErrorMessage(error, 'ISBN');
   }
 }
 async function captureIsbnFromCamera() {
   if (!scannerActive || !barcodeDetector || !video) return;
   captureIsbnButton.disabled = true;
-  status.textContent = 'جارٍ قراءة باركود ISBN من الإطار الحالي…';
+  status.textContent = 'جارٍ التقاط الإطار الحالي وقراءة باركود ISBN…';
   try {
-    if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) throw new Error('camera_frame_not_ready');
-    const codes = await barcodeDetector.detect(video);
+    await waitForVideoFrame(video);
+    if (!scannerStream?.active || !scannerStream.getTracks().some(track => track.readyState === 'live')) throw new Error('camera_stream_ended');
+    const frame = document.createElement('canvas');
+    frame.width = video.videoWidth;
+    frame.height = video.videoHeight;
+    const context = frame.getContext('2d', { alpha: false });
+    if (!context) throw new Error('camera_canvas_unavailable');
+    context.drawImage(video, 0, 0, frame.width, frame.height);
+    const codes = await barcodeDetector.detect(frame);
     const isbn = codes.map(code => normalizeIsbn(code.rawValue))
       .find(value => value && value.length === 13 && /^97[89]/u.test(value));
     if (!isbn) {
@@ -357,11 +474,12 @@ async function captureIsbnFromCamera() {
   } catch {
     if (scannerActive) {
       captureIsbnButton.disabled = false;
-      status.textContent = 'تعذّرت قراءة الإطار. أبقِ الرمز مستوياً وواضحاً ثم أعد المحاولة، أو أدخل ISBN يدوياً.';
+      status.textContent = 'تعذّرت قراءة الصورة الملتقطة. أبقِ الرمز مستوياً وواضحاً، ثم التقطه مرة أخرى أو أدخل ISBN يدوياً.';
     }
   }
 }
 function stopCoverCamera() {
+  coverCameraRequest += 1;
   if (coverCameraStream) coverCameraStream.getTracks().forEach(track => track.stop());
   coverCameraStream = null;
   if (coverVideo) {
@@ -370,6 +488,7 @@ function stopCoverCamera() {
     coverVideo.hidden = true;
   }
   if (openCoverCameraButton) openCoverCameraButton.hidden = false;
+  if (openCoverCameraButton) openCoverCameraButton.disabled = false;
   if (captureCoverPhotoButton) {
     captureCoverPhotoButton.hidden = true;
     captureCoverPhotoButton.disabled = true;
@@ -382,55 +501,142 @@ async function startCoverCamera() {
     return;
   }
   stopScanner();
+  stopTitlePageCamera();
   stopCoverCamera();
+  const request = coverCameraRequest;
+  openCoverCameraButton.disabled = true;
+  status.textContent = 'جارٍ طلب إذن الكاميرا وتجهيز معاينة الغلاف…';
   try {
-    coverCameraStream = await navigator.mediaDevices.getUserMedia({
+    const stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: { ideal: 'environment' } },
       audio: false,
     });
+    if (request !== coverCameraRequest) {
+      stream.getTracks().forEach(track => track.stop());
+      return;
+    }
+    coverCameraStream = stream;
     coverVideo.srcObject = coverCameraStream;
     coverVideo.hidden = false;
-    await coverVideo.play();
     openCoverCameraButton.hidden = true;
+    stopCoverCameraButton.hidden = false;
+    await coverVideo.play();
+    await waitForVideoFrame(coverVideo);
+    if (request !== coverCameraRequest || coverCameraStream !== stream) return;
     captureCoverPhotoButton.hidden = false;
     captureCoverPhotoButton.disabled = false;
-    stopCoverCameraButton.hidden = false;
+    openCoverCameraButton.disabled = false;
     status.textContent = 'وجّه الكاميرا إلى الغلاف واضبطه داخل الإطار، ثم اضغط «التقاط صورة الغلاف». تبقى الصورة محلياً.';
   } catch (error) {
+    if (request !== coverCameraRequest) return;
     stopCoverCamera();
-    status.textContent = error?.name === 'NotAllowedError'
-      ? 'لم يُسمح باستخدام الكاميرا. اختر صورة من الجهاز بدلاً من ذلك أو أدخل البيانات يدوياً.'
-      : 'تعذّر تشغيل كاميرا الغلاف. اختر صورة من الجهاز كبديل.';
+    status.textContent = cameraErrorMessage(error, 'الغلاف');
+  }
+}
+function stopTitlePageCamera() {
+  titlePageCameraRequest += 1;
+  if (titlePageCameraStream) titlePageCameraStream.getTracks().forEach(track => track.stop());
+  titlePageCameraStream = null;
+  if (titlePageVideo) {
+    titlePageVideo.pause();
+    titlePageVideo.srcObject = null;
+    titlePageVideo.hidden = true;
+  }
+  if (openTitlePageCameraButton) {
+    openTitlePageCameraButton.hidden = false;
+    openTitlePageCameraButton.disabled = false;
+  }
+  if (captureTitlePagePhotoButton) {
+    captureTitlePagePhotoButton.hidden = true;
+    captureTitlePagePhotoButton.disabled = true;
+  }
+  if (stopTitlePageCameraButton) stopTitlePageCameraButton.hidden = true;
+}
+async function startTitlePageCamera() {
+  if (!navigator.mediaDevices?.getUserMedia || !titlePageVideo) {
+    status.textContent = 'لا يمكن فتح الكاميرا في هذا المتصفح. استخدم «اختيار صفحة العنوان من الجهاز» كبديل.';
+    return;
+  }
+  stopScanner();
+  stopCoverCamera();
+  stopTitlePageCamera();
+  const request = titlePageCameraRequest;
+  openTitlePageCameraButton.disabled = true;
+  status.textContent = 'جارٍ طلب إذن الكاميرا وتجهيز معاينة صفحة العنوان…';
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
+    if (request !== titlePageCameraRequest) {
+      stream.getTracks().forEach(track => track.stop());
+      return;
+    }
+    titlePageCameraStream = stream;
+    titlePageVideo.srcObject = stream;
+    titlePageVideo.hidden = false;
+    openTitlePageCameraButton.hidden = true;
+    stopTitlePageCameraButton.hidden = false;
+    await titlePageVideo.play();
+    await waitForVideoFrame(titlePageVideo);
+    if (request !== titlePageCameraRequest || titlePageCameraStream !== stream) return;
+    captureTitlePagePhotoButton.hidden = false;
+    captureTitlePagePhotoButton.disabled = false;
+    openTitlePageCameraButton.disabled = false;
+    status.textContent = 'وجّه الكاميرا إلى صفحة العنوان كاملة، ثم اضغط «التقاط صفحة العنوان». تبقى الصورة محلياً.';
+  } catch (error) {
+    if (request !== titlePageCameraRequest) return;
+    stopTitlePageCamera();
+    status.textContent = cameraErrorMessage(error, 'صفحة العنوان');
+  }
+}
+async function captureCameraStill(targetVideo, stream, button, filenamePrefix, savePhoto) {
+  if (!stream || !targetVideo || !button) return false;
+  button.disabled = true;
+  status.textContent = 'جارٍ التقاط إطار ثابت من الكاميرا…';
+  try {
+    await waitForVideoFrame(targetVideo);
+    if (!stream.active || !stream.getTracks().some(track => track.readyState === 'live')) throw new Error('camera_stream_ended');
+    const canvas = document.createElement('canvas');
+    canvas.width = targetVideo.videoWidth;
+    canvas.height = targetVideo.videoHeight;
+    const context = canvas.getContext('2d', { alpha: false });
+    if (!context) throw new Error('camera_canvas_unavailable');
+    context.drawImage(targetVideo, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise((resolve, reject) => {
+      try { canvas.toBlob(result => result ? resolve(result) : reject(new Error('camera_capture_failed')), 'image/jpeg', 0.92); }
+      catch (error) { reject(error); }
+    });
+    const now = Date.now();
+    const photo = new File([blob], `${filenamePrefix}-${now}.jpg`, { type: 'image/jpeg', lastModified: now });
+    if (!savePhoto(photo)) throw new Error('camera_photo_invalid');
+    return true;
+  } catch (error) {
+    button.disabled = false;
+    status.textContent = error?.message === 'camera_canvas_unavailable' || error?.message === 'camera_capture_failed'
+      ? 'تعذّر التقاط الإطار الثابت. أعد المحاولة أو اختر صورة من الجهاز.'
+      : cameraErrorMessage(error, filenamePrefix === 'book-cover' ? 'الغلاف' : 'صفحة العنوان');
+    return false;
   }
 }
 async function captureCoverPhoto() {
-  if (!coverCameraStream || !coverVideo || !captureCoverPhotoButton) return;
-  if (!coverVideo.videoWidth || !coverVideo.videoHeight) {
-    status.textContent = 'انتظر حتى تظهر معاينة الكاميرا ثم اضغط «التقاط صورة الغلاف». ';
+  if (!coverCameraStream || !coverVideo || !captureCoverPhotoButton) {
+    status.textContent = 'افتح كاميرا الغلاف أولاً، ثم انتظر ظهور المعاينة قبل الالتقاط.';
     return;
   }
-  captureCoverPhotoButton.disabled = true;
-  const canvas = document.createElement('canvas');
-  canvas.width = coverVideo.videoWidth;
-  canvas.height = coverVideo.videoHeight;
-  const context = canvas.getContext('2d', { alpha: false });
-  if (!context) {
-    captureCoverPhotoButton.disabled = false;
-    status.textContent = 'تعذّر تجهيز الصورة في هذا المتصفح؛ استخدم اختيار صورة من الجهاز.';
-    return;
-  }
-  context.drawImage(coverVideo, 0, 0, canvas.width, canvas.height);
-  canvas.toBlob(blob => {
-    if (!blob) {
-      captureCoverPhotoButton.disabled = false;
-      status.textContent = 'تعذّر التقاط الصورة. أعد المحاولة أو اختر صورة من الجهاز.';
-      return;
-    }
-    const photo = new File([blob], `book-cover-${Date.now()}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
+  const captured = await captureCameraStill(coverVideo, coverCameraStream, captureCoverPhotoButton, 'book-cover', photo => {
     if (coverInput) coverInput.value = '';
-    setCoverImage(photo);
-    stopCoverCamera();
-  }, 'image/jpeg', 0.92);
+    return setCoverImage(photo);
+  });
+  if (captured) stopCoverCamera();
+}
+async function captureTitlePagePhoto() {
+  if (!titlePageCameraStream || !titlePageVideo || !captureTitlePagePhotoButton) {
+    status.textContent = 'افتح كاميرا صفحة العنوان أولاً، ثم انتظر ظهور المعاينة قبل الالتقاط.';
+    return;
+  }
+  const captured = await captureCameraStill(titlePageVideo, titlePageCameraStream, captureTitlePagePhotoButton, 'book-title-page', photo => {
+    if (titlePageInput) titlePageInput.value = '';
+    return setTitlePageImage(photo);
+  });
+  if (captured) stopTitlePageCamera();
 }
 
 lookupButton?.addEventListener('click', runLookup);
@@ -442,9 +648,39 @@ stopScanButton?.addEventListener('click', () => {
 });
 openCoverCameraButton?.addEventListener('click', startCoverCamera);
 captureCoverPhotoButton?.addEventListener('click', captureCoverPhoto);
+retakeCoverPhotoButton?.addEventListener('click', startCoverCamera);
+deleteCoverPhotoButton?.addEventListener('click', () => {
+  stopCoverCamera();
+  selectedCoverFile = null;
+  if (coverInput) coverInput.value = '';
+  if (coverConsent) coverConsent.checked = false;
+  releaseCoverPreview();
+  coverAnalysisPending = false;
+  const numberReview = document.querySelector('#bookCoverNumberReview');
+  if (numberReview) {
+    numberReview.replaceChildren();
+    numberReview.hidden = true;
+  }
+  if (retakeCoverPhotoButton) retakeCoverPhotoButton.hidden = true;
+  if (deleteCoverPhotoButton) deleteCoverPhotoButton.hidden = true;
+  updateCoverButton();
+  status.textContent = 'حُذفت صورة الغلاف من المعاينة المحلية.';
+});
 stopCoverCameraButton?.addEventListener('click', () => {
   stopCoverCamera();
   if (status) status.textContent = 'أُوقفت كاميرا الغلاف. يمكنك فتحها مجدداً أو اختيار صورة من الجهاز.';
+});
+openTitlePageCameraButton?.addEventListener('click', startTitlePageCamera);
+captureTitlePagePhotoButton?.addEventListener('click', captureTitlePagePhoto);
+retakeTitlePagePhotoButton?.addEventListener('click', startTitlePageCamera);
+deleteTitlePagePhotoButton?.addEventListener('click', () => {
+  stopTitlePageCamera();
+  clearTitlePageImage();
+  status.textContent = 'حُذفت صورة صفحة العنوان من المعاينة المحلية.';
+});
+stopTitlePageCameraButton?.addEventListener('click', () => {
+  stopTitlePageCamera();
+  status.textContent = 'أُوقفت كاميرا صفحة العنوان. يمكنك فتحها مجدداً أو اختيار صورة من الجهاز.';
 });
 chooseCoverImageButton?.addEventListener('click', () => {
   if (coverInput) {
@@ -458,9 +694,21 @@ results?.addEventListener('click', event => {
   selectCandidate(candidateResults[Number(button.dataset.bookCandidate)]);
 });
 coverInput?.addEventListener('change', () => {
+  stopCoverCamera();
   setCoverImage(coverInput.files?.[0] || null);
 });
+chooseTitlePageImageButton?.addEventListener('click', () => {
+  if (titlePageInput) {
+    titlePageInput.value = '';
+    titlePageInput.click();
+  }
+});
+titlePageInput?.addEventListener('change', () => {
+  stopTitlePageCamera();
+  setTitlePageImage(titlePageInput.files?.[0] || null);
+});
 coverConsent?.addEventListener('change', updateCoverButton);
+titlePageConsent?.addEventListener('change', updateTitlePageButton);
 analyzeCoverButton?.addEventListener('click', async () => {
   if (!selectedCoverFile || !coverConsent?.checked) return;
   coverAnalysisPending = true;
@@ -490,19 +738,54 @@ analyzeCoverButton?.addEventListener('click', async () => {
     }
   }
 });
+analyzeTitlePageButton?.addEventListener('click', async () => {
+  if (!selectedTitlePageFile || !titlePageConsent?.checked) return;
+  titlePageAnalysisPending = true;
+  updateTitlePageButton();
+  status.textContent = 'جارٍ ضغط صورة صفحة العنوان محلياً؛ لن تُرسل إلا بموافقتك الحالية…';
+  let sentToApp = false;
+  try {
+    const data = await compressCover(selectedTitlePageFile);
+    if (!data) throw new Error('empty_image');
+    sentToApp = true;
+    const timeout = window.setTimeout(() => {
+      titlePageAnalysisPending = false;
+      updateTitlePageButton();
+    }, 45000);
+    const complete = () => {
+      window.clearTimeout(timeout);
+      titlePageAnalysisPending = false;
+      updateTitlePageButton();
+    };
+    window.dispatchEvent(new CustomEvent('booktitlepage:selected', {
+      detail: { mimeType: 'image/jpeg', data, complete },
+    }));
+  } catch {
+    status.textContent = 'تعذّر تجهيز صورة صفحة العنوان. جرّب صورة أوضح بصيغة JPG أو PNG أو WebP.';
+  } finally {
+    if (!sentToApp) {
+      titlePageAnalysisPending = false;
+      updateTitlePageButton();
+    }
+  }
+});
 form?.addEventListener('submit', () => {
   stopScanner();
   stopCoverCamera();
+  stopTitlePageCamera();
 });
 form?.addEventListener('reset', () => window.setTimeout(clearCoverPreview, 0));
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     stopScanner();
     stopCoverCamera();
+    stopTitlePageCamera();
   }
 });
 window.addEventListener('beforeunload', () => {
   stopScanner();
   stopCoverCamera();
+  stopTitlePageCamera();
   if (coverPreviewUrl) URL.revokeObjectURL(coverPreviewUrl);
+  if (titlePagePreviewUrl) URL.revokeObjectURL(titlePagePreviewUrl);
 });

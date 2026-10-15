@@ -1,5 +1,5 @@
 import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-header-photo-1';
-import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-capture-2';
+import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -1873,6 +1873,7 @@ window.addEventListener('bookcover:selected', async event => {
         library_id: currentLibraryId,
         model: $('#assistantModel')?.value || DEFAULT_ASSISTANT_MODEL,
         mode: 'cover',
+        image_consent: true,
         cover_image: { mimeType: cover.mimeType, data: cover.data },
       },
     });
@@ -1899,6 +1900,81 @@ window.addEventListener('bookcover:selected', async event => {
     else if (extractedTitle) status.textContent += ' لم نغيّر العنوان الموجود؛ امسحه أو راجعه ثم استخدم البحث يدوياً.';
   } catch {
     status.textContent = 'تعذّر الاتصال بمحلل الغلاف. لم يحفظ الموقع الصورة؛ يمكنك إدخال البيانات يدوياً.';
+  } finally {
+    complete();
+  }
+});
+window.addEventListener('booktitlepage:selected', async event => {
+  const form = $('#titleForm');
+  const status = $('#bookLookupStatus');
+  const panel = $('#bookTitlePageReview');
+  const page = event.detail || {};
+  const complete = typeof page.complete === 'function' ? page.complete : () => {};
+  try {
+    if (!form.elements.allow_title_page_ai.checked) {
+      status.textContent = 'فعّل موافقة تحليل صورة صفحة العنوان أولاً؛ لم تُرسل الصورة.';
+      return;
+    }
+    if (!supabase || !currentLibraryId || page.mimeType !== 'image/jpeg' || typeof page.data !== 'string') {
+      status.textContent = 'يلزم تسجيل الدخول إلى مكتبة واختيار صورة صفحة عنوان صالحة قبل التحليل.';
+      return;
+    }
+    status.textContent = 'جارٍ تحليل صفحة العنوان بموافقتك؛ لن تُحفظ الصورة…';
+    const { data, error } = await supabase.functions.invoke('book-classifier', {
+      body: {
+        library_id: currentLibraryId,
+        model: $('#assistantModel')?.value || DEFAULT_ASSISTANT_MODEL,
+        mode: 'title_page',
+        image_consent: true,
+        title_page_image: { mimeType: page.mimeType, data: page.data },
+      },
+    });
+    if (error || data?.error) {
+      status.textContent = 'تعذّر تحليل صفحة العنوان الآن؛ يمكنك مراجعة البيانات وإدخالها يدوياً.';
+      return;
+    }
+    const fields = [
+      { key: 'title', label: 'العنوان', max: 240, target: form.elements.title },
+      { key: 'author', label: 'المؤلف', max: 180, target: form.elements.author },
+      { key: 'edition', label: 'الطبعة', max: 120 },
+      { key: 'publisher', label: 'الناشر', max: 180 },
+      { key: 'publication_year', label: 'سنة النشر كما ظهرت', max: 40 },
+    ].map(field => ({ ...field, value: String(data?.[field.key] || '').trim().slice(0, field.max) }));
+    panel.replaceChildren();
+    const heading = document.createElement('h4');
+    heading.textContent = 'بيانات صفحة العنوان — راجعها قبل الحفظ';
+    const list = document.createElement('ul');
+    for (const field of fields) {
+      const row = document.createElement('li');
+      row.append(document.createTextNode(`${field.label}: ${field.value || 'لم يظهر بوضوح'}`));
+      if (field.target && field.value) {
+        const current = String(field.target.value || '').trim();
+        if (!current) {
+          field.target.value = field.value;
+          row.append(document.createTextNode(' — أُدخل في الحقل؛ راجعه.'));
+        } else if (current.normalize('NFC') === field.value.normalize('NFC')) {
+          row.append(document.createTextNode(' — يطابق القيمة الحالية.'));
+        } else {
+          const useValue = document.createElement('button');
+          useValue.type = 'button';
+          useValue.textContent = `استخدام ${field.label} المستخرج`;
+          useValue.addEventListener('click', () => {
+            field.target.value = field.value;
+            field.target.focus();
+            useValue.disabled = true;
+          });
+          row.append(document.createTextNode(' — لم تُستبدل القيمة الموجودة. '), useValue);
+        }
+      }
+      list.append(row);
+    }
+    const note = document.createElement('p');
+    note.textContent = 'الطبعة والناشر وسنة النشر للمراجعة فقط ولا تُحفظ في سجل الفهرس الحالي. لم تُستخرج من هذه الصورة أرقام ISBN أو الرقم العام المحلي أو تصنيف ديوي.';
+    panel.append(heading, list, note);
+    panel.hidden = false;
+    status.textContent = 'اكتمل الاستخراج المبدئي من صفحة العنوان. راجع البيانات، واستخدم حقل العنوان والمؤلف عند الحاجة؛ لم يُحفظ أي سجل.';
+  } catch {
+    status.textContent = 'تعذّر الاتصال بمحلل صفحة العنوان. لم يحفظ الموقع الصورة؛ يمكنك إدخال البيانات يدوياً.';
   } finally {
     complete();
   }

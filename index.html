@@ -20,15 +20,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
-  <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-capture-2">
-  <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-capture-2">
+  <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
+  <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-1"></script>
-  <script type="module" src="app.js?v=20261015-camera-capture-2"></script>
-  <script type="module" src="book-catalog-assistant.js?v=20261015-camera-capture-2"></script>
+  <script type="module" src="app.js?v=20261015-camera-title-page-1"></script>
+  <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
@@ -466,11 +466,33 @@
               <div class="book-cover-camera-actions">
                 <button class="button button-primary" id="captureCoverPhotoButton" type="button" hidden disabled>التقاط صورة الغلاف</button>
                 <button class="button button-outline" id="stopCoverCameraButton" type="button" hidden>إيقاف كاميرا الغلاف</button>
+                <button class="button button-outline" id="retakeCoverPhotoButton" type="button" hidden>إعادة تصوير الغلاف</button>
+                <button class="button button-outline" id="deleteCoverPhotoButton" type="button" hidden>حذف صورة الغلاف</button>
               </div>
               <img id="bookCoverPreview" class="book-cover-preview" alt="معاينة محلية لصورة غلاف الكتاب" hidden>
-              <p>تبقى الصورة محلياً ولا تُحفظ. لا تُرسل إلى Gemini إلا بعد تفعيل الموافقة والضغط على زر الاستخراج؛ يمكنك مراجعة الحقول وتعديلها قبل الحفظ.</p>
+              <p>تبقى صورة الغلاف محلياً ولا تُحفظ. لا تُرسل إلى Gemini إلا بعد تفعيل موافقة الغلاف والضغط على زر الاستخراج.</p>
               <label class="check-field book-ai-consent"><input name="allow_cover_ai" type="checkbox"><span>أوافق اختيارياً على إرسال صورة الغلاف المضغوطة إلى Gemini لاستخراج العنوان والمؤلف والسلسلة والأرقام المطبوعة واقتراح ديوي.</span></label>
               <div id="bookCoverNumberReview" class="book-cover-number-review" role="region" aria-label="مراجعة الأرقام المقروءة من الغلاف" aria-live="polite" hidden></div>
+              <section class="book-title-page-tools" aria-labelledby="bookTitlePageHeading">
+                <strong id="bookTitlePageHeading">صورة صفحة العنوان</strong>
+                <p>التقط صفحة العنوان الداخلية منفصلة عن الغلاف. تبقى الصورة محلياً؛ بعد موافقة مستقلة يمكن إرسالها لاستخراج العنوان والمؤلف والطبعة والناشر وسنة النشر للمراجعة. لا تُستخرج منها أرقام ISBN أو الرقم العام أو ديوي.</p>
+                <div class="book-cover-row">
+                  <button class="button button-soft" id="openTitlePageCameraButton" type="button">فتح كاميرا صفحة العنوان</button>
+                  <button class="button button-outline" id="chooseTitlePageImageButton" type="button">اختيار صفحة العنوان من الجهاز</button>
+                  <input id="bookTitlePageInput" name="title_page_image" type="file" accept="image/*" hidden aria-label="اختيار صورة صفحة العنوان من الجهاز">
+                  <button class="button button-primary" id="analyzeTitlePageButton" type="button" disabled>استخراج بيانات صفحة العنوان</button>
+                </div>
+                <video id="bookTitlePageVideo" class="isbn-scanner-video book-cover-video" playsinline muted hidden aria-label="معاينة كاميرا صفحة العنوان"></video>
+                <div class="book-cover-camera-actions">
+                  <button class="button button-primary" id="captureTitlePagePhotoButton" type="button" hidden disabled>التقاط صفحة العنوان</button>
+                  <button class="button button-outline" id="stopTitlePageCameraButton" type="button" hidden>إيقاف كاميرا صفحة العنوان</button>
+                  <button class="button button-outline" id="retakeTitlePagePhotoButton" type="button" hidden>إعادة تصوير صفحة العنوان</button>
+                  <button class="button button-outline" id="deleteTitlePagePhotoButton" type="button" hidden>حذف صورة صفحة العنوان</button>
+                </div>
+                <img id="bookTitlePagePreview" class="book-cover-preview" alt="معاينة محلية لصورة صفحة العنوان" hidden>
+                <label class="check-field book-ai-consent"><input name="allow_title_page_ai" type="checkbox"><span>أوافق اختيارياً على إرسال صورة صفحة العنوان المضغوطة إلى Gemini لاستخراج بياناتها الببليوغرافية للمراجعة.</span></label>
+                <div id="bookTitlePageReview" class="book-title-page-review" role="region" aria-label="مراجعة بيانات صفحة العنوان" aria-live="polite" hidden></div>
+              </section>
               <p id="bookLookupStatus" class="book-import-status" role="status" aria-live="polite"></p>
               <div id="bookLookupResults" class="book-import-results" role="listbox" aria-label="نتائج البحث عن الكتاب" hidden></div>
               <label class="check-field book-ai-consent"><input name="allow_ai_classification" type="checkbox"><span>أوافق على إرسال بيانات الكتاب الببليوغرافية العامة إلى Gemini لاقتراح الفئة الرئيسية لديوي؛ لن تُرسل صور أو بيانات مستعيرين.</span></label>
