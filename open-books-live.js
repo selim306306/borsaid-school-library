@@ -32,7 +32,9 @@ const BOOKS = [
 ];
 
 const LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/deed.ar';
-const RSS2JSON_ENDPOINT = 'https://api.rss2json.com/v1/api.json?rss_url=';
+const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
+const NEWS_ENDPOINT = `${SUPABASE_URL}/functions/v1/education-news`;
 const CACHE_KEY = 'borsaid-live-education-news-v1';
 const REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 const MAX_NEWS_AGE_MS = 14 * 24 * 60 * 60 * 1000;
@@ -350,7 +352,7 @@ function mountLiveNews() {
   grid.id = 'liveBreakingResults';
   grid.setAttribute('aria-live', 'polite');
   grid.setAttribute('aria-busy', 'true');
-  const note = node('p', 'livealert-note', 'المصادر: أخبار الأمم المتحدة باللغة العربية وBBC عربي. تُقرأ تغذيات RSS الأصلية عبر خدمة تحويل عامة إلى JSON لتمكين الطلبات من موقع ثابت؛ عناوين الأخبار وملخصاتها وروابطها تُنسب إلى الناشرين. عند تعذر الاتصال أو عدم وجود خبر تعليمي حديث، تظهر الحالة بوضوح ولا يُعرض خبر قديم على أنه عاجل.');
+  const note = node('p', 'livealert-note', 'المصادر: أخبار الأمم المتحدة باللغة العربية وBBC عربي. تُجلب الخلاصات الأصلية مباشرة عبر وظيفة الموقع، وتُنسب العناوين والملخصات والروابط إلى الناشرين. عند تعذر الاتصال أو عدم وجود خبر تعليمي حديث، تظهر الحالة بوضوح ولا يُعرض خبر قديم على أنه عاجل.');
   section.append(heading, status, grid, note);
   (books || archive).before(section);
 
@@ -393,21 +395,34 @@ function mountLiveNews() {
     status.classList.toggle('is-error', isError);
   }
 
-  async function fetchSource(source) {
-    const url = `${RSS2JSON_ENDPOINT}${encodeURIComponent(source.feed)}`;
+  async function fetchSources() {
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 18000);
     try {
-      const response = await fetch(url, {
+      const response = await fetch(NEWS_ENDPOINT, {
         method: 'GET',
         cache: 'no-store',
         signal: controller.signal,
+        headers: {
+          apikey: SUPABASE_PUBLISHABLE_KEY,
+          Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+        },
       });
       if (!response.ok) throw new Error(`http_${response.status}`);
       const data = await response.json();
-      if (data?.status !== 'ok' || !Array.isArray(data.items)) throw new Error('feed_unavailable');
+      if (data?.status !== 'ok' || !Array.isArray(data.sources)) throw new Error('feed_unavailable');
       const now = Date.now();
-      return data.items.map(item => sanitizeNewsItem(item, source, now)).filter(Boolean);
+      return SOURCES.map(source => {
+        const result = data.sources.find(item => item?.id === source.id);
+        if (!result || result.status !== 'ok' || !Array.isArray(result.items)) {
+          return { id: source.id, status: 'error', items: [] };
+        }
+        return {
+          id: source.id,
+          status: 'ok',
+          items: result.items.map(item => sanitizeNewsItem(item, source, now)).filter(Boolean),
+        };
+      });
     } finally {
       window.clearTimeout(timeout);
     }
@@ -421,15 +436,20 @@ function mountLiveNews() {
     grid.setAttribute('aria-busy', 'true');
     if (!currentItems.length) updateStatus('جارٍ التحقق من تغذيات الأخبار العربية…');
 
-    const results = await Promise.allSettled(SOURCES.map(fetchSource));
+    const sourceResults = await fetchSources().catch(() => null);
     const checkedAt = Date.now();
     lastCheckedAt = checkedAt;
     const failed = [];
     const freshItems = [];
-    results.forEach((result, index) => {
-      if (result.status === 'fulfilled') freshItems.push(...result.value);
-      else failed.push(SOURCES[index].label);
-    });
+    if (!sourceResults) {
+      failed.push(...SOURCES.map(source => source.label));
+    } else {
+      for (const source of SOURCES) {
+        const result = sourceResults.find(item => item.id === source.id);
+        if (result?.status === 'ok') freshItems.push(...result.items);
+        else failed.push(source.label);
+      }
+    }
 
     if (freshItems.length || !failed.length) {
       const unique = new Map();
