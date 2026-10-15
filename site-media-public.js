@@ -85,7 +85,8 @@ function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, 
     });
     image.dataset.siteMediaFallbackBound = 'true';
   }
-  image.src = source || fallbackUrl;
+  const nextSource = source || fallbackUrl;
+  if (image.getAttribute('src') !== nextSource) image.src = nextSource;
 }
 
 const HEADER_IMAGE_VARIANTS = Object.freeze([
@@ -163,15 +164,20 @@ export async function refreshPublicSiteMedia() {
         ? responsiveHeaderSources[responsiveHeaderSources.length - 1].url
         : imageUrl;
       imageTargets(item).forEach(image => {
-        if (image instanceof HTMLImageElement) setImageSource(
+        if (!(image instanceof HTMLImageElement)) return;
+        const isUnchangedBootstrapImage = item.key === 'header-feature-image'
+          && asset?.storage_path
+          && image.dataset.siteMediaBootstrapPath === asset.storage_path
+          && image.getAttribute('src') === image.dataset.siteMediaBootstrapSrc;
+        setImageSource(
           image,
-          displayUrl,
+          isUnchangedBootstrapImage ? image.dataset.siteMediaBootstrapSrc : displayUrl,
           altText,
           Boolean(signedUrl || responsiveHeaderSources.length),
           item.defaultAlt,
           item.key,
           item.defaultSrc,
-          headerSrcSet,
+          isUnchangedBootstrapImage ? '' : headerSrcSet,
           item.key === 'header-feature-image' ? signedUrl : '',
         );
       });
