@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-6">
-  <link rel="stylesheet" href="visitor-questions.css?v=20261015-private-replies-1">
+  <link rel="stylesheet" href="visitor-questions.css?v=20261015-automatic-replies-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-2"></script>
   <script type="module" src="app.js?v=20261015-camera-title-page-1"></script>
@@ -37,7 +37,7 @@
   <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261015-rss-proxy-1"></script>
-  <script type="module" src="visitor-questions.js?v=20261015-private-replies-1"></script>
+  <script type="module" src="visitor-questions.js?v=20261015-automatic-replies-1"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
@@ -411,11 +411,12 @@
     </section>
     <section class="visitor-support section-wrap" id="visitorQuestions" aria-labelledby="visitorQuestionTitle">
       <div class="visitor-support-copy">
-        <span class="eyebrow">تواصل مباشر · خصوصية للزائر</span>
+        <span class="eyebrow">مساعد زوار آلي · خصوصية لكل سؤال</span>
         <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
-        <p>اكتب سؤالك هنا؛ سيصل إلى صاحب الموقع برسالة خاصة عبر Telegram، وسيظهر الرد في هذه الصفحة لصاحب السؤال فقط.</p>
+        <p>سيجيب مساعد المكتبة تلقائيًا عن الأسئلة العامة بالاستناد إلى معلومات الموقع والفهرس المنشور. يظهر رد كل سؤال لصاحبه فقط في هذه الصفحة.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note">لا نطلب اسمك أو بريدك. للاحتفاظ بالرد، أبقِ علامة التبويب نفسها مفتوحة.</p>
+        <p class="visitor-privacy-note">يُعالج نص السؤال ونتائج الفهرس العام المطابقة عبر Gemini؛ لا يستطيع المساعد قراءة سجلات الطلاب أو المستعيرين. إذا تعذّر الرد الآلي، يرسل السؤال إلى صاحب الموقع عبر البوت للمتابعة.</p>
+        <p class="visitor-privacy-note">لا تكتب اسم طالب أو مستعير، أو رقم عضوية، أو هاتفًا، أو بريدًا، أو أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
         <label for="visitorQuestionText">نص السؤال</label>
@@ -424,7 +425,8 @@
           <label for="visitorQuestionWebsite">اترك هذا الحقل فارغًا</label>
           <input id="visitorQuestionWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
-        <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">إرسال السؤال</button>
+        <label class="visitor-ai-consent" for="visitorQuestionConsent"><input id="visitorQuestionConsent" name="consent" type="checkbox" required><span>أوافق على معالجة نص السؤال آليًا عبر Gemini للإجابة، وأؤكد أنه لا يتضمن بيانات شخصية أو معلومات سرية.</span></label>
+        <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">اسأل المساعد</button>
         <p class="visitor-question-status" id="visitorQuestionStatus" role="status" aria-live="polite"></p>
         <div class="visitor-question-tickets" id="visitorQuestionTickets" aria-live="polite"></div>
       </form>

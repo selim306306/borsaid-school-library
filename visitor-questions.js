@@ -5,6 +5,7 @@ const BOT_URL = 'https://t.me/PortSaidSchoolLibrariesBot';
 const STORAGE_KEY = 'borsaid-visitor-question-tickets-v1';
 const form = document.querySelector('#visitorQuestionForm');
 const questionField = document.querySelector('#visitorQuestionText');
+const consentField = document.querySelector('#visitorQuestionConsent');
 const honeypotField = document.querySelector('#visitorQuestionWebsite');
 const statusField = document.querySelector('#visitorQuestionStatus');
 const ticketList = document.querySelector('#visitorQuestionTickets');
@@ -46,7 +47,11 @@ if (form && questionField && statusField && ticketList && submitButton) {
     const state = document.createElement('p');
     state.className = ticket.reply ? 'visitor-ticket-reply' : 'visitor-ticket-pending';
     state.dir = 'auto';
-    state.textContent = ticket.reply ? `الرد: ${ticket.reply}` : 'تم إرسال سؤالك. الرد سيظهر هنا فقط.';
+    state.textContent = ticket.reply
+      ? `الرد: ${ticket.reply}`
+      : ticket.autoAnswered === false
+        ? 'تعذّر الرد الآلي؛ وصل السؤال لفريق المكتبة عبر البوت. سيظهر الرد هنا فقط.'
+        : 'جارٍ إعداد الإجابة؛ ستظهر هنا فقط لصاحب السؤال.';
     card.append(question, state);
     return card;
   }
@@ -97,19 +102,26 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
+    if (!consentField?.checked) {
+      consentField?.focus();
+      statusField.textContent = 'وافق على معالجة السؤال آليًا قبل الإرسال.';
+      return;
+    }
     submitButton.disabled = true;
-    statusField.textContent = 'جارٍ إرسال سؤالك بأمان…';
+    statusField.textContent = 'جارٍ إعداد إجابة خاصة من معلومات الموقع العامة…';
     try {
       const response = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
         cache: 'no-store',
-        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '' }),
+        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '', consent: true }),
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) {
         const messages = {
           owner_not_linked: 'خدمة الرسائل لم تكتمل تهيئتها بعد. حاول لاحقًا.',
+          assistant_unavailable: 'المساعد الآلي وقناة المتابعة غير متاحين مؤقتًا. حاول لاحقًا.',
+          consent_required: 'وافق على معالجة السؤال آليًا قبل الإرسال.',
           rate_limited: 'أرسلت أسئلة كثيرة خلال وقت قصير؛ انتظر قليلًا ثم حاول مجددًا.',
           notification_failed: 'تعذر إرسال السؤال الآن. لم يُسجّل السؤال؛ حاول مرة أخرى بعد قليل.',
           service_not_ready: 'خدمة الرسائل غير متاحة مؤقتًا. حاول لاحقًا.',
@@ -122,12 +134,22 @@ if (form && questionField && statusField && ticketList && submitButton) {
         questionField.value = '';
         return;
       }
-      tickets.unshift({ id: result.question_id, token: result.access_token, question, reply: '', createdAt: new Date().toISOString() });
+      tickets.unshift({
+        id: result.question_id,
+        token: result.access_token,
+        question: typeof result.question_display === 'string' ? result.question_display : question,
+        reply: typeof result.reply === 'string' ? result.reply : '',
+        autoAnswered: result.auto_answered !== false,
+        createdAt: new Date().toISOString(),
+      });
       tickets = tickets.slice(0, 5);
       saveTickets();
       renderTickets();
       questionField.value = '';
-      statusField.textContent = 'وصل سؤالك إلى صاحب الموقع عبر Telegram. احتفظ بعلامة التبويب نفسها؛ فالرد سيظهر هنا فقط.';
+      if (consentField) consentField.checked = false;
+      statusField.textContent = result.auto_answered
+        ? 'أجابك المساعد تلقائيًا؛ الرد محفوظ ويظهر لك وحدك هنا.'
+        : 'تعذّر الرد الآلي؛ وصل سؤالك لفريق المكتبة عبر Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.';
       const newest = tickets[0];
       if (newest) void pollTicket(newest);
     } catch {
