@@ -101,6 +101,9 @@ function buildBookCard(book) {
 
   const actions = node('div', 'openbooks-actions');
   const pdfUrl = new URL(book.pdf, import.meta.url).href;
+  const readHere = node('button', 'openbooks-reader-toggle', 'اقرأ هنا');
+  readHere.type = 'button';
+  readHere.setAttribute('aria-expanded', 'false');
   const readLink = node('a', 'openbooks-action openbooks-read', 'اقرأ PDF');
   readLink.href = pdfUrl;
   readLink.target = '_blank';
@@ -110,7 +113,22 @@ function buildBookCard(book) {
   downloadLink.href = pdfUrl;
   downloadLink.download = book.pdf;
   downloadLink.setAttribute('aria-label', `تحميل ${book.title} بصيغة PDF`);
-  actions.append(readLink, downloadLink);
+  actions.append(readHere, readLink, downloadLink);
+
+  const reader = node('div', 'openbooks-reader-wrap');
+  reader.hidden = true;
+  const frame = node('iframe', 'openbooks-reader-frame');
+  frame.title = `قارئ PDF لكتاب ${book.title}`;
+  frame.loading = 'lazy';
+  reader.append(frame);
+  readHere.addEventListener('click', () => {
+    const opening = reader.hidden;
+    reader.hidden = !opening;
+    readHere.textContent = opening ? 'إخفاء القراءة' : 'اقرأ هنا';
+    readHere.setAttribute('aria-expanded', String(opening));
+    card.classList.toggle('is-reading', opening);
+    if (opening && !frame.src) frame.src = `${pdfUrl}#view=FitH`;
+  });
 
   const citation = node('div', 'openbooks-citation');
   const sourceLink = node('a', 'openbooks-source-link', 'صفحة النص وبياناته في ويكي مصدر');
@@ -123,14 +141,14 @@ function buildBookCard(book) {
   licenseLink.rel = 'noopener noreferrer';
   citation.append(sourceLink, node('span', 'openbooks-citation-separator', ' · '), licenseLink);
 
-  card.append(top, title, author, subject, availability, attribution, actions, citation);
+  card.append(top, title, author, subject, availability, attribution, actions, reader, citation);
   return card;
 }
 
 function mountOpenBooks() {
-  const home = $('#homeView');
-  const anchor = $('#homeNews');
-  if (!home || !anchor || $('#openBooksSection')) return;
+  const readerView = $('#globalReadingView');
+  const anchor = $('#globalReading');
+  if (!readerView || !anchor || $('#openBooksSection')) return;
 
   const section = node('section', 'section-wrap openbooks-section');
   section.id = 'openBooksSection';
@@ -138,10 +156,10 @@ function mountOpenBooks() {
 
   const heading = node('div', 'openbooks-heading');
   const headingCopy = node('div', 'openbooks-heading-copy');
-  headingCopy.append(node('span', 'eyebrow', 'مجموعة أولى · نصوص مفتوحة الحقوق'));
-  headingCopy.append(node('h2', 'openbooks-heading-title', 'كتب وقراءات عربية PDF'));
-  headingCopy.append(node('p', 'openbooks-intro', 'ابحث في مجموعة صغيرة من النصوص العربية. تتضمن «كليلة ودمنة» هنا فصلًا محددًا، بينما رسالة الغفران تشمل الجزأين الأول والثاني.'));
-  const count = node('span', 'openbooks-count', `${new Intl.NumberFormat('ar-EG').format(BOOKS.length)} ملفات PDF`);
+  headingCopy.append(node('span', 'eyebrow', 'الكتاب نفسه · مع ترخيصه ومصدره'));
+  headingCopy.append(node('h2', 'openbooks-heading-title', 'كتب عربية كاملة للقراءة الآن'));
+  headingCopy.append(node('p', 'openbooks-intro', 'افتح صفحات الكتاب هنا بقارئ PDF أو نزّل الملف. «كليلة ودمنة» المعروض هنا فصل قصصي محدد، بينما رسالة الغفران تشمل الجزأين الأول والثاني.'));
+  const count = node('span', 'openbooks-count', `${new Intl.NumberFormat('ar-EG').format(BOOKS.length)} كتب وملفات PDF`);
   heading.append(headingCopy, count);
 
   const rightsNote = node('aside', 'openbooks-rights-note');

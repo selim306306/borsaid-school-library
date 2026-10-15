@@ -19,14 +19,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261014-home-4">
-  <script type="module" src="app.js?v=20261014-home-search"></script>
+  <link rel="stylesheet" href="library-profiles.css?v=1">
+  <link rel="stylesheet" href="open-books-reader.css?v=20261015-reader2">
+  <script type="module" src="app.js?v=20261015-school-profile"></script>
   <link rel="stylesheet" href="global-reading.css?v=4">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=6">
   <script type="module" src="education-research.js?v=4"></script>
   <script type="module" src="site-news.js?v=2"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015">
-  <script type="module" src="open-books-live.js?v=20261015"></script>
+  <script type="module" src="open-books-live.js?v=20261015-reader"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -53,10 +55,10 @@
   <nav class="site-tabs section-wrap" id="visitorTabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام الموقع">
     <button class="view-tab active" id="homeTab" type="button" role="tab" aria-selected="true" aria-controls="homeView" tabindex="0" data-view="home">الرئيسية</button>
     <button class="view-tab" id="discoverTab" type="button" role="tab" aria-selected="false" aria-controls="discoverView" tabindex="-1" data-view="discover">الكتب</button>
-    <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches">المكتبات</button>
+    <button class="view-tab" id="branchesTab" type="button" role="tab" aria-selected="false" aria-controls="branchesView" tabindex="-1" data-view="branches" hidden>المكتبات</button>
     <button class="view-tab" id="announcementsTab" type="button" role="tab" aria-selected="false" aria-controls="announcementsView" tabindex="-1" data-view="announcements">الإعلانات</button>
     <button class="view-tab" id="aboutTab" type="button" role="tab" aria-selected="false" aria-controls="aboutView" tabindex="-1" data-view="about">عن الموقع</button>
-    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading">مصادر الكتب</button>
+    <button class="view-tab" id="globalReadingTab" type="button" role="tab" aria-selected="false" aria-controls="globalReadingView" tabindex="-1" data-view="reading">القراءة</button>
     <button class="view-tab" id="educationResearchTab" type="button" role="tab" aria-selected="false" aria-controls="educationResearchView" tabindex="-1" data-view="educationResearch">أخبار وأبحاث</button>
   </nav>
 
@@ -194,30 +196,52 @@
           <a class="reading-source-link" href="https://www.ekb.eg/" target="_blank" rel="noopener noreferrer">افتح بنك المعرفة المصري <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
         </article>
         <article class="reading-source-card">
-          <span class="reading-source-kind reading-source-kind-red">معاينة أو قراءة بحسب الحقوق</span>
-          <h3>Google Books</h3>
-          <p>قد يعرض مقتطفاً أو صفحات كاملة بحسب الناشر والبلد؛ لا يعني ظهور الكتاب أن نصه الكامل متاح.</p>
-          <a class="reading-source-link" href="https://books.google.com/" target="_blank" rel="noopener noreferrer">ابحث في Google Books <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+          <span class="reading-source-kind reading-source-kind-yellow">كتب عربية كاملة في المجال العام</span>
+          <h3>المجموعات العربية على الإنترنت · ACO</h3>
+          <p>مكتبة رقمية عربية تعرض الكتب المتاحة للقراءة عبر قارئها وروابط PDF لدى المصدر.</p>
+          <a class="reading-source-link" href="https://aco.dlib.nyu.edu/" target="_blank" rel="noopener noreferrer">استكشف الكتب واقرأها <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
         </article>
         <article class="reading-source-card">
-          <span class="reading-source-kind reading-source-kind-yellow">فهرس مكتبات عالمي</span>
-          <h3>WorldCat</h3>
-          <p>يساعدك على اكتشاف المكتبات التي تقتني كتاباً؛ الفهرس لا يضمن قراءة رقمية مباشرة.</p>
-          <a class="reading-source-link" href="https://search.worldcat.org/" target="_blank" rel="noopener noreferrer">ابحث في WorldCat <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+          <span class="reading-source-kind reading-source-kind-red">كتب ومواد مكتبة الإسكندرية</span>
+          <h3>مستودع الأصول الرقمية · DAR</h3>
+          <p>تتيح المكتبة قراءة الكتب التي انتهت حقوق ملكيتها؛ أما الحقوق السارية فتُقرأ داخل مبنى المكتبة فقط.</p>
+          <a class="reading-source-link" href="https://dar.bibalex.org/ar//landingPage/landingPage.aspx" target="_blank" rel="noopener noreferrer">ابحث في مستودع DAR <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
+        </article>
+        <article class="reading-source-card">
+          <span class="reading-source-kind reading-source-kind-yellow">أرشيف الخليج والمنطقة</span>
+          <h3>مكتبة قطر الرقمية</h3>
+          <p>مواد أرشيفية مجانية عن تاريخ وثقافة الخليج؛ أرشيف تاريخي لا فهرس كتب مدرسية.</p>
+          <a class="reading-source-link" href="https://www.qdl.qa/%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">استكشف أرشيف قطر الرقمي <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>
         </article>
       </div>
       <aside class="reading-rights-note" aria-label="حدود الربط والحقوق">
         <strong>حدود الربط والحقوق</strong>
-        <p>هذه مصادر خارجية مستقلة؛ لا ننسخ الكتب أو نخلط نتائجها بمقتنيات بورسعيد. فهرس الإسكندرية يعرض سجلات ببليوجرافية ولا يضمن قراءة رقمية. واجهة البحث العامة لمكتبة الكونجرس لا تحتاج اشتراكاً سنوياً، لكن وجود صيغة إلكترونية لا يعني دائماً نصاً كاملاً أو قراءة مجانية. بنك المعرفة يتبع شروط تسجيل وإتاحة خاصة به. <a class="reading-rights-reference" href="https://www.loc.gov/apis/" target="_blank" rel="noopener noreferrer">توثيق واجهات مكتبة الكونجرس <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>، و<a class="reading-rights-reference" href="https://www.oclc.org/developer/api/oclc-apis/worldcat-search-api.en.html" target="_blank" rel="noopener noreferrer">تفاصيل OCLC الرسمية <span aria-hidden="true">↗</span><span class="sr-only">تفتح في موقع خارجي</span></a>. لا نستضيف نصاً إلا بترخيص يسمح بذلك.</p>
+        <p>هذه مصادر خارجية مستقلة؛ لا ننسخ الكتب أو نخلط نتائجها بمقتنيات بورسعيد. فهرس الإسكندرية يعرض سجلات ببليوجرافية ولا يضمن قراءة رقمية. واجهة البحث العامة لمكتبة الكونجرس لا تحتاج اشتراكاً سنوياً، لكن وجود صيغة إلكترونية لا يعني دائماً نصاً كاملاً أو قراءة مجانية. بنك المعرفة يتبع شروط تسجيل وإتاحة خاصة به. لا نستضيف نصاً إلا بترخيص يسمح بذلك. <a class="reading-rights-reference" href="https://www.loc.gov/apis/" target="_blank" rel="noopener noreferrer">توثيق واجهات مكتبة الكونجرس <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>.</p>
       </aside>
     </section>
     </section>
     <section class="page-view global-reading-view" id="globalReadingView" data-view-panel="reading" role="tabpanel" aria-labelledby="globalReadingTab" tabindex="0" hidden>
       <section class="global-reading-section section-wrap" id="globalReading" aria-labelledby="globalReadingTitle">
         <div class="global-reading-heading">
-          <div><span class="eyebrow">اكتشاف من مصادر مستقلة</span><h1 id="globalReadingTitle">فهرس عربي ومكتبة الكونجرس</h1><p>اختر فهرس مكتبة الإسكندرية للبحث في بيانات مقتنياتها، أو مكتبة الكونجرس للبحث المباشر في سجلات الكتب والموارد الرقمية. لا يثبت أي منهما وجود كتاب في مكتبات بورسعيد.</p></div>
-          <span class="global-reading-stamp">بحث مباشر · خارج فهرس بورسعيد</span>
+          <div><span class="eyebrow">اقرأ أولاً · الفهرس ثانياً</span><h1 id="globalReadingTitle">كتب عربية ومصادر للقراءة</h1><p>ابدأ بكتب كاملة مرخّصة للقراءة هنا، ثم انتقل إلى مكتبات رقمية عربية. البحث الفهرسي أدناه اختياري ولا يعرض نص الكتاب بذاته.</p></div>
+          <span class="global-reading-stamp">كتب قابلة للقراءة · مصادر رسمية</span>
         </div>
+        <section class="arabic-library-sources" aria-labelledby="arabicLibrarySourcesTitle">
+          <h2 id="arabicLibrarySourcesTitle">مكتبات ومصادر عربية</h2>
+          <p>كل رابط يفتح الجهة الأصلية؛ تختلف الإتاحة بحسب العنوان والحقوق والتسجيل المطلوب.</p>
+          <div class="arabic-library-source-grid">
+            <article class="arabic-library-source"><strong>بنك المعرفة المصري</strong><span>بوابة موارد تعليمية وبحثية. يتطلب التسجيل، وقد تختلف الموارد المتاحة حسب الفئة وشروط الجهة الناشرة.</span><a href="https://www.ekb.eg/" target="_blank" rel="noopener noreferrer">دخول بنك المعرفة المصري ↗</a></article>
+            <article class="arabic-library-source"><strong>مستودع مكتبة الإسكندرية · DAR</strong><span>اقرأ الكتب التي انتهت حقوق ملكيتها؛ الكتب ذات الحقوق السارية متاحة داخل المكتبة فقط.</span><a href="https://dar.bibalex.org/ar//landingPage/landingPage.aspx" target="_blank" rel="noopener noreferrer">افتح مستودع DAR ↗</a></article>
+            <article class="arabic-library-source"><strong>المجموعات العربية على الإنترنت · ACO</strong><span>كتب عربية في المجال العام مع قارئ كامل وروابط PDF يقدمها المصدر.</span><a href="https://aco.dlib.nyu.edu/searchcollections" target="_blank" rel="noopener noreferrer">ابحث في الكتب المفتوحة ↗</a></article>
+            <article class="arabic-library-source"><strong>مكتبة قطر الرقمية</strong><span>أرشيف مجاني للمواد التاريخية والثقافية عن الخليج والمنطقة، وليس مكتبة كتب مدرسية.</span><a href="https://www.qdl.qa/%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer">استكشف الأرشيف ↗</a></article>
+          </div>
+          <article class="arabic-library-featured"><div><strong>قارئ كتاب عربي مفتوح من مجموعة ACO</strong><p>اقرأ الكتاب لدى المصدر مباشرةً؛ لا ننسخ ملفه أو نستضيف نسخة منه.</p></div><a href="https://aco.dlib.nyu.edu/book/princeton_aco000320/1" target="_blank" rel="noopener noreferrer">افتح القارئ لدى ACO ↗</a></article>
+        </section>
+        <details class="catalog-search-details">
+          <summary>بحث فهرسي اختياري — سجلات فقط، لا يعرض نص الكتاب</summary>
+          <div class="catalog-search-details-body">
+          <h2 class="catalog-search-heading">بحث في بيانات فهرس مكتبة الإسكندرية ومكتبة الكونجرس</h2>
+          <p class="catalog-search-description">يمكنك البحث في السجلات ثم فتح الكتاب لدى المصدر إذا كان متاحاً بحقوق تسمح بذلك.</p>
         <aside class="global-reading-source-note"><span class="global-reading-source-icon" aria-hidden="true">i</span><span><strong>مصادر مستقلة:</strong> فهرس الإسكندرية ببليوجرافي، وبحث الكونجرس يعرض بياناته وموارده الرقمية عند تسجيلها. لا تُدمج النتائج مع فهرس بورسعيد؛ عبارة البحث تُرسل فقط إلى المصدر الذي تختاره ولا تُرسل إلى Gemini أو تُخزّن على هذا الموقع.</span></aside>
         <form id="globalReadingForm" class="global-reading-form" role="search">
           <div class="global-reading-field"><label for="globalReadingInput">عنوان أو مؤلف أو موضوع</label><input id="globalReadingInput" type="search" maxlength="100" placeholder="مثال: نجيب محفوظ، الفضاء، The Hobbit" autocomplete="off" aria-describedby="globalReadingPrivacy" required></div>
@@ -232,6 +256,8 @@
         <div class="global-reading-more-row"><button class="button button-outline" id="globalReadingMore" type="button" hidden>تحميل المزيد من النتائج</button></div>
         <aside class="global-reading-boundary"><strong>السجل الرقمي لا يعني دائماً كتاباً كاملاً أو قراءة مجانية</strong><p>فهرس الإسكندرية يعرض البيانات الببليوجرافية والمقتنيات. في نتائج الكونجرس تظهر الصيغة الإلكترونية فقط عندما يسجلها المصدر؛ والفلتر يستبعد السجلات التي يذكر LOC أن الوصول الكامل إليها مقيّد داخل المكتبة، لكن حقوق القراءة وشروطها تظل لدى المصدر. لا نوفر دخولاً إلى اشتراكات أو محتوى غير مرخّص. <a href="https://www.loc.gov/apis/json-and-yaml/requests/" target="_blank" rel="noopener noreferrer">توثيق API مكتبة الكونجرس <span aria-hidden="true">↗</span></a></p></aside>
         <p class="global-reading-footnote">المصادر: <a href="https://balis.bibalex.org/AR/OPAC/Home/SearchOpac" target="_blank" rel="noopener noreferrer">فهرس مكتبة الإسكندرية</a> و<a href="https://www.loc.gov/books/" target="_blank" rel="noopener noreferrer">فهرس الكتب في مكتبة الكونجرس</a>. السجلات الخارجية لا تثبت وجود نسخة في مكتبات بورسعيد.</p>
+          </div>
+        </details>
       </section>
     </section>
     <section class="page-view education-research-view" id="educationResearchView" data-view-panel="educationResearch" role="tabpanel" aria-labelledby="educationResearchTab" tabindex="0" hidden>
@@ -309,12 +335,10 @@
     <section class="page-view" id="branchesView" data-view-panel="branches" role="tabpanel" aria-labelledby="branchesTab" tabindex="0" hidden>
     <section class="branches-section section-wrap" id="branches" aria-labelledby="branches-title">
       <div class="section-heading">
-        <div><span class="eyebrow">قريبة منك</span><h2 id="branches-title">المكتبات المشاركة</h2><p>تعرّف على الفروع المنشورة، ثم تحقق من إتاحة الكتب قبل الزيارة.</p></div>
+        <div><span class="eyebrow">قريبة منك</span><h2 id="branches-title">المكتبات المدرسية المشاركة</h2><p>تظهر هنا بيانات المدارس التي أكملها مالكها واختار نشرها، مع الفروع المنشورة إن وُجدت.</p></div>
         <a class="text-link" href="#discover">ابحث في الفهرس <span aria-hidden="true">←</span></a>
       </div>
-      <div id="branchesGrid" class="branches-grid" aria-live="polite">
-        <div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>لا تظهر فروع منشورة للزوار حالياً</strong><p>لا يعني ذلك عدم وجود فروع؛ لن نعرض إلا البيانات التي تعتمدها المكتبة وتنشرها.</p></div></div>
-      </div>
+      <div id="branchesGrid" class="branches-grid" aria-live="polite" aria-busy="true"></div>
     </section>
   </section>
     <section class="page-view" id="announcementsView" data-view-panel="announcements" role="tabpanel" aria-labelledby="announcementsTab" tabindex="0" hidden>
@@ -389,6 +413,7 @@
         <nav class="staff-tabs" role="tablist" aria-orientation="horizontal" aria-label="أقسام لوحة الموظفين">
           <button class="staff-tab active" data-panel="catalogPanel" type="button">الفهرس والجرد</button>
           <button class="staff-tab" data-panel="branchesPanel" type="button">الفروع</button>
+          <button class="staff-tab" id="schoolProfileTab" data-panel="schoolProfilePanel" type="button" hidden>بيانات المدرسة</button>
           <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>
           <button class="staff-tab" data-panel="reservationsPanel" type="button">الحجوزات</button>
           <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
@@ -446,6 +471,37 @@
           <div class="branch-admin-list" id="staffBranches"></div>
           <div class="panel-heading list-heading"><div><h3>تعديل فرع قائم</h3><p>تحديث معلومات الاتصال أو النشر العام للفروع المشاركة.</p></div></div>
           <form id="branchEditForm" class="staff-form-grid compact-form"><label>الفرع<select name="id" id="branchEditSelect" required><option value="">اختر فرعاً</option></select></label><label>اسم الفرع<input name="name" required maxlength="140"></label><label>المحافظة<input name="governorate" maxlength="80"></label><label>المدينة<input name="city" maxlength="80"></label><label>العنوان العام<input name="public_address" maxlength="240"></label><label>هاتف عام<input name="public_phone" maxlength="40"></label><label>بريد عام<input name="public_email" type="email" maxlength="160"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر بيانات الفرع</span></label><button class="button button-primary form-action" type="submit">حفظ بيانات الفرع</button></form><p class="form-message" id="branchEditMessage" role="status" aria-live="polite"></p>
+        </section>
+        <section class="staff-panel" id="schoolProfilePanel" hidden>
+          <div class="panel-heading"><div><h3>بيانات المدرسة وشعاراتها</h3><p>ملف مستقل لكل مدرسة تملكها؛ لا تنشر هذه البيانات تلقائياً.</p></div></div>
+          <p class="school-profile-intro">أدخل البيانات الرسمية لكل مدرسة على حدة. اختيار «إظهار الملف للعامة» لا يكفي وحده؛ يجب أيضاً نشر المكتبة من تبويب الفروع، وكل ذلك لا ينشر أي كتاب أو فرع تلقائياً. ملفات الشعارات صور عامة عند رفعها، فلا ترفع صور أشخاص أو معلومات سرية.</p>
+          <form id="schoolProfileForm" class="school-profile-panel" hidden>
+            <div class="school-profile-grid">
+              <label>اسم المدرسة الرسمي<input name="school_name" required minlength="2" maxlength="160" autocomplete="organization" placeholder="اكتب الاسم المعتمد"></label>
+              <label>الإدارة التعليمية<input name="educational_administration" maxlength="160" autocomplete="off" placeholder="اكتب اسم الإدارة المعتمد"></label>
+              <label>اسم أخصائي المكتبات<input name="librarian_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              <div class="school-profile-logo-field"><label for="schoolLogoFile">شعار المدرسة</label><input id="schoolLogoFile" name="school_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="schoolLogoPreview" hidden><img id="schoolLogoImage" alt="معاينة شعار المدرسة"><span id="schoolLogoCaption"></span></div><label class="school-profile-check"><input name="remove_school_logo" type="checkbox"><span>إزالة الشعار الحالي عند الحفظ</span></label></div>
+              <div class="school-profile-logo-field"><label for="governorateLogoFile">شعار المحافظة</label><input id="governorateLogoFile" name="governorate_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="governorateLogoPreview" hidden><img id="governorateLogoImage" alt="معاينة شعار المحافظة"><span id="governorateLogoCaption"></span></div><label class="school-profile-check"><input name="remove_governorate_logo" type="checkbox"><span>إزالة شعار المحافظة الحالي عند الحفظ</span></label></div>
+              <label class="school-profile-check"><input name="is_public" type="checkbox"><span>السماح بعرض بيانات هذه المدرسة وشعاراتها في دليل المكتبات بعد نشر المكتبة أيضاً</span></label>
+              <button class="button button-primary school-profile-action" type="submit">حفظ بيانات المدرسة</button>
+            </div>
+            <p class="school-profile-private-note">تعديل هذا الملف مسموح لمالك المكتبة فقط. حفظ البيانات لا يغيّر حالة نشر المكتبة أو الفروع أو الكتب.</p>
+          </form>
+          <p class="school-profile-status" id="schoolProfileStatus" role="status" aria-live="polite">جارٍ تحميل بيانات المدرسة…</p>
+          <hr class="school-profile-divider">
+          <details class="create-school-details">
+            <summary>إضافة سجل مدرسة أخرى أملكها</summary>
+            <div class="create-school-body">
+              <p>يُنشأ سجل مستقل لهذه المدرسة وتُضاف عضويتك كمالك. الاسم الإداري والشعارات لا تُفترض مسبقاً، والنشر العام متوقف افتراضياً.</p>
+              <form id="createSchoolForm" class="school-profile-grid">
+                <label>اسم المدرسة الرسمي<input name="school_name" required minlength="2" maxlength="160" autocomplete="organization"></label>
+                <label>الإدارة التعليمية<input name="educational_administration" maxlength="160" autocomplete="off"></label>
+                <label>اسم أخصائي المكتبات<input name="librarian_name" maxlength="160" autocomplete="name"></label>
+                <button class="button button-primary school-profile-action" type="submit">إنشاء ملف المدرسة</button>
+              </form>
+              <p class="school-profile-status" id="createSchoolStatus" role="status" aria-live="polite"></p>
+            </div>
+          </details>
         </section>
         <section class="staff-panel" id="circulationPanel" hidden>
           <div class="panel-heading"><div><h3>إعارة ومرتجعات</h3><p>يُقيد كل إجراء باسم الموظف، وتُحدّث حالة النسخة معاملةً واحدة.</p></div></div>

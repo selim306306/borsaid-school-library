@@ -12,7 +12,9 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 const viewTabs = $$('.view-tab');
 const viewPanels = $$('[data-view-panel]');
+let publicDirectoryAvailable = false;
 function activateView(viewName, { updateHistory = false, hash = '' } = {}) {
+  if (viewName === 'branches' && !publicDirectoryAvailable) return false;
   const panel = viewPanels.find(item => item.dataset.viewPanel === viewName);
   if (!panel) return false;
   viewPanels.forEach(item => { item.hidden = item !== panel; });
@@ -37,17 +39,19 @@ viewTabs.forEach(tab => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   tab.addEventListener('keydown', event => {
-    const index = viewTabs.indexOf(tab);
+    const visibleTabs = viewTabs.filter(item => !item.hidden);
+    const index = visibleTabs.indexOf(tab);
+    if (index < 0 || !visibleTabs.length) return;
     let nextIndex;
     if (event.key === 'Home') nextIndex = 0;
-    else if (event.key === 'End') nextIndex = viewTabs.length - 1;
+    else if (event.key === 'End') nextIndex = visibleTabs.length - 1;
     else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       const forwardKey = document.documentElement.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
       const step = event.key === forwardKey ? 1 : -1;
-      nextIndex = (index + step + viewTabs.length) % viewTabs.length;
+      nextIndex = (index + step + visibleTabs.length) % visibleTabs.length;
     } else return;
     event.preventDefault();
-    const nextTab = viewTabs[nextIndex];
+    const nextTab = visibleTabs[nextIndex];
     activateView(nextTab.dataset.view, { updateHistory: true });
     nextTab.focus({ preventScroll: true });
   });
@@ -96,11 +100,13 @@ const branchFilter = $('#branchFilter');
 let supabase = null;
 let publicSupabase = null;
 let publicBranches = [];
+let publicLibraryProfiles = [];
 let publicResults = [];
 let currentPage = 0;
 let currentSearch = { query: '', branch_id: null, available_only: false };
 let searchTimer = 0;
 let currentLibraryId = null;
+let currentLibraryProfile = null;
 let currentMemberships = [];
 let staffBranches = [];
 let branchLoadFailed = false;
@@ -173,13 +179,36 @@ function paintPublicCards(rows, append = false) {
     </article>`;
   }).join(''));
 }
-function paintBranches(rows) {
-  const grid = $('#branchesGrid');
-  if (!rows.length) {
-    grid.innerHTML = '<div class="branch-placeholder"><span class="placeholder-icon">⌂</span><div><strong>لا تظهر فروع منشورة للزوار حالياً</strong><p>لا يعني ذلك عدم وجود فروع؛ لن نعرض إلا البيانات التي تعتمدها المكتبة وتنشرها.</p></div></div>';
-    return;
+function setPublicDirectoryVisibility(enabled) {
+  publicDirectoryAvailable = Boolean(enabled);
+  const tab = $('#branchesTab');
+  const panel = $('#branchesView');
+  if (tab) tab.hidden = !publicDirectoryAvailable;
+  $$('a[href="#branches"]').forEach(link => { link.hidden = !publicDirectoryAvailable; });
+  if (publicDirectoryAvailable && window.location.hash === '#branches') activateView('branches');
+  if (!publicDirectoryAvailable && panel) {
+    if (tab?.classList.contains('active')) activateView('home', { updateHistory: true, hash: '#top' });
+    else panel.hidden = true;
   }
-  grid.innerHTML = rows.map(branch => {
+}
+function publicLogoUrl(path) {
+  if (!path || !publicSupabase) return '';
+  return publicSupabase.storage.from('school-branding').getPublicUrl(path).data?.publicUrl || '';
+}
+function paintBranches(rows, profiles = publicLibraryProfiles) {
+  const grid = $('#branchesGrid');
+  const schoolCards = profiles.map(profile => {
+    const schoolLogo = publicLogoUrl(profile.school_logo_path);
+    const governorateLogo = publicLogoUrl(profile.governorate_logo_path);
+    const logos = [
+      schoolLogo ? `<img class="school-profile-public-logo" src="${escapeHtml(schoolLogo)}" alt="شعار ${escapeHtml(profile.school_name)}" loading="lazy">` : '<span class="branch-marker" aria-hidden="true">⌂</span>',
+      governorateLogo ? `<img class="school-profile-public-logo governorate" src="${escapeHtml(governorateLogo)}" alt="شعار المحافظة" loading="lazy">` : '',
+    ].join('');
+    const administration = profile.educational_administration ? `<p class="school-profile-meta">${escapeHtml(profile.educational_administration)}</p>` : '';
+    const librarian = profile.librarian_name ? `<p class="school-profile-librarian">أخصائي المكتبات: ${escapeHtml(profile.librarian_name)}</p>` : '';
+    return `<article class="branch-card school-profile-card"><div class="school-profile-public-logos">${logos}</div><div class="branch-card-body"><strong>${escapeHtml(profile.school_name)}</strong>${administration}${librarian}</div></article>`;
+  });
+  const branchCards = rows.map(branch => {
     const location = [branch.city, branch.governorate].filter(Boolean).map(escapeHtml).join('، ');
     const links = [];
     if (branch.public_phone) {
@@ -188,7 +217,10 @@ function paintBranches(rows) {
     }
     if (branch.public_email) links.push(`<a href="mailto:${escapeHtml(branch.public_email)}">✉ ${escapeHtml(branch.public_email)}</a>`);
     return `<article class="branch-card"><span class="branch-marker" aria-hidden="true">⌖</span><div class="branch-card-body"><strong>${escapeHtml(branch.branch_name)}</strong><p>${location ? `${location}${branch.public_address ? ` · ${escapeHtml(branch.public_address)}` : ''}` : (branch.public_address ? escapeHtml(branch.public_address) : 'بيانات الموقع التفصيلية غير متاحة')}</p>${links.length ? `<div class="branch-contact">${links.join('')}</div>` : ''}</div></article>`;
-  }).join('');
+  });
+  grid.innerHTML = [...schoolCards, ...branchCards].join('');
+  grid.setAttribute('aria-busy', 'false');
+  setPublicDirectoryVisibility(schoolCards.length + branchCards.length > 0);
 }
 function updateBranchFilter(rows) {
   const selected = branchFilter.value;
@@ -196,12 +228,19 @@ function updateBranchFilter(rows) {
   if (rows.some(branch => branch.branch_id === selected)) branchFilter.value = selected;
 }
 async function loadPublicBranches() {
-  const { data, error } = await publicSupabase.from('public_branches')
-    .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
-    .order('branch_name', { ascending: true });
-  if (error) throw error;
-  publicBranches = data || [];
-  paintBranches(publicBranches);
+  const [branchesResult, profilesResult] = await Promise.all([
+    publicSupabase.from('public_branches')
+      .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
+      .order('branch_name', { ascending: true }),
+    publicSupabase.from('library_profiles')
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path')
+      .order('school_name', { ascending: true }),
+  ]);
+  if (branchesResult.error) throw branchesResult.error;
+  if (profilesResult.error) throw profilesResult.error;
+  publicBranches = branchesResult.data || [];
+  publicLibraryProfiles = profilesResult.data || [];
+  paintBranches(publicBranches, publicLibraryProfiles);
   updateBranchFilter(publicBranches);
 }
 async function runPublicSearch({ append = false } = {}) {
@@ -464,10 +503,12 @@ function activatePanel(panelId) {
 function configureRole(role) {
   const manager = ['owner', 'admin', 'librarian'].includes(role);
   const administrator = ['owner', 'admin'].includes(role);
+  const owner = role === 'owner';
   const assistant = manager || role === 'reporter';
   const circulation = manager || role === 'circulation';
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
+  if (owner) allowed.add('schoolProfilePanel');
   if (circulation) ['circulationPanel', 'reservationsPanel', 'visitorsPanel'].forEach(id => allowed.add(id));
   if (administrator) allowed.add('membersPanel');
   if (assistant) allowed.add('assistantPanel');
@@ -476,6 +517,9 @@ function configureRole(role) {
   $('#titleForm').hidden = !manager;
   $('#holdingForm').hidden = !manager;
   $('#branchForm').hidden = !manager;
+  $('#schoolProfileTab').hidden = !owner;
+  $('#schoolProfileForm').hidden = !owner;
+  $('#createSchoolForm').hidden = !owner;
   $('#sharingSettingsForm').hidden = !administrator;
   $('#libraryPublicationForm').hidden = !administrator;
   $('#patronForm').hidden = !circulation;
@@ -510,7 +554,7 @@ $$('.staff-tab').forEach(button => {
   });
 });
 
-async function loadMemberships() {
+async function loadMemberships(preferredLibraryId = null) {
   const { data: userData } = await supabase.auth.getUser();
   currentUserId = userData?.user?.id || null;
   const { data, error } = await supabase.from('library_memberships').select('library_id,role,status').eq('status', 'active');
@@ -541,10 +585,12 @@ async function loadMemberships() {
     $('#membershipWarning').textContent = 'تعذّر فتح معلومات المكتبة. راجع صلاحيات الحساب.';
     return;
   }
+  const { data: profiles } = await supabase.from('library_profiles').select('library_id,school_name').in('library_id', ids);
+  const profileNames = new Map((profiles || []).map(profile => [profile.library_id, profile.school_name]));
   $('#membershipWarning').hidden = true;
-  $('#librarySelect').innerHTML = libraries.map(library => `<option value="${escapeHtml(library.id)}">${escapeHtml(library.name)}</option>`).join('');
+  $('#librarySelect').innerHTML = libraries.map(library => `<option value="${escapeHtml(library.id)}">${escapeHtml(profileNames.get(library.id) || library.name)}</option>`).join('');
   $('#staffIdentity').textContent = supabase.auth.getUser ? 'حساب موظف مُصادق عليه' : '';
-  currentLibraryId = libraries[0].id;
+  currentLibraryId = libraries.some(library => library.id === preferredLibraryId) ? preferredLibraryId : libraries[0].id;
   currentRole = currentMemberships.find(item => item.library_id === currentLibraryId)?.role || null;
   configureRole(currentRole);
   $('#librarySelect').value = currentLibraryId;
@@ -579,6 +625,7 @@ async function loadStaffData() {
   $('#sharingSettingsForm').hidden = true;
   await loadStaffBranches();
   const tasks = [refreshStaffStats(), loadInventory(), loadReports(), loadLibrarySettings()];
+  if (currentRole === 'owner') tasks.push(loadSchoolProfile());
   if (['owner', 'admin', 'librarian'].includes(currentRole)) tasks.push(loadInterlibraryRequests());
   if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibraryMembers());
   if (['owner', 'admin', 'librarian', 'circulation'].includes(currentRole)) {
@@ -663,6 +710,187 @@ async function loadLibrarySettings() {
   sharingForm.elements.interlibrary_enabled.checked = Boolean(data.interlibrary_enabled);
   renderAutomationTasks();
 }
+const SCHOOL_LOGO_MAX_BYTES = 2 * 1024 * 1024;
+const SCHOOL_LOGO_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp']);
+const SCHOOL_BRANDING_FIELDS = [
+  { key: 'school_logo_path', fileName: 'school_logo', removeName: 'remove_school_logo', kind: 'school-logo', preview: 'schoolLogo' },
+  { key: 'governorate_logo_path', fileName: 'governorate_logo', removeName: 'remove_governorate_logo', kind: 'governorate-logo', preview: 'governorateLogo' },
+];
+function setSchoolProfileStatus(text, kind = '') {
+  const status = $('#schoolProfileStatus');
+  if (!status) return;
+  status.textContent = text || '';
+  status.className = `school-profile-status${kind ? ` ${kind}` : ''}`;
+}
+function renderSchoolLogoPreview(field, path, caption = 'الشعار الحالي') {
+  const preview = $(`#${field.preview}Preview`);
+  const image = $(`#${field.preview}Image`);
+  const label = $(`#${field.preview}Caption`);
+  if (!preview || !image || !label) return;
+  const url = path ? supabase.storage.from('school-branding').getPublicUrl(path).data?.publicUrl : '';
+  preview.hidden = !url;
+  if (url) image.src = url;
+  else image.removeAttribute('src');
+  label.textContent = url ? caption : '';
+}
+async function uploadSchoolLogo(field, file) {
+  if (!SCHOOL_LOGO_TYPES.has(file.type) || file.size > SCHOOL_LOGO_MAX_BYTES) {
+    throw new Error('المسموح PNG أو JPG أو WebP حتى 2 ميغابايت.');
+  }
+  const path = `${currentLibraryId}/${field.kind}-${crypto.randomUUID()}`;
+  const { error } = await supabase.storage.from('school-branding').upload(path, file, {
+    cacheControl: '3600', upsert: false, contentType: file.type,
+  });
+  if (error) throw error;
+  return path;
+}
+async function loadSchoolProfile() {
+  if (!currentLibraryId || currentRole !== 'owner') return;
+  const form = $('#schoolProfileForm');
+  form.hidden = false;
+  setSchoolProfileStatus('جارٍ تحميل بيانات المدرسة…');
+  const { data, error } = await supabase.from('library_profiles')
+    .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,is_public,updated_at')
+    .eq('library_id', currentLibraryId).maybeSingle();
+  if (error) {
+    currentLibraryProfile = null;
+    form.hidden = true;
+    return setSchoolProfileStatus('تعذّر تحميل ملف المدرسة. تحقق من اتصال الخدمة وصلاحية المالك.', 'error');
+  }
+  currentLibraryProfile = data || null;
+  if (data) {
+    form.elements.school_name.value = data.school_name || '';
+    form.elements.educational_administration.value = data.educational_administration || '';
+    form.elements.librarian_name.value = data.librarian_name || '';
+    form.elements.is_public.checked = Boolean(data.is_public);
+  } else {
+    form.reset();
+  }
+  for (const field of SCHOOL_BRANDING_FIELDS) {
+    form.elements[field.fileName].value = '';
+    form.elements[field.removeName].checked = false;
+    renderSchoolLogoPreview(field, data?.[field.key] || null);
+  }
+  setSchoolProfileStatus(data
+    ? 'البيانات المحفوظة تخص هذه المدرسة فقط. لن تظهر للعامة إلا بعد تفعيل الخيارين المنفصلين.'
+    : 'لا يوجد ملف مدرسي بعد؛ اكتب الاسم الرسمي والبيانات التي تريد حفظها. لا توجد بيانات مفترضة.');
+}
+$('#schoolProfileForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (currentRole !== 'owner') return setSchoolProfileStatus('تعديل بيانات المدرسة متاح للمالك فقط.', 'error');
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const schoolName = String(fields.get('school_name') || '').trim();
+  if (schoolName.length < 2 || schoolName.length > 160) return setSchoolProfileStatus('أدخل اسم المدرسة الرسمي، من حرفين إلى 160 حرفاً.', 'error');
+  const button = $('.school-profile-action', form);
+  button.disabled = true;
+  const uploadedPaths = [];
+  const oldPaths = SCHOOL_BRANDING_FIELDS.map(field => currentLibraryProfile?.[field.key]).filter(Boolean);
+  try {
+    const logoPaths = {};
+    for (const field of SCHOOL_BRANDING_FIELDS) {
+      const file = form.elements[field.fileName].files?.[0];
+      if (file) {
+        logoPaths[field.key] = await uploadSchoolLogo(field, file);
+        uploadedPaths.push(logoPaths[field.key]);
+      } else if (fields.get(field.removeName) === 'on') {
+        logoPaths[field.key] = null;
+      } else {
+        logoPaths[field.key] = currentLibraryProfile?.[field.key] || null;
+      }
+    }
+    const payload = {
+      library_id: currentLibraryId,
+      school_name: schoolName,
+      educational_administration: String(fields.get('educational_administration') || '').trim() || null,
+      librarian_name: String(fields.get('librarian_name') || '').trim() || null,
+      school_logo_path: logoPaths.school_logo_path,
+      governorate_logo_path: logoPaths.governorate_logo_path,
+      is_public: fields.get('is_public') === 'on',
+      updated_at: new Date().toISOString(),
+    };
+    const { data, error } = await supabase.from('library_profiles').upsert(payload, { onConflict: 'library_id' })
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,is_public,updated_at').single();
+    if (error || !data) throw error || new Error('save_failed');
+    currentLibraryProfile = data;
+    const option = $('#librarySelect').selectedOptions[0];
+    if (option) option.textContent = data.school_name;
+    $('#workspaceTitle').textContent = data.school_name;
+    for (const field of SCHOOL_BRANDING_FIELDS) {
+      form.elements[field.fileName].value = '';
+      form.elements[field.removeName].checked = false;
+      renderSchoolLogoPreview(field, data[field.key] || null);
+    }
+    const pathsToRemove = oldPaths.filter(path => ![data.school_logo_path, data.governorate_logo_path].includes(path));
+    if (pathsToRemove.length) await supabase.storage.from('school-branding').remove(pathsToRemove).catch(() => {});
+    setSchoolProfileStatus('تم حفظ بيانات هذه المدرسة فقط. إعداد النشر العام لم يتغير.', 'success');
+    await loadPublicBranches().catch(() => {});
+  } catch (error) {
+    if (uploadedPaths.length) await supabase.storage.from('school-branding').remove(uploadedPaths).catch(() => {});
+    setSchoolProfileStatus(error?.message?.includes('2 ميغابايت')
+      ? error.message
+      : 'تعذّر حفظ البيانات أو رفع أحد الشعارات. لم تُغيّر حالة نشر المكتبة؛ تحقق من الحقول والاتصال ثم أعد المحاولة.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
+for (const field of SCHOOL_BRANDING_FIELDS) {
+  const input = $(`#${field.preview === 'schoolLogo' ? 'schoolLogoFile' : 'governorateLogoFile'}`);
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    if (!SCHOOL_LOGO_TYPES.has(file.type) || file.size > SCHOOL_LOGO_MAX_BYTES) {
+      input.value = '';
+      return setSchoolProfileStatus('المسموح صورة PNG أو JPG أو WebP، بحجم لا يتجاوز 2 ميغابايت.', 'error');
+    }
+    const image = $(`#${field.preview}Image`);
+    const label = $(`#${field.preview}Caption`);
+    image.src = URL.createObjectURL(file);
+    label.textContent = `معاينة قبل الرفع: ${file.name}`;
+    $(`#${field.preview}Preview`).hidden = false;
+  });
+}
+$('#createSchoolForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (currentRole !== 'owner') return;
+  const form = event.currentTarget;
+  const status = $('#createSchoolStatus');
+  const button = $('.school-profile-action', form);
+  const fields = new FormData(form);
+  const schoolName = String(fields.get('school_name') || '').trim();
+  if (schoolName.length < 2) {
+    status.textContent = 'اكتب الاسم الرسمي للمدرسة الجديدة.';
+    status.className = 'school-profile-status error';
+    return;
+  }
+  button.disabled = true;
+  status.textContent = 'جارٍ إنشاء سجل مستقل غير منشور…';
+  status.className = 'school-profile-status';
+  let data, error;
+  try {
+    ({ data, error } = await supabase.rpc('create_owned_school', {
+      p_school_name: schoolName,
+      p_educational_administration: String(fields.get('educational_administration') || '').trim() || null,
+      p_librarian_name: String(fields.get('librarian_name') || '').trim() || null,
+    }));
+  } catch {
+    button.disabled = false;
+    status.textContent = 'تعذّر الاتصال بخدمة إنشاء المدرسة. لم نؤكد إنشاء سجل؛ أعد تحميل الصفحة قبل المحاولة مجددًا.';
+    status.className = 'school-profile-status error';
+    return;
+  }
+  button.disabled = false;
+  if (error || !data) {
+    status.textContent = 'تعذّر إنشاء المدرسة. تأكد من صلاحية المالك واتصال الخدمة، ثم أعد المحاولة.';
+    status.className = 'school-profile-status error';
+    return;
+  }
+  form.reset();
+  status.textContent = 'أُنشئ ملف المدرسة كمدرسة منفصلة وغير منشورة. جارٍ فتحه لإضافة الشعارات أو تعديل بياناته.';
+  status.className = 'school-profile-status success';
+  $('#createSchoolDetails').open = false;
+  await loadMemberships(data);
+});
 async function loadInventory() {
   const tbody = $('#inventoryRows');
   try {
