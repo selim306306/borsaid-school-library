@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-6">
+  <link rel="stylesheet" href="visitor-questions.css?v=20261015-private-replies-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-2"></script>
   <script type="module" src="app.js?v=20261015-camera-title-page-1"></script>
@@ -36,6 +37,7 @@
   <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261015-rss-proxy-1"></script>
+  <script type="module" src="visitor-questions.js?v=20261015-private-replies-1"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
@@ -58,6 +60,7 @@
       <a href="#branches">المكتبات</a>
       <a href="#visitorAssistant">اسأل المساعد</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
+      <a href="#visitorQuestions">اسأل أمين المكتبة</a>
     </nav>
     <div class="header-feature-image-slot">
       <img class="brand-header-photo" id="brandHeaderPhoto" src="assets/header-photo-placeholder.svg" alt="مساحة صورة قابلة للاستبدال في يسار الترويسة" width="92" height="92" loading="lazy" decoding="async">
@@ -68,6 +71,7 @@
     <a href="#branches">المكتبات</a>
     <a href="#visitorAssistant">اسأل المساعد</a>
     <a href="#features">مزايا الموقع</a>
+    <a href="#visitorQuestions">اسأل أمين المكتبة</a>
   </nav>
   <nav class="site-tabs section-wrap" id="visitorTabs" aria-label="أقسام الموقع">
     <button class="button button-outline staff-open staff-nav-button" id="staffOpen" type="button"><span class="staff-icon" aria-hidden="true">↗</span><span class="staff-label">دخول الموظفين</span></button>
@@ -404,6 +408,26 @@
     <section class="cta-section section-wrap" id="staff">
       <div class="cta-copy"><span class="eyebrow eyebrow-light">مساحة الموظفين</span><h2>تدير مكتبة؟<br>ابدأ من لوحة العمل.</h2><p>دخول مخصص للمستخدمين الذين أضافهم مسؤول المكتبة؛ لا يوجد تسجيل مفتوح.</p><button class="button button-white" id="staffOpenBottom" type="button">دخول الموظفين <span aria-hidden="true">←</span></button></div>
       <div class="cta-ornament" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="cta-book">▤</span><span class="cta-star">✳</span><span class="cta-dot"></span></div>
+    </section>
+    <section class="visitor-support section-wrap" id="visitorQuestions" aria-labelledby="visitorQuestionTitle">
+      <div class="visitor-support-copy">
+        <span class="eyebrow">تواصل مباشر · خصوصية للزائر</span>
+        <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
+        <p>اكتب سؤالك هنا؛ سيصل إلى صاحب الموقع برسالة خاصة عبر Telegram، وسيظهر الرد في هذه الصفحة لصاحب السؤال فقط.</p>
+        <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
+        <p class="visitor-privacy-note">لا نطلب اسمك أو بريدك. للاحتفاظ بالرد، أبقِ علامة التبويب نفسها مفتوحة.</p>
+      </div>
+      <form class="visitor-question-form" id="visitorQuestionForm">
+        <label for="visitorQuestionText">نص السؤال</label>
+        <textarea id="visitorQuestionText" name="question" maxlength="1500" rows="5" required placeholder="اكتب سؤالك هنا…"></textarea>
+        <div class="visitor-question-honeypot" aria-hidden="true">
+          <label for="visitorQuestionWebsite">اترك هذا الحقل فارغًا</label>
+          <input id="visitorQuestionWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">إرسال السؤال</button>
+        <p class="visitor-question-status" id="visitorQuestionStatus" role="status" aria-live="polite"></p>
+        <div class="visitor-question-tickets" id="visitorQuestionTickets" aria-live="polite"></div>
+      </form>
     </section>
     </section>
   </main>
