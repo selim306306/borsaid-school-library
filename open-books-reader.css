@@ -1,25 +1,25 @@
-.openbooks-reader-toggle{min-height:39px;padding:6px 12px;border:1px solid #d8e1f2;border-radius:10px;background:#eef3ff;color:#304f9c;font:inherit;font-size:11px;font-weight:700;cursor:pointer}
+.openbooks-reader-toggle{min-height:39px;padding:6px 12px;border:1px solid #d8e1f2;border-radius:10px;background:#eef3ff;color:#304f9c;font:inherit;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700;cursor:pointer}
 .openbooks-reader-toggle:hover{background:#e5edff}
 .openbooks-reader-wrap{margin-top:13px;border:1px solid #dfe5ef;border-radius:12px;background:#f8faff;overflow:hidden}
 .openbooks-reader-wrap[hidden]{display:none!important}
 .openbooks-reader-frame{display:block;width:100%;height:min(74vh,780px);min-height:420px;border:0;background:#fff}
 .arabic-library-sources{margin:20px 0 0;padding:20px;border:1px solid #e6eaf2;border-radius:18px;background:linear-gradient(135deg,#f3f7ff,#fff 62%,#fff8e7)}
-.arabic-library-sources h2{margin:0 0 5px;color:#203b61;font-size:20px;line-height:1.5}
-.arabic-library-sources>p{margin:0 0 14px;color:#68768c;font-size:11px;line-height:1.8}
+.arabic-library-sources h2{margin:0 0 5px;color:#203b61;font-size:calc((20px) + var(--site-font-step, 2px));line-height:1.5}
+.arabic-library-sources>p{margin:0 0 14px;color:#68768c;font-size:calc((11px) + var(--site-font-step, 2px));line-height:1.8}
 .arabic-library-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .arabic-library-source{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:14px;border:1px solid #e3e8f0;border-radius:13px;background:#fff}
-.arabic-library-source strong{color:#243a67;font-size:12px}
-.arabic-library-source span{color:#65738a;font-size:10px;line-height:1.8}
-.arabic-library-source a{margin-top:auto;color:#3459ad;font-size:10px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.arabic-library-source strong{color:#243a67;font-size:calc((12px) + var(--site-font-step, 2px))}
+.arabic-library-source span{color:#65738a;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.arabic-library-source a{margin-top:auto;color:#3459ad;font-size:calc((10px) + var(--site-font-step, 2px));font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .arabic-library-featured{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:13px 14px;border:1px solid #efdfb5;border-radius:13px;background:#fffaf0}
 .arabic-library-featured div{min-width:0}
-.arabic-library-featured strong{display:block;color:#5d4a1e;font-size:12px}
-.arabic-library-featured p{margin:3px 0 0;color:#70613c;font-size:10px;line-height:1.8}
-.arabic-library-featured a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:6px 11px;border-radius:9px;background:#385dcc;color:#fff;font-size:10px;font-weight:700}
-.catalog-search-heading{margin:28px 0 5px;color:#30456d;font-size:17px}
-.catalog-search-description{margin:0 0 12px;color:#697790;font-size:11px;line-height:1.8}
+.arabic-library-featured strong{display:block;color:#5d4a1e;font-size:calc((12px) + var(--site-font-step, 2px))}
+.arabic-library-featured p{margin:3px 0 0;color:#70613c;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.arabic-library-featured a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:6px 11px;border-radius:9px;background:#385dcc;color:#fff;font-size:calc((10px) + var(--site-font-step, 2px));font-weight:700}
+.catalog-search-heading{margin:28px 0 5px;color:#30456d;font-size:calc((17px) + var(--site-font-step, 2px))}
+.catalog-search-description{margin:0 0 12px;color:#697790;font-size:calc((11px) + var(--site-font-step, 2px));line-height:1.8}
 .catalog-search-details{margin:22px 0 0;border:1px solid #e2e7f0;border-radius:14px;background:#fff;overflow:hidden}
-.catalog-search-details>summary{padding:14px 16px;color:#445675;font-size:12px;font-weight:700;cursor:pointer}
+.catalog-search-details>summary{padding:14px 16px;color:#445675;font-size:calc((12px) + var(--site-font-step, 2px));font-weight:700;cursor:pointer}
 .catalog-search-details>summary:focus-visible{outline:3px solid #879de8;outline-offset:-3px}
 .catalog-search-details-body{padding:0 16px 16px}
 @media(max-width:620px){.openbooks-reader-frame{height:68vh;min-height:360px}.arabic-library-source-grid{grid-template-columns:1fr}.arabic-library-sources{padding:14px}.arabic-library-featured{align-items:flex-start;flex-direction:column}}

@@ -34,7 +34,7 @@
 .livealert-title,
 .openbooks-heading-title {
   margin: 5px 0 4px;
-  font-size: clamp(21px, 2.5vw, 28px);
+  font-size: calc((clamp(21px, 2.5vw, 28px)) + var(--site-font-step, 2px));
   line-height: 1.4;
   letter-spacing: -.4px;
 }
@@ -44,7 +44,7 @@
   max-width: 760px;
   margin: 0;
   color: var(--muted, #66758f);
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
   line-height: 1.8;
 }
 
@@ -63,7 +63,7 @@
   border-radius: 999px;
   background: #fff;
   color: #79575c;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   white-space: nowrap;
 }
 
@@ -75,7 +75,7 @@
   border-radius: 10px;
   background: var(--blue, #385dcc);
   color: #fff;
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
   font-weight: 700;
   transition: background .18s, transform .18s;
 }
@@ -96,7 +96,7 @@
   min-height: 22px;
   margin: 13px 0 10px;
   color: #62718a;
-  font-size: 11px;
+  font-size: calc((11px) + var(--site-font-step, 2px));
 }
 
 .livealert-status.is-error {
@@ -128,7 +128,7 @@
   flex-wrap: wrap;
   gap: 6px 12px;
   color: #78869c;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
 }
 
 .livealert-source {
@@ -138,14 +138,14 @@
 
 .livealert-card-title {
   margin: 9px 0 5px;
-  font-size: 14px;
+  font-size: calc((14px) + var(--site-font-step, 2px));
   line-height: 1.65;
 }
 
 .livealert-card-summary {
   margin: 0 0 12px;
   color: #68768c;
-  font-size: 11px;
+  font-size: calc((11px) + var(--site-font-step, 2px));
   line-height: 1.8;
 }
 
@@ -153,7 +153,7 @@
   align-self: flex-start;
   margin-top: auto;
   color: var(--blue-dark, #2449ad);
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -168,19 +168,19 @@
 }
 
 .livealert-empty strong {
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
 }
 
 .livealert-empty p {
   margin: 4px 0 0;
   color: #718097;
-  font-size: 11px;
+  font-size: calc((11px) + var(--site-font-step, 2px));
 }
 
 .livealert-note {
   margin: 12px 0 0;
   color: #78859a;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   line-height: 1.8;
 }
 
@@ -201,7 +201,7 @@
   border-radius: 999px;
   background: #fff;
   color: #536792;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   font-weight: 700;
   white-space: nowrap;
 }
@@ -226,14 +226,14 @@
   border-radius: 50%;
   background: #edf2ff;
   color: var(--blue, #385dcc);
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
   font-weight: 700;
 }
 
 .openbooks-rights-note p {
   margin: 0;
   color: #66758d;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   line-height: 1.85;
 }
 
@@ -245,7 +245,7 @@
   display: block;
   margin-bottom: 6px;
   color: #53617a;
-  font-size: 11px;
+  font-size: calc((11px) + var(--site-font-step, 2px));
   font-weight: 600;
 }
 
@@ -265,7 +265,7 @@
   border-radius: 10px;
   background: #fff;
   color: var(--ink, #182744);
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
 }
 
 .openbooks-search-input::placeholder {
@@ -317,7 +317,7 @@
   border-radius: 7px;
   background: #f0f4ff;
   color: #4761aa;
-  font-size: 9px;
+  font-size: calc((9px) + var(--site-font-step, 2px));
   font-weight: 700;
 }
 
@@ -328,7 +328,7 @@
 
 .openbooks-title {
   margin: 12px 0 4px;
-  font-size: 15px;
+  font-size: calc((15px) + var(--site-font-step, 2px));
   line-height: 1.65;
 }
 
@@ -338,7 +338,7 @@
 .openbooks-attribution {
   margin: 0 0 5px;
   color: #68768c;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   line-height: 1.8;
 }
 
@@ -354,7 +354,7 @@
 .openbooks-attribution {
   margin-top: 4px;
   color: #707d91;
-  font-size: 9px;
+  font-size: calc((9px) + var(--site-font-step, 2px));
 }
 
 .openbooks-actions {
@@ -375,7 +375,7 @@
   border-radius: 9px;
   background: #fff;
   color: #34476e;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
   font-weight: 700;
   text-align: center;
   transition: border-color .18s, background .18s;
@@ -402,7 +402,7 @@
   padding-top: 9px;
   border-top: 1px solid #edf0f4;
   color: #63718a;
-  font-size: 9px;
+  font-size: calc((9px) + var(--site-font-step, 2px));
   line-height: 1.8;
 }
 
@@ -423,17 +423,17 @@
 }
 
 .openbooks-empty strong {
-  font-size: 12px;
+  font-size: calc((12px) + var(--site-font-step, 2px));
 }
 
 .openbooks-empty p {
   margin: 5px 0 0;
   color: #748198;
-  font-size: 10px;
+  font-size: calc((10px) + var(--site-font-step, 2px));
 }
 
 .portal-side-books .portal-side-icon {
-  font-size: 9px;
+  font-size: calc((9px) + var(--site-font-step, 2px));
   font-weight: 700;
 }
 
@@ -489,7 +489,7 @@
   }
 
   .livealert-cadence {
-    font-size: 9px;
+    font-size: calc((9px) + var(--site-font-step, 2px));
     white-space: normal;
   }
 

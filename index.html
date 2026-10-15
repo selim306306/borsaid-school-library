@@ -18,17 +18,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="site.css?v=20261014-home-4">
-  <link rel="stylesheet" href="library-profiles.css?v=20261015-school-branding-3">
-  <link rel="stylesheet" href="open-books-reader.css?v=20261015-reader2">
+  <link rel="stylesheet" href="site.css?v=20261015-font-step-2">
+  <link rel="stylesheet" href="library-profiles.css?v=20261015-font-step-2">
+  <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="app.js?v=20261015-school-leadership-3"></script>
-  <link rel="stylesheet" href="global-reading.css?v=4">
+  <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
-  <link rel="stylesheet" href="education-research.css?v=6">
+  <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
   <script type="module" src="education-research.js?v=4"></script>
   <script type="module" src="site-news.js?v=2"></script>
-  <link rel="stylesheet" href="open-books-live.css?v=20261015">
+  <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261015-reader"></script>
+  <link rel="stylesheet" href="font-step.css?v=20261015-2px">
+  <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
+  <script defer src="image-viewer.js?v=20261015-modal-2"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -76,7 +79,7 @@
         <ul class="leadership-list" id="leadershipList" aria-label="القيادات التعليمية والإدارية">
           <li class="leadership-person"><img class="leadership-photo" src="assets/leader-sisi.jpg" alt="صورة السيد الرئيس عبد الفتاح السيسي" width="382" height="507" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">السيد الرئيس عبد الفتاح السيسي</strong><span class="leadership-person-title">رئيس جمهورية مصر العربية</span><a class="leadership-person-source" href="https://www.presidency.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3/" target="_blank" rel="noopener noreferrer">رئاسة الجمهورية · السيرة الرسمية ↗</a></div></li>
           <li class="leadership-person"><img class="leadership-photo" src="assets/leader-mohamed-abdel-latif.jpg" alt="صورة السيد محمد عبد اللطيف" width="852" height="956" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">السيد محمد عبد اللطيف</strong><span class="leadership-person-title">وزير التربية والتعليم والتعليم الفني</span><a class="leadership-person-source" href="https://moe.gov.eg/what-s-on/news/oct12-2026/" target="_blank" rel="noopener noreferrer">وزارة التعليم · ١٢ أكتوبر ٢٠٢٦ ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">إ</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيد إبراهيم أبو ليمون</strong><span class="leadership-person-title">محافظ بورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111377" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · مصدر رسمي ↗</a></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-governor" src="assets/leader-ibrahim-abo-limon.webp" alt="صورة اللواء إبراهيم أبو ليمون، محافظ بورسعيد" width="720" height="634" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">اللواء إبراهيم أبو ليمون</strong><span class="leadership-person-title">محافظ بورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111377" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · الاسم والمنصب رسميًا ↗</a><span class="leadership-person-source">الصورة مقدمة لإدارة الموقع</span></div></li>
           <li class="leadership-person"><img class="leadership-photo leadership-photo-badawi" src="assets/leader-mohamed-badawi.jpg" alt="صورة الأستاذ محمود بدوي" width="720" height="576" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الأستاذ محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
           <li class="leadership-person"><img class="leadership-photo leadership-photo-amira" src="assets/leader-amira-abdel-latif.jpg" alt="صورة الدكتورة أميرة عبد اللطيف" width="236" height="609" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الدكتورة أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية ببورسعيد</span><a class="leadership-person-source" href="https://www.facebook.com/portsedu/posts/1658923188931060/" target="_blank" rel="noopener noreferrer">مديرية التعليم · ١٣ أكتوبر ٢٠٢٦ ↗</a></div></li>
           <li class="leadership-person"><img class="leadership-photo leadership-photo-hassan" src="assets/leader-hassan-mohamed-hassan.jpg" alt="صورة الأستاذ حسن محمد حسن" width="371" height="408" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الأستاذ حسن محمد حسن</strong><span class="leadership-person-title">الموجه العام للمكتبات ببورسعيد</span><span class="leadership-person-source">بيانات وصورة مقدمة لإدارة الموقع</span></div></li>
@@ -607,6 +610,13 @@
     </div>
   </dialog>
   <noscript><div class="noscript-banner">يتطلب البحث المباشر تفعيل JavaScript في المتصفح.</div></noscript>
+  <dialog id="imageViewerDialog" class="image-viewer-dialog" aria-labelledby="imageViewerName" aria-describedby="imageViewerRole imageViewerDetails">
+    <section class="image-viewer-panel" dir="rtl">
+      <header class="image-viewer-header"><span class="image-viewer-kicker">الصورة المكبّرة</span><button class="image-viewer-close" id="closeImageViewer" type="button" aria-label="إغلاق الصورة المكبّرة">إغلاق</button></header>
+      <img id="imageViewerImage" class="image-viewer-image" alt="">
+      <div class="image-viewer-copy"><h2 id="imageViewerName"></h2><p id="imageViewerRole"></p><p class="image-viewer-details" id="imageViewerDetails"></p><a class="image-viewer-source" id="imageViewerSource" target="_blank" rel="noopener noreferrer" hidden>فتح المصدر ↗</a></div>
+    </section>
+  </dialog>
   <dialog id="titleEditDialog" class="small-dialog" aria-labelledby="titleEditHeading"><form id="titleEditForm" class="editor-form"><h2 id="titleEditHeading">تعديل بيانات العنوان</h2><input type="hidden" name="id"><label>الرقم العام<input name="general_number" required maxlength="80"></label><label>عنوان الكتاب<input name="title" required maxlength="240"></label><label>المؤلف<input name="author" maxlength="180"></label><label>التصنيف<input name="classification" maxlength="120"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر العنوان في الفهرس العام</span></label><p class="form-message" id="titleEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="titleEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ</button></div></form></dialog>
   <dialog id="holdingEditDialog" class="small-dialog" aria-labelledby="holdingEditHeading"><form id="holdingEditForm" class="editor-form"><h2 id="holdingEditHeading">تعديل موقع النسخة</h2><input type="hidden" name="holding_id"><label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label><label>رقم النسخة<input name="inventory_tag" maxlength="100"></label><label>الدولاب<input name="cabinet_code" maxlength="80"></label><label>الرف الداخلي<input name="shelf_code" maxlength="80"></label><label>وصف الرف العام<input name="public_shelf_label" maxlength="120"></label><p class="form-message" id="holdingEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="holdingEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ الموقع</button></div></form></dialog>
   <dialog id="requestMatchDialog" class="small-dialog" aria-labelledby="requestMatchHeading"><form id="requestMatchForm" class="editor-form"><h2 id="requestMatchHeading">مطابقة عنوان المكتبة</h2><input type="hidden" name="request_id"><label>العنوان المقابل في مكتبتك<select name="matched_title_id" id="requestMatchedTitleSelect" required><option value="">اختر عنواناً</option></select></label><p class="form-message" id="requestMatchMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="requestMatchDialog">إلغاء</button><button class="button button-primary" type="submit">مطابقة وقبول الطلب</button></div></form></dialog>

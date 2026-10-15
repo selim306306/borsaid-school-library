@@ -1,0 +1,20 @@
+.image-viewer-trigger{cursor:zoom-in;touch-action:manipulation}
+.image-viewer-trigger:focus-visible,[data-image-viewer-control]:focus-visible img.image-viewer-trigger{outline:3px solid #234cae;outline-offset:3px}
+.image-viewer-dialog{width:min(620px,calc(100vw - 28px));max-width:none;max-height:calc(100dvh - 24px);margin:auto;padding:0;border:0;overflow:visible;background:transparent;color:#182744}
+.image-viewer-dialog::backdrop{background:rgba(13,24,43,.76);backdrop-filter:blur(3px)}
+.image-viewer-panel{display:grid;gap:12px;max-height:calc(100dvh - 24px);overflow:auto;padding:18px;border:1px solid #dbe2ee;border-radius:20px;background:#fff;box-shadow:0 24px 80px rgba(6,18,38,.3)}
+.image-viewer-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.image-viewer-kicker{color:#52617a;font-size:calc(13px + var(--site-font-step,2px));font-weight:700}
+.image-viewer-close{min-height:42px;padding:7px 13px;border:1px solid #cfd8e7;border-radius:10px;background:#fff;color:#182744;font:inherit;font-size:calc(13px + var(--site-font-step,2px));font-weight:700}
+.image-viewer-close:hover{background:#f2f5fb}
+.image-viewer-close:focus-visible,.image-viewer-source:focus-visible{outline:3px solid #234cae;outline-offset:3px}
+.image-viewer-image{display:block;width:100%;max-height:min(50dvh,500px);object-fit:contain;border:1px solid #e7ebf2;border-radius:14px;background:#f5f7fa}
+.image-viewer-copy{display:grid;gap:4px}
+.image-viewer-copy h2{margin:0;color:#182744;font-size:calc(20px + var(--site-font-step,2px));line-height:1.45}
+.image-viewer-copy p{margin:0;color:#33445f;font-size:calc(15px + var(--site-font-step,2px));line-height:1.65;overflow-wrap:anywhere}
+.image-viewer-copy .image-viewer-details{color:#52617a}
+.image-viewer-source{justify-self:start;margin-top:3px;color:#2449ad;font-size:calc(14px + var(--site-font-step,2px));font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.image-viewer-source[hidden]{display:none!important}
+@media(max-width:600px){.image-viewer-dialog{width:calc(100vw - 16px);max-height:calc(100dvh - 16px)}.image-viewer-panel{gap:9px;max-height:calc(100dvh - 16px);padding:12px;border-radius:16px}.image-viewer-image{max-height:48dvh;border-radius:11px}}
+@media(max-height:520px){.image-viewer-image{max-height:38dvh}}
+@media(prefers-reduced-motion:reduce){.image-viewer-dialog::backdrop{backdrop-filter:none}}
