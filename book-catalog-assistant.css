@@ -1,2 +1,33 @@
 /* ISBN scanning, metadata selection, and Dewey guidance */
-.book-import-tools{grid-column:1/-1;padding:14px;border:1px solid #dce5f5;border-radius:13px;background:#f7f9fe;display:grid;gap:8px}.book-import-tools>strong{font-size:calc((12px) + var(--site-font-step, 2px));color:#243b63}.book-import-tools>p{margin:0;color:var(--muted);font-size:calc((9px) + var(--site-font-step, 2px));line-height:1.7}.book-import-actions{display:flex;flex-wrap:wrap;gap:8px}.book-import-actions .button{min-height:36px;padding:7px 12px;font-size:calc((9px) + var(--site-font-step, 2px))}.isbn-scanner-video{width:100%;max-height:300px;object-fit:cover;border-radius:11px;background:#121722}.book-import-status{min-height:1.5em;color:#435777}.book-import-results{display:grid;gap:6px}.book-import-result{border:1px solid #dbe3ef;border-radius:9px;background:#fff;color:var(--ink);padding:9px 11px;text-align:right;font:inherit;font-size:calc((9px) + var(--site-font-step, 2px));line-height:1.6;cursor:pointer}.book-import-result:hover,.book-import-result:focus-visible{border-color:var(--blue);outline:2px solid rgba(49,91,169,.14)}.book-ai-consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:8px;color:#4e5e78;font-size:calc((9px) + var(--site-font-step, 2px));line-height:1.65}.book-ai-consent input{flex:0 0 auto;margin-top:4px}.staff-form-grid label small{display:block;margin-top:4px;color:#77849a;font-size:calc((8px) + var(--site-font-step, 2px));font-weight:400;line-height:1.55}.catalog-series-label{display:block;margin-top:3px;color:#63728a;font-size:calc((8px) + var(--site-font-step, 2px))}.book-series{margin-top:4px;color:#6c7890;font-size:calc((10px) + var(--site-font-step, 2px))}.book-series strong{color:#44536d}@media(max-width:620px){.book-import-tools{padding:10px}.book-import-actions{display:grid;grid-template-columns:1fr}.book-import-actions .button{width:100%}}
+.book-import-tools{grid-column:1/-1;padding:14px;border:1px solid #dce5f5;border-radius:13px;background:#f7f9fe;display:grid;gap:10px;min-width:0}
+.book-import-tools>strong{font-size:calc(12px + var(--site-font-step, 2px));color:#243b63}
+.book-import-tools>p{margin:0;color:var(--muted);font-size:calc(9px + var(--site-font-step, 2px));line-height:1.8}
+.book-import-actions,.book-cover-row,.book-cover-camera-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.book-import-actions .button,.book-cover-row .button,.book-cover-camera-actions .button{min-height:44px;padding:9px 13px;font-size:calc(10px + var(--site-font-step, 2px));touch-action:manipulation}
+.book-import-actions .button:focus-visible,.book-cover-row .button:focus-visible,.book-cover-camera-actions .button:focus-visible{outline:3px solid rgba(49,91,169,.28);outline-offset:2px}
+.book-import-actions .button:disabled,.book-cover-row .button:disabled,.book-cover-camera-actions .button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.isbn-scanner-video{display:block;width:100%;max-height:340px;aspect-ratio:4/3;object-fit:cover;border:1px solid #cad4e6;border-radius:12px;background:#121722}
+.book-cover-video{max-height:420px;object-fit:contain}
+.book-import-status{min-height:1.5em;margin:0;color:#435777;line-height:1.75}
+.book-import-results{display:grid;gap:6px}
+.book-import-result{border:1px solid #dbe3ef;border-radius:9px;background:#fff;color:var(--ink);padding:9px 11px;text-align:right;font:inherit;font-size:calc(9px + var(--site-font-step, 2px));line-height:1.6;cursor:pointer}
+.book-import-result:hover,.book-import-result:focus-visible{border-color:var(--blue);outline:2px solid rgba(49,91,169,.14)}
+.book-ai-consent{grid-column:1/-1;display:flex;align-items:flex-start;gap:8px;color:#4e5e78;font-size:calc(9px + var(--site-font-step, 2px));line-height:1.75}
+.book-ai-consent input{flex:0 0 auto;margin-top:4px}
+.book-cover-number-review{padding:11px 12px;border:1px solid #dce5f5;border-radius:11px;background:#fff;color:#34445f;font-size:calc(9px + var(--site-font-step, 2px));line-height:1.8}
+.book-cover-number-review h4{margin:0 0 6px;color:#243b63;font-size:calc(10px + var(--site-font-step, 2px))}
+.book-cover-number-review ul{display:grid;gap:6px;margin:0;padding-inline-start:20px}
+.book-cover-number-review li{overflow-wrap:anywhere}
+.book-cover-number-review button{min-height:36px;padding:6px 10px;border:1px solid #cbd7ec;border-radius:9px;background:#f7f9fe;color:#294681;font:inherit;font-weight:700;cursor:pointer}
+.book-cover-number-review button:hover,.book-cover-number-review button:focus-visible{border-color:#4969bd;outline:2px solid rgba(49,91,169,.14)}
+.staff-form-grid label small{display:block;margin-top:4px;color:#77849a;font-size:calc(8px + var(--site-font-step, 2px));font-weight:400;line-height:1.55}
+.catalog-series-label{display:block;margin-top:3px;color:#63728a;font-size:calc(8px + var(--site-font-step, 2px))}
+.book-series{margin-top:4px;color:#6c7890;font-size:calc(10px + var(--site-font-step, 2px))}
+.book-series strong{color:#44536d}
+@media(max-width:620px){
+  .book-import-tools{padding:10px;gap:9px}
+  .book-import-actions,.book-cover-row,.book-cover-camera-actions{display:grid;grid-template-columns:minmax(0,1fr)}
+  .book-import-actions .button,.book-cover-row .button,.book-cover-camera-actions .button{width:100%;min-height:46px;white-space:normal;line-height:1.45}
+  .isbn-scanner-video{max-height:55vh}
+  .book-cover-number-review{padding:10px}
+}

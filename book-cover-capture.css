@@ -1,2 +1,12 @@
-/* Local cover preview and opt-in image analysis controls */
-.book-cover-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.book-cover-file{display:inline-flex;align-items:center;min-height:36px;padding:7px 12px;border:1px solid #d9e0ec;border-radius:11px;background:#fff;color:var(--ink);font-size:calc((9px) + var(--site-font-step, 2px));font-weight:600;cursor:pointer}.book-cover-file input{max-width:220px;margin-inline-start:8px;font-size:calc((8px) + var(--site-font-step, 2px))}.book-cover-row .button{min-height:36px;padding:7px 12px;font-size:calc((9px) + var(--site-font-step, 2px))}.book-cover-row .button:disabled{opacity:.5;cursor:not-allowed;transform:none}.book-cover-preview{width:min(100%,380px);max-height:400px;object-fit:contain;object-position:right;border:1px solid #dce3ef;border-radius:10px;background:#fff}.book-cover-consent{border-top:1px solid #e5eaf2;padding-top:8px}@media(max-width:620px){.book-cover-row{display:grid;grid-template-columns:1fr}.book-cover-file{justify-content:space-between}.book-cover-file input{max-width:66%}.book-cover-row .button{width:100%}}
+/* Local cover preview, live shutter, and opt-in image analysis controls */
+.book-cover-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.book-cover-row .button{min-height:44px;padding:9px 13px;font-size:calc(10px + var(--site-font-step, 2px))}
+.book-cover-camera-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.book-cover-preview{display:block;width:min(100%,420px);max-height:440px;object-fit:contain;object-position:center;border:1px solid #dce3ef;border-radius:12px;background:#fff}
+.book-cover-row .button:disabled,.book-cover-camera-actions .button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.book-cover-consent{border-top:1px solid #e5eaf2;padding-top:8px}
+@media(max-width:620px){
+  .book-cover-row,.book-cover-camera-actions{display:grid;grid-template-columns:minmax(0,1fr)}
+  .book-cover-row .button,.book-cover-camera-actions .button{width:100%;min-height:46px;white-space:normal;line-height:1.45}
+  .book-cover-preview{width:100%;max-height:55vh}
+}

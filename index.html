@@ -20,15 +20,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
-  <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-dewey-book-assistant-1">
-  <link rel="stylesheet" href="book-cover-capture.css?v=20261015-dewey-book-assistant-1">
+  <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-capture-2">
+  <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-capture-2">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-1"></script>
-  <script type="module" src="app.js?v=20261015-dewey-book-assistant-1"></script>
-  <script type="module" src="book-catalog-assistant.js?v=20261015-dewey-book-assistant-1"></script>
+  <script type="module" src="app.js?v=20261015-camera-capture-2"></script>
+  <script type="module" src="book-catalog-assistant.js?v=20261015-camera-capture-2"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
@@ -448,20 +448,29 @@
           <form id="titleForm" class="staff-form-grid">
             <div class="book-import-tools">
               <strong>مساعد فهرسة الكتب</strong>
-              <p>امسح باركود ISBN أو ابحث بالعنوان لجلب بيانات الكتاب من Google Books وOpen Library. مسح الباركود لا يرفع صورة؛ تحليل صورة الغلاف خيار منفصل يتطلب موافقتك.</p>
+              <p>افتح كاميرا الباركود ثم اضغط «التقاط الرقم الآن» لقراءة ISBN. إذا لم يدعم المتصفح المسح، أدخل ISBN يدوياً أو التقط الغلاف لتحليله بعد موافقتك.</p>
               <div class="book-import-actions">
-                <button class="button button-soft" id="scanIsbnButton" type="button">مسح ISBN بالكاميرا</button>
+                <button class="button button-soft" id="scanIsbnButton" type="button">فتح كاميرا ISBN</button>
+                <button class="button button-primary" id="captureIsbnButton" type="button" hidden disabled>التقاط الرقم الآن</button>
                 <button class="button button-outline" id="lookupBookButton" type="button">جلب بيانات الكتاب</button>
                 <button class="button button-outline" id="stopIsbnScanButton" type="button" hidden>إيقاف الكاميرا</button>
               </div>
+              <video id="isbnScannerVideo" class="isbn-scanner-video" playsinline muted hidden aria-label="معاينة الكاميرا لقراءة باركود ISBN"></video>
               <div class="book-cover-row">
-                <label class="book-cover-file">التقاط صورة الغلاف<input id="bookCoverInput" name="book_cover" type="file" accept="image/*" capture="environment"></label>
-                <button class="button button-primary" id="analyzeBookCoverButton" type="button" disabled>استخراج البيانات من الغلاف</button>
+                <button class="button button-soft" id="openCoverCameraButton" type="button">فتح كاميرا الغلاف</button>
+                <button class="button button-outline" id="chooseCoverImageButton" type="button">اختيار صورة من الجهاز</button>
+                <input id="bookCoverInput" name="book_cover" type="file" accept="image/*" hidden aria-label="اختيار صورة غلاف من الجهاز">
+                <button class="button button-primary" id="analyzeBookCoverButton" type="button" disabled>استخراج البيانات بعد الموافقة</button>
+              </div>
+              <video id="bookCoverVideo" class="isbn-scanner-video book-cover-video" playsinline muted hidden aria-label="معاينة كاميرا الغلاف"></video>
+              <div class="book-cover-camera-actions">
+                <button class="button button-primary" id="captureCoverPhotoButton" type="button" hidden disabled>التقاط صورة الغلاف</button>
+                <button class="button button-outline" id="stopCoverCameraButton" type="button" hidden>إيقاف كاميرا الغلاف</button>
               </div>
               <img id="bookCoverPreview" class="book-cover-preview" alt="معاينة محلية لصورة غلاف الكتاب" hidden>
-              <p>بعد موافقتك، يرسل الموقع نسخة مضغوطة من صورة الغلاف إلى Gemini لاستخراج البيانات؛ لا يحفظ الموقع الصورة، ثم يبحث بالعنوان في الفهارس العامة.</p>
-              <label class="check-field book-ai-consent"><input name="allow_cover_ai" type="checkbox"><span>أوافق على إرسال صورة الغلاف المضغوطة إلى Gemini لاستخراج العنوان والمؤلف والسلسلة واقتراح ديوي.</span></label>
-              <video id="isbnScannerVideo" class="isbn-scanner-video" playsinline muted hidden aria-label="معاينة الكاميرا لمسح باركود ISBN"></video>
+              <p>تبقى الصورة محلياً ولا تُحفظ. لا تُرسل إلى Gemini إلا بعد تفعيل الموافقة والضغط على زر الاستخراج؛ يمكنك مراجعة الحقول وتعديلها قبل الحفظ.</p>
+              <label class="check-field book-ai-consent"><input name="allow_cover_ai" type="checkbox"><span>أوافق اختيارياً على إرسال صورة الغلاف المضغوطة إلى Gemini لاستخراج العنوان والمؤلف والسلسلة والأرقام المطبوعة واقتراح ديوي.</span></label>
+              <div id="bookCoverNumberReview" class="book-cover-number-review" role="region" aria-label="مراجعة الأرقام المقروءة من الغلاف" aria-live="polite" hidden></div>
               <p id="bookLookupStatus" class="book-import-status" role="status" aria-live="polite"></p>
               <div id="bookLookupResults" class="book-import-results" role="listbox" aria-label="نتائج البحث عن الكتاب" hidden></div>
               <label class="check-field book-ai-consent"><input name="allow_ai_classification" type="checkbox"><span>أوافق على إرسال بيانات الكتاب الببليوغرافية العامة إلى Gemini لاقتراح الفئة الرئيسية لديوي؛ لن تُرسل صور أو بيانات مستعيرين.</span></label>

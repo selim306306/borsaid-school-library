@@ -1,4 +1,5 @@
 import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-header-photo-1';
+import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-capture-2';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -1794,6 +1795,64 @@ window.addEventListener('bookmetadata:selected', async event => {
     sources: Array.isArray(metadata.sources) ? metadata.sources : [],
   });
 });
+function reviewCoverNumbers(form, data) {
+  const panel = $('#bookCoverNumberReview');
+  if (!panel) return;
+  const mapped = mapCoverAnalysisNumbers(data, {
+    isbn: form.elements.isbn.value,
+    general_number: form.elements.general_number.value,
+    classification: form.elements.classification.value,
+  });
+  for (const [field, value] of Object.entries(mapped.fills)) form.elements[field].value = value;
+  panel.replaceChildren();
+  if (!mapped.numbers.length) {
+    panel.hidden = true;
+    return;
+  }
+  const heading = document.createElement('h4');
+  heading.textContent = 'الأرقام التي قرأها الغلاف — راجعها قبل الحفظ';
+  const list = document.createElement('ul');
+  const kindLabels = {
+    isbn: 'ISBN',
+    local_general_number: 'الرقم العام المحلي',
+    deposit_number: 'رقم الإيداع',
+    issue_number: 'رقم العدد',
+    edition_number: 'رقم الطبعة',
+    volume_number: 'رقم المجلد',
+    other: 'رقم مطبوع غير مصنف',
+  };
+  for (const item of mapped.numbers) {
+    const row = document.createElement('li');
+    const category = kindLabels[item.kind] || kindLabels.other;
+    const printedLabel = item.label && item.label !== category ? `${item.label}: ` : '';
+    row.append(document.createTextNode(`${printedLabel}${category}: ${item.value}`));
+    if (item.kind === 'deposit_number') row.append(document.createTextNode(' — ليس الرقم العام المحلي ولا ISBN.'));
+    else if (item.kind === 'issue_number' || item.kind === 'edition_number' || item.kind === 'volume_number') row.append(document.createTextNode(' — لا يُسجّل كـISBN.'));
+    else if (item.kind === 'isbn' && mapped.fills.isbn === item.value) row.append(document.createTextNode(' — أُدخل في حقل ISBN؛ راجعه أو حرّره.'));
+    else if (item.kind === 'local_general_number' && mapped.fills.general_number === item.value) row.append(document.createTextNode(' — أُدخل في حقل الرقم العام المحلي؛ راجعه أو حرّره.'));
+    else if (item.kind === 'isbn' && form.elements.isbn.value.trim()) row.append(document.createTextNode(' — لم تُستبدل قيمة ISBN التي أدخلتها.'));
+    else if (item.kind === 'local_general_number' && form.elements.general_number.value.trim()) row.append(document.createTextNode(' — لم تُستبدل قيمة الرقم العام التي أدخلتها.'));
+    list.append(row);
+  }
+  for (const [field, values] of Object.entries(mapped.choices)) {
+    const fieldLabel = field === 'isbn' ? 'ISBN' : 'الرقم العام المحلي';
+    for (const value of values) {
+      const row = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = `استخدام ${fieldLabel}: ${value}`;
+      button.addEventListener('click', () => {
+        form.elements[field].value = value;
+        form.elements[field].focus();
+        button.disabled = true;
+      });
+      row.append(button);
+      list.append(row);
+    }
+  }
+  panel.append(heading, list);
+  panel.hidden = false;
+}
 window.addEventListener('bookcover:selected', async event => {
   const form = $('#titleForm');
   const status = $('#bookLookupStatus');
@@ -1824,15 +1883,14 @@ window.addEventListener('bookcover:selected', async event => {
     const extractedTitle = String(data.title || '').trim().slice(0, 240);
     const extractedAuthor = String(data.author || '').trim().slice(0, 180);
     const extractedSeries = String(data.series_name || '').trim().slice(0, 240);
+    reviewCoverNumbers(form, data);
     const priorTitle = String(form.elements.title.value || '').trim();
     const titleMatches = !priorTitle || priorTitle.normalize('NFC').toLocaleLowerCase('ar') === extractedTitle.normalize('NFC').toLocaleLowerCase('ar');
     if (extractedTitle && !priorTitle) form.elements.title.value = extractedTitle;
     if (!form.elements.author.value.trim() && extractedAuthor) form.elements.author.value = extractedAuthor;
     if (!form.elements.series_name.value.trim() && extractedSeries) form.elements.series_name.value = extractedSeries;
     const classification = String(data.classification || '');
-    if (!form.elements.classification.value.trim() && new Set(['000','100','200','300','400','500','600','700','800','900']).has(classification)) {
-      form.elements.classification.value = classification;
-    }
+    if (!form.elements.classification.value.trim() && new Set(['000','100','200','300','400','500','600','700','800','900']).has(classification)) form.elements.classification.value = classification;
     const reason = String(data.reason || '').trim();
     status.textContent = extractedTitle
       ? `استخراج مبدئي من الغلاف: ${extractedTitle}${extractedAuthor ? ` — ${extractedAuthor}` : ''}${classification ? ` · ديوي ${classification}` : ''}${reason ? ` — ${reason}` : ''}. راجع البيانات قبل الحفظ.`

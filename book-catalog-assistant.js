@@ -4,18 +4,25 @@ const titleInput = form?.elements.namedItem('title');
 const authorInput = form?.elements.namedItem('author');
 const lookupButton = document.querySelector('#lookupBookButton');
 const scanButton = document.querySelector('#scanIsbnButton');
+const captureIsbnButton = document.querySelector('#captureIsbnButton');
 const stopScanButton = document.querySelector('#stopIsbnScanButton');
 const video = document.querySelector('#isbnScannerVideo');
 const status = document.querySelector('#bookLookupStatus');
 const results = document.querySelector('#bookLookupResults');
 const coverInput = document.querySelector('#bookCoverInput');
+const chooseCoverImageButton = document.querySelector('#chooseCoverImageButton');
+const openCoverCameraButton = document.querySelector('#openCoverCameraButton');
+const captureCoverPhotoButton = document.querySelector('#captureCoverPhotoButton');
+const stopCoverCameraButton = document.querySelector('#stopCoverCameraButton');
+const coverVideo = document.querySelector('#bookCoverVideo');
 const coverConsent = form?.elements.namedItem('allow_cover_ai');
 const analyzeCoverButton = document.querySelector('#analyzeBookCoverButton');
 const coverPreview = document.querySelector('#bookCoverPreview');
 
 let scannerStream = null;
-let scannerTimer = 0;
 let scannerActive = false;
+let barcodeDetector = null;
+let coverCameraStream = null;
 let candidateResults = [];
 let activeSearch = { isbn: '', title: '' };
 let selectedCoverFile = null;
@@ -163,6 +170,7 @@ async function runLookup() {
   activeSearch = { isbn, title };
   lookupButton.disabled = true;
   scanButton.disabled = true;
+  if (captureIsbnButton) captureIsbnButton.disabled = true;
   results.hidden = true;
   status.textContent = 'جارٍ البحث في Google Books وOpen Library…';
   const [googleResult, openLibraryResult] = await Promise.allSettled([
@@ -171,6 +179,7 @@ async function runLookup() {
   ]);
   lookupButton.disabled = false;
   scanButton.disabled = false;
+  if (captureIsbnButton) captureIsbnButton.disabled = !scannerActive || !barcodeDetector;
   const googleBooks = googleResult.status === 'fulfilled' ? googleResult.value : [];
   const openLibraryBooks = openLibraryResult.status === 'fulfilled' ? openLibraryResult.value : [];
   const books = mergeCandidates([googleBooks, openLibraryBooks]);
@@ -198,16 +207,48 @@ async function runLookup() {
 function updateCoverButton() {
   if (analyzeCoverButton) analyzeCoverButton.disabled = !selectedCoverFile || !coverConsent?.checked || coverAnalysisPending;
 }
-function clearCoverPreview() {
-  selectedCoverFile = null;
-  if (coverInput) coverInput.value = '';
+function releaseCoverPreview() {
   if (coverPreviewUrl) URL.revokeObjectURL(coverPreviewUrl);
   coverPreviewUrl = '';
   if (coverPreview) {
     coverPreview.hidden = true;
     coverPreview.removeAttribute('src');
   }
+}
+function setCoverImage(file) {
+  if (file && (!file.type.startsWith('image/') || file.size > 12 * 1024 * 1024)) {
+    selectedCoverFile = null;
+    if (coverInput) coverInput.value = '';
+    releaseCoverPreview();
+    status.textContent = 'اختر صورة غلاف بحجم لا يتجاوز 12 ميغابايت.';
+    updateCoverButton();
+    return false;
+  }
+  selectedCoverFile = file || null;
+  releaseCoverPreview();
+  if (!selectedCoverFile) {
+    updateCoverButton();
+    return false;
+  }
+  coverPreviewUrl = URL.createObjectURL(selectedCoverFile);
+  coverPreview.src = coverPreviewUrl;
+  coverPreview.hidden = false;
+  status.textContent = 'تم التقاط الصورة ومعاينتها محلياً. لن تُرسل إلى Gemini إلا بعد موافقتك والضغط على زر الاستخراج.';
+  updateCoverButton();
+  return true;
+}
+function clearCoverPreview() {
+  stopScanner();
+  stopCoverCamera();
+  selectedCoverFile = null;
+  if (coverInput) coverInput.value = '';
+  releaseCoverPreview();
   coverAnalysisPending = false;
+  const numberReview = document.querySelector('#bookCoverNumberReview');
+  if (numberReview) {
+    numberReview.replaceChildren();
+    numberReview.hidden = true;
+  }
   updateCoverButton();
 }
 async function compressCover(file) {
@@ -245,70 +286,171 @@ async function compressCover(file) {
 }
 function stopScanner() {
   scannerActive = false;
-  window.clearTimeout(scannerTimer);
   if (scannerStream) scannerStream.getTracks().forEach(track => track.stop());
   scannerStream = null;
+  barcodeDetector = null;
   if (video) {
     video.pause();
     video.srcObject = null;
     video.hidden = true;
+  }
+  if (scanButton) scanButton.hidden = false;
+  if (captureIsbnButton) {
+    captureIsbnButton.hidden = true;
+    captureIsbnButton.disabled = true;
   }
   if (stopScanButton) stopScanButton.hidden = true;
 }
 async function startScanner() {
   if (!status) return;
   if (!('BarcodeDetector' in window) || !navigator.mediaDevices?.getUserMedia) {
-    status.textContent = 'المتصفح لا يدعم قراءة الباركود بالكاميرا. أدخل ISBN يدوياً ثم اختر «جلب بيانات الكتاب».';
+    status.textContent = 'هذا المتصفح لا يدعم قراءة باركود ISBN مباشرة. أدخل الرقم يدوياً، أو التقط صورة الغلاف ثم أرسلها للتحليل بعد موافقتك.';
     return;
   }
   try {
     const supported = await window.BarcodeDetector.getSupportedFormats();
     if (!supported.includes('ean_13')) {
-      status.textContent = 'قارئ الكاميرا في هذا المتصفح لا يدعم باركود ISBN؛ أدخله يدوياً ثم ابحث.';
+      status.textContent = 'قارئ الكاميرا لا يدعم باركود الكتب EAN‑13؛ أدخل ISBN يدوياً أو التقط الغلاف للتحليل بعد موافقتك.';
       return;
     }
-    const detector = new window.BarcodeDetector({ formats: ['ean_13'] });
+    stopCoverCamera();
+    barcodeDetector = new window.BarcodeDetector({ formats: ['ean_13'] });
     scannerStream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: { ideal: 'environment' } },
       audio: false,
     });
     video.srcObject = scannerStream;
     video.hidden = false;
+    scanButton.hidden = true;
+    captureIsbnButton.hidden = false;
+    captureIsbnButton.disabled = true;
     stopScanButton.hidden = false;
     await video.play();
     scannerActive = true;
-    status.textContent = 'وجّه الكاميرا إلى باركود ISBN الخلفي للكتاب.';
-    const scanFrame = async () => {
-      if (!scannerActive) return;
-      try {
-        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-          const codes = await detector.detect(video);
-          const isbn = codes.map(code => normalizeIsbn(code.rawValue)).find(Boolean);
-          if (isbn) {
-            isbnInput.value = isbn;
-            stopScanner();
-            status.textContent = 'تمت قراءة ISBN من الكاميرا؛ جارٍ جلب بيانات الكتاب.';
-            await runLookup();
-            return;
-          }
-        }
-      } catch { /* Keep scanning; a single blurry frame is expected. */ }
-      scannerTimer = window.setTimeout(scanFrame, 300);
-    };
-    scanFrame();
+    captureIsbnButton.disabled = false;
+    status.textContent = 'وجّه الكاميرا إلى باركود ISBN الخلفي، ثم اضغط «التقاط الرقم الآن». لا تُلتقط صورة ولا تُرسل بيانات أثناء المسح.';
   } catch (error) {
     stopScanner();
     status.textContent = error?.name === 'NotAllowedError'
-      ? 'لم يُسمح باستخدام الكاميرا. اسمح بها للصفحة أو أدخل ISBN يدوياً.'
-      : 'تعذّر تشغيل الكاميرا. أدخل ISBN يدوياً ثم ابحث.';
+      ? 'لم يُسمح باستخدام الكاميرا. اسمح بها للصفحة أو اختر صورة الغلاف/أدخل ISBN يدوياً.'
+      : 'تعذّر تشغيل الكاميرا. اختر صورة من الجهاز أو أدخل ISBN يدوياً.';
   }
+}
+async function captureIsbnFromCamera() {
+  if (!scannerActive || !barcodeDetector || !video) return;
+  captureIsbnButton.disabled = true;
+  status.textContent = 'جارٍ قراءة باركود ISBN من الإطار الحالي…';
+  try {
+    if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) throw new Error('camera_frame_not_ready');
+    const codes = await barcodeDetector.detect(video);
+    const isbn = codes.map(code => normalizeIsbn(code.rawValue))
+      .find(value => value && value.length === 13 && /^97[89]/u.test(value));
+    if (!isbn) {
+      status.textContent = 'لم يظهر باركود ISBN واضح في الإطار. ثبّت الهاتف وقرّب الرمز ثم اضغط «التقاط الرقم الآن» مرة أخرى.';
+      captureIsbnButton.disabled = false;
+      return;
+    }
+    isbnInput.value = isbn;
+    stopScanner();
+    status.textContent = 'قُرئ ISBN صحيح من الباركود؛ راجعه في الحقل ثم راجع بيانات الفهرس قبل الحفظ.';
+    await runLookup();
+  } catch {
+    if (scannerActive) {
+      captureIsbnButton.disabled = false;
+      status.textContent = 'تعذّرت قراءة الإطار. أبقِ الرمز مستوياً وواضحاً ثم أعد المحاولة، أو أدخل ISBN يدوياً.';
+    }
+  }
+}
+function stopCoverCamera() {
+  if (coverCameraStream) coverCameraStream.getTracks().forEach(track => track.stop());
+  coverCameraStream = null;
+  if (coverVideo) {
+    coverVideo.pause();
+    coverVideo.srcObject = null;
+    coverVideo.hidden = true;
+  }
+  if (openCoverCameraButton) openCoverCameraButton.hidden = false;
+  if (captureCoverPhotoButton) {
+    captureCoverPhotoButton.hidden = true;
+    captureCoverPhotoButton.disabled = true;
+  }
+  if (stopCoverCameraButton) stopCoverCameraButton.hidden = true;
+}
+async function startCoverCamera() {
+  if (!navigator.mediaDevices?.getUserMedia || !coverVideo) {
+    status.textContent = 'لا يمكن فتح الكاميرا في هذا المتصفح. استخدم «اختيار صورة من الجهاز» كبديل.';
+    return;
+  }
+  stopScanner();
+  stopCoverCamera();
+  try {
+    coverCameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' } },
+      audio: false,
+    });
+    coverVideo.srcObject = coverCameraStream;
+    coverVideo.hidden = false;
+    await coverVideo.play();
+    openCoverCameraButton.hidden = true;
+    captureCoverPhotoButton.hidden = false;
+    captureCoverPhotoButton.disabled = false;
+    stopCoverCameraButton.hidden = false;
+    status.textContent = 'وجّه الكاميرا إلى الغلاف واضبطه داخل الإطار، ثم اضغط «التقاط صورة الغلاف». تبقى الصورة محلياً.';
+  } catch (error) {
+    stopCoverCamera();
+    status.textContent = error?.name === 'NotAllowedError'
+      ? 'لم يُسمح باستخدام الكاميرا. اختر صورة من الجهاز بدلاً من ذلك أو أدخل البيانات يدوياً.'
+      : 'تعذّر تشغيل كاميرا الغلاف. اختر صورة من الجهاز كبديل.';
+  }
+}
+async function captureCoverPhoto() {
+  if (!coverCameraStream || !coverVideo || !captureCoverPhotoButton) return;
+  if (!coverVideo.videoWidth || !coverVideo.videoHeight) {
+    status.textContent = 'انتظر حتى تظهر معاينة الكاميرا ثم اضغط «التقاط صورة الغلاف». ';
+    return;
+  }
+  captureCoverPhotoButton.disabled = true;
+  const canvas = document.createElement('canvas');
+  canvas.width = coverVideo.videoWidth;
+  canvas.height = coverVideo.videoHeight;
+  const context = canvas.getContext('2d', { alpha: false });
+  if (!context) {
+    captureCoverPhotoButton.disabled = false;
+    status.textContent = 'تعذّر تجهيز الصورة في هذا المتصفح؛ استخدم اختيار صورة من الجهاز.';
+    return;
+  }
+  context.drawImage(coverVideo, 0, 0, canvas.width, canvas.height);
+  canvas.toBlob(blob => {
+    if (!blob) {
+      captureCoverPhotoButton.disabled = false;
+      status.textContent = 'تعذّر التقاط الصورة. أعد المحاولة أو اختر صورة من الجهاز.';
+      return;
+    }
+    const photo = new File([blob], `book-cover-${Date.now()}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
+    if (coverInput) coverInput.value = '';
+    setCoverImage(photo);
+    stopCoverCamera();
+  }, 'image/jpeg', 0.92);
 }
 
 lookupButton?.addEventListener('click', runLookup);
 scanButton?.addEventListener('click', startScanner);
+captureIsbnButton?.addEventListener('click', captureIsbnFromCamera);
 stopScanButton?.addEventListener('click', () => {
   stopScanner();
   if (status) status.textContent = 'توقف المسح. يمكنك إعادة المحاولة أو إدخال ISBN يدوياً.';
+});
+openCoverCameraButton?.addEventListener('click', startCoverCamera);
+captureCoverPhotoButton?.addEventListener('click', captureCoverPhoto);
+stopCoverCameraButton?.addEventListener('click', () => {
+  stopCoverCamera();
+  if (status) status.textContent = 'أُوقفت كاميرا الغلاف. يمكنك فتحها مجدداً أو اختيار صورة من الجهاز.';
+});
+chooseCoverImageButton?.addEventListener('click', () => {
+  if (coverInput) {
+    coverInput.value = '';
+    coverInput.click();
+  }
 });
 results?.addEventListener('click', event => {
   const button = event.target.closest('[data-book-candidate]');
@@ -316,29 +458,7 @@ results?.addEventListener('click', event => {
   selectCandidate(candidateResults[Number(button.dataset.bookCandidate)]);
 });
 coverInput?.addEventListener('change', () => {
-  selectedCoverFile = coverInput.files?.[0] || null;
-  if (coverPreviewUrl) URL.revokeObjectURL(coverPreviewUrl);
-  coverPreviewUrl = '';
-  if (!selectedCoverFile) {
-    coverPreview.hidden = true;
-    coverPreview.removeAttribute('src');
-    updateCoverButton();
-    return;
-  }
-  if (!selectedCoverFile.type.startsWith('image/') || selectedCoverFile.size > 12 * 1024 * 1024) {
-    selectedCoverFile = null;
-    coverInput.value = '';
-    status.textContent = 'اختر صورة غلاف بحجم لا يتجاوز 12 ميغابايت.';
-    coverPreview.hidden = true;
-    coverPreview.removeAttribute('src');
-    updateCoverButton();
-    return;
-  }
-  coverPreviewUrl = URL.createObjectURL(selectedCoverFile);
-  coverPreview.src = coverPreviewUrl;
-  coverPreview.hidden = false;
-  status.textContent = 'تظهر معاينة الغلاف محلياً. لتحليلها فعّل موافقة إرسال الصورة إلى Gemini.';
-  updateCoverButton();
+  setCoverImage(coverInput.files?.[0] || null);
 });
 coverConsent?.addEventListener('change', updateCoverButton);
 analyzeCoverButton?.addEventListener('click', async () => {
@@ -370,9 +490,19 @@ analyzeCoverButton?.addEventListener('click', async () => {
     }
   }
 });
-form?.addEventListener('submit', stopScanner);
+form?.addEventListener('submit', () => {
+  stopScanner();
+  stopCoverCamera();
+});
 form?.addEventListener('reset', () => window.setTimeout(clearCoverPreview, 0));
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    stopScanner();
+    stopCoverCamera();
+  }
+});
 window.addEventListener('beforeunload', () => {
   stopScanner();
+  stopCoverCamera();
   if (coverPreviewUrl) URL.revokeObjectURL(coverPreviewUrl);
 });
