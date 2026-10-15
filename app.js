@@ -22,14 +22,29 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 const viewTabs = $$('.view-tab');
 const viewPanels = $$('[data-view-panel]');
+const PUBLIC_PAGE_VIEW_LABELS = Object.freeze({
+  home: 'الرئيسية',
+  discover: 'الكتب',
+  branches: 'المكتبات',
+  announcements: 'الإعلانات',
+  about: 'عن الموقع',
+  reading: 'القراءة',
+  educationResearch: 'أخبار وأبحاث',
+});
+let publicAnalyticsSupabase = null;
 let publicDirectoryAvailable = false;
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
 const scrollBehavior = () => prefersReducedMotion() ? 'instant' : 'smooth';
+function trackPublicPageView(viewName) {
+  if (!Object.prototype.hasOwnProperty.call(PUBLIC_PAGE_VIEW_LABELS, viewName) || !publicAnalyticsSupabase) return;
+  void publicAnalyticsSupabase.rpc('record_public_page_view', { p_section: viewName }).catch(() => {});
+}
 function activateView(viewName, { updateHistory = false, hash = '' } = {}) {
   if (viewName === 'branches' && !publicDirectoryAvailable) return false;
   const panel = viewPanels.find(item => item.dataset.viewPanel === viewName);
   if (!panel) return false;
   const entering = panel.hidden;
+  if (entering) trackPublicPageView(viewName);
   viewPanels.forEach(item => { item.hidden = item !== panel; });
   if (entering && !prefersReducedMotion() && typeof panel.animate === 'function') {
     panel.animate([{ opacity: 0, transform: 'translateY(7px)' }, { opacity: 1, transform: 'translateY(0)' }], {
@@ -600,7 +615,10 @@ function configureRole(role) {
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
   if (owner) allowed.add('schoolProfilePanel');
-  if (hasSiteMediaOwnership()) allowed.add('siteMediaPanel');
+  if (hasSiteMediaOwnership()) {
+    allowed.add('siteMediaPanel');
+    allowed.add('siteAnalyticsPanel');
+  }
   if (circulation) ['circulationPanel', 'reservationsPanel', 'visitorsPanel'].forEach(id => allowed.add(id));
   if (administrator) allowed.add('membersPanel');
   if (assistant) allowed.add('assistantPanel');
@@ -612,6 +630,7 @@ function configureRole(role) {
   $('#branchForm').hidden = !manager;
   $('#schoolProfileTab').hidden = !owner;
   $('#siteMediaTab').hidden = !hasSiteMediaOwnership();
+  $('#siteAnalyticsTab').hidden = !hasSiteMediaOwnership();
   $('#schoolProfileForm').hidden = !owner;
   $('#siteFooterEditor').hidden = !hasSiteFooterOwnership();
   $('#createSchoolForm').hidden = !owner;
@@ -749,7 +768,7 @@ async function loadStaffData() {
   await loadStaffBranches();
   const tasks = [refreshStaffStats(), loadInventory(), loadReports(), loadLibrarySettings()];
   if (currentRole === 'owner') tasks.push(loadSchoolProfile(), loadSiteFooter());
-  if (hasSiteMediaOwnership()) tasks.push(loadSiteMediaManager());
+  if (hasSiteMediaOwnership()) tasks.push(loadSiteMediaManager(), loadSiteAnalytics());
   if (['owner', 'admin', 'librarian'].includes(currentRole)) tasks.push(loadInterlibraryRequests());
   if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibraryMembers());
   if (['owner', 'admin', 'librarian', 'circulation'].includes(currentRole)) {
@@ -758,6 +777,55 @@ async function loadStaffData() {
   await Promise.all(tasks);
   renderAutomationTasks();
 }
+function cairoDateOffset(days) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date()).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
+  return new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day) - days)).toISOString().slice(0, 10);
+}
+async function loadSiteAnalytics() {
+  if (!supabase || !hasSiteMediaOwnership()) return;
+  const status = $('#siteAnalyticsStatus');
+  const summary = $('#siteAnalyticsSummary');
+  const body = $('#siteAnalyticsRows');
+  status.textContent = 'جارٍ تحميل إجماليات آخر 30 يومًا…';
+  summary.innerHTML = '';
+  body.innerHTML = '<tr><td class="site-analytics-empty" colspan="3">جارٍ التحميل…</td></tr>';
+  const { data, error } = await supabase.from('site_page_view_daily')
+    .select('view_date,section,page_views')
+    .gte('view_date', cairoDateOffset(29))
+    .order('view_date', { ascending: false })
+    .order('section', { ascending: true })
+    .limit(210);
+  if (error) {
+    status.textContent = 'تعذّر تحميل الإحصاءات؛ تحقق من الاتصال وصلاحية المالك أو المسؤول.';
+    body.innerHTML = '<tr><td class="site-analytics-empty" colspan="3">لا تتوفر بيانات للعرض.</td></tr>';
+    return;
+  }
+  const rows = data || [];
+  const totals = Object.fromEntries(Object.keys(PUBLIC_PAGE_VIEW_LABELS).map(section => [section, 0]));
+  rows.forEach(row => {
+    if (Object.prototype.hasOwnProperty.call(totals, row.section)) totals[row.section] += Number(row.page_views) || 0;
+  });
+  const totalViews = Object.values(totals).reduce((sum, count) => sum + count, 0);
+  summary.innerHTML = Object.entries(PUBLIC_PAGE_VIEW_LABELS).map(([section, label]) => `
+    <article class="site-analytics-card"><span>${escapeHtml(label)}</span><strong>${totals[section].toLocaleString('ar-EG')}</strong></article>
+  `).join('');
+  if (!rows.length) {
+    body.innerHTML = '<tr><td class="site-analytics-empty" colspan="3">لا توجد مشاهدات مسجلة في هذه الفترة بعد.</td></tr>';
+  } else {
+    body.innerHTML = rows.map(row => {
+      const validDate = /^\d{4}-\d{2}-\d{2}$/.test(row.view_date || '');
+      const viewDate = validDate
+        ? new Intl.DateTimeFormat('ar-EG', { timeZone: 'UTC', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${row.view_date}T00:00:00Z`))
+        : '—';
+      const label = PUBLIC_PAGE_VIEW_LABELS[row.section] || 'قسم عام';
+      return `<tr><td>${escapeHtml(viewDate)}</td><td>${escapeHtml(label)}</td><td>${(Number(row.page_views) || 0).toLocaleString('ar-EG')}</td></tr>`;
+    }).join('');
+  }
+  status.textContent = `إجمالي ${totalViews.toLocaleString('ar-EG')} مشاهدة مسجلة خلال آخر 30 يومًا.`;
+}
+$('#refreshSiteAnalytics').addEventListener('click', () => { void loadSiteAnalytics(); });
 async function countRows(table, filters = []) {
   let query = supabase.from(table).select('id', { count: 'exact', head: true }).eq('library_id', currentLibraryId);
   for (const [method, column, value] of filters) query = query[method](column, value);
@@ -2506,9 +2574,20 @@ async function start() {
     publicSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
     });
+    publicAnalyticsSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      global: {
+        fetch: (input, init = {}) => fetch(input, {
+          ...init,
+          credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+        }),
+      },
+    });
     supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
     });
+    trackPublicPageView(viewPanels.find(panel => !panel.hidden)?.dataset.viewPanel || 'home');
   } catch (error) {
     catalogStatus.textContent = 'تعذّر تحميل مكوّن الاتصال. تحقق من اتصال الإنترنت ثم أعد المحاولة.';
     const cached = cacheRead();

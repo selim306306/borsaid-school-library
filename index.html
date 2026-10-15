@@ -30,9 +30,10 @@
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-6">
   <link rel="stylesheet" href="visitor-questions.css?v=20261015-automatic-replies-1">
+  <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-4"></script>
-  <script type="module" src="app.js?v=20261015-staff-parity-1"></script>
+  <script type="module" src="app.js?v=20261015-aggregate-page-views-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -441,6 +442,7 @@
   <footer class="site-footer section-wrap">
     <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
     <p class="footer-note" id="footerDescription">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
+    <p class="site-analytics-public-note" id="privacyNotice">لتحسين الموقع، نسجل إحصاءات مجمّعة لمشاهدات أقسامه العامة حسب اليوم. لا يخزن سجل الإحصاءات عنوان IP أو معرّفات الزوار أو إحالاتهم أو محتوى الأسئلة، ولا يستخدم الموقع ملفات تعريف أو أدوات تتبع خارجية لهذا الغرض. الأعداد تمثل مشاهدات صفحات وليست عددًا موثوقًا للأشخاص الفريدين.</p>
     <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
   </footer>
 
@@ -468,6 +470,7 @@
           <button class="staff-tab" data-panel="branchesPanel" type="button">الفروع</button>
           <button class="staff-tab" id="schoolProfileTab" data-panel="schoolProfilePanel" type="button" hidden>بيانات المدرسة</button>
           <button class="staff-tab" id="siteMediaTab" data-panel="siteMediaPanel" type="button" hidden>صور الموقع</button>
+          <button class="staff-tab" id="siteAnalyticsTab" data-panel="siteAnalyticsPanel" type="button" hidden>إحصاءات الموقع</button>
           <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>
           <button class="staff-tab" data-panel="reservationsPanel" type="button">الحجوزات</button>
           <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
@@ -654,6 +657,13 @@
           <div class="site-media-categories" id="siteMediaList" aria-live="polite"></div>
           <p class="site-media-archive-note">الرفع يقبل PNG أو JPEG أو WebP حتى 5 ميغابايت. لا تُحذف الملفات القديمة: اختيار «الصورة الافتراضية» يعيد الأصل بأمان، وتبقى النسخ المرفوعة في الأرشيف الخاص بالمالك.</p>
           <p class="school-profile-status" id="siteMediaManagerStatus" role="status" aria-live="polite">تظهر هذه اللوحة لمالك/مدير المنصة المصرح فقط.</p>
+        </section>
+        <section class="staff-panel" id="siteAnalyticsPanel" hidden aria-labelledby="siteAnalyticsTitle">
+          <div class="panel-heading"><div><h3 id="siteAnalyticsTitle">إحصاءات مشاهدات الموقع العامة</h3><p>أعداد يومية مجمّعة حسب القسم خلال آخر 30 يومًا.</p></div><button class="button button-soft site-analytics-refresh" id="refreshSiteAnalytics" type="button">تحديث الإحصاءات</button></div>
+          <p class="site-analytics-disclosure">هذه مشاهدات صفحات وتنقلات عامة، وليست عددًا موثوقًا للأشخاص الفريدين؛ قد تشمل إعادة التحميل أو زيارات آلية. قاعدة الإحصاءات تحفظ اليوم والقسم والعدد فقط، ولا تخزن عنوان IP أو مُعرّفات أو إحالة أو بيانات طالب أو إعارة.</p>
+          <p class="site-analytics-status" id="siteAnalyticsStatus" role="status" aria-live="polite">تظهر هذه اللوحة للمالك أو المسؤول المخول فقط.</p>
+          <div class="site-analytics-summary" id="siteAnalyticsSummary" aria-label="إجمالي المشاهدات حسب القسم"></div>
+          <div class="site-analytics-table-wrap"><table class="site-analytics-table"><thead><tr><th scope="col">اليوم</th><th scope="col">القسم العام</th><th scope="col">المشاهدات</th></tr></thead><tbody id="siteAnalyticsRows"><tr><td class="site-analytics-empty" colspan="3">سجّل الدخول بصلاحية مالك أو مسؤول لعرض الإحصاءات.</td></tr></tbody></table></div>
         </section>
         <section class="staff-panel" id="circulationPanel" hidden>
           <div class="panel-heading"><div><h3>إعارة ومرتجعات</h3><p>يُقيد كل إجراء باسم الموظف، وتُحدّث حالة النسخة معاملةً واحدة.</p></div></div>
