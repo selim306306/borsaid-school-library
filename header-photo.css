@@ -1,16 +1,16 @@
 .site-header{
   height:auto;
-  min-height:300px;
+  min-height:0;
   display:grid;
-  grid-template-columns:minmax(0,1fr) 276px;
-  grid-template-rows:auto auto;
-  grid-template-areas:"brand photo" "nav photo";
+  grid-template-columns:minmax(0,1fr) minmax(280px,380px);
+  grid-template-rows:auto;
+  grid-template-areas:"brand photo";
   align-items:center;
-  gap:12px 24px;
-  padding-block:12px;
+  gap:8px 24px;
+  padding-block:8px;
 }
 .brand{grid-area:brand;flex:1 1 auto;min-width:0;gap:10px}
-.desktop-nav{grid-area:nav;min-width:0;max-width:100%;flex-wrap:wrap;gap:10px clamp(16px,2vw,30px)}
+.desktop-nav{display:none!important}
 .brand-flag-photo-stack{display:flex;flex:0 0 auto;align-items:center}
 .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:42px;height:42px;object-fit:cover;border-radius:50%}
 .site-view-tabs{display:flex;align-items:stretch;gap:6px;flex:0 0 auto;min-width:0}
@@ -20,13 +20,17 @@
   grid-area:photo;
   position:relative;
   isolation:isolate;
-  width:276px;
-  height:276px;
-  flex:0 0 276px;
+  width:clamp(280px,32vw,380px);
+  max-width:100%;
+  aspect-ratio:4 / 3;
+  height:auto;
+  min-width:0;
+  flex:0 1 auto;
+  justify-self:start;
   align-self:center;
   overflow:visible;
   border:0;
-  border-radius:28px;
+  border-radius:24px;
   background:transparent;
   box-shadow:none;
 }
@@ -34,9 +38,9 @@
   content:"";
   position:absolute;
   z-index:0;
-  inset:-8px 10px 10px -8px;
+  inset:-7px 9px 9px -7px;
   border:1px solid rgba(199,162,79,.42);
-  border-radius:32px;
+  border-radius:29px;
   background:linear-gradient(135deg,rgba(255,248,225,.94),rgba(244,247,255,.88) 72%,rgba(238,244,255,.9));
   box-shadow:0 14px 30px rgba(35,52,86,.08);
   transform:rotate(-1deg);
@@ -46,9 +50,9 @@
   content:"";
   position:absolute;
   z-index:2;
-  top:-9px;
-  inset-inline-start:24px;
-  width:34px;
+  top:-8px;
+  inset-inline-start:20px;
+  width:38px;
   height:6px;
   border-radius:999px;
   background:linear-gradient(90deg,#c99a35,#f3dc9b);
@@ -58,6 +62,7 @@
 .header-feature-image-slot .brand-header-photo{
   position:relative;
   z-index:1;
+  display:block;
   width:100%;
   height:100%;
   flex:0 0 auto;
@@ -70,31 +75,38 @@
 }
 @media(max-width:700px){
   .site-header{
+    width:min(1180px,calc(100% - 48px));
     min-height:0;
     grid-template-columns:minmax(0,1fr);
     grid-template-rows:auto auto;
     grid-template-areas:"brand" "photo";
     align-items:start;
-    gap:9px;
-    padding-block:8px;
+    gap:5px;
+    padding-block:6px;
   }
-  .desktop-nav{display:none}
-  .brand{gap:8px}
-  .brand-copy{max-width:min(46vw,210px)}
+  .desktop-nav{display:none!important}
+  .brand{gap:8px;align-items:flex-start}
+  .brand-copy{min-width:0;max-width:none}
   .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:36px;height:36px}
   .brand-logo-group .brand-logo-extra{width:26px;height:26px}
-  .header-feature-image-slot{width:180px;height:180px;flex-basis:180px;justify-self:center;align-self:start;border-radius:22px}
-  .header-feature-image-slot::before{inset:-7px 8px 8px -7px;border-radius:26px}
-  .header-feature-image-slot::after{top:-8px;width:30px;height:5px}
+  .header-feature-image-slot{
+    width:100%;
+    max-width:410px;
+    aspect-ratio:4 / 3;
+    justify-self:center;
+    align-self:start;
+    border-radius:20px;
+  }
+  .header-feature-image-slot::before{inset:-6px 7px 7px -6px;border-radius:25px}
+  .header-feature-image-slot::after{top:-7px;width:32px;height:5px}
   #visitorTabs.site-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:3px;overflow:visible}
   #visitorTabs .site-view-tabs{display:contents}
   #visitorTabs .staff-nav-button{align-self:stretch;min-height:36px;gap:3px;padding:3px 2px;font-size:calc((8px) + var(--site-font-step, 2px));line-height:1.15;white-space:normal}
   #visitorTabs .site-view-tabs .view-tab{width:100%;min-width:0;min-height:36px;padding:3px 2px;font-size:calc((9px) + var(--site-font-step, 2px));line-height:1.25;white-space:normal}
 }
 @media(max-width:380px){
-  .site-header{width:calc(100% - 24px);gap:8px}
+  .site-header{gap:4px}
   .brand{gap:7px}
-  .brand-copy{max-width:min(44vw,180px)}
   .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:32px;height:32px}
   .brand-logo-group .brand-logo-extra{width:24px;height:24px}
   #visitorTabs.site-tabs{gap:3px}
