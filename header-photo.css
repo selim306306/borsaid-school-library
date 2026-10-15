@@ -1,24 +1,30 @@
 .site-header{
   height:auto;
-  min-height:106px;
-  display:flex;
+  min-height:300px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 276px;
+  grid-template-rows:auto auto;
+  grid-template-areas:"brand photo" "nav photo";
   align-items:center;
-  justify-content:space-between;
-  gap:18px;
+  gap:12px 24px;
+  padding-block:12px;
 }
-.brand{flex:1 1 auto;min-width:0;gap:10px}
+.brand{grid-area:brand;flex:1 1 auto;min-width:0;gap:10px}
+.desktop-nav{grid-area:nav;min-width:0;max-width:100%;flex-wrap:wrap;gap:10px clamp(16px,2vw,30px)}
 .brand-flag-photo-stack{display:flex;flex:0 0 auto;align-items:center}
 .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:42px;height:42px;object-fit:cover;border-radius:50%}
 .site-view-tabs{display:flex;align-items:stretch;gap:6px;flex:0 0 auto;min-width:0}
 #visitorTabs .staff-nav-button{flex:0 0 auto;align-self:center;min-height:38px;margin:0;padding-inline:11px;font-size:calc((10px) + var(--site-font-step, 2px));white-space:nowrap}
 #visitorTabs .staff-nav-button .staff-icon{font-size:calc((15px) + var(--site-font-step, 2px))}
 .header-feature-image-slot{
-  width:92px;
-  height:92px;
-  flex:0 0 92px;
+  grid-area:photo;
+  width:276px;
+  height:276px;
+  flex:0 0 276px;
+  align-self:center;
   overflow:hidden;
   border:1px solid #dce4f1;
-  border-radius:15px;
+  border-radius:20px;
   background:#fff;
   box-shadow:0 4px 14px rgba(35,52,86,.12);
 }
@@ -34,12 +40,21 @@
   box-shadow:none;
 }
 @media(max-width:700px){
-  .site-header{min-height:72px;gap:10px}
+  .site-header{
+    min-height:0;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto;
+    grid-template-areas:"brand" "photo";
+    align-items:start;
+    gap:12px;
+    padding-block:10px;
+  }
+  .desktop-nav{display:none}
   .brand{gap:8px}
   .brand-copy{max-width:min(46vw,210px)}
   .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:36px;height:36px}
   .brand-logo-group .brand-logo-extra{width:26px;height:26px}
-  .header-feature-image-slot{width:60px;height:60px;flex-basis:60px;border-radius:11px}
+  .header-feature-image-slot{width:180px;height:180px;flex-basis:180px;justify-self:end;align-self:start;border-radius:14px}
   #visitorTabs.site-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:3px;overflow:visible}
   #visitorTabs .site-view-tabs{display:contents}
   #visitorTabs .staff-nav-button{align-self:stretch;min-height:36px;gap:3px;padding:3px 2px;font-size:calc((8px) + var(--site-font-step, 2px));line-height:1.15;white-space:normal}
@@ -51,7 +66,6 @@
   .brand-copy{max-width:min(44vw,180px)}
   .brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:32px;height:32px}
   .brand-logo-group .brand-logo-extra{width:24px;height:24px}
-  .header-feature-image-slot{width:54px;height:54px;flex-basis:54px;border-radius:10px}
   #visitorTabs.site-tabs{gap:3px}
   #visitorTabs .staff-nav-button{min-height:34px;padding-inline:1px;font-size:calc((7.5px) + var(--site-font-step, 2px))}
   #visitorTabs .site-view-tabs .view-tab{min-height:34px;padding-inline:1px;font-size:calc((8px) + var(--site-font-step, 2px))}
