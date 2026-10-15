@@ -186,10 +186,12 @@ function paintPublicCards(rows, append = false) {
     const hasCopy = available > 0;
     const classification = row.classification ? `<span class="book-classification">${escapeHtml(row.classification)}</span>` : '<span class="book-classification">رقم عام</span>';
     const location = row.public_shelf_label ? `<span>⌖ <strong>${escapeHtml(row.public_shelf_label)}</strong></span>` : '';
+    const series = row.series_name ? `<div class="book-series">السلسلة: <strong>${escapeHtml(row.series_name)}</strong></div>` : '';
     return `<article class="book-card">
       <div class="book-card-top">${classification}<span class="availability-badge ${hasCopy ? '' : 'unavailable'}">${hasCopy ? `متاح · ${available}` : 'غير متاح الآن'}</span></div>
       <h3>${escapeHtml(row.title)}</h3>
       <div class="book-author">${row.author ? `تأليف: ${escapeHtml(row.author)}` : 'بيانات المؤلف غير مضافة'}</div>
+      ${series}
       <div class="book-card-divider"></div>
       <div class="book-meta"><span>⌂ <strong>${escapeHtml(row.branch_name || row.city || 'فرع مكتبة')}</strong></span>${location}</div>
       <div class="book-number">الرقم العام: ${escapeHtml(row.general_number)}</div>
@@ -339,7 +341,7 @@ async function runPublicSearch({ append = false } = {}) {
     resultsGrid.setAttribute('aria-busy', 'true');
   }
   const page = append ? currentPage + 1 : 0;
-  const { data, error } = await publicSupabase.rpc('search_public_catalog', {
+  const { data, error } = await publicSupabase.rpc('search_public_catalog_v2', {
     p_query: currentSearch.query || null,
     p_branch_id: currentSearch.branch_id || null,
     p_available_only: currentSearch.available_only,
@@ -501,7 +503,7 @@ async function answerVisitorQuestion(question) {
   const query = extractVisitorCatalogQuery(question);
   if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو مصادر القراءة الخارجية أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };
   if (!publicSupabase) return { text: 'الفهرس غير متصل حالياً؛ أعد المحاولة بعد استقرار الاتصال.' };
-  const { data, error } = await publicSupabase.rpc('search_public_catalog', {
+  const { data, error } = await publicSupabase.rpc('search_public_catalog_v2', {
     p_query: query, p_branch_id: null, p_available_only: false, p_limit: 6, p_offset: 0,
   });
   if (error) return { text: 'تعذّر البحث في الفهرس العام الآن. جرّب البحث من صندوق الفهرس أو أعد المحاولة لاحقاً.' };
@@ -1497,7 +1499,7 @@ async function loadInventory() {
   const tbody = $('#inventoryRows');
   try {
     inventoryTitles = await fetchAllPages(() => supabase.from('catalog_titles')
-      .select('id,general_number,title,author,classification,is_published').eq('library_id', currentLibraryId).order('title'));
+      .select('id,general_number,title,author,classification,isbn,series_name,is_published').eq('library_id', currentLibraryId).order('title'));
     inventoryHoldings = await fetchAllPages(() => supabase.from('holdings')
       .select('id,title_id,branch_id,inventory_tag,cabinet_code,shelf_code,public_shelf_label,status,created_at')
       .eq('library_id', currentLibraryId).order('created_at'));
@@ -1518,7 +1520,7 @@ async function loadInventory() {
     if (inventoryTitles.some(row => row.id === selected)) select.value = selected;
   }
   const canManage = ['owner','admin','librarian'].includes(currentRole);
-  tbody.innerHTML = inventoryTitles.length ? inventoryTitles.map(row => `<tr><td>${escapeHtml(row.general_number)}</td><td>${escapeHtml(row.title)}</td><td>${escapeHtml(row.author || '—')}</td><td><span class="${row.is_published ? 'published-tag' : 'pending-tag'}">${row.is_published ? 'منشور' : 'داخلي'}</span></td><td>${canManage ? `<button class="loan-return" data-edit-title="${escapeHtml(row.id)}" type="button">تعديل</button>` : '—'}</td></tr>`).join('') : '<tr><td colspan="5" class="table-empty">لا توجد عناوين مسجلة لهذه المكتبة.</td></tr>';
+  tbody.innerHTML = inventoryTitles.length ? inventoryTitles.map(row => `<tr><td>${escapeHtml(row.general_number)}</td><td>${escapeHtml(row.title)}${row.series_name ? `<small class="catalog-series-label">السلسلة: ${escapeHtml(row.series_name)}</small>` : ''}</td><td>${escapeHtml(row.author || '—')}</td><td><span class="${row.is_published ? 'published-tag' : 'pending-tag'}">${row.is_published ? 'منشور' : 'داخلي'}</span></td><td>${canManage ? `<button class="loan-return" data-edit-title="${escapeHtml(row.id)}" type="button">تعديل</button>` : '—'}</td></tr>`).join('') : '<tr><td colspan="5" class="table-empty">لا توجد عناوين مسجلة لهذه المكتبة.</td></tr>';
   const titleMap = Object.fromEntries(inventoryTitles.map(row => [row.id, row]));
   const branchMap = Object.fromEntries(staffBranches.map(row => [row.id, row.name]));
   const statusLabels = { available: 'متاح', on_loan: 'معار', reserved: 'محجوز', maintenance: 'صيانة', lost: 'مفقود', withdrawn: 'مستبعد' };
@@ -1715,21 +1717,157 @@ $('#signOut').addEventListener('click', async () => {
   setWorkspaceMode(false);
   setMessage(loginMessage, 'تم تسجيل الخروج.');
 });
+function normalizeDeweyNumber(value) {
+  const digits = '٠١٢٣٤٥٦٧٨٩';
+  const western = String(value || '').trim().replace(/[٠-٩]/gu, digit => String(digits.indexOf(digit)))
+    .replace(/[۰-۹]/gu, digit => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit))).replace('٫', '.');
+  return /^\d{3}(?:\.\d{1,8})?$/u.test(western) ? western : '';
+}
+function normalizeCatalogIsbn(value) {
+  const digits = '٠١٢٣٤٥٦٧٨٩';
+  const isbn = String(value || '').replace(/[٠-٩]/gu, digit => String(digits.indexOf(digit)))
+    .replace(/[۰-۹]/gu, digit => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit))).replace(/[\s-]/gu, '').toUpperCase();
+  if (/^\d{13}$/u.test(isbn)) {
+    const sum = [...isbn].reduce((total, digit, index) => total + Number(digit) * (index % 2 ? 3 : 1), 0);
+    return sum % 10 === 0 ? isbn : '';
+  }
+  if (/^\d{9}[\dX]$/u.test(isbn)) {
+    const sum = [...isbn].reduce((total, digit, index) => total + Number(digit === 'X' ? 10 : digit) * (10 - index), 0);
+    return sum % 11 === 0 ? isbn : '';
+  }
+  return '';
+}
+async function requestCatalogDewey(metadata) {
+  const status = $('#bookLookupStatus');
+  const form = $('#titleForm');
+  if (!form.elements.allow_ai_classification.checked) {
+    status.textContent = `تمت تعبئة البيانات من ${metadata.sources.join(' و')}. اختر التصنيف يدوياً، أو فعّل موافقة Gemini قبل جلب الكتاب لاقتراح فئة ديوي.`;
+    return;
+  }
+  if (!supabase || !currentLibraryId) {
+    status.textContent = 'تم جلب بيانات الكتاب، لكن يلزم تسجيل الدخول إلى مكتبة لتشغيل اقتراح ديوي.';
+    return;
+  }
+  status.textContent = 'جارٍ طلب اقتراح ديوي من Gemini للبيانات الببليوغرافية العامة…';
+  try {
+    const { data, error } = await supabase.functions.invoke('book-classifier', {
+      body: {
+        library_id: currentLibraryId,
+        model: $('#assistantModel')?.value || DEFAULT_ASSISTANT_MODEL,
+        title: metadata.title,
+        author: metadata.author,
+        series_name: metadata.series,
+        topics: metadata.subjects,
+      },
+    });
+    const code = normalizeDeweyNumber(data?.classification);
+    if (error || data?.error || !code || !new Set(['000','100','200','300','400','500','600','700','800','900']).has(code)) {
+      status.textContent = 'تم جلب البيانات، لكن خدمة Gemini لم تُرجع اقتراحاً صالحاً. اختر فئة ديوي يدوياً أو حاول لاحقاً.';
+      return;
+    }
+    if (!form.elements.classification.value.trim()) form.elements.classification.value = code;
+    const reason = String(data.reason || '').trim();
+    status.textContent = `اقتراح Gemini المبدئي: ${code}${reason ? ` — ${reason}` : ''}. راجعه وفق جداول المكتبة قبل الحفظ.`;
+  } catch {
+    status.textContent = 'تم جلب بيانات الكتاب، لكن اقتراح Gemini غير متاح الآن. اختر رقم ديوي من القائمة أو حاول لاحقاً.';
+  }
+}
+window.addEventListener('bookmetadata:selected', async event => {
+  const metadata = event.detail || {};
+  const form = $('#titleForm');
+  const tidy = value => String(value || '').trim();
+  const normalized = value => tidy(value).normalize('NFC').replace(/\s+/gu, ' ').toLocaleLowerCase('ar');
+  const currentTitle = tidy(form.elements.title.value);
+  if (metadata.title && (!currentTitle || (metadata.searchTitle && normalized(currentTitle) === normalized(metadata.searchTitle)))) {
+    form.elements.title.value = tidy(metadata.title).slice(0, 240);
+  }
+  if (!form.elements.author.value.trim() && metadata.author) form.elements.author.value = tidy(metadata.author).slice(0, 180);
+  if (!form.elements.series_name.value.trim() && metadata.series) form.elements.series_name.value = tidy(metadata.series).slice(0, 240);
+  const isbn = normalizeCatalogIsbn(metadata.isbn || metadata.searchIsbn);
+  if (!form.elements.isbn.value.trim() && isbn) form.elements.isbn.value = isbn;
+  $('#bookLookupStatus').textContent = `تمت تعبئة بيانات الفهرس من ${metadata.sources.join(' و') || 'المصدر العام'}؛ راجع العنوان والمؤلف والسلسلة قبل الحفظ.`;
+  await requestCatalogDewey({
+    title: tidy(metadata.title).slice(0, 240),
+    author: tidy(metadata.author).slice(0, 180),
+    series: tidy(metadata.series).slice(0, 240),
+    subjects: Array.isArray(metadata.subjects) ? metadata.subjects.slice(0, 20).map(value => tidy(value).slice(0, 120)) : [],
+    sources: Array.isArray(metadata.sources) ? metadata.sources : [],
+  });
+});
+window.addEventListener('bookcover:selected', async event => {
+  const form = $('#titleForm');
+  const status = $('#bookLookupStatus');
+  const cover = event.detail || {};
+  const complete = typeof cover.complete === 'function' ? cover.complete : () => {};
+  try {
+    if (!form.elements.allow_cover_ai.checked) {
+      status.textContent = 'فعّل موافقة تحليل صورة الغلاف أولاً؛ لم تُرسل الصورة.';
+      return;
+    }
+    if (!supabase || !currentLibraryId || cover.mimeType !== 'image/jpeg' || typeof cover.data !== 'string') {
+      status.textContent = 'يلزم تسجيل الدخول إلى مكتبة واختيار صورة غلاف صالحة قبل التحليل.';
+      return;
+    }
+    status.textContent = 'جارٍ تحليل صورة الغلاف بموافقتك؛ لن يحفظ الموقع الصورة…';
+    const { data, error } = await supabase.functions.invoke('book-classifier', {
+      body: {
+        library_id: currentLibraryId,
+        model: $('#assistantModel')?.value || DEFAULT_ASSISTANT_MODEL,
+        mode: 'cover',
+        cover_image: { mimeType: cover.mimeType, data: cover.data },
+      },
+    });
+    if (error || data?.error) {
+      status.textContent = 'تعذّر تحليل الغلاف الآن؛ يمكنك إدخال البيانات يدوياً أو البحث بالعنوان.';
+      return;
+    }
+    const extractedTitle = String(data.title || '').trim().slice(0, 240);
+    const extractedAuthor = String(data.author || '').trim().slice(0, 180);
+    const extractedSeries = String(data.series_name || '').trim().slice(0, 240);
+    const priorTitle = String(form.elements.title.value || '').trim();
+    const titleMatches = !priorTitle || priorTitle.normalize('NFC').toLocaleLowerCase('ar') === extractedTitle.normalize('NFC').toLocaleLowerCase('ar');
+    if (extractedTitle && !priorTitle) form.elements.title.value = extractedTitle;
+    if (!form.elements.author.value.trim() && extractedAuthor) form.elements.author.value = extractedAuthor;
+    if (!form.elements.series_name.value.trim() && extractedSeries) form.elements.series_name.value = extractedSeries;
+    const classification = String(data.classification || '');
+    if (!form.elements.classification.value.trim() && new Set(['000','100','200','300','400','500','600','700','800','900']).has(classification)) {
+      form.elements.classification.value = classification;
+    }
+    const reason = String(data.reason || '').trim();
+    status.textContent = extractedTitle
+      ? `استخراج مبدئي من الغلاف: ${extractedTitle}${extractedAuthor ? ` — ${extractedAuthor}` : ''}${classification ? ` · ديوي ${classification}` : ''}${reason ? ` — ${reason}` : ''}. راجع البيانات قبل الحفظ.`
+      : 'لم يظهر عنوان مقروء بوضوح على الغلاف؛ أدخله يدوياً أو التقط صورة أوضح.';
+    if (extractedTitle && titleMatches) $('#lookupBookButton')?.click();
+    else if (extractedTitle) status.textContent += ' لم نغيّر العنوان الموجود؛ امسحه أو راجعه ثم استخدم البحث يدوياً.';
+  } catch {
+    status.textContent = 'تعذّر الاتصال بمحلل الغلاف. لم يحفظ الموقع الصورة؛ يمكنك إدخال البيانات يدوياً.';
+  } finally {
+    complete();
+  }
+});
 $('#titleForm').addEventListener('submit', async event => {
   event.preventDefault();
   if (!currentLibraryId) return;
   const form = event.currentTarget;
   const fields = new FormData(form);
+  const rawDewey = String(fields.get('classification') || '').trim();
+  const dewey = normalizeDeweyNumber(rawDewey);
+  const rawIsbn = String(fields.get('isbn') || '').trim();
+  const isbn = rawIsbn ? normalizeCatalogIsbn(rawIsbn) : '';
+  if (rawDewey && !dewey) return setMessage($('#titleMessage'), 'أدخل رقم ديوي من ثلاثة أرقام، ويمكن إضافة جزء عشري مثل 510.1.', 'error');
+  if (rawIsbn && !isbn) return setMessage($('#titleMessage'), 'أدخل ISBN-10 أو ISBN-13 صحيحاً أو امسح باركود الكتاب.', 'error');
   const button = $('.form-action', form);
   button.disabled = true;
   setMessage($('#titleMessage'), 'جارٍ حفظ العنوان والنسخة...');
-  const { error } = await supabase.rpc('create_title_with_holding', {
+  const { error } = await supabase.rpc('create_title_with_holding_v2', {
     p_library_id: currentLibraryId,
     p_branch_id: fields.get('branch_id'),
     p_general_number: String(fields.get('general_number')).trim(),
     p_title: String(fields.get('title')).trim(),
     p_author: String(fields.get('author') || '').trim() || null,
-    p_classification: String(fields.get('classification') || '').trim() || null,
+    p_classification: dewey || null,
+    p_isbn: isbn || null,
+    p_series_name: String(fields.get('series_name') || '').trim() || null,
     p_inventory_tag: String(fields.get('inventory_tag') || '').trim() || null,
     p_cabinet_code: String(fields.get('cabinet_code') || '').trim() || null,
     p_shelf_code: String(fields.get('shelf_code') || '').trim() || null,
@@ -2132,17 +2270,17 @@ $('#exportInventory').addEventListener('click', async () => {
   let titles, holdings, branches;
   try {
     [titles, holdings, branches] = await Promise.all([
-      fetchAllPages(() => supabase.from('catalog_titles').select('id,general_number,title,author,classification').eq('library_id', currentLibraryId).order('general_number')),
+      fetchAllPages(() => supabase.from('catalog_titles').select('id,general_number,title,author,classification,isbn,series_name').eq('library_id', currentLibraryId).order('general_number')),
       fetchAllPages(() => supabase.from('holdings').select('id,title_id,branch_id,inventory_tag,cabinet_code,shelf_code,public_shelf_label,status').eq('library_id', currentLibraryId).order('created_at')),
       fetchAllPages(() => supabase.from('branches').select('id,name').eq('library_id', currentLibraryId).order('name')),
     ]);
   } catch { return setMessage($('#workspaceMessage'), 'تعذّر تصدير الجرد أو تجاوز حد الأمان؛ تحقق من الصلاحية.', 'error'); }
   const titleMap = Object.fromEntries((titles || []).map(title => [title.id, title]));
   const branchMap = Object.fromEntries((branches || []).map(branch => [branch.id, branch.name]));
-  const rows = [['الرقم العام', 'عنوان الكتاب', 'المؤلف', 'التصنيف', 'الفرع', 'رقم النسخة', 'الدولاب', 'الرف الداخلي', 'وصف الرف العام', 'الحالة']];
+  const rows = [['الرقم العام', 'عنوان الكتاب', 'المؤلف', 'التصنيف (ديوي)', 'ISBN', 'السلسلة', 'الفرع', 'رقم النسخة', 'الدولاب', 'الرف الداخلي', 'وصف الرف العام', 'الحالة']];
   for (const holding of holdings || []) {
     const title = titleMap[holding.title_id] || {};
-    rows.push([title.general_number, title.title, title.author, title.classification, branchMap[holding.branch_id], holding.inventory_tag, holding.cabinet_code, holding.shelf_code, holding.public_shelf_label, holding.status]);
+    rows.push([title.general_number, title.title, title.author, title.classification, title.isbn, title.series_name, branchMap[holding.branch_id], holding.inventory_tag, holding.cabinet_code, holding.shelf_code, holding.public_shelf_label, holding.status]);
   }
   const csv = '\ufeff' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
@@ -2261,7 +2399,7 @@ $('#inventoryRows').addEventListener('click', event => {
   const title = inventoryTitles.find(row => row.id === button.dataset.editTitle);
   if (!title) return;
   const form = $('#titleEditForm');
-  for (const key of ['id','general_number','title','author','classification']) form.elements[key].value = title[key] || '';
+  for (const key of ['id','general_number','title','author','classification','isbn','series_name']) form.elements[key].value = title[key] || '';
   form.elements.is_published.checked = Boolean(title.is_published);
   $('#titleEditDialog').showModal();
 });
@@ -2269,11 +2407,19 @@ $('#titleEditForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = event.currentTarget;
   const fields = new FormData(form);
+  const rawDewey = String(fields.get('classification') || '').trim();
+  const dewey = normalizeDeweyNumber(rawDewey);
+  const rawIsbn = String(fields.get('isbn') || '').trim();
+  const isbn = rawIsbn ? normalizeCatalogIsbn(rawIsbn) : '';
+  if (rawDewey && !dewey) return setMessage($('#titleEditMessage'), 'أدخل رقم ديوي من ثلاثة أرقام، ويمكن إضافة جزء عشري مثل 510.1.', 'error');
+  if (rawIsbn && !isbn) return setMessage($('#titleEditMessage'), 'أدخل ISBN-10 أو ISBN-13 صحيحاً.', 'error');
   const { error } = await supabase.from('catalog_titles').update({
     general_number: String(fields.get('general_number')).trim(),
     title: String(fields.get('title')).trim(),
     author: String(fields.get('author') || '').trim() || null,
-    classification: String(fields.get('classification') || '').trim() || null,
+    classification: dewey || null,
+    isbn: isbn || null,
+    series_name: String(fields.get('series_name') || '').trim() || null,
     is_published: fields.get('is_published') === 'on',
   }).eq('id', fields.get('id')).eq('library_id', currentLibraryId);
   if (error) return setMessage($('#titleEditMessage'), 'تعذّر حفظ العنوان؛ قد يكون الرقم العام مكرراً.', 'error');

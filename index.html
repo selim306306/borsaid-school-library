@@ -20,12 +20,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
+  <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-dewey-book-assistant-1">
+  <link rel="stylesheet" href="book-cover-capture.css?v=20261015-dewey-book-assistant-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
   <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261015-header-photo-1"></script>
-  <script type="module" src="app.js?v=20261015-school-dedupe-header-photo-1"></script>
+  <script type="module" src="app.js?v=20261015-dewey-book-assistant-1"></script>
+  <script type="module" src="book-catalog-assistant.js?v=20261015-dewey-book-assistant-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
@@ -443,10 +446,32 @@
         <section class="staff-panel active" id="catalogPanel">
           <div class="panel-heading"><div><h3>تسجيل عنوان ونسخة</h3><p>يبدأ السجل مخفياً عن البحث العام حتى تختار نشره.</p></div></div>
           <form id="titleForm" class="staff-form-grid">
-            <label>الرقم العام<input name="general_number" required maxlength="80" placeholder="مثال: 000123"></label>
+            <div class="book-import-tools">
+              <strong>مساعد فهرسة الكتب</strong>
+              <p>امسح باركود ISBN أو ابحث بالعنوان لجلب بيانات الكتاب من Google Books وOpen Library. مسح الباركود لا يرفع صورة؛ تحليل صورة الغلاف خيار منفصل يتطلب موافقتك.</p>
+              <div class="book-import-actions">
+                <button class="button button-soft" id="scanIsbnButton" type="button">مسح ISBN بالكاميرا</button>
+                <button class="button button-outline" id="lookupBookButton" type="button">جلب بيانات الكتاب</button>
+                <button class="button button-outline" id="stopIsbnScanButton" type="button" hidden>إيقاف الكاميرا</button>
+              </div>
+              <div class="book-cover-row">
+                <label class="book-cover-file">التقاط صورة الغلاف<input id="bookCoverInput" name="book_cover" type="file" accept="image/*" capture="environment"></label>
+                <button class="button button-primary" id="analyzeBookCoverButton" type="button" disabled>استخراج البيانات من الغلاف</button>
+              </div>
+              <img id="bookCoverPreview" class="book-cover-preview" alt="معاينة محلية لصورة غلاف الكتاب" hidden>
+              <p>بعد موافقتك، يرسل الموقع نسخة مضغوطة من صورة الغلاف إلى Gemini لاستخراج البيانات؛ لا يحفظ الموقع الصورة، ثم يبحث بالعنوان في الفهارس العامة.</p>
+              <label class="check-field book-ai-consent"><input name="allow_cover_ai" type="checkbox"><span>أوافق على إرسال صورة الغلاف المضغوطة إلى Gemini لاستخراج العنوان والمؤلف والسلسلة واقتراح ديوي.</span></label>
+              <video id="isbnScannerVideo" class="isbn-scanner-video" playsinline muted hidden aria-label="معاينة الكاميرا لمسح باركود ISBN"></video>
+              <p id="bookLookupStatus" class="book-import-status" role="status" aria-live="polite"></p>
+              <div id="bookLookupResults" class="book-import-results" role="listbox" aria-label="نتائج البحث عن الكتاب" hidden></div>
+              <label class="check-field book-ai-consent"><input name="allow_ai_classification" type="checkbox"><span>أوافق على إرسال بيانات الكتاب الببليوغرافية العامة إلى Gemini لاقتراح الفئة الرئيسية لديوي؛ لن تُرسل صور أو بيانات مستعيرين.</span></label>
+            </div>
+            <label>الرقم العام<input name="general_number" required maxlength="80" placeholder="رقم المكتبة، مثل 000123"><small>رقم محلي للمكتبة، وليس ISBN.</small></label>
             <label>عنوان الكتاب<input name="title" required maxlength="240"></label>
             <label>المؤلف<input name="author" maxlength="180"></label>
-            <label>التصنيف<input name="classification" maxlength="120"></label>
+            <label>التصنيف (ديوي العشري)<input name="classification" list="deweyMainClasses" maxlength="20" inputmode="decimal" pattern="[0-9٠-٩]{3}([.٫][0-9٠-٩]{1,8})?" placeholder="مثال: 700 أو 510.1"><small>اختر رمزاً رئيسياً أو أدخل رقم ديوي الأدق. الفئات: 000 عام، 100 فلسفة، 200 ديانات، 300 اجتماع، 400 لغات، 500 علوم، 600 تقنية، 700 فنون، 800 أدب، 900 تاريخ وجغرافيا.</small></label>
+            <label>رقم ISBN<input name="isbn" maxlength="20" inputmode="numeric" placeholder="ISBN-10 أو ISBN-13"></label>
+            <label>اسم السلسلة (إن وجدت)<input name="series_name" maxlength="240" placeholder="يُملأ إن توفر في المصدر"></label>
             <label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label>
             <label>رقم النسخة<input name="inventory_tag" maxlength="100"></label>
             <label>الدولاب / الخزانة<input name="cabinet_code" maxlength="80"></label>
@@ -454,7 +479,11 @@
             <label>وصف رف ظاهر للزوار<input name="public_shelf_label" maxlength="120" placeholder="اختياري، مثل: ركن العلوم"></label>
             <label class="check-field"><input name="is_published" type="checkbox"><span>نشر بيانات العنوان والنسخة المتاحة في الفهرس العام</span></label>
             <button class="button button-primary form-action" type="submit">حفظ سجل الكتاب</button>
-          </form><p class="form-message" id="titleMessage" role="status" aria-live="polite"></p>
+          </form>
+          <datalist id="deweyMainClasses">
+            <option value="000" label="معارف عامة وعلوم الحاسوب"></option><option value="100" label="فلسفة وعلم نفس"></option><option value="200" label="ديانات"></option><option value="300" label="علوم اجتماعية"></option><option value="400" label="لغات"></option><option value="500" label="علوم"></option><option value="600" label="تكنولوجيا وعلوم تطبيقية"></option><option value="700" label="فنون وترفيه"></option><option value="800" label="أدب"></option><option value="900" label="تاريخ وجغرافيا"></option>
+          </datalist>
+          <p class="form-message" id="titleMessage" role="status" aria-live="polite"></p>
           <div class="panel-heading list-heading"><div><h3>العناوين المسجلة</h3><p>عرض داخلي خاص بموظفي هذه المكتبة.</p></div><button class="button button-soft" id="refreshInventory" type="button">تحديث</button></div>
           <div class="table-wrap"><table><thead><tr><th>الرقم العام</th><th>العنوان</th><th>المؤلف</th><th>الظهور العام</th><th>إجراء</th></tr></thead><tbody id="inventoryRows"><tr><td colspan="5" class="table-empty">سجّل الدخول لعرض السجلات.</td></tr></tbody></table></div>
           <div class="panel-heading list-heading"><div><h3>إضافة نسخة إلى عنوان موجود</h3><p>لكل نسخة رقم وموقع وحالة مستقلة.</p></div></div>
@@ -644,7 +673,7 @@
       <div class="image-viewer-copy"><h2 id="imageViewerName"></h2><p id="imageViewerRole"></p><p class="image-viewer-details" id="imageViewerDetails"></p><a class="image-viewer-source" id="imageViewerSource" target="_blank" rel="noopener noreferrer" hidden>فتح المصدر ↗</a></div>
     </section>
   </dialog>
-  <dialog id="titleEditDialog" class="small-dialog" aria-labelledby="titleEditHeading"><form id="titleEditForm" class="editor-form"><h2 id="titleEditHeading">تعديل بيانات العنوان</h2><input type="hidden" name="id"><label>الرقم العام<input name="general_number" required maxlength="80"></label><label>عنوان الكتاب<input name="title" required maxlength="240"></label><label>المؤلف<input name="author" maxlength="180"></label><label>التصنيف<input name="classification" maxlength="120"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر العنوان في الفهرس العام</span></label><p class="form-message" id="titleEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="titleEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ</button></div></form></dialog>
+  <dialog id="titleEditDialog" class="small-dialog" aria-labelledby="titleEditHeading"><form id="titleEditForm" class="editor-form"><h2 id="titleEditHeading">تعديل بيانات العنوان</h2><input type="hidden" name="id"><label>الرقم العام<input name="general_number" required maxlength="80"></label><label>عنوان الكتاب<input name="title" required maxlength="240"></label><label>المؤلف<input name="author" maxlength="180"></label><label>التصنيف (ديوي العشري)<input name="classification" list="deweyMainClasses" maxlength="20" inputmode="decimal" pattern="[0-9٠-٩]{3}([.٫][0-9٠-٩]{1,8})?" placeholder="مثال: 700 أو 510.1"></label><label>رقم ISBN<input name="isbn" maxlength="20" inputmode="numeric"></label><label>اسم السلسلة (إن وجدت)<input name="series_name" maxlength="240"></label><label class="check-field"><input name="is_published" type="checkbox"><span>نشر العنوان في الفهرس العام</span></label><p class="form-message" id="titleEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="titleEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ</button></div></form></dialog>
   <dialog id="holdingEditDialog" class="small-dialog" aria-labelledby="holdingEditHeading"><form id="holdingEditForm" class="editor-form"><h2 id="holdingEditHeading">تعديل موقع النسخة</h2><input type="hidden" name="holding_id"><label>الفرع<select name="branch_id" data-branch-select required><option value="">اختر الفرع</option></select></label><label>رقم النسخة<input name="inventory_tag" maxlength="100"></label><label>الدولاب<input name="cabinet_code" maxlength="80"></label><label>الرف الداخلي<input name="shelf_code" maxlength="80"></label><label>وصف الرف العام<input name="public_shelf_label" maxlength="120"></label><p class="form-message" id="holdingEditMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="holdingEditDialog">إلغاء</button><button class="button button-primary" type="submit">حفظ الموقع</button></div></form></dialog>
   <dialog id="requestMatchDialog" class="small-dialog" aria-labelledby="requestMatchHeading"><form id="requestMatchForm" class="editor-form"><h2 id="requestMatchHeading">مطابقة عنوان المكتبة</h2><input type="hidden" name="request_id"><label>العنوان المقابل في مكتبتك<select name="matched_title_id" id="requestMatchedTitleSelect" required><option value="">اختر عنواناً</option></select></label><p class="form-message" id="requestMatchMessage" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-outline" type="button" data-close-dialog="requestMatchDialog">إلغاء</button><button class="button button-primary" type="submit">مطابقة وقبول الطلب</button></div></form></dialog>
   </body>

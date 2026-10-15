@@ -5,3 +5,6 @@ verify_jwt = true
 
 [functions.invite-library-member]
 verify_jwt = true
+
+[functions.book-classifier]
+verify_jwt = true
