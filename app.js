@@ -37,7 +37,9 @@ const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion:
 const scrollBehavior = () => prefersReducedMotion() ? 'instant' : 'smooth';
 function trackPublicPageView(viewName) {
   if (!Object.prototype.hasOwnProperty.call(PUBLIC_PAGE_VIEW_LABELS, viewName) || !publicAnalyticsSupabase) return;
-  void publicAnalyticsSupabase.rpc('record_public_page_view', { p_section: viewName }).catch(() => {});
+  try {
+    void Promise.resolve(publicAnalyticsSupabase.rpc('record_public_page_view', { p_section: viewName })).catch(() => {});
+  } catch {}
 }
 function activateView(viewName, { updateHistory = false, hash = '' } = {}) {
   if (viewName === 'branches' && !publicDirectoryAvailable) return false;

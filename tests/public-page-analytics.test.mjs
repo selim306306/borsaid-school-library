@@ -16,6 +16,7 @@ test('the browser tracker exposes only the fixed public section allowlist', () =
   const actual = [...block.matchAll(/^\s{2}([A-Za-z][A-Za-z0-9]*):/gm)].map(match => match[1]);
   assert.deepEqual(actual, expectedSections);
   assert.match(app, /record_public_page_view',\s*\{\s*p_section:\s*viewName\s*\}/);
+  assert.match(app, /Promise\.resolve\(publicAnalyticsSupabase\.rpc\('record_public_page_view'/);
   assert.match(app, /credentials:\s*'omit'/);
   assert.match(app, /referrerPolicy:\s*'no-referrer'/);
 });
