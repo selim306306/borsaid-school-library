@@ -22,14 +22,15 @@
   <link rel="stylesheet" href="site.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
+  <link rel="stylesheet" href="header-photo.css?v=20261015-header-photo-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="site-media-public.js?v=20261015-site-media-2"></script>
-  <script type="module" src="app.js?v=20261015-site-media-library-2"></script>
+  <script type="module" src="site-media-public.js?v=20261015-header-photo-1"></script>
+  <script type="module" src="app.js?v=20261015-school-dedupe-header-photo-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
   <script type="module" src="education-research.js?v=4"></script>
-  <script type="module" src="site-news.js?v=2"></script>
+  <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261015-reader"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
@@ -42,7 +43,10 @@
   <header class="site-header">
     <a class="brand" id="siteBrand" href="#top" aria-label="بوابة مدارس بورسعيد">
       <span class="brand-logo-group" id="brandLogoGroup">
-        <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
+        <span class="brand-flag-photo-stack">
+          <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
+          <img class="brand-header-photo" id="brandHeaderPhoto" src="assets/header-photo-placeholder.svg" alt="مساحة صورة قابلة للاستبدال أسفل علم مصر" width="42" height="42" loading="lazy" decoding="async">
+        </span>
         <img class="brand-logo-extra" id="brandGovernorateLogo" alt="شعار محافظة بورسعيد" width="34" height="34" hidden>
       </span>
       <span class="brand-copy"><strong id="siteBrandTitle">بوابة مدارس بورسعيد</strong><span class="brand-school-identities" id="siteBrandSubtitle" aria-label="المدارس المشاركة">شبكة المكتبات المدرسية</span></span>

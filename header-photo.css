@@ -1,0 +1,6 @@
+.site-header{height:auto;min-height:82px}
+.brand-flag-photo-stack{display:flex;flex:0 0 auto;flex-direction:column;align-items:center;gap:4px}
+.brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:42px;height:42px;object-fit:cover;border-radius:50%}
+.brand-logo-group .brand-header-photo{width:42px;height:42px;flex:0 0 42px;object-fit:cover;padding:0;border:1px solid #e1e7f1;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(35,52,86,.08)}
+@media(max-width:700px){.site-header{height:auto;min-height:58px}.brand-flag-photo-stack{gap:4px}.brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:34px;height:34px}.brand-logo-group .brand-header-photo{width:34px;height:34px;flex-basis:34px;border-radius:8px}}
+@media(max-width:380px){.brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:31px;height:31px}.brand-logo-group .brand-header-photo{width:31px;height:31px;flex-basis:31px}}

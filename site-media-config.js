@@ -9,6 +9,15 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
     selectors: ['#brandDefaultLogo', '.footer-brand img', '.dialog-brand img', '.auth-brand img'],
   },
   {
+    key: 'header-feature-image',
+    category: 'هوية الموقع',
+    title: 'صورة مربعة أسفل علم مصر',
+    usage: 'صورة اختيارية في مربع أسفل العلم داخل الترويسة؛ يمكن استبدالها أو استعادة الافتراضية من مكتبة الصور.',
+    defaultSrc: 'assets/header-photo-placeholder.svg',
+    defaultAlt: 'مساحة صورة قابلة للاستبدال أسفل علم مصر',
+    selectors: ['#brandHeaderPhoto'],
+  },
+  {
     key: 'site-favicon',
     category: 'هوية الموقع',
     title: 'أيقونة المتصفح',

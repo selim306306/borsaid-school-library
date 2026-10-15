@@ -1,4 +1,4 @@
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-site-media-2';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261015-header-photo-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -212,14 +212,27 @@ function publicLogoUrl(path) {
   if (!path || !publicSupabase) return '';
   return publicSupabase.storage.from('school-branding').getPublicUrl(path).data?.publicUrl || '';
 }
+function deduplicatePublicSchoolProfiles(profiles = []) {
+  const preferredByName = new Map();
+  for (const profile of profiles || []) {
+    const name = String(profile?.school_name || '').trim().normalize('NFC').replace(/\s+/gu, ' ').toLocaleLowerCase('ar');
+    if (!name) continue;
+    const detailCount = ['educational_administration', 'librarian_name', 'principal_name', 'deputy_names', 'general_supervisor_name', 'first_supervisor_name']
+      .filter(key => String(profile[key] || '').trim()).length;
+    const score = (profile.school_logo_path ? 100 : 0) + detailCount;
+    const current = preferredByName.get(name);
+    if (!current || score > current.score) preferredByName.set(name, { profile, score });
+  }
+  return [...preferredByName.values()]
+    .map(({ profile }) => profile)
+    .sort((left, right) => String(left.school_name).localeCompare(String(right.school_name), 'ar'));
+}
 function updatePublicBranding(profiles = []) {
   const defaultLogo = $('#brandDefaultLogo');
   const governorateLogo = $('#brandGovernorateLogo');
   const title = $('#siteBrandTitle');
   const subtitle = $('#siteBrandSubtitle');
-  const schoolProfiles = (profiles || [])
-    .filter(profile => String(profile.school_name || '').trim())
-    .sort((left, right) => String(left.school_name).localeCompare(String(right.school_name), 'ar'));
+  const schoolProfiles = deduplicatePublicSchoolProfiles(profiles);
   const governorateProfile = schoolProfiles.find(profile => profile.governorate_logo_path);
   const governorateUrl = governorateProfile ? publicLogoUrl(governorateProfile.governorate_logo_path) : '';
   defaultLogo.hidden = false;
@@ -262,8 +275,9 @@ function updatePublicBranding(profiles = []) {
 }
 function paintBranches(rows, profiles = publicLibraryProfiles) {
   const grid = $('#branchesGrid');
-  updatePublicBranding(profiles);
-  const schoolCards = profiles.map(profile => {
+  const displayProfiles = deduplicatePublicSchoolProfiles(profiles);
+  updatePublicBranding(displayProfiles);
+  const schoolCards = displayProfiles.map(profile => {
     const schoolLogo = publicLogoUrl(profile.school_logo_path);
     const governorateLogo = publicLogoUrl(profile.governorate_logo_path);
     const logos = [
