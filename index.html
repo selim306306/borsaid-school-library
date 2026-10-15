@@ -19,9 +19,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=20261014-home-4">
-  <link rel="stylesheet" href="library-profiles.css?v=1">
+  <link rel="stylesheet" href="library-profiles.css?v=20261015-school-branding-3">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-reader2">
-  <script type="module" src="app.js?v=20261015-school-profile"></script>
+  <script type="module" src="app.js?v=20261015-school-leadership-3"></script>
   <link rel="stylesheet" href="global-reading.css?v=4">
   <script type="module" src="global-reading.js?v=5"></script>
   <link rel="stylesheet" href="education-research.css?v=6">
@@ -34,12 +34,16 @@
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
   <div class="announcement"><span class="announcement-dot"></span> مساحة معرفية واحدة لمكتبات بورسعيد المدرسية</div>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="الصفحة الرئيسية">
-      <img src="assets/mark.svg" alt="" width="44" height="44">
-      <span class="brand-copy"><strong>مكتبات بورسعيد</strong><small>شبكة المكتبات المدرسية</small></span>
+    <a class="brand" id="siteBrand" href="#top" aria-label="بوابة مدارس بورسعيد">
+      <span class="brand-logo-group" id="brandLogoGroup">
+        <img id="brandDefaultLogo" src="assets/mark.svg" alt="" width="44" height="44">
+        <img class="brand-logo-extra" id="brandGovernorateLogo" alt="شعار محافظة بورسعيد" width="34" height="34" hidden>
+        <img class="brand-logo-extra" id="brandSchoolLogo" alt="" width="34" height="34" hidden>
+      </span>
+      <span class="brand-copy"><strong id="siteBrandTitle">بوابة مدارس بورسعيد</strong><small id="siteBrandSubtitle">شبكة المكتبات المدرسية</small></span>
     </a>
-	    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
-	      <a href="#discover">اكتشف الكتب</a>
+    <nav class="desktop-nav" aria-label="التنقل الرئيسي">
+      <a href="#discover">اكتشف الكتب</a>
 	      <a href="#branches">المكتبات</a>
 	      <a href="#visitorAssistant">اسأل المساعد</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
@@ -66,17 +70,20 @@
     <section class="page-view page-home" id="homeView" data-view-panel="home" role="tabpanel" aria-labelledby="homeTab" tabindex="0">
       <section class="leadership-banner section-wrap" aria-labelledby="leadershipBannerTitle">
         <div class="leadership-banner-head">
-          <div><span class="eyebrow">منظومة التعليم · بورسعيد ومصر</span><h2 class="leadership-banner-heading" id="leadershipBannerTitle">قيادات التعليم والإدارة</h2><p class="leadership-banner-subtitle">تعريف مختصر بالقيادات ومناصبها.</p></div>
-          <div class="leadership-banner-meta"><span class="leadership-verified" id="leadershipVerifiedDate">آخر تحديث: ١٤ أكتوبر ٢٠٢٦</span><span class="leadership-owner">مسؤولية الموقع: محمد حامد</span></div>
+          <div><span class="eyebrow">منظومة التعليم · بورسعيد ومصر</span><h2 class="leadership-banner-heading" id="leadershipBannerTitle">قيادات التعليم والمكتبات</h2><p class="leadership-banner-subtitle">تعريف مختصر بالقيادات ومناصبها.</p></div>
+          <div class="leadership-banner-meta"><span class="leadership-verified" id="leadershipVerifiedDate">آخر تحديث: ١٥ أكتوبر ٢٠٢٦</span><span class="leadership-owner">محمد حامد · أخصائي أول مكتبات ومدير ومصمم المشروع</span></div>
         </div>
         <ul class="leadership-list" id="leadershipList" aria-label="القيادات التعليمية والإدارية">
           <li class="leadership-person"><img class="leadership-photo" src="assets/leader-sisi.jpg" alt="صورة السيد الرئيس عبد الفتاح السيسي" width="382" height="507" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">السيد الرئيس عبد الفتاح السيسي</strong><span class="leadership-person-title">رئيس جمهورية مصر العربية</span><a class="leadership-person-source" href="https://www.presidency.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D8%A7%D8%B3%D8%A9/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3/" target="_blank" rel="noopener noreferrer">رئاسة الجمهورية · السيرة الرسمية ↗</a></div></li>
           <li class="leadership-person"><img class="leadership-photo" src="assets/leader-mohamed-abdel-latif.jpg" alt="صورة السيد محمد عبد اللطيف" width="852" height="956" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">السيد محمد عبد اللطيف</strong><span class="leadership-person-title">وزير التربية والتعليم والتعليم الفني</span><a class="leadership-person-source" href="https://moe.gov.eg/what-s-on/news/oct12-2026/" target="_blank" rel="noopener noreferrer">وزارة التعليم · ١٢ أكتوبر ٢٠٢٦ ↗</a></div></li>
           <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">إ</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيد إبراهيم أبو ليمون</strong><span class="leadership-person-title">محافظ بورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111377" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · مصدر رسمي ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">م</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيد محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
-          <li class="leadership-person"><span class="leadership-avatar" aria-hidden="true">أ</span><div class="leadership-person-copy"><strong class="leadership-person-name">السيدة أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية ببورسعيد</span><a class="leadership-person-source" href="https://www.facebook.com/portsedu/posts/1658923188931060/" target="_blank" rel="noopener noreferrer">مديرية التعليم · ١٣ أكتوبر ٢٠٢٦ ↗</a></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-badawi" src="assets/leader-mohamed-badawi.jpg" alt="صورة الأستاذ محمود بدوي" width="720" height="576" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الأستاذ محمود بدوي</strong><span class="leadership-person-title">مدير مديرية التربية والتعليم ببورسعيد</span><a class="leadership-person-source" href="https://www.portsaid.gov.eg/News/details/111273" target="_blank" rel="noopener noreferrer">محافظة بورسعيد · ١٣ سبتمبر ٢٠٢٦ ↗</a></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-amira" src="assets/leader-amira-abdel-latif.jpg" alt="صورة الدكتورة أميرة عبد اللطيف" width="236" height="609" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الدكتورة أميرة عبد اللطيف</strong><span class="leadership-person-title">مديرة إدارة شمال التعليمية ببورسعيد</span><a class="leadership-person-source" href="https://www.facebook.com/portsedu/posts/1658923188931060/" target="_blank" rel="noopener noreferrer">مديرية التعليم · ١٣ أكتوبر ٢٠٢٦ ↗</a></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-hassan" src="assets/leader-hassan-mohamed-hassan.jpg" alt="صورة الأستاذ حسن محمد حسن" width="371" height="408" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الأستاذ حسن محمد حسن</strong><span class="leadership-person-title">الموجه العام للمكتبات ببورسعيد</span><span class="leadership-person-source">بيانات وصورة مقدمة لإدارة الموقع</span></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-first-supervisor" src="assets/library-first-supervisor-mohamed-sameer.jpg" alt="صورة تعريفية للأستاذ محمد سمير أبو عميرة، موجه أول المكتبات ببورسعيد" width="720" height="712" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">الأستاذ محمد سمير أبو عميرة</strong><span class="leadership-person-title">موجه أول المكتبات ببورسعيد</span><span class="leadership-person-source">بيانات وصورة مقدمة لإدارة الموقع</span></div></li>
+          <li class="leadership-person"><img class="leadership-photo leadership-photo-hamed" src="assets/project-owner-mohamed-hamed.webp" alt="صورة محمد حامد، أخصائي أول مكتبات ومدير ومصمم المشروع" width="600" height="800" loading="lazy" decoding="async"><div class="leadership-person-copy"><strong class="leadership-person-name">محمد حامد</strong><span class="leadership-person-title">أخصائي أول مكتبات · مدير ومصمم المشروع</span><span class="leadership-person-source">صورة مقدمة من صاحب الموقع</span></div></li>
         </ul>
-        <details class="leadership-photo-credits" id="leaderImageCredits"><summary>تفاصيل إضافية</summary><p>صورة السيد الرئيس عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. صورة السيد محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ من القانون ٨٢ لسنة ٢٠٠٢.</p></details>
+        <details class="leadership-photo-credits" id="leaderImageCredits"><summary>تفاصيل إضافية</summary><p>صورة السيد الرئيس عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. صورة السيد محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ لسنة ٢٠٠٢. صور د. أميرة عبد اللطيف، والأستاذ محمود بدوي وحسن محمد حسن ومحمد سمير أبو عميرة، ومحمد حامد مقدمة لإدارة الموقع.</p></details>
       </section>
       <section class="hero section-wrap portal-hero" aria-labelledby="hero-title">
         <div class="portal-layout">
@@ -474,15 +481,19 @@
         </section>
         <section class="staff-panel" id="schoolProfilePanel" hidden>
           <div class="panel-heading"><div><h3>بيانات المدرسة وشعاراتها</h3><p>ملف مستقل لكل مدرسة تملكها؛ لا تنشر هذه البيانات تلقائياً.</p></div></div>
-          <p class="school-profile-intro">أدخل البيانات الرسمية لكل مدرسة على حدة. اختيار «إظهار الملف للعامة» لا يكفي وحده؛ يجب أيضاً نشر المكتبة من تبويب الفروع، وكل ذلك لا ينشر أي كتاب أو فرع تلقائياً. ملفات الشعارات صور عامة عند رفعها، فلا ترفع صور أشخاص أو معلومات سرية.</p>
+          <p class="school-profile-intro">أدخل البيانات الرسمية لكل مدرسة على حدة. عند إظهار الملف للعامة ستظهر بيانات المدرسة والشعارات والقيادات التي تدخلها في دليل المكتبات، بينما يظل نشر الكتب والفروع إعداداً منفصلاً. لا تضف إلا معلومات مصرحاً بنشرها.</p>
           <form id="schoolProfileForm" class="school-profile-panel" hidden>
             <div class="school-profile-grid">
               <label>اسم المدرسة الرسمي<input name="school_name" required minlength="2" maxlength="160" autocomplete="organization" placeholder="اكتب الاسم المعتمد"></label>
               <label>الإدارة التعليمية<input name="educational_administration" maxlength="160" autocomplete="off" placeholder="اكتب اسم الإدارة المعتمد"></label>
               <label>اسم أخصائي المكتبات<input name="librarian_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              <label>اسم مدير المدرسة<input name="principal_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              <label class="school-profile-multiline-field">أسماء الوكلاء<textarea name="deputy_names" rows="3" maxlength="1200" placeholder="اكتب اسم كل وكيل في سطر"></textarea></label>
+              <label>اسم الموجه العام<input name="general_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+              <label>اسم الموجه الأول<input name="first_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
               <div class="school-profile-logo-field"><label for="schoolLogoFile">شعار المدرسة</label><input id="schoolLogoFile" name="school_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="schoolLogoPreview" hidden><img id="schoolLogoImage" alt="معاينة شعار المدرسة"><span id="schoolLogoCaption"></span></div><label class="school-profile-check"><input name="remove_school_logo" type="checkbox"><span>إزالة الشعار الحالي عند الحفظ</span></label></div>
               <div class="school-profile-logo-field"><label for="governorateLogoFile">شعار المحافظة</label><input id="governorateLogoFile" name="governorate_logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG أو JPG أو WebP، حتى 2 ميغابايت.</small><div class="school-logo-preview" id="governorateLogoPreview" hidden><img id="governorateLogoImage" alt="معاينة شعار المحافظة"><span id="governorateLogoCaption"></span></div><label class="school-profile-check"><input name="remove_governorate_logo" type="checkbox"><span>إزالة شعار المحافظة الحالي عند الحفظ</span></label></div>
-              <label class="school-profile-check"><input name="is_public" type="checkbox"><span>السماح بعرض بيانات هذه المدرسة وشعاراتها في دليل المكتبات بعد نشر المكتبة أيضاً</span></label>
+              <label class="school-profile-check"><input name="is_public" type="checkbox"><span>إظهار ملف المدرسة وشعاراتها وبيانات القيادات في دليل المكتبات العامة</span></label>
               <button class="button button-primary school-profile-action" type="submit">حفظ بيانات المدرسة</button>
             </div>
             <p class="school-profile-private-note">تعديل هذا الملف مسموح لمالك المكتبة فقط. حفظ البيانات لا يغيّر حالة نشر المكتبة أو الفروع أو الكتب.</p>

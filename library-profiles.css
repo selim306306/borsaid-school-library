@@ -2,7 +2,9 @@
 .school-profile-intro{margin:0 0 16px;padding:12px 14px;border:1px solid #eee2bd;border-radius:12px;background:#fffaf0;color:#6e5d36;font-size:12px;line-height:1.9}
 .school-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
 .school-profile-grid>label,.school-profile-logo-field{display:grid;gap:6px;min-width:0;color:#53627a;font-size:11px;font-weight:700}
-.school-profile-grid input:not([type=checkbox]):not([type=file]){width:100%;min-width:0;min-height:43px;padding:8px 11px;border:1px solid #dfe5ef;border-radius:10px;background:#fff;color:#182744;font:inherit;font-weight:400}
+.school-profile-grid input:not([type=checkbox]):not([type=file]),.school-profile-grid textarea{width:100%;min-width:0;min-height:43px;padding:8px 11px;border:1px solid #dfe5ef;border-radius:10px;background:#fff;color:#182744;font:inherit;font-weight:400}
+.school-profile-grid textarea{min-height:78px;resize:vertical}
+.school-profile-multiline-field{align-content:start}
 .school-profile-logo-field{padding:13px;border:1px solid #e4e9f1;border-radius:13px;background:#fff}
 .school-profile-logo-field input[type=file]{width:100%;max-width:100%;font:inherit;font-size:10px;font-weight:400}
 .school-profile-logo-field small,.school-profile-private-note{color:#79869a;font-size:10px;font-weight:400;line-height:1.8}
@@ -29,5 +31,20 @@
 .school-profile-card strong{font-size:13px}
 .school-profile-meta{margin:3px 0 0;color:#66758f;font-size:10px;line-height:1.75}
 .school-profile-librarian{margin:5px 0 0;color:#344b85;font-size:10px;font-weight:600}
+.school-profile-leadership{display:grid;gap:4px;margin-top:8px;padding-top:7px;border-top:1px solid #edf0f5}
+.school-profile-leadership p{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px;margin:0;color:#596780;font-size:10px;line-height:1.65}
+.school-profile-leadership p strong{color:#344b85;font-size:10px}
+.school-profile-leadership p span{white-space:pre-line;overflow-wrap:anywhere}
 .school-directory-heading{margin:0 0 13px;color:#253b68;font-size:14px}
-@media(max-width:700px){.school-profile-panel{padding:14px}.school-profile-grid{grid-template-columns:1fr}.school-profile-action{width:100%}.school-profile-check{grid-column:auto}.school-profile-card{grid-column:auto}}
+.brand-logo-group{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.brand-logo-group img{width:42px;height:42px;object-fit:contain}
+.brand-logo-group .brand-logo-extra{width:30px;height:30px;padding:2px;border:1px solid #e7ebf2;border-radius:9px;background:#fff}
+.brand-logo-group [hidden]{display:none!important}
+.brand-copy{min-width:0;max-width:250px}
+.brand-copy strong,.brand-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leadership-photo-amira{object-position:center 18%}
+.leadership-photo-badawi{object-position:center center}
+.leadership-photo-hassan{object-position:center 28%}
+.leadership-photo-hamed{object-position:center 9%}
+.leadership-photo-first-supervisor{object-fit:contain;border-radius:8px;background:#fff}
+@media(max-width:700px){.school-profile-panel{padding:14px}.school-profile-grid{grid-template-columns:1fr}.school-profile-action{width:100%}.school-profile-check{grid-column:auto}.school-profile-card{grid-column:auto}.brand-copy{max-width:min(48vw,210px)}.brand-logo-group img{width:38px;height:38px}.brand-logo-group .brand-logo-extra{width:27px;height:27px}.school-profile-leadership p{font-size:9px}}
