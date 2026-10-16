@@ -287,13 +287,13 @@
     font-size:17px;
   }
   .header-chat-shortcut{
-    width:min(100%,320px);
-    min-height:46px;
+    width:min(100%,380px);
+    min-height:50px;
     justify-content:center;
     gap:7px;
-    max-width:calc(100% - 12px);
+    max-width:100%;
     padding:10px 14px;
-    font-size:calc(10px + var(--site-font-step, 2px));
+    font-size:calc(12px + var(--site-font-step, 2px));
   }
   .header-chat-shortcut svg{
     width:14px;

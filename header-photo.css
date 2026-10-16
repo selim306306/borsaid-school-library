@@ -84,8 +84,8 @@
 .header-photo-controls{position:absolute;z-index:4;top:12px;right:12px;display:flex;gap:5px;padding:4px;border:1px solid rgba(223,231,240,.9);border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 4px 15px rgba(24,39,68,.12)}
 .header-photo-control{display:inline-grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;color:#274d72;background:#eef4fb;font:700 21px/1 Arial,sans-serif}
 .header-photo-control:hover{color:#fff;background:#385dcc}
-.header-chat-shortcut{position:static;z-index:4;align-self:center;display:inline-flex;align-items:center;gap:7px;max-width:100%;min-height:44px;padding:10px 16px;border:1px solid rgba(255,255,255,.85);border-radius:999px;color:#fff;background:#188e72;box-shadow:0 5px 16px rgba(15,50,47,.24);font-family:inherit;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700;line-height:1.2;white-space:nowrap;cursor:pointer}
-.header-chat-shortcut:hover{background:#116d58}
+.header-chat-shortcut{position:static;z-index:4;align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:min(100%,360px);max-width:100%;min-height:52px;padding:12px 18px;border:2px solid rgba(255,255,255,.96);border-radius:999px;color:#fff;background:#087f62;box-shadow:0 7px 19px rgba(15,50,47,.28),0 0 0 3px rgba(8,127,98,.12);font-family:inherit;font-size:calc((13px) + var(--site-font-step, 2px));font-weight:800;line-height:1.2;white-space:nowrap;cursor:pointer}
+.header-chat-shortcut:hover{background:#06674f}
 .header-chat-shortcut svg{width:17px;height:17px;flex:0 0 auto;fill:currentColor}
 .header-photo-attribution{box-sizing:border-box;position:static;align-self:stretch;min-height:14px;max-width:100%;overflow:hidden;margin:-8px 0;padding:1px 4px;color:#64748b;font-size:9px;line-height:1.35;text-align:start;text-overflow:ellipsis;white-space:nowrap}
 .header-photo-attribution a{color:inherit;text-decoration:underline;text-underline-offset:2px}
