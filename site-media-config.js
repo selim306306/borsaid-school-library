@@ -82,9 +82,9 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
     key: 'social-preview',
     category: 'هوية الموقع',
     title: 'صورة المشاركة والتعريف',
-    usage: 'صورة معاينة رابط الموقع عند مشاركته؛ تُستخدم صورة الغلاف الافتراضية حتى تستبدلها.',
-    defaultSrc: 'https://selim306306.github.io/borsaid-school-library/assets/library-hero.webp',
-    defaultAlt: 'مساحة قراءة مضيئة ورفوف كتب في مكتبة مدرسية حديثة',
+    usage: 'بطاقة معاينة رابط الموقع الثابتة بمقاس 1200×630؛ يمكن للمالك استبدالها من مكتبة الوسائط.',
+    defaultSrc: 'https://selim306306.github.io/borsaid-school-library/assets/social-preview-20261016.jpg',
+    defaultAlt: 'بطاقة مكتبات بورسعيد المدرسية بعنوان «كتابك أقرب» مع صورة رفوف كتب.',
     selectors: [],
   },
   {

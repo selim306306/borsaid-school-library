@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.0';
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-header-gallery-1';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-social-preview-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -21,12 +21,19 @@ function setMetaImage(key, imageUrl, altText) {
     return;
   }
   if (key !== 'social-preview') return;
-  for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
+  for (const selector of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[name="twitter:image"]']) {
     const meta = document.querySelector(selector);
     if (meta) meta.content = imageUrl;
   }
-  const alt = document.querySelector('meta[property="og:image:alt"]');
-  if (alt) alt.content = altText;
+  for (const selector of ['meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) {
+    const alt = document.querySelector(selector);
+    if (alt) alt.content = altText;
+  }
+  if (!imageUrl.endsWith('/assets/social-preview-20261016.jpg')) {
+    for (const selector of ['meta[property="og:image:type"]', 'meta[property="og:image:width"]', 'meta[property="og:image:height"]']) {
+      document.querySelector(selector)?.remove();
+    }
+  }
 }
 
 function imageTargets(item) {
