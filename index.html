@@ -37,14 +37,14 @@
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261016-header-album-25-1">
-  <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
+  <link rel="stylesheet" href="library-profiles.css?v=20261017-owner-school-delete-1">
   <link rel="stylesheet" href="header-photo.css?v=20261016-ai-chat-cta-1">
   <link rel="stylesheet" href="visitor-questions.css?v=20261016-visitor-chat-modal-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261016-header-album-25-1"></script>
+  <script type="module" src="app.js?v=20261017-owner-school-delete-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -657,6 +657,22 @@
             <p class="school-profile-private-note">تعديل هذا الملف مسموح لمالك المكتبة فقط. حفظ البيانات لا يغيّر حالة نشر المكتبة أو الفروع أو الكتب.</p>
           </form>
           <p class="school-profile-status" id="schoolProfileStatus" role="status" aria-live="polite">جارٍ تحميل بيانات المدرسة…</p>
+          <section class="school-delete-card" id="deleteSchoolCard" hidden aria-labelledby="deleteSchoolTitle">
+            <div class="school-delete-heading"><h4 id="deleteSchoolTitle">حذف مدرسة نهائيًا</h4><p>ابدأ بمعاينة الأثر. لن يُحذف شيء حتى تراجع الأعداد وتؤكد صراحةً؛ سجلات التدقيق والبيانات المرتبطة ستُحذف نهائيًا، أما حسابات المستخدمين نفسها فستبقى.</p></div>
+            <button class="button button-primary school-delete-preview-action" id="previewOwnedSchoolDeletion" type="button">معاينة أثر الحذف النهائي</button>
+            <p class="school-profile-status" id="deleteOwnedSchoolStatus" role="status" aria-live="polite"></p>
+            <div class="school-delete-preview" id="schoolDeletionPreview" hidden aria-labelledby="schoolDeletionPreviewTitle">
+              <h5 id="schoolDeletionPreviewTitle">الأثر الذي ستوافق عليه</h5>
+              <p class="school-deletion-target"><strong>المدرسة المحددة:</strong> <span id="schoolDeletionSchoolName"></span></p>
+              <ul class="school-delete-impact-list" id="schoolDeletionImpactList"></ul>
+              <p class="school-deletion-notice" id="schoolDeletionImpactNotice" role="status" aria-live="polite"></p>
+              <label class="school-delete-confirm-check"><input id="confirmSchoolDeletionCheck" type="checkbox"><span>راجعت الأعداد أعلاه وأوافق على حذف المدرسة وجميع السجلات المعروضة نهائيًا.</span></label>
+              <div class="school-delete-actions">
+                <button class="button" id="cancelSchoolDeletion" type="button">إلغاء</button>
+                <button class="button school-delete-action" id="confirmDeleteOwnedSchool" type="button" disabled>تأكيد الحذف النهائي</button>
+              </div>
+            </div>
+          </section>
           <hr class="school-profile-divider">
           <details class="create-school-details">
             <summary>إضافة سجل مدرسة أخرى أملكها</summary>

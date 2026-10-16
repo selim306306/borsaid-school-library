@@ -3,7 +3,7 @@ import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-cam
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-admin-intent-1';
-
+import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -14,14 +14,8 @@ const ASSISTANT_MODELS = new Set(['gemini-3.5-flash-lite', 'gemini-3.8-flash']);
 const DEFAULT_ASSISTANT_MODEL = 'gemini-3.5-flash-lite';
 const DEFAULT_FOOTER_DESCRIPTION = 'بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.';
 const SITE_FOOTER_SETTING_KEY = 'global_footer';
-const SITE_OWNER_LIBRARY_IDS = new Set([
-  'a70f6fa4-0dc1-4612-9280-6c2a8e049dd4',
-  'c5d10456-1c6e-4bd1-8275-d14e354ac285',
-]);
-
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-
 const viewTabs = $$('.view-tab');
 const viewPanels = $$('[data-view-panel]');
 const PUBLIC_PAGE_VIEW_LABELS = Object.freeze({
@@ -720,6 +714,7 @@ function configureRole(role) {
   $('#schoolProfileForm').hidden = !owner;
   $('#siteFooterEditor').hidden = !hasSiteFooterOwnership();
   $('#createSchoolForm').hidden = !owner;
+  $('#deleteSchoolCard').hidden = !canDeleteOwnedSchool(role, currentLibraryId);
   $('#sharingSettingsForm').hidden = !administrator;
   $('#libraryPublicationForm').hidden = !administrator;
   $('#patronForm').hidden = !circulation;
@@ -1821,6 +1816,184 @@ $('#createSchoolForm').addEventListener('submit', async event => {
   status.className = 'school-profile-status success';
   $('#createSchoolDetails').open = false;
   await loadMemberships(data);
+});
+const SCHOOL_DELETION_IMPACT_LABELS = [
+  ['libraries', 'سجل المدرسة'],
+  ['library_profiles', 'ملف المدرسة وبياناته'],
+  ['library_memberships', 'عضويات الوصول (حسابات الدخول نفسها لا تُحذف)'],
+  ['branches', 'الفروع'],
+  ['catalog_titles', 'عناوين الكتب'],
+  ['holdings', 'نسخ الكتب'],
+  ['inventory_checks', 'سجلات الجرد'],
+  ['patrons', 'سجلات المستعيرين'],
+  ['loans', 'سجلات الإعارة'],
+  ['reservations', 'الحجوزات'],
+  ['visitors', 'سجلات الزوار'],
+  ['interlibrary_requests', 'طلبات بين المكتبات المرتبطة بالمدرسة'],
+  ['incoming_external_requests', 'طلبات واردة من مكتبات أخرى (تمنع الحذف)'],
+  ['audit_log', 'سجلات التدقيق المرتبطة (ستُحذف)'],
+  ['storage_files', 'ملفات شعارات المدرسة'],
+  ['remaining_owned_libraries', 'مكتبات أخرى ستبقى لك بصفة المالك'],
+];
+let pendingSchoolDeletion = null;
+async function listSchoolBrandingFiles(libraryId) {
+  const bucket = supabase.storage.from('school-branding');
+  const paths = [];
+  async function visit(folder, depth = 0) {
+    if (depth > 5) throw new Error('school_branding_list_failed');
+    for (let offset = 0; offset < 10000; offset += 100) {
+      const { data, error } = await bucket.list(folder, { limit: 100, offset });
+      if (error) throw new Error('school_branding_list_failed');
+      const page = Array.isArray(data) ? data : [];
+      for (const item of page) {
+        if (!item?.name) continue;
+        if (item.id) paths.push(`${folder}/${item.name}`);
+        else await visit(`${folder}/${item.name}`, depth + 1);
+      }
+      if (page.length < 100) return;
+    }
+    throw new Error('school_branding_list_failed');
+  }
+  await visit(libraryId);
+  return paths;
+}
+function renderSchoolDeletionPreview(preview, files) {
+  const counts = { ...preview.counts, storage_files: files.length };
+  const list = $('#schoolDeletionImpactList');
+  list.replaceChildren();
+  const formatter = new Intl.NumberFormat('ar-EG');
+  for (const [key, label] of SCHOOL_DELETION_IMPACT_LABELS) {
+    const row = document.createElement('li');
+    const name = document.createElement('span');
+    const count = document.createElement('strong');
+    name.textContent = label;
+    count.textContent = formatter.format(Number(counts[key] || 0));
+    row.append(name, count);
+    list.append(row);
+  }
+
+  const incomingRequests = Number(counts.incoming_external_requests || 0);
+  const remainingLibraries = Number(counts.remaining_owned_libraries || 0);
+  const isLastSiteOwnerLibrary = SITE_OWNER_LIBRARY_IDS.has(preview.library_id)
+    && !currentMemberships.some(membership => membership.status === 'active'
+      && membership.role === 'owner' && SITE_OWNER_LIBRARY_IDS.has(membership.library_id)
+      && membership.library_id !== preview.library_id);
+  const blockers = [];
+  const notices = [];
+  if (incomingRequests > 0) blockers.push('توجد طلبات واردة من مكتبات أخرى؛ يجب أن يعالجها أصحابها قبل الحذف.');
+  if (remainingLibraries < 1) blockers.push('يجب أن تبقى لك مكتبة نشطة واحدة على الأقل بصفة المالك.');
+  if (isLastSiteOwnerLibrary) notices.push('تنبيه: حذف آخر مكتبة أساسية سيعطّل صلاحيات إدارة محتوى الموقع العام مثل التذييل والصور والإحصاءات.');
+  if (!blockers.length) notices.push('راجع الأعداد أعلاه، ثم فعّل مربع الإقرار لتأكيد الحذف النهائي.');
+  $('#schoolDeletionImpactNotice').textContent = [...blockers, ...notices].join(' ');
+  $('#schoolDeletionSchoolName').textContent = preview.school_name || 'المدرسة المحددة';
+
+  const checkbox = $('#confirmSchoolDeletionCheck');
+  checkbox.checked = false;
+  checkbox.disabled = blockers.length > 0;
+  $('#confirmDeleteOwnedSchool').disabled = true;
+  $('#schoolDeletionPreview').hidden = false;
+  pendingSchoolDeletion = {
+    libraryId: preview.library_id,
+    counts: preview.counts,
+    files,
+    blocked: blockers.length > 0,
+  };
+}
+$('#previewOwnedSchoolDeletion').addEventListener('click', async () => {
+  if (!canDeleteOwnedSchool(currentRole, currentLibraryId)) return;
+  const libraryId = currentLibraryId;
+  const button = $('#previewOwnedSchoolDeletion');
+  button.disabled = true;
+  $('#librarySelect').disabled = true;
+  $('#schoolDeletionPreview').hidden = true;
+  pendingSchoolDeletion = null;
+  $('#deleteOwnedSchoolStatus').textContent = 'جارٍ جمع أعداد السجلات وملفات المدرسة…';
+  try {
+    const { data, error } = await supabase.rpc('preview_owned_school_deletion', { p_library_id: libraryId });
+    if (error) throw error;
+    if (!data?.counts || data.library_id !== libraryId) throw new Error('school_not_found');
+    const files = await listSchoolBrandingFiles(libraryId);
+    if (files.length !== Number(data.storage_files || 0)) throw new Error('school_storage_count_mismatch');
+    const selectedOption = $('#librarySelect').selectedOptions[0];
+    const displayedSchoolName = currentLibraryProfile?.school_name || selectedOption?.dataset.schoolName || data.school_name || selectedOption?.textContent;
+    renderSchoolDeletionPreview({ ...data, school_name: displayedSchoolName }, files);
+    $('#deleteOwnedSchoolStatus').textContent = 'اكتملت المعاينة. لم يُحذف أي سجل؛ أكّد فقط إذا وافقت على الأثر المعروض.';
+  } catch (error) {
+    $('#deleteOwnedSchoolStatus').textContent = schoolDeletionErrorMessage(error?.message);
+    $('#librarySelect').disabled = false;
+  } finally {
+    button.disabled = false;
+  }
+});
+$('#confirmSchoolDeletionCheck').addEventListener('change', event => {
+  $('#confirmDeleteOwnedSchool').disabled = !pendingSchoolDeletion
+    || pendingSchoolDeletion.blocked || !event.currentTarget.checked;
+});
+$('#cancelSchoolDeletion').addEventListener('click', () => {
+  pendingSchoolDeletion = null;
+  $('#schoolDeletionPreview').hidden = true;
+  $('#confirmSchoolDeletionCheck').checked = false;
+  $('#librarySelect').disabled = false;
+  $('#deleteOwnedSchoolStatus').textContent = 'أُلغيت المعاينة؛ لم يُحذف أي شيء.';
+});
+async function removeSchoolBrandingFiles(paths) {
+  for (let index = 0; index < paths.length; index += 100) {
+    const { error } = await supabase.storage.from('school-branding').remove(paths.slice(index, index + 100));
+    if (error) throw error;
+  }
+}
+$('#confirmDeleteOwnedSchool').addEventListener('click', async () => {
+  const pending = pendingSchoolDeletion;
+  if (!pending || pending.blocked || !$('#confirmSchoolDeletionCheck').checked) return;
+  const confirmButton = $('#confirmDeleteOwnedSchool');
+  const previewButton = $('#previewOwnedSchoolDeletion');
+  confirmButton.disabled = true;
+  previewButton.disabled = true;
+  let storageAttempted = false;
+  let storageComplete = false;
+  let deletionCompleted = false;
+  $('#deleteOwnedSchoolStatus').textContent = 'جارٍ حذف الملفات ثم السجلات التي راجعت أثرها…';
+  try {
+    if (pending.files.length) {
+      storageAttempted = true;
+      await removeSchoolBrandingFiles(pending.files);
+      storageComplete = true;
+    }
+    const { error } = await supabase.rpc('delete_owned_school', {
+      p_library_id: pending.libraryId,
+      p_expected_counts: pending.counts,
+    });
+    if (error) throw error;
+    deletionCompleted = true;
+    currentLibraryProfileChoices.delete(pending.libraryId);
+    currentLibraryProfile = null;
+    pendingSchoolDeletion = null;
+    $('#schoolDeletionPreview').hidden = true;
+    $('#confirmSchoolDeletionCheck').checked = false;
+    await loadMemberships();
+    setSchoolProfileStatus('حُذفت المدرسة نهائيًا مع السجلات التي ظهرت في المعاينة.', 'success');
+    $('#deleteOwnedSchoolStatus').textContent = 'اكتمل الحذف النهائي.';
+  } catch (error) {
+    const message = schoolDeletionErrorMessage(error?.message);
+    if (deletionCompleted) {
+      setSchoolProfileStatus('اكتمل حذف المدرسة، لكن تعذّر تحديث بقية لوحة الإدارة. حدّث الصفحة.', 'success');
+      $('#deleteOwnedSchoolStatus').textContent = 'اكتمل الحذف النهائي.';
+    } else {
+      const fileNotice = storageAttempted
+        ? storageComplete
+          ? ' أُزيلت ملفات الشعارات قبل تعذّر إكمال حذف السجلات؛ أعد رفعها إذا بقي سجل المدرسة.'
+          : ' لم يكتمل تنظيف ملفات الشعارات؛ لم يُحذف سجل المكتبة، وقد يكون بعض الملفات أُزيل.'
+        : '';
+      $('#deleteOwnedSchoolStatus').textContent = `${message}${fileNotice}`;
+      pendingSchoolDeletion = null;
+      $('#schoolDeletionPreview').hidden = true;
+      $('#confirmSchoolDeletionCheck').checked = false;
+    }
+  } finally {
+    $('#librarySelect').disabled = false;
+    previewButton.disabled = false;
+    confirmButton.disabled = true;
+  }
 });
 async function loadInventory() {
   const tbody = $('#inventoryRows');

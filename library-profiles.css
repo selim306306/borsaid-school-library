@@ -93,3 +93,32 @@
   .brand-copy strong{font-size:calc((10px) + var(--site-font-step, 2px))}
   .brand-school-identities{font-size:calc((9px) + var(--site-font-step, 2px));font-weight:600}
 }
+
+.school-delete-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;margin-top:12px;padding:14px 16px;border:1px solid #efc6c8;border-radius:14px;background:#fff8f8}
+.school-delete-card[hidden]{display:none!important}
+.school-delete-card h4{margin:0 0 4px;color:#8e343e;font-size:calc((12px) + var(--site-font-step, 2px))}
+.school-delete-card p{margin:0;color:#75565a;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-delete-action{min-width:190px;border:1px solid #a63f4a;background:#fff;color:#8e343e;font-weight:700}
+.school-delete-action:hover{background:#fff0f0}
+.school-delete-action:disabled{opacity:.62;cursor:wait}
+@media(max-width:700px){.school-delete-card{grid-template-columns:1fr;padding:13px}.school-delete-action{width:100%}}
+
+.school-delete-card{grid-template-columns:1fr;align-items:stretch}
+.school-delete-heading h4{margin:0 0 5px;color:#8e343e;font-size:calc((12px) + var(--site-font-step, 2px))}
+.school-delete-heading p{margin:0;color:#75565a;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-delete-preview-action{justify-self:start;min-width:220px}
+.school-delete-preview[hidden]{display:none!important}
+.school-delete-preview{margin-top:8px;padding:14px;border:1px solid #e7b7bb;border-radius:12px;background:#fff}
+.school-delete-preview h5{margin:0 0 8px;color:#7f3039;font-size:calc((12px) + var(--site-font-step, 2px))}
+.school-deletion-target{margin:0 0 8px;color:#34435d;font-size:calc((11px) + var(--site-font-step, 2px));overflow-wrap:anywhere}
+.school-delete-impact-list{display:grid;gap:0;margin:0;padding:0;list-style:none;border:1px solid #f0dfe0;border-radius:10px;overflow:hidden}
+.school-delete-impact-list li{display:flex;justify-content:space-between;gap:12px;padding:7px 10px;border-bottom:1px solid #f3e7e8;color:#4e596e;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.6}
+.school-delete-impact-list li:last-child{border-bottom:0}
+.school-delete-impact-list li strong{flex:0 0 auto;color:#7f3039;font-variant-numeric:tabular-nums}
+.school-deletion-notice{margin:10px 0;padding:9px 10px;border-radius:9px;background:#fff4e8;color:#76501d;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-delete-confirm-check{display:flex;align-items:flex-start;gap:9px;margin-top:10px;padding:10px;border:1px solid #edc5c7;border-radius:10px;background:#fff8f8;color:#50363a;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-delete-confirm-check input{flex:0 0 auto;margin-top:5px;accent-color:#a63f4a}
+.school-delete-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.school-delete-actions .school-delete-action{justify-self:auto;min-width:190px}
+.school-delete-action:focus-visible,.school-delete-preview-action:focus-visible,.school-delete-actions .button:focus-visible{outline:3px solid #425fc1;outline-offset:2px}
+@media(max-width:700px){.school-delete-preview-action,.school-delete-actions .button{width:100%}.school-delete-actions{display:grid;grid-template-columns:1fr}.school-delete-actions .school-delete-action{width:100%}.school-delete-impact-list li{align-items:flex-start}}
