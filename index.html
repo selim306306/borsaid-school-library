@@ -29,13 +29,13 @@
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
-  <link rel="stylesheet" href="header-photo.css?v=20261016-header-carousel-2">
-  <link rel="stylesheet" href="visitor-questions.css?v=20261016-auto-send-notice-2">
+  <link rel="stylesheet" href="header-photo.css?v=20261016-visitor-chat-modal-1">
+  <link rel="stylesheet" href="visitor-questions.css?v=20261016-visitor-chat-modal-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-site-mark-webp-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-carousel-1"></script>
-  <script type="module" src="app.js?v=20261016-owner-question-dashboard-1"></script>
+  <script type="module" src="app.js?v=20261016-visitor-chat-modal-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -72,11 +72,10 @@
     <div class="header-feature-image-slot" role="region" aria-roledescription="carousel" aria-label="صور المكتبات والقراءة">
       <img class="brand-header-photo is-active" id="brandHeaderPhoto" src="assets/header-photo-initial.webp" data-site-media-bootstrap-src="assets/header-photo-initial.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="صورة نشاط مكتبي في مكتبة مدرسية" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false">
       <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <span class="header-photo-attribution" id="headerPhotoAttribution" hidden></span>
-      <a class="header-telegram-shortcut" id="headerTelegramShortcut" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer" aria-label="افتح مساعد مكتبات بورسعيد الذكي على Telegram">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.6 18.2 19c-.2 1-1 1.2-1.8.7l-4.9-3.6-2.4 2.3c-.3.3-.6.6-1.2.6l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L5.6 12.8l-4.8-1.5c-1-.3-1-1 .2-1.5l18.8-7.2c.9-.3 1.7.2 1.6 2z"></path></svg>
-        <span>مساعد Telegram الذكي</span><span aria-hidden="true">↗</span>
-      </a>
+      <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح دردشة مساعد مكتبات بورسعيد" aria-haspopup="dialog" aria-controls="visitorChatDialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
+        <span>دردشة مساعد المكتبة</span>
+      </button>
       <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
         <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
         <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
@@ -394,16 +393,6 @@
       </section>
     </section>
     <section class="page-view" id="aboutView" data-view-panel="about" role="tabpanel" aria-labelledby="aboutTab" tabindex="0" hidden>
-    <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-      <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
-      <div class="visitor-assistant-box">
-        <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
-        <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
-        <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
-        <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
-      </div>
-    </section>
-
     <section class="feature-section section-wrap" id="features" aria-labelledby="features-title">
       <div class="feature-intro"><span class="eyebrow">مصمّم لواقع المكتبات</span><h2 id="features-title">أدوات عملية،<br>بلا تعقيد.</h2><p>من تسجيل الكتاب برقم عام إلى متابعة الحركة والتقارير، كل خطوة لها مكان واضح.</p><a class="text-link" href="#staff" id="featureStaffLink">للموظفين وأمناء المكتبات <span aria-hidden="true">←</span></a></div>
       <div class="feature-cards">
@@ -450,6 +439,18 @@
       </form>
     </section>
     </section>
+    <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
+      <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">محادثة مساعد الزوار</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق دردشة مساعد الزوار">×</button></header>
+      <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
+        <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
+        <div class="visitor-assistant-box">
+          <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
+          <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
+          <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
+          <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+    </dialog>
   </main>
 
   <footer class="site-footer section-wrap">

@@ -157,6 +157,97 @@
   border: 0 !important;
 }
 
+.visitor-chat-dialog {
+  width: min(44rem, calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid #d5e0e5;
+  border-radius: 1.25rem;
+  color: #17354b;
+  background: #fff;
+  box-shadow: 0 24px 80px rgb(15 33 54 / 28%);
+}
+
+.visitor-chat-dialog[open] {
+  display: block;
+}
+
+.visitor-chat-dialog::backdrop {
+  background: rgb(12 25 42 / 54%);
+  backdrop-filter: blur(3px);
+}
+
+.visitor-chat-dialog-header {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .8rem 1rem;
+  border-bottom: 1px solid #e0e8ec;
+  background: rgb(255 255 255 / 96%);
+}
+
+.visitor-chat-dialog-header h2 {
+  margin: 0;
+  color: #173b56;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.visitor-chat-dialog-close {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #d4dfe5;
+  border-radius: 50%;
+  color: #24465d;
+  background: #f6f9fa;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.visitor-chat-dialog-close:hover {
+  background: #eaf2f3;
+}
+
+.visitor-chat-dialog-close:focus-visible {
+  outline: 3px solid #57a2ad;
+  outline-offset: 2px;
+}
+
+.visitor-chat-dialog .visitor-assistant {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: auto;
+  margin: 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.visitor-chat-dialog .visitor-assistant-copy h2 {
+  margin-top: .25rem;
+}
+
+.visitor-chat-dialog .visitor-assistant-log {
+  min-height: 8rem;
+  max-height: min(32dvh, 18rem);
+}
+
+.visitor-chat-dialog .visitor-assistant-form input {
+  min-height: 2.75rem;
+}
+
 @media (max-width: 760px) {
   .visitor-support {
     grid-template-columns: 1fr;
@@ -165,6 +256,25 @@
 
   .visitor-question-submit {
     width: 100%;
+  }
+
+  .visitor-chat-dialog {
+    width: calc(100vw - 1rem);
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100dvh - 1rem);
+    border-radius: 1rem;
+  }
+
+  .visitor-chat-dialog-header {
+    padding: .65rem .8rem;
+  }
+
+  .visitor-chat-dialog .visitor-assistant {
+    padding: 1rem;
+  }
+
+  .visitor-chat-dialog .visitor-assistant-form {
+    align-items: stretch;
   }
 }
 

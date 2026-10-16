@@ -83,13 +83,13 @@
 .header-photo-controls{position:absolute;z-index:4;top:12px;right:12px;display:flex;gap:5px;padding:4px;border:1px solid rgba(223,231,240,.9);border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 4px 15px rgba(24,39,68,.12)}
 .header-photo-control{display:inline-grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;color:#274d72;background:#eef4fb;font:700 21px/1 Arial,sans-serif}
 .header-photo-control:hover{color:#fff;background:#385dcc}
-.header-telegram-shortcut{position:absolute;z-index:4;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:7px;max-width:calc(100% - 28px);padding:9px 12px;border:1px solid rgba(255,255,255,.85);border-radius:999px;color:#fff;background:#188e72;box-shadow:0 5px 16px rgba(15,50,47,.24);font-size:calc((10px) + var(--site-font-step, 2px));font-weight:700;line-height:1.2;white-space:nowrap}
-.header-telegram-shortcut:hover{background:#116d58}
-.header-telegram-shortcut svg{width:17px;height:17px;flex:0 0 auto;fill:currentColor}
+.header-chat-shortcut{position:absolute;z-index:4;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:7px;max-width:calc(100% - 28px);padding:9px 12px;border:1px solid rgba(255,255,255,.85);border-radius:999px;color:#fff;background:#188e72;box-shadow:0 5px 16px rgba(15,50,47,.24);font-family:inherit;font-size:calc((10px) + var(--site-font-step, 2px));font-weight:700;line-height:1.2;white-space:nowrap;cursor:pointer}
+.header-chat-shortcut:hover{background:#116d58}
+.header-chat-shortcut svg{width:17px;height:17px;flex:0 0 auto;fill:currentColor}
 .header-photo-attribution{position:absolute;z-index:4;top:16px;left:12px;max-width:calc(100% - 132px);overflow:hidden;padding:5px 8px;border-radius:8px;color:#34425d;background:rgba(255,255,255,.9);font-size:9px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
 .header-photo-attribution a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .header-photo-attribution[hidden]{display:none}
-.header-feature-image-slot .header-photo-control:focus-visible,.header-feature-image-slot .header-telegram-shortcut:focus-visible,.header-feature-image-slot .header-photo-attribution a:focus-visible{outline:3px solid #f3c84f;outline-offset:2px}
+.header-feature-image-slot .header-photo-control:focus-visible,.header-feature-image-slot .header-chat-shortcut:focus-visible,.header-feature-image-slot .header-photo-attribution a:focus-visible{outline:3px solid #f3c84f;outline-offset:2px}
 @media(max-width:700px){
   .site-header{
     width:min(1180px,calc(100% - 48px));
@@ -119,7 +119,7 @@
   .header-feature-image-slot::after{top:-7px;width:32px;height:5px}
   .header-photo-controls{top:11px;right:11px;gap:3px}
   .header-photo-control{width:32px;height:32px}
-  .header-telegram-shortcut{left:11px;bottom:11px;padding:8px 10px;font-size:calc((9px) + var(--site-font-step, 2px))}
+  .header-chat-shortcut{left:11px;bottom:11px;padding:8px 10px;font-size:calc((9px) + var(--site-font-step, 2px))}
   .header-photo-attribution{top:14px;left:10px;max-width:calc(100% - 122px);font-size:8px}
   #visitorTabs.site-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:3px;overflow:visible}
   #visitorTabs .site-view-tabs{display:contents}

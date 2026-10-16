@@ -631,6 +631,23 @@ $('#visitorAssistantLog').addEventListener('click', event => {
   $('#discover').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
+const visitorChatDialog = $('#visitorChatDialog');
+function openVisitorChat() {
+  if (!visitorChatDialog) return;
+  if (!visitorChatDialog.open) visitorChatDialog.showModal();
+  requestAnimationFrame(() => $('#visitorAssistantInput')?.focus({ preventScroll: true }));
+}
+$('#headerVisitorChatShortcut')?.addEventListener('click', openVisitorChat);
+$('#closeVisitorChat')?.addEventListener('click', () => visitorChatDialog?.close());
+$$('a[href="#visitorAssistant"]').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  openVisitorChat();
+}));
+visitorChatDialog?.addEventListener('click', event => {
+  if (event.target === visitorChatDialog) visitorChatDialog.close();
+});
+if (window.location.hash === '#visitorAssistant') openVisitorChat();
+
 const openStaff = () => {
   if (!staffDialog.open) staffDialog.showModal();
   if (!supabase) setMessage(loginMessage, 'الاتصال بخدمة الحسابات غير جاهز حالياً. أعد تحميل الصفحة وحاول مجدداً.', 'error');
