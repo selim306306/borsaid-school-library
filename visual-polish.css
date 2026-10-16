@@ -5,7 +5,7 @@
 }
 .site-header{
   width:min(940px,calc(100% - 40px));
-  grid-template-columns:minmax(0,1fr) minmax(260px,340px);
+  grid-template-columns:minmax(0,1fr) minmax(360px,440px);
   gap:clamp(12px,1.8vw,22px);
   padding-block:10px;
 }
@@ -19,7 +19,8 @@
     background:linear-gradient(105deg,#fbfcff 0%,#fff 62%,#fffdf6 100%);
   }
   .header-feature-image-slot{
-    width:clamp(260px,27vw,340px);
+    width:100%;
+    max-width:none;
     border-radius:21px;
   }
   .brand{
@@ -191,11 +192,11 @@
   .site-header{
     width:calc(100% - 24px);
     min-height:0;
-    grid-template-columns:minmax(0,1fr) clamp(112px,32vw,150px);
-    grid-template-rows:auto;
-    grid-template-areas:"brand photo";
-    align-items:center;
-    gap:8px;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto;
+    grid-template-areas:"brand" "photo";
+    align-items:start;
+    gap:6px;
     margin-block:6px 4px;
     padding:7px;
     border:1px solid #edf0f4;
@@ -286,12 +287,13 @@
     font-size:17px;
   }
   .header-chat-shortcut{
-    left:6px;
-    bottom:6px;
-    gap:4px;
+    width:min(100%,320px);
+    min-height:46px;
+    justify-content:center;
+    gap:7px;
     max-width:calc(100% - 12px);
-    padding:5px 7px;
-    font-size:calc(8px + var(--site-font-step, 2px));
+    padding:10px 14px;
+    font-size:calc(10px + var(--site-font-step, 2px));
   }
   .header-chat-shortcut svg{
     width:14px;
@@ -378,7 +380,9 @@
 }
 @media (max-width:380px){
   .site-header{
-    grid-template-columns:minmax(0,1fr) 108px;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto;
+    grid-template-areas:"brand" "photo";
     gap:6px;
     padding:6px;
   }
