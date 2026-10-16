@@ -4,7 +4,7 @@ import { initializeBookImportControls } from './staff-import-controller.mjs?v=20
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
-import { shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-1';
+import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -235,11 +235,11 @@ function publicLogoUrl(path, { original = false } = {}) {
     transform: { width: 128, height: 128, resize: 'contain', format: 'webp', quality: 65 },
   }).data?.publicUrl || originalUrl;
 }
-function bindPublicLogoFallback(image, originalUrl) {
+function bindPublicLogoFallback(image, originalUrl, { eager = false } = {}) {
   if (!image) return;
-  image.loading = 'lazy';
+  image.loading = eager ? 'eager' : 'lazy';
   image.decoding = 'async';
-  image.fetchPriority = 'low';
+  image.fetchPriority = eager ? 'high' : 'low';
   image.dataset.logoOriginalUrl = originalUrl || '';
   image.dataset.logoFallbackApplied = 'false';
   if (image.dataset.logoFallbackBound === 'true') return;
@@ -279,7 +279,7 @@ function updatePublicBranding(profiles = []) {
   defaultLogo.hidden = false;
   governorateLogo.hidden = !governorateUrl;
   if (governorateUrl) {
-    bindPublicLogoFallback(governorateLogo, publicLogoUrl(governorateProfile.governorate_logo_path, { original: true }));
+    bindPublicLogoFallback(governorateLogo, publicLogoUrl(governorateProfile.governorate_logo_path, { original: true }), { eager: true });
     governorateLogo.src = governorateUrl;
   }
   else governorateLogo.removeAttribute('src');
@@ -300,9 +300,9 @@ function updatePublicBranding(profiles = []) {
     if (schoolUrl) {
       const logo = document.createElement('img');
       logo.className = 'brand-school-logo';
-      logo.src = schoolUrl;
       logo.alt = '';
-      bindPublicLogoFallback(logo, publicLogoUrl(profile.school_logo_path, { original: true }));
+      bindPublicLogoFallback(logo, publicLogoUrl(profile.school_logo_path, { original: true }), { eager: true });
+      logo.src = schoolUrl;
       identity.append(logo);
     } else {
       const placeholder = document.createElement('span');
@@ -320,10 +320,10 @@ function updatePublicBranding(profiles = []) {
     subtitle.append(identity);
   }
 }
-function paintBranches(rows, profiles = publicLibraryProfiles) {
+function paintBranches(rows, profiles = publicLibraryProfiles, updateHeaderBranding = true) {
   const grid = $('#branchesGrid');
   const displayProfiles = deduplicatePublicSchoolProfiles(profiles);
-  updatePublicBranding(displayProfiles);
+  if (updateHeaderBranding) updatePublicBranding(displayProfiles);
   const schoolCards = displayProfiles.map(profile => {
     const schoolLogo = publicLogoUrl(profile.school_logo_path);
     const governorateLogo = publicLogoUrl(profile.governorate_logo_path);
@@ -368,17 +368,22 @@ function updateBranchFilter(rows) {
   if (rows.some(branch => branch.branch_id === selected)) branchFilter.value = selected;
 }
 async function loadPublicBranches() {
-  const [branchesResult, profilesResult] = await Promise.all([
-    publicSupabase.from('public_branches')
-      .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
-      .order('branch_name', { ascending: true }),
+  const profilesRequest = renderPublicProfilesAsSoonAsAvailable(
     publicSupabase.from('library_profiles')
       .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,show_school_name_on_homepage')
       .order('school_name', { ascending: true }),
-  ]);
+    profiles => {
+      publicLibraryProfiles = profiles;
+      paintBranches([], profiles);
+    },
+  );
+  const branchesRequest = publicSupabase.from('public_branches')
+    .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
+    .order('branch_name', { ascending: true });
+  const [branchesResult, profilesResult] = await Promise.all([branchesRequest, profilesRequest]);
   publicBranches = branchesResult.error ? [] : (branchesResult.data || []);
   publicLibraryProfiles = profilesResult.error ? [] : (profilesResult.data || []);
-  paintBranches(publicBranches, publicLibraryProfiles);
+  paintBranches(publicBranches, publicLibraryProfiles, false);
   updateBranchFilter(publicBranches);
   if (branchesResult.error && profilesResult.error) throw profilesResult.error;
 }
@@ -3193,8 +3198,10 @@ async function start() {
     return;
   }
   try {
-    await loadSiteFooter().catch(() => {});
-    await loadPublicBranches();
+    await Promise.all([
+      loadSiteFooter().catch(() => {}),
+      loadPublicBranches(),
+    ]);
     await runPublicSearch();
   } catch {
     const cached = cacheRead();
