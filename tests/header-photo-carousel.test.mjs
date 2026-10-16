@@ -1,16 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-function createEnvironment() {
+function createEnvironment(options = {}) {
   const handlers = new Map();
   const windowHandlers = new Map();
   let timerCallback = null;
   let timerDelay = null;
+  let nextTimerId = 0;
+  let activeTimerId = null;
   const makeButton = key => ({
     textContent: '',
     title: '',
+    attributes: {},
     addEventListener(type, callback) { handlers.set(`${key}:${type}`, callback); },
-    setAttribute() {},
+    setAttribute(name, value) { this.attributes[name] = value; },
   });
   const makeSlide = active => {
     const classes = new Set(active ? ['is-active'] : []);
@@ -47,20 +50,35 @@ function createEnvironment() {
     addEventListener() {},
   };
   globalThis.window = {
-    matchMedia: () => ({ matches: false, addEventListener() {} }),
-    setInterval(callback, ms) { timerCallback = callback; timerDelay = ms; return 1; },
-    clearInterval() {},
+    matchMedia: () => ({ matches: options.reducedMotion ?? false, addEventListener() {} }),
+    setInterval(callback, ms) { timerCallback = callback; timerDelay = ms; activeTimerId = ++nextTimerId; return activeTimerId; },
+    clearInterval(id) { if (id === activeTimerId) activeTimerId = null; },
     addEventListener(type, callback) { windowHandlers.set(type, callback); },
   };
-  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {} });
-  return { handlers, windowHandlers, slides, status, get timerCallback() { return timerCallback; }, get timerDelay() { return timerDelay; } };
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { connection: options.connection } });
+  return { handlers, windowHandlers, slides, status, autoplay, get timerCallback() { return timerCallback; }, get timerDelay() { return timerDelay; }, get timerActive() { return activeTimerId !== null; } };
 }
 
 test('manual and automatic controls advance exactly one carousel slide', async () => {
-  const env = createEnvironment();
+  const env = createEnvironment({ connection: { saveData: true, effectiveType: '2g' } });
   await import('../header-photo-carousel.js?test=manual');
   assert.equal(env.timerDelay, 8000);
+  assert.equal(env.timerActive, true);
   assert.equal(env.slides[0].classList.contains('is-active'), true);
+  assert.equal(env.autoplay.textContent, 'Ⅱ');
+  assert.equal(env.autoplay.attributes['aria-label'], 'إيقاف التبديل التلقائي');
+  assert.equal(env.autoplay.attributes['aria-pressed'], 'true');
+
+  env.handlers.get('autoplay:click')();
+  assert.equal(env.timerActive, false);
+  assert.equal(env.autoplay.textContent, '▶');
+  assert.equal(env.autoplay.attributes['aria-label'], 'تشغيل التبديل التلقائي');
+  assert.equal(env.autoplay.attributes['aria-pressed'], 'false');
+  env.handlers.get('autoplay:click')();
+  assert.equal(env.timerActive, true);
+  assert.equal(env.autoplay.textContent, 'Ⅱ');
+  assert.equal(env.autoplay.attributes['aria-pressed'], 'true');
+
   env.handlers.get('next:click')();
   assert.equal(env.slides[1].classList.contains('is-active'), true);
   assert.equal(env.status.textContent, 'الصورة 2 من 5');

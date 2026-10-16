@@ -6,10 +6,7 @@ const autoplayButton = document.querySelector('#headerPhotoAutoplay');
 const status = document.querySelector('#headerPhotoStatus');
 const attribution = document.querySelector('#headerPhotoAttribution');
 const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-const hasDataSaver = () => Boolean(connection?.saveData)
-  || ['slow-2g', '2g'].includes(connection?.effectiveType || '');
-const policyAllowsAutoplay = () => !reducedMotion?.matches && !hasDataSaver();
+const policyAllowsAutoplay = () => !reducedMotion?.matches;
 let currentIndex = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));
 let autoplayRequested = slides.length > 1 && policyAllowsAutoplay();
 let manualMotionOverride = false;
@@ -114,7 +111,6 @@ window.addEventListener('header-gallery-updated', event => {
 });
 document.addEventListener('visibilitychange', updateTimer);
 reducedMotion?.addEventListener?.('change', updateTimer);
-connection?.addEventListener?.('change', updateTimer);
 window.addEventListener('pagehide', stopTimer, { once: true });
 
 setSlide(currentIndex);
