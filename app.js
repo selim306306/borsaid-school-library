@@ -2,7 +2,7 @@ import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './sit
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
-import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-admin-intent-1';
+import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -484,7 +484,7 @@ const VISITOR_STOP_WORDS = new Set(['هل', 'ممكن', 'عايز', 'عايزة'
 function extractVisitorCatalogQuery(question) {
   return normalizeVisitorText(question).split(/[^\p{L}\p{N}]+/u).filter(word => word && !VISITOR_STOP_WORDS.has(word)).join(' ').slice(0, 100);
 }
-function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [] } = {}) {
+function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [], actionLinks = [] } = {}) {
   const log = $('#visitorAssistantLog');
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
@@ -519,6 +519,20 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
         note.textContent = ` — ${link.note}`;
         row.append(note);
       }
+      list.append(row);
+    });
+    item.append(list);
+  }
+  if (actionLinks.length) {
+    const list = document.createElement('ul');
+    list.className = 'visitor-assistant-reading-links';
+    actionLinks.slice(0, 3).forEach(link => {
+      const row = document.createElement('li');
+      const anchor = document.createElement('a');
+      anchor.href = link.href;
+      anchor.dataset.visitorContact = 'true';
+      anchor.textContent = link.label;
+      row.append(anchor);
       list.append(row);
     });
     item.append(list);
@@ -619,6 +633,10 @@ $('#visitorAssistantForm').addEventListener('submit', event => {
 });
 $$('[data-visitor-question]').forEach(button => button.addEventListener('click', () => sendVisitorQuestion(button.dataset.visitorQuestion)));
 $('#visitorAssistantLog').addEventListener('click', event => {
+  if (event.target.closest('[data-visitor-contact]')) {
+    visitorChatDialog?.close();
+    return;
+  }
   const button = event.target.closest('[data-visitor-search]');
   if (!button) return;
   $('#searchInput').value = button.dataset.visitorSearch;
