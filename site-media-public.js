@@ -4,6 +4,7 @@ import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const SIGNED_URL_TTL_SECONDS = 60 * 60;
+const DYNAMIC_HEADER_GALLERY_KEY = /^header-feature-image-(?:[6-9]|1[0-9]|2[0-5])$/;
 
 const publicClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
@@ -40,6 +41,37 @@ function imageTargets(item) {
       .filter(image => (image.getAttribute('src') || '').split(/[?#]/, 1)[0].endsWith(fileName));
   }
   return item.selectors.flatMap(selector => [...document.querySelectorAll(selector)]);
+}
+
+function syncDynamicHeaderSlides(slots) {
+  const frame = document.querySelector('.header-feature-image-slot');
+  if (!frame) return [];
+  const slides = slots.filter(slot => DYNAMIC_HEADER_GALLERY_KEY.test(slot.media_key) && slot.current_asset_id)
+    .sort((a, b) => Number(a.media_key.match(/(\d+)$/)?.[1]) - Number(b.media_key.match(/(\d+)$/)?.[1]));
+  const desiredKeys = new Set(slides.map(slide => slide.media_key));
+  frame.querySelectorAll('img[data-site-media-dynamic="true"]').forEach(image => {
+    if (!desiredKeys.has(image.dataset.siteMediaKey)) image.remove();
+  });
+  const controls = frame.querySelector('.header-photo-controls');
+  for (const slide of slides) {
+    const existing = [...frame.querySelectorAll('img[data-site-media-key]')]
+      .find(image => image.dataset.siteMediaKey === slide.media_key);
+    if (existing) continue;
+    const image = document.createElement('img');
+    image.className = 'brand-header-photo';
+    image.dataset.siteMediaKey = slide.media_key;
+    image.dataset.siteMediaDynamic = 'true';
+    image.alt = slide.title || 'صورة إضافية في ألبوم مكتبات بورسعيد';
+    image.width = 960;
+    image.height = 720;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.setAttribute('fetchpriority', 'low');
+    image.setAttribute('aria-hidden', 'true');
+    if (controls) frame.insertBefore(image, controls);
+    else frame.append(image);
+  }
+  return slides;
 }
 
 function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, defaultSrc, srcSet = '', originalSource = '', creditText = '', creditHref = '') {
@@ -95,6 +127,20 @@ function setImageSource(image, source, altText, isCustom, defaultAlt, mediaKey, 
     image.dataset.siteMediaFallbackBound = 'true';
   }
   const nextSource = source || fallbackUrl;
+  const isDynamicGallerySlide = DYNAMIC_HEADER_GALLERY_KEY.test(mediaKey);
+  if (isDynamicGallerySlide) {
+    image.dataset.siteMediaDeferredSrc = nextSource;
+    image.dataset.siteMediaDeferredSrcset = srcSet || '';
+    if (!image.classList.contains('is-active')) {
+      image.removeAttribute('src');
+      image.removeAttribute('srcset');
+      image.removeAttribute('sizes');
+      return;
+    }
+  } else {
+    delete image.dataset.siteMediaDeferredSrc;
+    delete image.dataset.siteMediaDeferredSrcset;
+  }
   if (image.getAttribute('src') !== nextSource) image.src = nextSource;
 }
 
@@ -118,9 +164,9 @@ async function createResponsiveSiteMarkUrl(asset) {
   }
 }
 
-async function createResponsiveHeaderImageUrls(asset) {
+async function createResponsiveHeaderImageUrls(asset, variantsToCreate = HEADER_IMAGE_VARIANTS) {
   if (!asset?.storage_path) return [];
-  const variants = await Promise.all(HEADER_IMAGE_VARIANTS.map(async ({ width, height, quality }) => {
+  const variants = await Promise.all(variantsToCreate.map(async ({ width, height, quality }) => {
     try {
       const { data, error } = await publicClient.storage.from(SITE_MEDIA_BUCKET).createSignedUrl(
         asset.storage_path,
@@ -137,12 +183,28 @@ async function createResponsiveHeaderImageUrls(asset) {
 
 export async function refreshPublicSiteMedia() {
   try {
-    const { data: slots, error: slotError } = await publicClient
-      .from('site_media_slots')
-      .select('media_key,current_asset_id,is_published')
-      .eq('is_published', true);
+    const [
+      { data: slots, error: slotError },
+      { data: gallerySettings },
+    ] = await Promise.all([
+      publicClient.from('site_media_slots')
+        .select('media_key,title,current_asset_id,is_published')
+        .eq('is_published', true).order('media_key').limit(100),
+      publicClient.from('site_banner_settings')
+        .select('interval_seconds').eq('setting_key', 'homepage').maybeSingle(),
+    ]);
     if (slotError || !slots) return false;
 
+    const dynamicGallerySlides = syncDynamicHeaderSlides(slots);
+    const dynamicGalleryItems = dynamicGallerySlides.map(slot => ({
+      key: slot.media_key,
+      category: 'ألبوم صور البنر',
+      title: slot.title || 'صورة إضافية في ألبوم مكتبات بورسعيد',
+      usage: 'صورة أضافها مالك الموقع إلى ألبوم البنر.',
+      defaultSrc: 'assets/header-photo-placeholder.svg',
+      defaultAlt: slot.title || 'صورة إضافية في ألبوم مكتبات بورسعيد',
+      selectors: [],
+    }));
     const activeSlots = new Map(slots.map(slot => [slot.media_key, slot]));
     const assetIds = [...new Set(slots.map(slot => slot.current_asset_id).filter(Boolean))];
     let assets = [];
@@ -162,7 +224,9 @@ export async function refreshPublicSiteMedia() {
       : Promise.resolve({ data: [], error: null });
     const headerVariantsRequest = Promise.all(headerAssets.map(async asset => [
       asset.media_key,
-      await createResponsiveHeaderImageUrls(asset),
+      await createResponsiveHeaderImageUrls(asset, DYNAMIC_HEADER_GALLERY_KEY.test(asset.media_key)
+        ? [HEADER_IMAGE_VARIANTS[1]]
+        : HEADER_IMAGE_VARIANTS),
     ]));
     const siteMarkAsset = assets.find(asset => asset.media_key === 'site-mark');
     const siteMarkVariantRequest = siteMarkAsset
@@ -180,7 +244,7 @@ export async function refreshPublicSiteMedia() {
       if (result.path && result.signedUrl && !result.error) signedByPath.set(result.path, result.signedUrl);
     }
 
-    for (const item of SITE_MEDIA_ITEMS) {
+    for (const item of [...SITE_MEDIA_ITEMS, ...dynamicGalleryItems]) {
       const slot = activeSlots.get(item.key);
       if (!slot) continue;
       const asset = slot.current_asset_id ? assetById.get(slot.current_asset_id) : null;
@@ -219,6 +283,10 @@ export async function refreshPublicSiteMedia() {
         );
       });
     }
+    const intervalSeconds = Number(gallerySettings?.interval_seconds);
+    window.dispatchEvent(new CustomEvent('header-gallery-updated', {
+      detail: { intervalSeconds: Number.isFinite(intervalSeconds) ? intervalSeconds : 8 },
+    }));
     return true;
   } catch {
     return false;

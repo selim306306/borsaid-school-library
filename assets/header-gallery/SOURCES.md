@@ -8,4 +8,4 @@
 | `books-on-a-shelf.webp` | [Books on a Shelf.JPG — MarkBuckawicki](https://commons.wikimedia.org/wiki/File:Books_on_a_Shelf.JPG) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 | `reading-area.webp` | [American Library reading area.jpg — Liudmila](https://commons.wikimedia.org/wiki/File:American_Library_reading_area.jpg) | أُطلقت للملك العام من صاحب الحقوق |
 
-تُظهر الواجهة إسنادًا مختصرًا ورابطًا إلى صفحة المصدر عند عرض كل صورة. بقيت الصورتان الموجودتان سابقًا في المعرض دون استبدال.
+تُظهر الواجهة بيانات المصدر ورابطها أسفل إطار الصورة عند توفرهما، دون وضع كتابة فوق الصورة. بقيت الصورتان الموجودتان سابقًا في المعرض دون استبدال.

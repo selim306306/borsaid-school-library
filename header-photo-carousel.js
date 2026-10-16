@@ -1,5 +1,5 @@
 const slot = document.querySelector('.header-feature-image-slot');
-const slides = slot ? [...slot.querySelectorAll('.brand-header-photo')] : [];
+let slides = slot ? [...slot.querySelectorAll('.brand-header-photo')] : [];
 const previousButton = document.querySelector('#headerPhotoPrevious');
 const nextButton = document.querySelector('#headerPhotoNext');
 const autoplayButton = document.querySelector('#headerPhotoAutoplay');
@@ -14,13 +14,15 @@ let currentIndex = Math.max(0, slides.findIndex(slide => slide.classList.contain
 let autoplayRequested = slides.length > 1 && policyAllowsAutoplay();
 let manualMotionOverride = false;
 let timer = null;
+let intervalMilliseconds = 8000;
 
 function updateAttribution(slide) {
   if (!attribution) return;
   const text = slide?.dataset.siteMediaCreditText || '';
   const href = slide?.dataset.siteMediaCreditHref || '';
-  attribution.hidden = !text;
   attribution.replaceChildren();
+  attribution.classList.toggle('is-empty', !text);
+  attribution.setAttribute('aria-hidden', String(!text));
   if (!text) return;
   if (href) {
     const link = document.createElement('a');
@@ -49,6 +51,18 @@ function setSlide(nextIndex, announce = false) {
     const active = index === currentIndex;
     slide.classList.toggle('is-active', active);
     slide.setAttribute('aria-hidden', String(!active));
+    if (active && slide.dataset.siteMediaDeferredSrc) {
+      const deferredSrcset = slide.dataset.siteMediaDeferredSrcset || '';
+      if (deferredSrcset) {
+        slide.setAttribute('srcset', deferredSrcset);
+        slide.setAttribute('sizes', '(max-width: 700px) min(410px, calc(100vw - 48px)), 380px');
+      }
+      slide.src = slide.dataset.siteMediaDeferredSrc;
+    } else if (!active && slide.dataset.siteMediaDynamic === 'true') {
+      slide.removeAttribute('src');
+      slide.removeAttribute('srcset');
+      slide.removeAttribute('sizes');
+    }
   });
   updateAttribution(slides[currentIndex]);
   if (announce && status) status.textContent = `الصورة ${currentIndex + 1} من ${slides.length}`;
@@ -68,7 +82,7 @@ function stopTimer() {
 function updateTimer() {
   stopTimer();
   if (!autoplayRequested || !canAutoplay()) return;
-  timer = window.setInterval(() => setSlide(currentIndex + 1), 8000);
+  timer = window.setInterval(() => setSlide(currentIndex + 1), intervalMilliseconds);
 }
 
 previousButton?.addEventListener('click', () => {
@@ -83,6 +97,19 @@ autoplayButton?.addEventListener('click', () => {
   autoplayRequested = !autoplayRequested;
   manualMotionOverride = autoplayRequested;
   updateAutoplayButton();
+  updateTimer();
+});
+window.addEventListener('header-gallery-updated', event => {
+  const currentKey = slides[currentIndex]?.dataset.siteMediaKey || '';
+  const nextInterval = Number(event.detail?.intervalSeconds);
+  if (Number.isFinite(nextInterval) && nextInterval >= 2 && nextInterval <= 30) {
+    intervalMilliseconds = nextInterval * 1000;
+  }
+  slides = slot ? [...slot.querySelectorAll('.brand-header-photo')] : [];
+  let nextIndex = currentKey ? slides.findIndex(slide => slide.dataset.siteMediaKey === currentKey) : -1;
+  if (nextIndex < 0) nextIndex = slides.findIndex(slide => slide.classList.contains('is-active'));
+  currentIndex = Math.max(0, nextIndex);
+  setSlide(currentIndex);
   updateTimer();
 });
 document.addEventListener('visibilitychange', updateTimer);

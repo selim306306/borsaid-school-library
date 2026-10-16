@@ -87,10 +87,10 @@
 .header-chat-shortcut{position:static;z-index:4;align-self:center;display:inline-flex;align-items:center;gap:7px;max-width:100%;min-height:44px;padding:10px 16px;border:1px solid rgba(255,255,255,.85);border-radius:999px;color:#fff;background:#188e72;box-shadow:0 5px 16px rgba(15,50,47,.24);font-family:inherit;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700;line-height:1.2;white-space:nowrap;cursor:pointer}
 .header-chat-shortcut:hover{background:#116d58}
 .header-chat-shortcut svg{width:17px;height:17px;flex:0 0 auto;fill:currentColor}
-.header-photo-attribution{position:absolute;z-index:4;top:16px;left:12px;max-width:calc(100% - 132px);overflow:hidden;padding:5px 8px;border-radius:8px;color:#34425d;background:rgba(255,255,255,.9);font-size:9px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+.header-photo-attribution{box-sizing:border-box;position:static;align-self:stretch;min-height:14px;max-width:100%;overflow:hidden;margin:-8px 0;padding:1px 4px;color:#64748b;font-size:9px;line-height:1.35;text-align:start;text-overflow:ellipsis;white-space:nowrap}
 .header-photo-attribution a{color:inherit;text-decoration:underline;text-underline-offset:2px}
-.header-photo-attribution[hidden]{display:none}
-.header-feature-image-slot .header-photo-control:focus-visible,.header-feature-image-slot .header-photo-attribution a:focus-visible,.header-feature-stack .header-chat-shortcut:focus-visible{outline:3px solid #f3c84f;outline-offset:2px}
+.header-photo-attribution.is-empty{visibility:hidden}
+.header-feature-image-slot .header-photo-control:focus-visible,.header-feature-stack .header-photo-attribution a:focus-visible,.header-feature-stack .header-chat-shortcut:focus-visible{outline:3px solid #f3c84f;outline-offset:2px}
 @media(max-width:700px){
   .site-header{
     width:min(1180px,calc(100% - 32px));
@@ -122,7 +122,7 @@
   .header-photo-controls{top:11px;right:11px;gap:3px}
   .header-photo-control{width:32px;height:32px}
   .header-chat-shortcut{width:min(100%,320px);min-height:46px;justify-content:center;padding:10px 14px;font-size:calc((10px) + var(--site-font-step, 2px))}
-  .header-photo-attribution{top:14px;left:10px;max-width:calc(100% - 122px);font-size:8px}
+  .header-photo-attribution{min-height:13px;margin:-6px 0;font-size:8px}
   #visitorTabs.site-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:3px;overflow:visible}
   #visitorTabs .site-view-tabs{display:contents}
   #visitorTabs .staff-nav-button{align-self:stretch;min-height:36px;gap:3px;padding:3px 2px;font-size:calc((8px) + var(--site-font-step, 2px));line-height:1.15;white-space:normal}

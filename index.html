@@ -27,15 +27,15 @@
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
-  <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
+  <link rel="stylesheet" href="site-media.css?v=20261016-header-album-25-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
-  <link rel="stylesheet" href="header-photo.css?v=20261016-gallery-cover-1">
+  <link rel="stylesheet" href="header-photo.css?v=20261016-gallery-source-caption-1">
   <link rel="stylesheet" href="visitor-questions.css?v=20261016-visitor-chat-modal-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="site-media-public.js?v=20261016-header-gallery-1"></script>
-  <script type="module" src="header-photo-carousel.js?v=20261016-gallery-five-slides-1"></script>
-  <script type="module" src="app.js?v=20261016-header-gallery-1"></script>
+  <script type="module" src="site-media-public.js?v=20261016-header-album-25-1"></script>
+  <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
+  <script type="module" src="app.js?v=20261016-header-album-25-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -77,7 +77,6 @@
       <img class="brand-header-photo" id="brandHeaderPhotoThree" data-site-media-key="header-feature-image-3" src="assets/header-gallery/library-bookshelf.webp" data-site-media-credit-text="Mshuang2 · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Library_bookshelf.jpg" alt="رفوف كتب متنوعة داخل مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
       <img class="brand-header-photo" id="brandHeaderPhotoFour" data-site-media-key="header-feature-image-4" src="assets/header-gallery/books-on-a-shelf.webp" data-site-media-credit-text="MarkBuckawicki · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Books_on_a_Shelf.JPG" alt="مجموعة كتب مرتبة على رفوف" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
       <img class="brand-header-photo" id="brandHeaderPhotoFive" data-site-media-key="header-feature-image-5" src="assets/header-gallery/reading-area.webp" data-site-media-credit-text="Liudmila · ملك عام" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:American_Library_reading_area.jpg" alt="منطقة قراءة هادئة في مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <div class="header-photo-attribution" id="headerPhotoAttribution" aria-label="مصدر الصورة" hidden></div>
       <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
         <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
         <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
@@ -85,6 +84,7 @@
       </div>
       <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
     </div>
+    <div class="header-photo-attribution is-empty" id="headerPhotoAttribution" role="note" aria-label="مصدر الصورة" aria-hidden="true"></div>
     <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح دردشة مساعد مكتبات بورسعيد" aria-haspopup="dialog" aria-controls="visitorChatDialog">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
       <span>اسأل المساعد</span>
@@ -675,6 +675,14 @@
         <section class="staff-panel site-media-panel" id="siteMediaPanel" hidden aria-labelledby="siteMediaPanelTitle">
           <div class="panel-heading"><div><h3 id="siteMediaPanelTitle">مكتبة صور الموقع</h3><p>استبدال الصور العامة للموقع ومعاينتها، مع حفظ الصور السابقة لاستعادتها لاحقاً.</p></div></div>
           <p class="site-media-intro">تظهر هذه العناصر العامة فقط. شعارات المدرسة والمحافظة تبقى في تبويب «بيانات المدرسة» لكل مكتبة على حدة؛ وصور قيادات المحافظة والمديرية والمكتبات منفصلة عن مدير المدرسة.</p>
+          <section class="site-banner-album" aria-labelledby="siteBannerAlbumTitle">
+            <div class="panel-heading"><div><h4 id="siteBannerAlbumTitle">ألبوم صور البنر</h4><p>يمكن أن يضم الألبوم حتى 25 صورة إجمالًا، بما فيها الصور الخمس الحالية؛ اختر أيضًا مدة عرض كل صورة.</p></div><button class="button button-primary" id="addHeaderGalleryPhoto" type="button">إضافة صورة للألبوم</button></div>
+            <form class="site-banner-settings" id="headerGallerySettingsForm">
+              <label class="site-media-field" for="headerGalleryInterval"><span>مدة عرض الصورة قبل الانتقال</span><select id="headerGalleryInterval" name="interval_seconds"><option value="2">ثانيتان</option><option value="3">3 ثوانٍ</option><option value="4">4 ثوانٍ</option><option value="5">5 ثوانٍ</option><option value="8" selected>8 ثوانٍ</option><option value="10">10 ثوانٍ</option><option value="15">15 ثانية</option><option value="20">20 ثانية</option><option value="30">30 ثانية</option></select></label>
+              <button class="button button-outline" id="saveHeaderGallerySettings" type="submit">حفظ توقيت وسرعة العرض</button>
+              <p class="site-media-status" id="headerGallerySettingsStatus" role="status" aria-live="polite"></p>
+            </form>
+          </section>
           <div class="site-media-categories" id="siteMediaList" aria-live="polite"></div>
           <p class="site-media-archive-note">الرفع يقبل PNG أو JPEG أو WebP حتى 5 ميغابايت. لا تُحذف الملفات القديمة: اختيار «الصورة الافتراضية» يعيد الأصل بأمان، وتبقى النسخ المرفوعة في الأرشيف الخاص بالمالك.</p>
           <p class="school-profile-status" id="siteMediaManagerStatus" role="status" aria-live="polite">تظهر هذه اللوحة لمالك/مدير المنصة المصرح فقط.</p>

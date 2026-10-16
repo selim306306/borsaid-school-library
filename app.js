@@ -1125,6 +1125,8 @@ $('#siteFooterForm').addEventListener('submit', async event => {
 });
 
 const SITE_MEDIA_ASSET_COLUMNS = 'id,media_key,storage_path,original_file_name,mime_type,byte_size,alt_text,description,created_at';
+const HEADER_GALLERY_SLOT_PATTERN = /^header-feature-image-(?:[6-9]|1[0-9]|2[0-5])$/;
+const HEADER_GALLERY_MAX_PHOTOS = 25;
 let siteMediaLoadGeneration = 0;
 function setSiteMediaManagerStatus(text, kind = '') {
   const status = $('#siteMediaManagerStatus');
@@ -1270,6 +1272,31 @@ function createSiteMediaCard(item, slot, currentAsset, mediaAssets, currentUrl) 
   const actions = document.createElement('div');
   actions.className = 'site-media-actions';
   actions.append(saveButton, defaultButton);
+  if (item.isHeaderGalleryDynamic) {
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'button button-outline';
+    removeButton.textContent = 'إزالة من الألبوم';
+    removeButton.addEventListener('click', async () => {
+      if (!hasSiteMediaOwnership() || !supabase || !window.confirm('إزالة هذه الصورة من ألبوم البنر؟ ستبقى النسخ المرفوعة في الأرشيف الخاص بالمالك.')) return;
+      removeButton.disabled = true;
+      status.textContent = 'جارٍ إزالة الصورة من العرض العام مع الاحتفاظ بنسخها…';
+      status.className = 'site-media-status';
+      try {
+        const { data: deletedSlot, error } = await supabase.from('site_media_slots')
+          .delete().eq('media_key', item.key).select('media_key').maybeSingle();
+        if (error || !deletedSlot) throw new Error('تعذّرت إزالة الصورة؛ لم يتغير الألبوم.');
+        window.dispatchEvent(new Event('site-media-updated'));
+        await loadSiteMediaManager({ statusText: `أُزيلت ${item.title} من الألبوم، وبقيت الملفات محفوظة في أرشيف المالك.` });
+      } catch (error) {
+        status.textContent = error.message || 'تعذّرت إزالة الصورة؛ لم يتغير الألبوم.';
+        status.className = 'site-media-status error';
+      } finally {
+        removeButton.disabled = false;
+      }
+    });
+    actions.append(removeButton);
+  }
   const status = document.createElement('p');
   status.className = 'site-media-status';
   status.setAttribute('role', 'status');
@@ -1451,18 +1478,89 @@ function createSiteMediaCard(item, slot, currentAsset, mediaAssets, currentUrl) 
   card.append(previewWrap, body, status);
   return card;
 }
+
+async function addHeaderGalleryPhoto() {
+  const button = $('#addHeaderGalleryPhoto');
+  if (!button || !hasSiteMediaOwnership() || !supabase) {
+    setSiteMediaManagerStatus('إضافة صور الألبوم متاحة لمالك/مدير المنصة المصرح فقط.', 'error');
+    return;
+  }
+  button.disabled = true;
+  setSiteMediaManagerStatus('جارٍ تجهيز موضع جديد في ألبوم البنر…');
+  try {
+    const { data: slots, error: slotsError } = await supabase.from('site_media_slots')
+      .select('media_key').like('media_key', 'header-feature-image-%').limit(100);
+    if (slotsError || !slots) throw new Error('تعذّر قراءة عناصر الألبوم الحالي.');
+    const usedKeys = new Set(slots.map(slot => slot.media_key));
+    const nextNumber = Array.from({ length: HEADER_GALLERY_MAX_PHOTOS - 5 }, (_, index) => index + 6)
+      .find(number => !usedKeys.has(`header-feature-image-${number}`));
+    if (!nextNumber) throw new Error(`اكتمل الحد الأقصى للألبوم (${HEADER_GALLERY_MAX_PHOTOS} صورة). أزل صورة غير مستخدمة لإضافة أخرى.`);
+    const key = `header-feature-image-${nextNumber}`;
+    const { data: newSlot, error } = await supabase.from('site_media_slots').insert({
+      media_key: key,
+      title: `صورة الألبوم ${nextNumber}`,
+      usage_description: 'صورة إضافية في ألبوم البنر؛ ارفعها أو اختر نسخة محفوظة لعرضها للزوار.',
+      is_published: true,
+    }).select('media_key').maybeSingle();
+    if (error || !newSlot) throw new Error('تعذّر إضافة صورة إلى الألبوم. تحقق من صلاحية المالك والاتصال.');
+    await loadSiteMediaManager({ statusText: `أُضيف موضع «صورة الألبوم ${nextNumber}». ارفع الصورة من البطاقة الجديدة لحفظها وعرضها.` });
+  } catch (error) {
+    setSiteMediaManagerStatus(error.message || 'تعذّرت إضافة صورة إلى الألبوم.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+}
+
+$('#addHeaderGalleryPhoto')?.addEventListener('click', addHeaderGalleryPhoto);
+
+$('#headerGallerySettingsForm')?.addEventListener('submit', async event => {
+  event.preventDefault();
+  const status = $('#headerGallerySettingsStatus');
+  const button = $('#saveHeaderGallerySettings');
+  const intervalSeconds = Number($('#headerGalleryInterval')?.value);
+  if (!hasSiteMediaOwnership() || !supabase) {
+    if (status) status.textContent = 'حفظ إعدادات الألبوم متاح لمالك/مدير المنصة المصرح فقط.';
+    return;
+  }
+  if (!Number.isInteger(intervalSeconds) || intervalSeconds < 2 || intervalSeconds > 30) {
+    if (status) status.textContent = 'اختر مدة بين ثانيتين و30 ثانية.';
+    return;
+  }
+  if (button) button.disabled = true;
+  if (status) { status.textContent = 'جارٍ حفظ مدة العرض…'; status.className = 'site-media-status'; }
+  try {
+    const { data, error } = await supabase.from('site_banner_settings')
+      .update({ interval_seconds: intervalSeconds, updated_at: new Date().toISOString() })
+      .eq('setting_key', 'homepage').select('interval_seconds').maybeSingle();
+    if (error || !data) throw new Error('تعذّر حفظ مدة عرض الصور. لم يتغير الإعداد المنشور.');
+    window.dispatchEvent(new CustomEvent('header-gallery-updated', { detail: { intervalSeconds } }));
+    if (status) { status.textContent = `تم حفظ مدة عرض كل صورة: ${intervalSeconds} ثانية.`; status.className = 'site-media-status success'; }
+  } catch (error) {
+    if (status) { status.textContent = error.message || 'تعذّر حفظ مدة عرض الصور.'; status.className = 'site-media-status error'; }
+  } finally {
+    if (button) button.disabled = false;
+  }
+});
+
 async function loadSiteMediaManager({ statusText = '' } = {}) {
   if (!hasSiteMediaOwnership() || !supabase) return false;
   const generation = ++siteMediaLoadGeneration;
   const container = $('#siteMediaList');
   setSiteMediaManagerStatus(statusText || 'جارٍ تحميل صور الموقع والنسخ المحفوظة…');
   try {
-    const [{ data: slots, error: slotError }, { data: mediaAssets, error: assetsError }] = await Promise.all([
-      supabase.from('site_media_slots').select('media_key,title,usage_description,current_asset_id,is_published,updated_at').order('media_key'),
+    const [
+      { data: slots, error: slotError },
+      { data: mediaAssets, error: assetsError },
+      { data: bannerSettings, error: settingsError },
+    ] = await Promise.all([
+      supabase.from('site_media_slots').select('media_key,title,usage_description,current_asset_id,is_published,updated_at').order('media_key').limit(100),
       supabase.from('site_media_assets').select(SITE_MEDIA_ASSET_COLUMNS).order('created_at', { ascending: false }).limit(500),
+      supabase.from('site_banner_settings').select('interval_seconds').eq('setting_key', 'homepage').maybeSingle(),
     ]);
     if (generation !== siteMediaLoadGeneration) return false;
-    if (slotError || assetsError || !slots || !mediaAssets) throw new Error('تعذّر تحميل سجل الصور وصلاحياته.');
+    if (slotError || assetsError || settingsError || !slots || !mediaAssets || !bannerSettings) throw new Error('تعذّر تحميل سجل الصور أو إعداد مدة العرض وصلاحياتهما.');
+    const intervalControl = $('#headerGalleryInterval');
+    if (intervalControl) intervalControl.value = String(bannerSettings.interval_seconds);
     let allMediaAssets = mediaAssets;
     const missingCurrentIds = slots.map(slot => slot.current_asset_id).filter(Boolean)
       .filter(id => !allMediaAssets.some(asset => asset.id === id));
@@ -1486,7 +1584,19 @@ async function loadSiteMediaManager({ statusText = '' } = {}) {
     if (generation !== siteMediaLoadGeneration) return false;
     container.replaceChildren();
     const groups = new Map();
-    for (const item of SITE_MEDIA_ITEMS) {
+    const albumItems = slots.filter(slot => HEADER_GALLERY_SLOT_PATTERN.test(slot.media_key))
+      .sort((a, b) => Number(a.media_key.match(/(\d+)$/)?.[1]) - Number(b.media_key.match(/(\d+)$/)?.[1]))
+      .map(slot => ({
+        key: slot.media_key,
+        category: 'ألبوم صور البنر',
+        title: slot.title,
+        usage: slot.usage_description,
+        defaultSrc: 'assets/header-photo-placeholder.svg',
+        defaultAlt: slot.title,
+        selectors: [],
+        isHeaderGalleryDynamic: true,
+      }));
+    for (const item of [...SITE_MEDIA_ITEMS, ...albumItems]) {
       if (!groups.has(item.category)) {
         const group = document.createElement('section');
         group.className = 'site-media-category';
@@ -1507,7 +1617,7 @@ async function loadSiteMediaManager({ statusText = '' } = {}) {
       ));
     }
     if (statusText) setSiteMediaManagerStatus(statusText, 'success');
-    else setSiteMediaManagerStatus(`تم تحميل ${SITE_MEDIA_ITEMS.length} موضع صورة؛ ${allMediaAssets.length} نسخة محفوظة قابلة لإعادة الاختيار.`, 'success');
+    else setSiteMediaManagerStatus(`تم تحميل ${SITE_MEDIA_ITEMS.length + albumItems.length} موضع صورة؛ ${allMediaAssets.length} نسخة محفوظة قابلة لإعادة الاختيار.`, 'success');
     return true;
   } catch {
     if (generation === siteMediaLoadGeneration) setSiteMediaManagerStatus('تعذّر تحميل مكتبة الصور. لم تُغيّر الصور العامة؛ أعد المحاولة بعد التحقق من الاتصال والصلاحية.', 'error');

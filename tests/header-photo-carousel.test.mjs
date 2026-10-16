@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 
 function createEnvironment() {
   const handlers = new Map();
+  const windowHandlers = new Map();
   let timerCallback = null;
+  let timerDelay = null;
   const makeButton = key => ({
     textContent: '',
     title: '',
@@ -20,6 +22,7 @@ function createEnvironment() {
         toggle(name, force) { if (force) classes.add(name); else classes.delete(name); },
       },
       setAttribute(name, value) { this.attributes[name] = value; },
+      removeAttribute(name) { delete this.attributes[name]; if (name === 'src') this.src = ''; },
     };
   };
   const slides = Array.from({ length: 5 }, (_, index) => makeSlide(index === 0));
@@ -28,7 +31,7 @@ function createEnvironment() {
   const next = makeButton('next');
   const autoplay = makeButton('autoplay');
   const status = { textContent: '' };
-  const attribution = { hidden: false, textContent: '', replaceChildren() {}, append() {} };
+  const attribution = { textContent: '', classList: { toggle() {} }, setAttribute() {}, replaceChildren() {}, append() {} };
   globalThis.document = {
     hidden: false,
     querySelector(selector) {
@@ -45,17 +48,18 @@ function createEnvironment() {
   };
   globalThis.window = {
     matchMedia: () => ({ matches: false, addEventListener() {} }),
-    setInterval(callback, ms) { timerCallback = callback; assert.equal(ms, 8000); return 1; },
+    setInterval(callback, ms) { timerCallback = callback; timerDelay = ms; return 1; },
     clearInterval() {},
-    addEventListener() {},
+    addEventListener(type, callback) { windowHandlers.set(type, callback); },
   };
   Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {} });
-  return { handlers, slides, status, get timerCallback() { return timerCallback; } };
+  return { handlers, windowHandlers, slides, status, get timerCallback() { return timerCallback; }, get timerDelay() { return timerDelay; } };
 }
 
 test('manual and automatic controls advance exactly one carousel slide', async () => {
   const env = createEnvironment();
   await import('../header-photo-carousel.js?test=manual');
+  assert.equal(env.timerDelay, 8000);
   assert.equal(env.slides[0].classList.contains('is-active'), true);
   env.handlers.get('next:click')();
   assert.equal(env.slides[1].classList.contains('is-active'), true);
@@ -64,4 +68,23 @@ test('manual and automatic controls advance exactly one carousel slide', async (
   env.timerCallback();
   assert.equal(env.slides[2].classList.contains('is-active'), true);
   assert.equal(env.slides[1].classList.contains('is-active'), false);
+
+  const addedSlide = {
+    dataset: { siteMediaKey: 'header-feature-image-6', siteMediaDynamic: 'true', siteMediaDeferredSrc: 'https://example.test/slide.webp' },
+    attributes: {},
+    classList: {
+      classes: new Set(),
+      contains(name) { return this.classes.has(name); },
+      toggle(name, force) { if (force) this.classes.add(name); else this.classes.delete(name); },
+    },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    removeAttribute(name) { delete this.attributes[name]; if (name === 'src') this.src = ''; },
+  };
+  env.slides.push(addedSlide);
+  env.windowHandlers.get('header-gallery-updated')({ detail: { intervalSeconds: 5 } });
+  assert.equal(env.timerDelay, 5000);
+  for (let index = 0; index < 3; index += 1) env.handlers.get('next:click')();
+  assert.equal(addedSlide.classList.contains('is-active'), true);
+  assert.equal(addedSlide.src, 'https://example.test/slide.webp');
+  assert.equal(env.status.textContent, 'الصورة 6 من 6');
 });

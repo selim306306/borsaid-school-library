@@ -13,14 +13,14 @@ const button = key => ({ textContent: '', title: '', addEventListener(type, fn) 
 const classes = new Set(['is-active']);
 const slide = active => {
   const state = new Set(active ? ['is-active'] : []);
-  return { dataset: {}, classList: { contains: key => state.has(key), toggle(key, force) { if (force) state.add(key); else state.delete(key); } }, setAttribute() {} };
+  return { dataset: {}, classList: { contains: key => state.has(key), toggle(key, force) { if (force) state.add(key); else state.delete(key); } }, setAttribute() {}, removeAttribute() {} };
 };
 const slides = Array.from({ length: 5 }, (_, index) => slide(index === 0));
 const previous = button('previous');
 const next = button('next');
 const autoplay = button('autoplay');
 const status = { textContent: '' };
-const attribution = { hidden: false, textContent: '', replaceChildren() {}, append() {} };
+const attribution = { textContent: '', classList: { toggle() {} }, setAttribute() {}, replaceChildren() {}, append() {} };
 globalThis.document = { hidden: false, querySelector(selector) { return ({ '.header-feature-image-slot': { querySelectorAll: () => slides }, '#headerPhotoPrevious': previous, '#headerPhotoNext': next, '#headerPhotoAutoplay': autoplay, '#headerPhotoStatus': status, '#headerPhotoAttribution': attribution })[selector] ?? null; }, addEventListener() {} };
 globalThis.window = { matchMedia: () => ({ matches: true, addEventListener() {} }), setInterval(fn) { timerCallback = fn; return 1; }, clearInterval() {}, addEventListener() {} };
 Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {} });
