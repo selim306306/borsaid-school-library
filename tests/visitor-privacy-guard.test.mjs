@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { containsSensitivePersonalData } from '../supabase/functions/visitor-questions/privacy-guard.js';
 
-test('blocks numeric, account and direct person identifiers before external processing', () => {
+test('blocks numeric, contact, account and direct person identifiers before external processing', () => {
   for (const text of [
     'رقم الطالب 12345678',
     'الطالب أحمد استعار الكتاب',
@@ -15,14 +15,29 @@ test('blocks numeric, account and direct person identifiers before external proc
     'بيانات الموظف محمد',
     'أمين المكتبة محمد',
     'employee records',
+    'رقم عضوية المستعير 202612345',
   ]) assert.equal(containsSensitivePersonalData(text), true, text);
 });
 
-test('allows generic public questions that mention roles but contain no person identifier', () => {
+test('blocks confidential attributes about students, borrowers and employees', () => {
+  for (const text of [
+    'ما درجات الطالب؟',
+    'غياب الموظف أحمد',
+    'عنوان المستعير المسجل',
+    'student grade record',
+    'employee salary',
+    'borrower medical status',
+    'رسالة شكوى عن المعلمة منى',
+    'معلومات الطالب الشخصية',
+  ]) assert.equal(containsSensitivePersonalData(text), true, text);
+});
+
+test('allows generic public questions that mention roles but contain no person identifier or confidential attribute', () => {
   for (const text of [
     'كيف يقرأ الطلاب في المكتبة؟',
     'ما دور الموظف في إدارة الإعارة؟',
     'هل توجد كتب متاحة للقراءة؟',
     'How can students use the library?',
+    'هل يمكن للطالب البحث في الفهرس العام؟',
   ]) assert.equal(containsSensitivePersonalData(text), false, text);
 });

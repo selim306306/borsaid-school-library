@@ -2,7 +2,7 @@ export const REDACTED_QUESTION = 'تم حجب السؤال تلقائيًا لا
 
 export function deriveReplySource(result) {
   if (!result || result.ok !== true) return null;
-  if (result.auto_answered === false) return 'telegram';
+  if (result.auto_answered === false) return result.owner_notification === 'sent' ? 'telegram' : null;
   if (result.auto_answered !== true) return null;
   return result.question_display === REDACTED_QUESTION ? 'local' : 'gemini';
 }

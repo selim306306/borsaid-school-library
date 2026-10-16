@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.0";
 import { containsSensitivePersonalData, normalizeDigits } from "./privacy-guard.js";
+import { processVisitorQuestion } from "./submission-flow.js";
 
 const ALLOWED_ORIGINS = new Set(["https://selim306306.github.io"]);
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
@@ -50,7 +51,7 @@ const PUBLIC_SITE_GUIDE = [
   "مصادر القراءة العالمية والمكتبات الرقمية وروابط الناشرين خارجية؛ نتائجها ليست مقتنيات مكتبات بورسعيد ولا تعني أن الموقع يستضيف النص. الإتاحة والحقوق تختلف حسب المصدر والبلد.",
   "قسم الإعلانات للتنبيهات العامة. قسم أخبار وأبحاث التعليم يعرض مواداً وروابط مصادر عامة؛ نتائج OpenAlex فهرسة بحثية لا تثبت التحكيم العلمي ولا تضمن وجود PDF مجاني.",
   "طلبات الإعارة والحجز يتولاها موظفو المكتبة؛ لا ينفذ الموقع إعارة أو حجزاً عاماً عبر الإنترنت. مساحة الموظفين ومساعدهم منفصلان عن مساعد الزوار ويتطلبان صلاحية دخول.",
-  "عند الضغط على إرسال سؤال لأمين المكتبة، يُرسل نص السؤال ونتائج الفهرس العام المطابقة إلى Gemini لإعداد الرد؛ يظهر للزائر إشعار بذلك ولا يوجد مربع موافقة مطلوب. تُحجب الأنماط الشائعة للبيانات الشخصية والسرية قبل Gemini، وإذا تعذر الرد الآلي قد يصل السؤال للمالك عبر Telegram للمتابعة.",
+  "عند إرسال سؤال عام لأمين المكتبة، يُرسل نص السؤال ونتائج الفهرس العام المطابقة إلى Gemini لإعداد الرد، ويصل السؤال والرد الآلي إلى مدير الموقع عبر Telegram للاطلاع. إذا تعذر الرد الآلي، يصل السؤال وحالة التعذر للمتابعة. تُحجب البيانات الشخصية أو السرية المكتشفة قبل أي إرسال إلى Gemini أو Telegram، وقد يصل تنبيه عام لا يتضمن نص السؤال.",
   "مساعد الزوار لا يصل إلى مساعد الموظفين أو بيانات المدارس الداخلية أو سجلات الطلاب والمستعيرين أو الإعارة أو بيانات الموظفين الخاصة، ولا يجوز إرسال أي منها إلى Gemini أو Telegram أو كشفها في رد. تذكرة الرد خاصة بصاحب السؤال.",
 ].join("\n");
 
@@ -103,11 +104,6 @@ function newReplyCode() {
   const bytes = crypto.getRandomValues(new Uint8Array(10));
   return [...bytes].map((byte) => alphabet[byte % alphabet.length]).join("");
 }
-
-const PERSONAL_DATA_REPLY =
-  "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.";
-const REDACTED_QUESTION =
-  "تم حجب السؤال تلقائيًا لاحتوائه على بيانات شخصية أو سرية.";
 
 const rateBuckets = new Map<string, { startedAt: number; count: number }>();
 
@@ -364,6 +360,10 @@ async function answerWithGemini(
       );
       return { ok: false };
     }
+    if (containsSensitivePersonalData(text)) {
+      console.error("visitor-assistant Gemini output rejected", "privacy_pattern");
+      return { ok: false };
+    }
     if (text.length > 4000) {
       console.error("visitor-assistant Gemini output rejected", "too_long");
       return { ok: false };
@@ -445,93 +445,16 @@ Deno.serve(async (request: Request) => {
 
     const visitorToken = randomHex(32);
     const visitorTokenHash = await sha256Hex(visitorToken);
-    if (containsSensitivePersonalData(question)) {
-      const created = await saveQuestion(
-        REDACTED_QUESTION,
-        visitorTokenHash,
-        PERSONAL_DATA_REPLY,
-      );
-      if (!created) {
-        return jsonResponse({ error: "question_save_failed" }, 503, origin);
-      }
-      return jsonResponse(
-        {
-          ok: true,
-          question_id: created.id,
-          access_token: visitorToken,
-          auto_answered: true,
-          question_display: REDACTED_QUESTION,
-          reply: PERSONAL_DATA_REPLY,
-          answered_at: created.answeredAt,
-        },
-        201,
-        origin,
-      );
-    }
-
-    const automaticAnswer = await answerWithGemini(question);
-    if (automaticAnswer.ok) {
-      const created = await saveQuestion(
-        question,
-        visitorTokenHash,
-        automaticAnswer.text,
-      );
-      if (!created) {
-        return jsonResponse({ error: "question_save_failed" }, 503, origin);
-      }
-      return jsonResponse(
-        {
-          ok: true,
-          question_id: created.id,
-          access_token: visitorToken,
-          auto_answered: true,
-          question_display: question,
-          reply: automaticAnswer.text,
-          answered_at: created.answeredAt,
-        },
-        201,
-        origin,
-      );
-    }
-
-    const ownerChatId = await getOwnerChatId();
-    if (!ownerChatId) {
-      return jsonResponse(
-        {
-          error: GEMINI_API_KEY ? "owner_not_linked" : "assistant_unavailable",
-        },
-        503,
-        origin,
-      );
-    }
-    const created = await saveQuestion(question, visitorTokenHash);
-    if (!created) {
-      return jsonResponse({ error: "question_save_failed" }, 503, origin);
-    }
-    const notification = [
-      "تعذر الرد الآلي؛ سؤال جديد يحتاج متابعة عبر بوت مكتبات بورسعيد المدرسية",
-      "",
+    const submission = await processVisitorQuestion({
       question,
-      "",
-      "للرد على صاحب السؤال فقط، أرسل:",
-      `/reply ${created.replyCode} ثم اكتب الرد بعد مسافة`,
-    ].join("\n");
-    const sent = await sendTelegramMessage(String(ownerChatId), notification);
-    if (!sent) {
-      await admin.from("visitor_questions").delete().eq("id", created.id);
-      return jsonResponse({ error: "notification_failed" }, 502, origin);
-    }
-    return jsonResponse(
-      {
-        ok: true,
-        question_id: created.id,
-        access_token: visitorToken,
-        auto_answered: false,
-        question_display: question,
-      },
-      201,
-      origin,
-    );
+      visitorToken,
+      visitorTokenHash,
+      answerWithGemini,
+      saveQuestion,
+      getOwnerChatId,
+      sendTelegramMessage,
+    });
+    return jsonResponse(submission.body, submission.status, origin);
   }
 
   if (action === "poll") {

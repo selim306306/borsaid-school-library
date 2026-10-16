@@ -49,8 +49,10 @@ if (form && questionField && statusField && ticketList && submitButton) {
     state.dir = 'auto';
     state.textContent = ticket.reply
       ? `الرد: ${ticket.reply}`
-      : ticket.autoAnswered === false
+      : ticket.autoAnswered === false && ticket.ownerNotification === 'sent'
         ? 'تعذّر الرد الآلي؛ وصل السؤال لفريق المكتبة عبر البوت. سيظهر الرد هنا فقط.'
+        : ticket.autoAnswered === false
+          ? 'تعذّر الرد الآلي؛ حُفظ السؤال للمتابعة، وسيظهر الرد هنا فقط لصاحبه.'
         : 'جارٍ إعداد الإجابة؛ ستظهر هنا فقط لصاحب السؤال.';
     card.append(question, state);
     return card;
@@ -114,10 +116,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) {
         const messages = {
-          owner_not_linked: 'خدمة الرسائل لم تكتمل تهيئتها بعد. حاول لاحقًا.',
-          assistant_unavailable: 'المساعد الآلي وقناة المتابعة غير متاحين مؤقتًا. حاول لاحقًا.',
           rate_limited: 'أرسلت أسئلة كثيرة خلال وقت قصير؛ انتظر قليلًا ثم حاول مجددًا.',
-          notification_failed: 'تعذر إرسال السؤال الآن. لم يُسجّل السؤال؛ حاول مرة أخرى بعد قليل.',
           service_not_ready: 'خدمة الرسائل غير متاحة مؤقتًا. حاول لاحقًا.',
         };
         statusField.textContent = messages[result?.error] || 'تعذر إرسال السؤال الآن. تحقق من الاتصال وحاول مجددًا.';
@@ -134,15 +133,25 @@ if (form && questionField && statusField && ticketList && submitButton) {
         question: typeof result.question_display === 'string' ? result.question_display : question,
         reply: typeof result.reply === 'string' ? result.reply : '',
         autoAnswered: result.auto_answered !== false,
+        ownerNotification: result.owner_notification || null,
         createdAt: new Date().toISOString(),
       });
       tickets = tickets.slice(0, 5);
       saveTickets();
       renderTickets();
       questionField.value = '';
-      statusField.textContent = result.auto_answered
-        ? 'أجابك المساعد تلقائيًا؛ الرد محفوظ ويظهر لك وحدك هنا.'
-        : 'تعذّر الرد الآلي؛ وصل سؤالك لفريق المكتبة عبر Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.';
+      const wasRedacted = typeof result.question_display === 'string' && result.question_display.includes('تم حجب السؤال تلقائيًا');
+      statusField.textContent = wasRedacted
+        ? 'حُجب السؤال تلقائيًا؛ لم يُرسل نصه إلى Gemini أو Telegram، وقدّمنا ردًا إرشاديًا عامًا.'
+        : result.auto_answered
+          ? result.owner_notification === 'sent'
+            ? 'أجابك المساعد تلقائيًا؛ وصل إلى مدير الموقع إشعار بالسؤال والرد عبر Telegram، وتظهر الإجابة لك وحدك هنا.'
+            : 'أجابك المساعد تلقائيًا؛ الرد محفوظ ويظهر لك وحدك هنا.'
+          : result.owner_notification === 'sent'
+            ? 'تعذّر الرد الآلي؛ وصل سؤالك لفريق المكتبة عبر Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.'
+            : result.owner_notification === 'not_linked'
+              ? 'تعذّر الرد الآلي؛ حُفظ السؤال للمتابعة في لوحة المالك، وسيظهر الرد هنا فقط لصاحبه.'
+              : 'تعذّر الرد الآلي؛ حُفظ السؤال، لكن تعذّر تأكيد إشعار Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.';
       const newest = tickets[0];
       if (newest) void pollTicket(newest);
     } catch {

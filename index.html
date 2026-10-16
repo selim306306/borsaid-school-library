@@ -439,8 +439,8 @@
         <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
         <p>سيجيب مساعد المكتبة تلقائيًا عن الأسئلة العامة بالاستناد إلى معلومات الموقع والفهرس المنشور. يظهر رد كل سؤال لصاحبه فقط في هذه الصفحة.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">عند الضغط على «اسأل المساعد»، يُرسل نص سؤالك ونتائج الفهرس العامة المطابقة إلى Gemini لإعداد الإجابة، ويُحفظ السؤال والرد في قاعدة خاصة ليظهر الرد لك وحدك. إذا تعذّر الرد الآلي، يُرسل نص السؤال إلى مالك الموقع عبر Telegram للمتابعة. لا يستطيع المساعد قراءة سجلات الطلاب أو المستعيرين أو بيانات الموظفين الخاصة.</p>
-        <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لا تكتب اسم طالب أو مستعير أو موظف، أو رقم عضوية، أو هاتفًا، أو بريدًا، أو أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
+        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">عند إرسال السؤال، تُفحص البيانات الحساسة أولًا. تُرسل الأسئلة العامة ونتائج الفهرس المنشورة إلى Gemini، ويصل إلى مدير الموقع عبر Telegram نص السؤال والرد الآلي؛ وإذا تعذّر الرد، يصله السؤال وحالة التعذّر للمتابعة. أما إذا احتوى السؤال بيانات شخصية أو سرية، فيُحجب نصه ولا يُرسل إلى Gemini أو Telegram، وقد يصل تنبيه عام فقط. يُحفظ السؤال أو النسخة المحجوبة في قاعدة خاصة، ويظهر الرد لصاحبه وحده هنا.</p>
+        <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لخصوصيتك، لا تكتب أسماء أو أرقامًا أو بريدًا أو بيانات تخص طالبًا أو مستعيرًا أو موظفًا، ولا أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
         <label for="visitorQuestionText">نص السؤال</label>
