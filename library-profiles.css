@@ -106,6 +106,17 @@
 .school-delete-card{grid-template-columns:1fr;align-items:stretch}
 .school-delete-heading h4{margin:0 0 5px;color:#8e343e;font-size:calc((12px) + var(--site-font-step, 2px))}
 .school-delete-heading p{margin:0;color:#75565a;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-action-picker{display:grid;gap:7px;min-width:0}
+.school-action-picker>label{color:#53627a;font-size:calc((11px) + var(--site-font-step, 2px));font-weight:700}
+.school-action-picker select{width:100%;min-width:0;padding:10px 12px;border:1px solid #ccd5e3;border-radius:10px;background:#fff;color:#26344c;font:inherit}
+.school-action-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.school-action-choice{display:grid;align-content:start;gap:7px;min-width:0;padding:13px;border:1px solid #e2e7f0;border-radius:13px;background:#fff}
+.school-action-choice h5{margin:0;color:#344b85;font-size:calc((12px) + var(--site-font-step, 2px))}
+.school-action-choice p{margin:0;color:#5f6d82;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.8}
+.school-action-choice button{width:100%;min-height:42px;margin-top:3px;white-space:normal;line-height:1.6}
+.school-homepage-name-action{border:1px solid #9fb3df;background:#f7f9ff;color:#344b85;font-weight:700}
+.school-homepage-name-action:hover{background:#edf2ff}
+.school-homepage-name-action:disabled{opacity:.62;cursor:not-allowed}
 .school-delete-preview-action{justify-self:start;min-width:220px}
 .school-delete-preview[hidden]{display:none!important}
 .school-delete-preview{margin-top:8px;padding:14px;border:1px solid #e7b7bb;border-radius:12px;background:#fff}
@@ -120,5 +131,5 @@
 .school-delete-confirm-check input{flex:0 0 auto;margin-top:5px;accent-color:#a63f4a}
 .school-delete-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
 .school-delete-actions .school-delete-action{justify-self:auto;min-width:190px}
-.school-delete-action:focus-visible,.school-delete-preview-action:focus-visible,.school-delete-actions .button:focus-visible{outline:3px solid #425fc1;outline-offset:2px}
-@media(max-width:700px){.school-delete-preview-action,.school-delete-actions .button{width:100%}.school-delete-actions{display:grid;grid-template-columns:1fr}.school-delete-actions .school-delete-action{width:100%}.school-delete-impact-list li{align-items:flex-start}}
+.school-delete-action:focus-visible,.school-delete-preview-action:focus-visible,.school-homepage-name-action:focus-visible,.school-delete-actions .button:focus-visible{outline:3px solid #425fc1;outline-offset:2px}
+@media(max-width:700px){.school-action-choices{grid-template-columns:1fr}.school-delete-preview-action,.school-delete-actions .button{width:100%}.school-delete-actions{display:grid;grid-template-columns:1fr}.school-delete-actions .school-delete-action{width:100%}.school-delete-impact-list li{align-items:flex-start}}

@@ -4,6 +4,7 @@ import { initializeBookImportControls } from './staff-import-controller.mjs?v=20
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
+import { shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-1';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -271,6 +272,8 @@ function updatePublicBranding(profiles = []) {
   const title = $('#siteBrandTitle');
   const subtitle = $('#siteBrandSubtitle');
   const schoolProfiles = deduplicatePublicSchoolProfiles(profiles);
+  const visibleNameProfiles = deduplicatePublicSchoolProfiles(profiles.filter(shouldShowSchoolNameOnHomepage));
+  const visibleSchoolNames = new Set(visibleNameProfiles.map(profile => String(profile.school_name || '').trim().normalize('NFC').replace(/\s+/gu, ' ').toLocaleLowerCase('ar')));
   const governorateProfile = schoolProfiles.find(profile => profile.governorate_logo_path);
   const governorateUrl = governorateProfile ? publicLogoUrl(governorateProfile.governorate_logo_path) : '';
   defaultLogo.hidden = false;
@@ -286,11 +289,13 @@ function updatePublicBranding(profiles = []) {
     subtitle.textContent = 'شبكة المكتبات المدرسية';
     return;
   }
-  subtitle.title = schoolProfiles.map(profile => profile.school_name).join('، ');
+  subtitle.title = visibleNameProfiles.map(profile => profile.school_name).join('، ');
   for (const profile of schoolProfiles) {
+    const normalizedName = String(profile.school_name || '').trim().normalize('NFC').replace(/\s+/gu, ' ').toLocaleLowerCase('ar');
+    const showSchoolName = visibleSchoolNames.has(normalizedName);
     const identity = document.createElement('span');
     identity.className = 'brand-school-identity';
-    identity.setAttribute('aria-label', `مكتبة ${profile.school_name}`);
+    identity.setAttribute('aria-label', showSchoolName ? `مكتبة ${profile.school_name}` : 'شعار مكتبة مشاركة');
     const schoolUrl = publicLogoUrl(profile.school_logo_path);
     if (schoolUrl) {
       const logo = document.createElement('img');
@@ -306,10 +311,12 @@ function updatePublicBranding(profiles = []) {
       placeholder.textContent = '⌂';
       identity.append(placeholder);
     }
-    const name = document.createElement('span');
-    name.className = 'brand-school-name';
-    name.textContent = profile.school_name;
-    identity.append(name);
+    if (showSchoolName) {
+      const name = document.createElement('span');
+      name.className = 'brand-school-name';
+      name.textContent = profile.school_name;
+      identity.append(name);
+    }
     subtitle.append(identity);
   }
 }
@@ -366,7 +373,7 @@ async function loadPublicBranches() {
       .select('branch_id,library_id,library_name,branch_name,governorate,city,public_address,public_phone,public_email,interlibrary_enabled')
       .order('branch_name', { ascending: true }),
     publicSupabase.from('library_profiles')
-      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name')
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,show_school_name_on_homepage')
       .order('school_name', { ascending: true }),
   ]);
   publicBranches = branchesResult.error ? [] : (branchesResult.data || []);
@@ -839,6 +846,7 @@ async function loadOwnerVisitorQuestions() {
 $('#refreshVisitorQuestions').addEventListener('click', () => { void loadOwnerVisitorQuestions(); });
 function updateLibraryProfileChoice(profile) {
   currentLibraryProfileChoices.set(profile.library_id, profile);
+  updateOwnedSchoolActionOption(profile);
   const option = [...$('#librarySelect').options].find(item => item.value === profile.library_id);
   if (!option) return null;
   option.dataset.schoolName = profile.school_name || '';
@@ -847,12 +855,78 @@ function updateLibraryProfileChoice(profile) {
   return option;
 }
 
+function activeOwnedSchoolMembership(libraryId) {
+  return currentMemberships.find(membership => membership.library_id === libraryId
+    && membership.role === 'owner' && membership.status === 'active') || null;
+}
+function updateOwnedSchoolActionControls() {
+  const select = $('#ownedSchoolActionSelect');
+  const option = select?.selectedOptions?.[0];
+  const libraryId = select?.value || '';
+  const membership = activeOwnedSchoolMembership(libraryId);
+  const profile = currentLibraryProfileChoices.get(libraryId) || null;
+  const schoolName = profile?.school_name || option?.dataset.schoolName || option?.dataset.libraryName || 'المدرسة المحددة';
+  const visible = profile ? shouldShowSchoolNameOnHomepage(profile) : false;
+  const homepageNameState = profile && !profile.is_public
+    ? `معدّ ${visible ? 'للظهور' : 'للإخفاء'} عند نشر الملف`
+    : (visible ? 'ظاهر' : 'مخفى');
+  const toggleButton = $('#toggleHomepageSchoolName');
+  const deleteButton = $('#previewOwnedSchoolDeletion');
+  const context = $('#ownedSchoolActionContext');
+  if (!libraryId || !membership) {
+    context.textContent = 'اختر إحدى المكتبات التي تملكها لإظهار الإجراء المناسب.';
+    toggleButton.disabled = true;
+    deleteButton.disabled = true;
+    return;
+  }
+  context.textContent = profile
+    ? `المكتبة المختارة: ${option?.dataset.libraryName || schoolName}. اسم ملف المدرسة «${schoolName}» ${homepageNameState} بجوار شعار مصر؛ الملف ${profile.is_public ? 'ظاهر في دليل المكتبات' : 'غير منشور في الدليل'}. خيار الظهور مستقل؛ الشعاران والبيانات لا يتغيران عند إخفاء الاسم.`
+    : `المكتبة المختارة: ${option?.dataset.libraryName || schoolName}. لا يوجد ملف مدرسة محفوظ لها بعد؛ يمكنك معاينة الحذف النهائي، لكن لا يمكن تغيير ظهور اسمها قبل إنشاء الملف.`;
+  toggleButton.disabled = !profile;
+  toggleButton.textContent = visible
+    ? 'إزالة الاسم من الصفحة الرئيسية فقط'
+    : 'إعادة إظهار الاسم بجوار شعار مصر';
+  deleteButton.disabled = !canDeleteOwnedSchool(membership.role, libraryId);
+}
+function updateOwnedSchoolActionOption(profile) {
+  const option = [...$('#ownedSchoolActionSelect').options].find(item => item.value === profile.library_id);
+  if (!option) return;
+  option.dataset.schoolName = profile.school_name || '';
+  const libraryName = option.dataset.libraryName || profile.school_name || 'مكتبة';
+  option.textContent = profile.school_name && profile.school_name !== libraryName
+    ? `${libraryName} — ملف المدرسة: ${profile.school_name}`
+    : libraryName;
+  updateOwnedSchoolActionControls();
+}
+function refreshOwnedSchoolActionChoices(libraries = []) {
+  const select = $('#ownedSchoolActionSelect');
+  const previousValue = select.value;
+  const owners = currentMemberships.filter(membership => membership.role === 'owner' && membership.status === 'active');
+  const ownedIds = new Set(owners.map(membership => membership.library_id));
+  select.innerHTML = owners.map(membership => {
+    const library = libraries.find(item => item.id === membership.library_id);
+    const profile = currentLibraryProfileChoices.get(membership.library_id);
+    const libraryName = library?.name || 'مكتبة';
+    const schoolName = profile?.school_name || '';
+    const label = schoolName && schoolName !== libraryName
+      ? `${libraryName} — ملف المدرسة: ${schoolName}`
+      : libraryName;
+    return `<option value="${escapeHtml(membership.library_id)}" data-library-name="${escapeHtml(libraryName)}" data-school-name="${escapeHtml(schoolName)}">${escapeHtml(label)}</option>`;
+  }).join('');
+  const selectedId = ownedIds.has(previousValue) ? previousValue
+    : (ownedIds.has(currentLibraryId) ? currentLibraryId : owners[0]?.library_id || '');
+  if (selectedId) select.value = selectedId;
+  select.disabled = owners.length === 0;
+  updateOwnedSchoolActionControls();
+}
+
 async function loadMemberships(preferredLibraryId = null) {
   const { data: userData } = await supabase.auth.getUser();
   currentUserId = userData?.user?.id || null;
   const { data, error } = await supabase.from('library_memberships').select('library_id,role,status').eq('status', 'active');
   if (error) {
     currentMemberships = [];
+    refreshOwnedSchoolActionChoices([]);
     currentRole = null;
     configureRole(null);
     setWorkspaceMode(true);
@@ -870,6 +944,7 @@ async function loadMemberships(preferredLibraryId = null) {
     $('#workspaceTitle').textContent = 'لا توجد صلاحية لمكتبة';
     $('#staffIdentity').textContent = 'يمكنك تسجيل الخروج أو طلب دعوة من المسؤول.';
     $('#librarySelect').innerHTML = '';
+    refreshOwnedSchoolActionChoices([]);
     $('#staffStats').innerHTML = '';
     return;
   }
@@ -881,8 +956,9 @@ async function loadMemberships(preferredLibraryId = null) {
     $('#membershipWarning').textContent = 'تعذّر فتح معلومات المكتبة. راجع صلاحيات الحساب.';
     return;
   }
-  const { data: profiles } = await supabase.from('library_profiles').select('library_id,school_name,is_public').in('library_id', ids);
+  const { data: profiles } = await supabase.from('library_profiles').select('library_id,school_name,is_public,show_school_name_on_homepage').in('library_id', ids);
   currentLibraryProfileChoices = new Map((profiles || []).map(profile => [profile.library_id, profile]));
+  refreshOwnedSchoolActionChoices(libraries);
   $('#membershipWarning').hidden = true;
   $('#librarySelect').innerHTML = libraries.map(library => {
     const profile = currentLibraryProfileChoices.get(library.id);
@@ -1689,7 +1765,7 @@ async function loadSchoolProfile() {
   $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${selectedOption?.textContent || 'المدرسة الحالية'}؛ حقلا المدير والوكلاء محفوظان لهذا الملف فقط.`;
   setSchoolProfileStatus('جارٍ تحميل بيانات المدرسة…');
   const { data, error } = await supabase.from('library_profiles')
-    .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,updated_at')
+    .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at')
     .eq('library_id', currentLibraryId).maybeSingle();
   if (error) {
     currentLibraryProfile = null;
@@ -1754,10 +1830,11 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
       school_logo_path: logoPaths.school_logo_path,
       governorate_logo_path: logoPaths.governorate_logo_path,
       is_public: fields.get('is_public') === 'on',
+      show_school_name_on_homepage: currentLibraryProfile?.show_school_name_on_homepage !== false,
       updated_at: new Date().toISOString(),
     };
     const { data, error } = await supabase.from('library_profiles').upsert(payload, { onConflict: 'library_id' })
-      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,updated_at').single();
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at').single();
     if (error || !data) throw error || new Error('save_failed');
     currentLibraryProfile = data;
     const option = updateLibraryProfileChoice(data);
@@ -1854,6 +1931,62 @@ const SCHOOL_DELETION_IMPACT_LABELS = [
   ['remaining_owned_libraries', 'مكتبات أخرى ستبقى لك بصفة المالك'],
 ];
 let pendingSchoolDeletion = null;
+$('#ownedSchoolActionSelect').addEventListener('change', () => {
+  if (pendingSchoolDeletion) return;
+  $('#schoolDeletionPreview').hidden = true;
+  $('#confirmSchoolDeletionCheck').checked = false;
+  $('#confirmDeleteOwnedSchool').disabled = true;
+  $('#deleteOwnedSchoolStatus').textContent = '';
+  updateOwnedSchoolActionControls();
+});
+async function setSchoolHomepageNameVisibility(visible) {
+  const select = $('#ownedSchoolActionSelect');
+  const libraryId = select.value;
+  const membership = activeOwnedSchoolMembership(libraryId);
+  const profile = currentLibraryProfileChoices.get(libraryId);
+  if (!canDeleteOwnedSchool(membership?.role, libraryId)) return;
+  if (!profile) {
+    $('#deleteOwnedSchoolStatus').textContent = 'لا يوجد ملف مدرسة لهذا الاختيار؛ لم يتغير شيء. أنشئ ملف المدرسة أولًا إذا أردت إدارة ظهور الاسم.';
+    return;
+  }
+  const schoolName = profile.school_name || 'المدرسة المحددة';
+  const toggleButton = $('#toggleHomepageSchoolName');
+  const deleteButton = $('#previewOwnedSchoolDeletion');
+  const status = $('#deleteOwnedSchoolStatus');
+  select.disabled = true;
+  toggleButton.disabled = true;
+  deleteButton.disabled = true;
+  status.className = 'school-profile-status';
+  status.textContent = visible ? 'جارٍ إظهار اسم المدرسة في الشريط…' : 'جارٍ إزالة اسم المدرسة من الشريط فقط…';
+  try {
+    const { data, error } = await supabase.from('library_profiles')
+      .update({ show_school_name_on_homepage: visible, updated_at: new Date().toISOString() })
+      .eq('library_id', libraryId)
+      .select('library_id,school_name,is_public,show_school_name_on_homepage,updated_at')
+      .single();
+    if (error || !data) throw error || new Error('save_failed');
+    const updatedProfile = { ...profile, ...data };
+    currentLibraryProfileChoices.set(libraryId, updatedProfile);
+    if (currentLibraryId === libraryId) currentLibraryProfile = { ...currentLibraryProfile, ...data };
+    updateLibraryProfileChoice(updatedProfile);
+    status.className = 'school-profile-status success';
+    status.textContent = visible
+      ? `أُظهر اسم «${schoolName}» بجوار شعار مصر.`
+      : `أُزيل اسم «${schoolName}» من الصفحة الرئيسية فقط؛ بقي ملف المدرسة والدليل والشعارات والبيانات كما هي.`;
+    await loadPublicBranches().catch(() => {});
+  } catch {
+    status.className = 'school-profile-status error';
+    status.textContent = 'تعذّر تحديث إعداد ظهور الاسم. حدّث الصفحة للتحقق؛ لم يُنفّذ حذف للمدرسة.';
+  } finally {
+    select.disabled = false;
+    updateOwnedSchoolActionControls();
+  }
+}
+$('#toggleHomepageSchoolName').addEventListener('click', () => {
+  const profile = currentLibraryProfileChoices.get($('#ownedSchoolActionSelect').value);
+  if (!profile) return;
+  void setSchoolHomepageNameVisibility(!shouldShowSchoolNameOnHomepage(profile));
+});
 async function listSchoolBrandingFiles(libraryId) {
   const bucket = supabase.storage.from('school-branding');
   const paths = [];
@@ -1918,11 +2051,14 @@ function renderSchoolDeletionPreview(preview, files) {
   };
 }
 $('#previewOwnedSchoolDeletion').addEventListener('click', async () => {
-  if (!canDeleteOwnedSchool(currentRole, currentLibraryId)) return;
-  const libraryId = currentLibraryId;
+  const libraryId = $('#ownedSchoolActionSelect').value;
+  const membership = activeOwnedSchoolMembership(libraryId);
+  if (!canDeleteOwnedSchool(membership?.role, libraryId)) return;
   const button = $('#previewOwnedSchoolDeletion');
   button.disabled = true;
   $('#librarySelect').disabled = true;
+  $('#ownedSchoolActionSelect').disabled = true;
+  $('#toggleHomepageSchoolName').disabled = true;
   $('#schoolDeletionPreview').hidden = true;
   pendingSchoolDeletion = null;
   $('#deleteOwnedSchoolStatus').textContent = 'جارٍ جمع أعداد السجلات وملفات المدرسة…';
@@ -1932,13 +2068,16 @@ $('#previewOwnedSchoolDeletion').addEventListener('click', async () => {
     if (!data?.counts || data.library_id !== libraryId) throw new Error('school_not_found');
     const files = await listSchoolBrandingFiles(libraryId);
     if (files.length !== Number(data.storage_files || 0)) throw new Error('school_storage_count_mismatch');
-    const selectedOption = $('#librarySelect').selectedOptions[0];
-    const displayedSchoolName = currentLibraryProfile?.school_name || selectedOption?.dataset.schoolName || data.school_name || selectedOption?.textContent;
+    const selectedOption = $('#ownedSchoolActionSelect').selectedOptions[0];
+    const selectedProfile = currentLibraryProfileChoices.get(libraryId);
+    const displayedSchoolName = selectedProfile?.school_name || selectedOption?.dataset.schoolName || data.school_name || selectedOption?.dataset.libraryName;
     renderSchoolDeletionPreview({ ...data, school_name: displayedSchoolName }, files);
     $('#deleteOwnedSchoolStatus').textContent = 'اكتملت المعاينة. لم يُحذف أي سجل؛ أكّد فقط إذا وافقت على الأثر المعروض.';
   } catch (error) {
     $('#deleteOwnedSchoolStatus').textContent = schoolDeletionErrorMessage(error?.message);
     $('#librarySelect').disabled = false;
+    $('#ownedSchoolActionSelect').disabled = false;
+    updateOwnedSchoolActionControls();
   } finally {
     button.disabled = false;
   }
@@ -1952,6 +2091,8 @@ $('#cancelSchoolDeletion').addEventListener('click', () => {
   $('#schoolDeletionPreview').hidden = true;
   $('#confirmSchoolDeletionCheck').checked = false;
   $('#librarySelect').disabled = false;
+  $('#ownedSchoolActionSelect').disabled = false;
+  updateOwnedSchoolActionControls();
   $('#deleteOwnedSchoolStatus').textContent = 'أُلغيت المعاينة؛ لم يُحذف أي شيء.';
 });
 async function removeSchoolBrandingFiles(paths) {
@@ -1967,6 +2108,8 @@ $('#confirmDeleteOwnedSchool').addEventListener('click', async () => {
   const previewButton = $('#previewOwnedSchoolDeletion');
   confirmButton.disabled = true;
   previewButton.disabled = true;
+  $('#ownedSchoolActionSelect').disabled = true;
+  $('#toggleHomepageSchoolName').disabled = true;
   let storageAttempted = false;
   let storageComplete = false;
   let deletionCompleted = false;
@@ -1984,11 +2127,11 @@ $('#confirmDeleteOwnedSchool').addEventListener('click', async () => {
     if (error) throw error;
     deletionCompleted = true;
     currentLibraryProfileChoices.delete(pending.libraryId);
-    currentLibraryProfile = null;
+    if (currentLibraryId === pending.libraryId) currentLibraryProfile = null;
     pendingSchoolDeletion = null;
     $('#schoolDeletionPreview').hidden = true;
     $('#confirmSchoolDeletionCheck').checked = false;
-    await loadMemberships();
+    await loadMemberships(currentLibraryId);
     setSchoolProfileStatus('حُذفت المدرسة نهائيًا مع السجلات التي ظهرت في المعاينة.', 'success');
     $('#deleteOwnedSchoolStatus').textContent = 'اكتمل الحذف النهائي.';
   } catch (error) {
@@ -2009,7 +2152,8 @@ $('#confirmDeleteOwnedSchool').addEventListener('click', async () => {
     }
   } finally {
     $('#librarySelect').disabled = false;
-    previewButton.disabled = false;
+    $('#ownedSchoolActionSelect').disabled = false;
+    updateOwnedSchoolActionControls();
     confirmButton.disabled = true;
   }
 });
