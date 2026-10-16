@@ -1,0 +1,427 @@
+/* Port Said visual polish: preserve existing content, assets, and interactions. */
+.button:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+  outline:3px solid #3559b8;
+  outline-offset:3px;
+}
+.site-header{
+  width:min(940px,calc(100% - 40px));
+  grid-template-columns:minmax(0,1fr) minmax(260px,340px);
+  gap:clamp(12px,1.8vw,22px);
+  padding-block:10px;
+}
+
+@media (min-width:701px){
+  .site-header{
+    margin-block:8px 5px;
+    padding:10px 12px;
+    border:1px solid #edf0f4;
+    border-radius:20px;
+    background:linear-gradient(105deg,#fbfcff 0%,#fff 62%,#fffdf6 100%);
+  }
+  .header-feature-image-slot{
+    width:clamp(260px,27vw,340px);
+    border-radius:21px;
+  }
+  .brand{
+    align-items:center;
+    gap:12px;
+    min-width:0;
+    padding:8px 10px;
+    border:1px solid #e9edf3;
+    border-radius:16px;
+    background:rgba(255,255,255,.88);
+    box-shadow:0 7px 20px rgba(34,54,98,.045);
+  }
+  .brand-school-identities{
+    gap:4px;
+    color:#40566a;
+    font-size:calc(10px + var(--site-font-step, 2px));
+    line-height:1.35;
+  }
+  .brand-school-identity{
+    padding:2px 6px;
+    border:1px solid #edf0f4;
+    border-radius:999px;
+    background:#fff;
+  }
+}
+
+.page-home>.portal-hero{
+  margin-block:10px 14px;
+}
+.page-home>.leadership-banner{
+  margin:0 auto 16px;
+  padding:15px 17px 13px;
+  border-color:#e5eaf2;
+  border-radius:20px;
+  background:linear-gradient(112deg,#f6f8ff 0%,#fff 58%,#fffaf0 100%);
+}
+.page-home .leadership-banner-head{
+  align-items:center;
+  gap:14px;
+  margin-bottom:11px;
+}
+.page-home .leadership-banner-heading{
+  color:#20314e;
+  font-size:calc(19px + var(--site-font-step, 2px))!important;
+  line-height:1.35;
+}
+.page-home .leadership-banner-meta{
+  gap:7px;
+}
+.page-home .leadership-verified{
+  color:#4e5f72;
+  border-color:#e3e8ef;
+  background:#fff;
+  font-size:calc(9.5px + var(--site-font-step, 2px));
+}
+.page-home .leadership-owner{
+  color:#25458b;
+  border-color:#d7e1fb;
+  background:#edf2ff;
+  font-size:calc(10px + var(--site-font-step, 2px));
+}
+.page-home .leadership-banner .leadership-list{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+}
+.page-home .leadership-banner .leadership-person{
+  grid-template-columns:44px minmax(0,1fr);
+  gap:4px 9px;
+  padding:10px;
+  border-color:#e4e9f0;
+  border-radius:14px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 3px 10px rgba(32,49,78,.035);
+}
+.page-home .leadership-banner .leadership-photo,
+.page-home .leadership-banner .leadership-avatar{
+  width:44px;
+  height:44px;
+  border-color:#e2e7ef;
+}
+.page-home .leadership-banner .leadership-person-name{
+  color:#263954;
+  font-size:calc(11.5px + var(--site-font-step, 2px))!important;
+  line-height:1.4;
+}
+.page-home .leadership-banner .leadership-person-title{
+  display:block;
+  color:#45596f;
+  font-size:calc(10.5px + var(--site-font-step, 2px))!important;
+  line-height:1.5;
+}
+.page-home .leadership-banner .leadership-person-source{
+  display:block;
+  max-width:100%;
+  margin-top:4px;
+  color:#2d4d88;
+  font-size:calc(9.5px + var(--site-font-step, 2px))!important;
+  line-height:1.45;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:anywhere;
+  text-overflow:clip;
+}
+.page-home .leadership-photo-credits{
+  color:#4c5969;
+  font-size:calc(9.5px + var(--site-font-step, 2px));
+}
+.page-home .home-news-grid .news-card-summary{
+  color:#4c5b6c!important;
+}
+
+.site-footer{
+  margin-top:24px;
+  padding-top:23px;
+  border-top-color:#e6ebf0;
+}
+.site-footer .footer-note{
+  max-width:900px;
+  margin:0 0 18px;
+  padding:11px 14px;
+  border-inline-start:3px solid #268779;
+  border-radius:11px;
+  background:#f3f9f7;
+  color:#3f5661;
+  font-size:calc(11px + var(--site-font-step, 2px));
+  line-height:1.65;
+}
+.site-footer .footer-bottom{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:9px 14px;
+  color:#4c5a6a;
+  font-size:calc(9.5px + var(--site-font-step, 2px));
+}
+.site-footer .responsibility,
+.site-footer .credit{
+  display:inline-flex;
+  align-items:center;
+  min-height:32px;
+  padding:5px 10px;
+  border:1px solid #dfe9e5;
+  border-radius:999px;
+  background:#f2f8f5;
+  color:#214b43;
+  font-weight:800;
+  line-height:1.35;
+}
+.site-footer .credit{
+  border-color:#dce5f8;
+  background:#eff3ff;
+  color:#294783;
+}
+.site-footer .footer-bottom>a{
+  color:#35558c;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+@media (max-width:980px){
+  .page-home .leadership-banner .leadership-list{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+@media (max-width:700px){
+  .site-header{
+    width:calc(100% - 24px);
+    min-height:0;
+    grid-template-columns:minmax(0,1fr) clamp(112px,32vw,150px);
+    grid-template-rows:auto;
+    grid-template-areas:"brand photo";
+    align-items:center;
+    gap:8px;
+    margin-block:6px 4px;
+    padding:7px;
+    border:1px solid #edf0f4;
+    border-radius:16px;
+    background:linear-gradient(105deg,#fbfcff 0%,#fff 68%,#fffdf7 100%);
+  }
+  .site-header .brand{
+    align-items:center;
+    gap:6px;
+    min-width:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  .site-header .brand-logo-group{
+    flex-direction:row;
+    align-items:center;
+    gap:4px;
+    padding:0;
+  }
+  .site-header .brand-flag-photo-stack #brandDefaultLogo{
+    width:42px;
+    height:42px;
+  }
+  .site-header .brand-logo-group .brand-logo-extra{
+    width:35px;
+    height:35px;
+    padding:2px;
+    border-radius:9px;
+  }
+  .site-header .brand-copy{
+    flex:1 1 auto;
+    min-width:0;
+    max-width:none;
+  }
+  .site-header .brand-copy strong{
+    font-size:calc(11.5px + var(--site-font-step, 2px));
+    line-height:1.25;
+  }
+  .site-header .brand-school-identities{
+    align-items:flex-start;
+    gap:3px;
+    margin-top:4px;
+    color:#40566a;
+    font-size:calc(10px + var(--site-font-step, 2px));
+    font-weight:600;
+    line-height:1.3;
+  }
+  .site-header .brand-school-identity{
+    gap:4px;
+    min-width:0;
+    line-height:1.25;
+  }
+  .site-header .brand-school-logo,
+  .site-header .brand-school-placeholder{
+    width:19px;
+    height:19px;
+    flex-basis:19px;
+  }
+  .header-feature-image-slot{
+    width:100%;
+    max-width:none;
+    aspect-ratio:4/3;
+    justify-self:stretch;
+    align-self:center;
+    border-radius:13px;
+  }
+  .header-feature-image-slot::before{
+    inset:-4px 5px 5px -4px;
+    border-radius:17px;
+  }
+  .header-feature-image-slot::after{
+    top:-5px;
+    width:27px;
+    height:4px;
+  }
+  .header-photo-controls{
+    top:6px;
+    right:6px;
+    gap:2px;
+    padding:2px;
+  }
+  .header-photo-control{
+    width:25px;
+    height:25px;
+    font-size:17px;
+  }
+  .header-chat-shortcut{
+    left:6px;
+    bottom:6px;
+    gap:4px;
+    max-width:calc(100% - 12px);
+    padding:5px 7px;
+    font-size:calc(8px + var(--site-font-step, 2px));
+  }
+  .header-chat-shortcut svg{
+    width:14px;
+    height:14px;
+  }
+  .page-home>.portal-hero{
+    width:calc(100% - 24px);
+    margin:7px auto 10px;
+    padding:13px 12px 11px;
+  }
+  .page-home>.leadership-banner{
+    width:calc(100% - 24px);
+    margin:0 auto 11px;
+    padding:11px 10px 9px;
+    border-radius:15px;
+  }
+  .page-home .leadership-banner-head{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px;
+    margin-bottom:8px;
+  }
+  .page-home .leadership-banner-heading{
+    font-size:calc(17px + var(--site-font-step, 2px))!important;
+  }
+  .page-home .leadership-banner-meta{
+    justify-content:flex-start;
+    gap:5px;
+  }
+  .page-home .leadership-verified,
+  .page-home .leadership-owner{
+    padding:4px 7px;
+    font-size:calc(9px + var(--site-font-step, 2px));
+    line-height:1.45;
+    white-space:normal;
+  }
+  .page-home .leadership-banner .leadership-list{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
+  .page-home .leadership-banner .leadership-person{
+    grid-template-columns:34px minmax(0,1fr);
+    gap:3px 6px;
+    padding:7px;
+    border-radius:11px;
+  }
+  .page-home .leadership-banner .leadership-photo,
+  .page-home .leadership-banner .leadership-avatar{
+    width:34px;
+    height:34px;
+  }
+  .page-home .leadership-banner .leadership-person-name{
+    font-size:calc(11px + var(--site-font-step, 2px))!important;
+    line-height:1.4;
+  }
+  .page-home .leadership-banner .leadership-person-title{
+    font-size:calc(10px + var(--site-font-step, 2px))!important;
+    line-height:1.45;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip;
+  }
+  .page-home .leadership-banner .leadership-person-source{
+    margin-top:3px;
+    font-size:calc(9.5px + var(--site-font-step, 2px))!important;
+    line-height:1.4;
+  }
+  .page-home .leadership-photo-credits{
+    font-size:calc(9px + var(--site-font-step, 2px));
+    line-height:1.5;
+  }
+  .site-footer{
+    width:calc(100% - 24px);
+    margin-top:17px;
+  }
+  .site-footer .footer-bottom{
+    justify-content:flex-start;
+    gap:8px;
+  }
+  .site-footer .responsibility,
+  .site-footer .credit{
+    white-space:normal;
+  }
+}
+@media (max-width:380px){
+  .site-header{
+    grid-template-columns:minmax(0,1fr) 108px;
+    gap:6px;
+    padding:6px;
+  }
+  .site-header .brand-flag-photo-stack #brandDefaultLogo{
+    width:36px;
+    height:36px;
+  }
+  .site-header .brand-logo-group .brand-logo-extra{
+    width:31px;
+    height:31px;
+  }
+  .site-header .brand-copy strong{
+    font-size:calc(10.5px + var(--site-font-step, 2px));
+  }
+  .site-header .brand-school-identities{
+    font-size:calc(8.5px + var(--site-font-step, 2px));
+  }
+  .page-home .leadership-banner .leadership-person{
+    grid-template-columns:30px minmax(0,1fr);
+    gap:3px 5px;
+    padding:6px;
+  }
+  .page-home .leadership-banner .leadership-photo,
+  .page-home .leadership-banner .leadership-avatar{
+    width:30px;
+    height:30px;
+  }
+  .page-home .leadership-banner .leadership-person-name{
+    font-size:calc(10px + var(--site-font-step, 2px))!important;
+  }
+  .page-home .leadership-banner .leadership-person-title{
+    font-size:calc(9px + var(--site-font-step, 2px))!important;
+  }
+  .page-home .leadership-banner .leadership-person-source{
+    font-size:calc(9.5px + var(--site-font-step, 2px))!important;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .site-header,
+  .brand,
+  .leadership-person,
+  .footer-bottom a{
+    animation:none!important;
+    transition:none!important;
+  }
+}
