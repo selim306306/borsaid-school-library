@@ -2,6 +2,7 @@ import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './sit
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
+import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-admin-intent-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -552,6 +553,8 @@ function publicBranchAnswer(question) {
   return `${match ? 'هذه بيانات الفرع المنشورة:' : 'هذه بعض بيانات الفروع المنشورة؛ افتح قسم المكتبات لرؤية القائمة كاملة:'}\n${details}\nلا تتوفر هنا معلومات مؤكدة عن مواعيد العمل.`;
 }
 async function answerVisitorQuestion(question) {
+  const intentAnswer = resolveVisitorAssistantIntent(question);
+  if (intentAnswer) return intentAnswer;
   const normalized = normalizeVisitorText(question);
   if (/(اونلاين|انترنت|الكترون|pdf|تحميل|تنزيل|اقرا|قراءة|قراءه)/.test(normalized)) {
     const matches = findPublicReadableBooks(question);
