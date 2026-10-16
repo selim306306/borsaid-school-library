@@ -679,6 +679,7 @@ function configureRole(role) {
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
   if (owner) allowed.add('schoolProfilePanel');
+  if (owner && hasSiteFooterOwnership()) allowed.add('visitorQuestionsPanel');
   if (hasSiteMediaOwnership()) {
     allowed.add('siteMediaPanel');
     allowed.add('siteAnalyticsPanel');
@@ -693,6 +694,7 @@ function configureRole(role) {
   $('#bookImportCard').hidden = !manager;
   $('#branchForm').hidden = !manager;
   $('#schoolProfileTab').hidden = !owner;
+  $('#visitorQuestionsTab').hidden = !(owner && hasSiteFooterOwnership());
   $('#siteMediaTab').hidden = !hasSiteMediaOwnership();
   $('#siteAnalyticsTab').hidden = !hasSiteMediaOwnership();
   $('#schoolProfileForm').hidden = !owner;
@@ -708,6 +710,10 @@ function configureRole(role) {
   $('#inviteForm').hidden = !administrator;
   $('#operationalBackupCard').hidden = role !== 'owner';
   $('#managerAssistantCard').hidden = !administrator;
+  if (!(owner && hasSiteFooterOwnership())) {
+    $('#ownerVisitorQuestionsList').replaceChildren();
+    $('#visitorQuestionsStatus').textContent = '';
+  }
   const active = $('.staff-tab.active');
   activatePanel(active && !active.hidden ? active.dataset.panel : 'catalogPanel');
 }
@@ -746,6 +752,58 @@ function hasSiteMediaOwnership() {
   return currentMemberships.some(membership => membership.status === 'active'
     && ['owner', 'admin'].includes(membership.role) && SITE_OWNER_LIBRARY_IDS.has(membership.library_id));
 }
+function visitorQuestionSourceLabel(source) {
+  return ({ gemini: 'Gemini', telegram: 'متابعة عبر Telegram', local: 'رد تلقائي محلي' })[source] || 'غير مسجل';
+}
+async function loadOwnerVisitorQuestions() {
+  const status = $('#visitorQuestionsStatus');
+  const list = $('#ownerVisitorQuestionsList');
+  if (currentRole !== 'owner' || !hasSiteFooterOwnership() || !supabase) {
+    list.replaceChildren();
+    return;
+  }
+  status.textContent = 'جارٍ تحميل القائمة بصلاحية المالك…';
+  const { data, error } = await supabase.functions.invoke('visitor-questions-dashboard', {
+    body: { action: 'list' },
+  });
+  if (error || !Array.isArray(data?.questions)) {
+    list.replaceChildren();
+    status.textContent = 'تعذّر تحميل القائمة. تحقق من صلاحية جلسة المالك ثم أعد المحاولة.';
+    return;
+  }
+  list.replaceChildren();
+  if (!data.questions.length) {
+    status.textContent = 'لا توجد أسئلة محفوظة للمتابعة.';
+    return;
+  }
+  status.textContent = `عدد الأسئلة المعروضة: ${data.questions.length}`;
+  for (const item of data.questions) {
+    const card = document.createElement('article');
+    card.className = 'owner-question-card';
+    const questionHeading = document.createElement('h4');
+    questionHeading.textContent = 'السؤال';
+    const question = document.createElement('p');
+    question.className = 'owner-question-text';
+    question.dir = 'auto';
+    question.textContent = typeof item.question === 'string' ? item.question : '—';
+    const meta = document.createElement('p');
+    meta.className = 'owner-question-meta';
+    const statusLabel = item.status === 'answered' ? 'تم الرد' : 'بانتظار الرد';
+    meta.textContent = `الحالة: ${statusLabel} · المصدر: ${visitorQuestionSourceLabel(item.source)}`;
+    card.append(questionHeading, question, meta);
+    if (typeof item.reply === 'string' && item.reply) {
+      const replyHeading = document.createElement('h4');
+      replyHeading.textContent = 'الرد';
+      const reply = document.createElement('p');
+      reply.className = 'owner-question-text owner-question-reply';
+      reply.dir = 'auto';
+      reply.textContent = item.reply;
+      card.append(replyHeading, reply);
+    }
+    list.append(card);
+  }
+}
+$('#refreshVisitorQuestions').addEventListener('click', () => { void loadOwnerVisitorQuestions(); });
 function updateLibraryProfileChoice(profile) {
   currentLibraryProfileChoices.set(profile.library_id, profile);
   const option = [...$('#librarySelect').options].find(item => item.value === profile.library_id);
@@ -761,6 +819,9 @@ async function loadMemberships(preferredLibraryId = null) {
   currentUserId = userData?.user?.id || null;
   const { data, error } = await supabase.from('library_memberships').select('library_id,role,status').eq('status', 'active');
   if (error) {
+    currentMemberships = [];
+    currentRole = null;
+    configureRole(null);
     setWorkspaceMode(true);
     $('#membershipWarning').hidden = false;
     $('#membershipWarning').textContent = 'تعذّر تحميل صلاحيات هذا الحساب. تواصل مع مسؤول المكتبة.';
@@ -832,6 +893,7 @@ async function loadStaffData() {
   await loadStaffBranches();
   const tasks = [refreshStaffStats(), loadInventory(), loadReports(), loadLibrarySettings()];
   if (currentRole === 'owner') tasks.push(loadSchoolProfile(), loadSiteFooter());
+  if (currentRole === 'owner' && hasSiteFooterOwnership()) tasks.push(loadOwnerVisitorQuestions());
   if (hasSiteMediaOwnership()) tasks.push(loadSiteMediaManager(), loadSiteAnalytics());
   if (['owner', 'admin', 'librarian'].includes(currentRole)) tasks.push(loadInterlibraryRequests());
   if (['owner', 'admin'].includes(currentRole)) tasks.push(loadLibraryMembers());
@@ -2694,6 +2756,7 @@ async function start() {
       currentUserId = null;
       currentMemberships = [];
       configureRole(null);
+      $('#ownerVisitorQuestionsList').replaceChildren();
       setWorkspaceMode(false);
     }
   });

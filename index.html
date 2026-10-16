@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/egypt-mark.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/header-photo-initial.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site.css?v=20261016-pdf-assistant-2">
+  <link rel="stylesheet" href="site.css?v=20261016-owner-question-dashboard-1">
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-site-mark-webp-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-carousel-1"></script>
-  <script type="module" src="app.js?v=20261016-public-pdf-guide-2"></script>
+  <script type="module" src="app.js?v=20261016-owner-question-dashboard-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -44,7 +44,7 @@
   <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261016-public-pdf-guide-2"></script>
-  <script type="module" src="visitor-questions.js?v=20261016-auto-send-notice-2"></script>
+  <script type="module" src="visitor-questions.js?v=20261016-owner-question-dashboard-1"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
@@ -483,6 +483,7 @@
           <button class="staff-tab" id="schoolProfileTab" data-panel="schoolProfilePanel" type="button" hidden>بيانات المدرسة</button>
           <button class="staff-tab" id="siteMediaTab" data-panel="siteMediaPanel" type="button" hidden>صور الموقع</button>
           <button class="staff-tab" id="siteAnalyticsTab" data-panel="siteAnalyticsPanel" type="button" hidden>إحصاءات الموقع</button>
+          <button class="staff-tab" id="visitorQuestionsTab" data-panel="visitorQuestionsPanel" type="button" hidden>أسئلة الزوار الخاصة</button>
           <button class="staff-tab" data-panel="circulationPanel" type="button">الإعارة</button>
           <button class="staff-tab" data-panel="reservationsPanel" type="button">الحجوزات</button>
           <button class="staff-tab" data-panel="requestsPanel" type="button">طلبات الفروع</button>
@@ -765,6 +766,11 @@
               <button class="button button-primary" type="submit">إرسال السؤال</button>
             </form><p class="form-message" id="assistantChatMessage" role="status" aria-live="polite"></p>
           </section>
+        </section>
+        <section class="staff-panel" id="visitorQuestionsPanel" hidden aria-labelledby="visitorQuestionsHeading">
+          <div class="panel-heading"><div><span class="eyebrow">للمالك فقط</span><h3 id="visitorQuestionsHeading">متابعة أسئلة الزوار</h3><p>تعرض هذه القائمة نص السؤال والرد ومصدره وحالته فقط. لا تظهر رموز الوصول أو معرّفات الزوار، وتبقى الإجابة متاحة لصاحب السؤال وحده في صفحة إرساله.</p></div><button class="button button-outline" id="refreshVisitorQuestions" type="button">تحديث القائمة</button></div>
+          <p class="form-message" id="visitorQuestionsStatus" role="status" aria-live="polite"></p>
+          <div class="owner-question-list" id="ownerVisitorQuestionsList" aria-live="polite"></div>
         </section>
         <p class="form-message workspace-message" id="workspaceMessage" role="status" aria-live="polite"></p>
       </div>

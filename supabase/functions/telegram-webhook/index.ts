@@ -194,6 +194,7 @@ Deno.serve(async (request: Request) => {
       const updated = await databaseRequest(`visitor_questions?${filter.toString()}`, "PATCH", {
         reply: replyText,
         answered_at: new Date().toISOString(),
+        reply_source: "telegram",
       });
       const row = Array.isArray(updated.data) ? updated.data[0] : null;
       if (!updated.ok || !row?.id) await sendText(chatId, "لم أجد سؤالًا بهذا الرمز. راجع الرمز في رسالة السؤال وحاول مرة أخرى.");

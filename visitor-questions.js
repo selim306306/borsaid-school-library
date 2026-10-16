@@ -1,6 +1,7 @@
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const ENDPOINT = `${SUPABASE_URL}/functions/v1/visitor-questions`;
+const SUBMIT_ENDPOINT = `${SUPABASE_URL}/functions/v1/visitor-question-submit`;
 const BOT_URL = 'https://t.me/PortSaidSchoolLibrariesBot';
 const STORAGE_KEY = 'borsaid-visitor-question-tickets-v1';
 const form = document.querySelector('#visitorQuestionForm');
@@ -104,7 +105,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
     submitButton.disabled = true;
     statusField.textContent = 'جارٍ إعداد إجابة خاصة من معلومات الموقع العامة…';
     try {
-      const response = await fetch(ENDPOINT, {
+      const response = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
         cache: 'no-store',
