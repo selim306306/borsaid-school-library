@@ -49,3 +49,4 @@
 ## مبادئ الاستلهام
 
 تغطي المراجعة ستة أنظمة في `docs/PRODUCT_NOTES_AR.md`: Koha وLibib وFollett Destiny وAlexandria وOCLC WorldCat Discovery وBook Systems Atriuum. استُخدمت أنماط الفهرسة والإعارة وتعدد المواقع والتقارير لتوجيه تدفقات أصلية؛ لم تُنسخ شفرة أو هوية أو صور الأنظمة.
+
