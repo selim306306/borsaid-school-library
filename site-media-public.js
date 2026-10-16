@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.0';
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-header-carousel-2';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-header-gallery-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';

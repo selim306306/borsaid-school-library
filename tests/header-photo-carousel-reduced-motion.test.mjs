@@ -15,7 +15,7 @@ const slide = active => {
   const state = new Set(active ? ['is-active'] : []);
   return { dataset: {}, classList: { contains: key => state.has(key), toggle(key, force) { if (force) state.add(key); else state.delete(key); } }, setAttribute() {} };
 };
-const slides = [slide(true), slide(false)];
+const slides = Array.from({ length: 5 }, (_, index) => slide(index === 0));
 const previous = button('previous');
 const next = button('next');
 const autoplay = button('autoplay');

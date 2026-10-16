@@ -22,7 +22,7 @@ function createEnvironment() {
       setAttribute(name, value) { this.attributes[name] = value; },
     };
   };
-  const slides = [makeSlide(true), makeSlide(false)];
+  const slides = Array.from({ length: 5 }, (_, index) => makeSlide(index === 0));
   const slot = { querySelectorAll: () => slides };
   const previous = makeButton('previous');
   const next = makeButton('next');
@@ -59,8 +59,9 @@ test('manual and automatic controls advance exactly one carousel slide', async (
   assert.equal(env.slides[0].classList.contains('is-active'), true);
   env.handlers.get('next:click')();
   assert.equal(env.slides[1].classList.contains('is-active'), true);
-  assert.equal(env.status.textContent, 'الصورة 2 من 2');
+  assert.equal(env.status.textContent, 'الصورة 2 من 5');
   assert.equal(typeof env.timerCallback, 'function');
   env.timerCallback();
-  assert.equal(env.slides[0].classList.contains('is-active'), true);
+  assert.equal(env.slides[2].classList.contains('is-active'), true);
+  assert.equal(env.slides[1].classList.contains('is-active'), false);
 });

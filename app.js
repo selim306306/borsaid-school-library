@@ -1,4 +1,4 @@
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-header-carousel-2';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-header-gallery-1';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';

@@ -29,13 +29,13 @@
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261015-site-media-motion-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261015-school-profiles-4">
-  <link rel="stylesheet" href="header-photo.css?v=20261016-assistant-cta-layout-1">
+  <link rel="stylesheet" href="header-photo.css?v=20261016-gallery-cover-1">
   <link rel="stylesheet" href="visitor-questions.css?v=20261016-visitor-chat-modal-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
-  <script type="module" src="site-media-public.js?v=20261016-site-mark-webp-1"></script>
-  <script type="module" src="header-photo-carousel.js?v=20261016-header-carousel-1"></script>
-  <script type="module" src="app.js?v=20261016-visitor-chat-modal-1"></script>
+  <script type="module" src="site-media-public.js?v=20261016-header-gallery-1"></script>
+  <script type="module" src="header-photo-carousel.js?v=20261016-gallery-five-slides-1"></script>
+  <script type="module" src="app.js?v=20261016-header-gallery-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -72,8 +72,12 @@
     </nav>
     <div class="header-feature-stack">
     <div class="header-feature-image-slot" role="region" aria-roledescription="carousel" aria-label="صور المكتبات والقراءة">
-      <img class="brand-header-photo is-active" id="brandHeaderPhoto" src="assets/header-photo-initial.webp" data-site-media-bootstrap-src="assets/header-photo-initial.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="صورة نشاط مكتبي في مكتبة مدرسية" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false">
-      <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <img class="brand-header-photo is-active" id="brandHeaderPhoto" data-site-media-key="header-feature-image" src="assets/header-photo-initial.webp" data-site-media-bootstrap-src="assets/header-photo-initial.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="صورة نشاط مكتبي في مكتبة مدرسية" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false">
+      <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" data-site-media-key="header-feature-image-2" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <img class="brand-header-photo" id="brandHeaderPhotoThree" data-site-media-key="header-feature-image-3" src="assets/header-gallery/library-bookshelf.webp" data-site-media-credit-text="Mshuang2 · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Library_bookshelf.jpg" alt="رفوف كتب متنوعة داخل مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <img class="brand-header-photo" id="brandHeaderPhotoFour" data-site-media-key="header-feature-image-4" src="assets/header-gallery/books-on-a-shelf.webp" data-site-media-credit-text="MarkBuckawicki · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Books_on_a_Shelf.JPG" alt="مجموعة كتب مرتبة على رفوف" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <img class="brand-header-photo" id="brandHeaderPhotoFive" data-site-media-key="header-feature-image-5" src="assets/header-gallery/reading-area.webp" data-site-media-credit-text="Liudmila · ملك عام" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:American_Library_reading_area.jpg" alt="منطقة قراءة هادئة في مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+      <div class="header-photo-attribution" id="headerPhotoAttribution" aria-label="مصدر الصورة" hidden></div>
       <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
         <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
         <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
