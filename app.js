@@ -11,6 +11,7 @@ import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=202
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=20261017-platform-report-1';
 import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
+import { loadPublicPageViewStats } from './public-site-stats.js?v=20261017-public-stats-1';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -3444,6 +3445,7 @@ async function start() {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
     });
     trackPublicPageView(viewPanels.find(panel => !panel.hidden)?.dataset.viewPanel || 'home');
+    void loadPublicPageViewStats({ client: publicAnalyticsSupabase, root: $('#publicPageViewStats') });
   } catch (error) {
     catalogStatus.textContent = 'تعذّر تحميل مكوّن الاتصال. تحقق من اتصال الإنترنت ثم أعد المحاولة.';
     const cached = cacheRead();

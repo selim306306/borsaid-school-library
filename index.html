@@ -41,10 +41,11 @@
   <link rel="stylesheet" href="header-photo.css?v=20261016-ai-chat-cta-1">
   <link rel="stylesheet" href="visitor-questions.css?v=20261017-public-assistant-paths-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
+  <link rel="stylesheet" href="public-site-stats.css?v=20261017-public-stats-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-gemini-routing-2"></script>
+  <script type="module" src="app.js?v=20261017-public-stats-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -503,6 +504,16 @@
   <footer class="site-footer section-wrap">
     <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
     <p class="footer-note" id="footerDescription">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
+    <section class="public-page-view-stats" id="publicPageViewStats" dir="rtl" aria-labelledby="publicPageViewStatsTitle">
+      <h2 id="publicPageViewStatsTitle">إحصاءات المشاهدة</h2>
+      <div class="public-page-view-stats-grid">
+        <div><span>الإجمالي المسجل</span><strong data-public-stats-value="total">—</strong></div>
+        <div><span>اليوم</span><strong data-public-stats-value="today">—</strong></div>
+        <div><span>هذا الشهر</span><strong data-public-stats-value="month">—</strong></div>
+      </div>
+      <p class="public-page-view-stats-note">مشاهدات أقسام الموقع وليست زوارًا فريدين · الإجمالي للفترة المحتفظ بها (حتى 400 يوم).</p>
+      <p class="public-page-view-stats-status" data-public-stats-status role="status" aria-live="polite" hidden></p>
+    </section>
     <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><span class="responsibility">مسؤولية الموقع: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
   </footer>
 
