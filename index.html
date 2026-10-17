@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261018-digital-library-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261018-admin-agent-2"></script>
+  <script type="module" src="app.js?v=20261018-owner-routine-3"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=20261018-digital-library-1"></script>
@@ -66,7 +66,8 @@
   <script defer src="image-viewer.js?v=20261018-digital-library-1"></script>
   <link rel="stylesheet" href="visual-polish.css?v=20261016-ai-chat-cta-1">
   <link rel="stylesheet" href="president-banner.css?v=20261017-loc-honey-1">
-  <script type="module" src="header-reading-summary.js?v=20261017-loc-global-1"></script>
+  <link rel="stylesheet" href="header-refinements.css?v=20261018-touch-compact-1">
+  <script type="module" src="header-reading-summary.js?v=20261018-compact-summary-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -116,12 +117,13 @@
       <figcaption>
         <strong class="president-banner-name" id="presidentBannerName">السيد الرئيس عبد الفتاح السيسي</strong>
         <span class="president-banner-title" id="presidentBannerTitle">مؤسس مصر الحديثة</span>
-        <div class="president-banner-site-note" id="headerReadingSummary" role="note" aria-label="إحصاءات الفهرسة والقراءة">
+        <details class="president-banner-site-note" id="headerReadingSummary" aria-label="إحصاءات الفهرسة والقراءة">
+          <summary class="header-reading-overview"><span>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٠٧٨</strong></span><span>عناوين القراءة: <strong data-reading-count="total">٢٬٤٠٥</strong></span></summary>
           <p>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٠٧٨</strong><br>كتب ومجلدات كاملة: <strong data-reading-count="completeBooks">١٬٢٢٥</strong><br>دوريات: <strong data-reading-count="periodicals">٥٢٧</strong><br>سجلات فهرسة فقط: <strong data-reading-count="catalogOnly">٦٧٣</strong></p>
           <p class="header-reading-counts" aria-live="polite" aria-atomic="true">عناوين القراءة: <strong data-reading-count="total">٢٬٤٠٥</strong><br>قراءة فعلية: <strong data-reading-count="online">٢٬٤٠٥</strong><br><bdi>PDF</bdi> لـ<strong data-reading-count="pdf">٢٬٤٠٤</strong> منها (ضمن الإجمالي).</p>
           <p>ستضاف كتب أخرى تباعًا.</p>
           <p class="header-reading-status" data-reading-status hidden></p>
-        </div>
+        </details>
       </figcaption>
     </figure>
   </header>
@@ -915,7 +917,7 @@
               <h4 id="adminDesignTitle">مراجعة التصميم وتجربة الاستخدام</h4>
               <p>الفحص اليومي يراجع مؤشرات HTML/CSS العامة ويقارن المشكلات الجديدة فقط. الخطوط المحسوبة، والتسلسل البصري، والتجاوب الفعلي وسهولة الاستخدام تحتاج اختبار متصفح منفصلًا؛ لا يُدّعى تشغيل Playwright يوميًا.</p>
               <button class="button button-outline" id="adminAgentDesignReview" type="button">إعادة فحص التصميم تقنيًا الآن</button>
-              <p class="admin-agent-note">النتائج اقتراحات للمراجعة، وليست تغييرات منشورة. لن تتغير الهوية أو الأسماء أو الصور أو ما يراه الزائر دون موافقة المالك على معاينة محددة.</p>
+              <p class="admin-agent-note">النتائج اقتراحات للمراجعة، وليست تغييرات منشورة. التعديلات الروتينية غير المدمرة والقابلة للتراجع ضمن تفويض المالك؛ الهوية والأسماء والصور محمية. الحذف وتغيير الأمان أو الملكية والدفع تحتاج موافقة محددة.</p>
               <div id="adminAgentDesignReport" class="admin-design-report" aria-live="polite"></div>
             </section>
           </section>

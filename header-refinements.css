@@ -1,0 +1,21 @@
+/* Routine owner-approved refinement: keep all photos, labels and links unchanged. */
+.site-header { align-items: start; }
+.site-header .brand { align-self: start; }
+.site-header .header-feature-stack { gap: 8px; }
+.site-header .header-photo-controls { top: 6px; right: 6px; gap: 2px; padding: 3px; }
+.site-header .header-photo-control { width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex: 0 0 44px; }
+#visitorTabs .staff-nav-button,
+#visitorTabs .site-view-tabs .view-tab { min-height: 44px; }
+.book-updates-ticker-control { min-width: 44px; min-height: 44px; padding-inline: 8px; }
+#headerReadingSummary > .header-reading-overview { min-height: 44px; cursor: pointer; font-weight: 600; line-height: 1.8; }
+#headerReadingSummary > .header-reading-overview span { display: block; }
+#headerReadingSummary > .header-reading-overview::after { content: "عرض التفاصيل"; display: block; font-size: 11px; color: #5a481b; text-decoration: underline; text-underline-offset: 3px; }
+#headerReadingSummary[open] > .header-reading-overview::after { content: "إخفاء التفاصيل"; }
+#headerReadingSummary[open] > .header-reading-overview { padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid #d5b35e; }
+#headerReadingSummary > .header-reading-overview:focus-visible { outline: 3px solid #176a75; outline-offset: 3px; border-radius: 5px; }
+@media (max-width: 700px) {
+  .site-header .header-feature-stack { gap: 7px; }
+  .site-header .header-feature-image-slot { margin-bottom: 54px; }
+  .site-header .header-photo-controls { top: auto; bottom: -52px; right: 0; left: 0; width: max-content; max-width: 100%; margin-inline: auto; }
+  #headerReadingSummary { padding: 7px 5px; }
+}

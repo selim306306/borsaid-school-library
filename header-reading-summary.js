@@ -35,7 +35,9 @@ export async function refreshHeaderReadingSummary({ documentRef = globalThis.doc
     if (!externalBooks.length || externalBooks.length !== readingRaw.length || catalog.length !== catalogRaw.length) throw new Error('reading_source_invalid');
     const totals = countIndexedMaterials([], [...PUBLIC_READABLE_BOOKS, ...externalBooks], catalog);
     for (const [name, count] of Object.entries({ ...countReadingTitles(PUBLIC_READABLE_BOOKS, externalBooks), indexedRecords: totals.indexedRecords, completeBooks: totals.completeBooks, periodicals: totals.periodicals, catalogOnly: totals.catalogOnly })) {
-      const node = root.querySelector(`[data-reading-count="${name}"]`); if (node) node.textContent = count.toLocaleString('ar-EG');
+      const selector = `[data-reading-count="${name}"]`;
+      const nodes = root.querySelectorAll ? root.querySelectorAll(selector) : [root.querySelector(selector)].filter(Boolean);
+      for (const node of nodes) node.textContent = count.toLocaleString('ar-EG');
     }
     if (documentRef?.createElement) { root.querySelector('.header-reading-language-summary')?.remove(); const summary = createLanguageSummary(documentRef, [...PUBLIC_READABLE_BOOKS, ...externalBooks, ...catalog]); if (summary) root.append(summary); }
     root.dataset.countsSource = 'current-files'; status.textContent = ''; status.hidden = true;
