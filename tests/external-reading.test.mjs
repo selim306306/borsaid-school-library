@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { filterBooks, isAllowedExternalUrl, normalizeArabic, sanitizeBooks } from '../external-reading-model.mjs';
+import { filterBooks, isAllowedExternalUrl, languageDistribution, normalizeArabic, normalizeLanguageMetadata, sanitizeBooks } from '../external-reading-model.mjs';
 
 const books = sanitizeBooks([
   { id: '1', title: 'إحياء علوم الدين', author: 'أبو حامد الغزالي', subject: 'تصوف', category: 'تراث', sourceName: 'هنداوي', source: 'https://www.hindawi.org/books/1/', reader: 'https://www.hindawi.org/books/1/read/', rights: 'متاح للقراءة', searchable: true },
@@ -46,7 +46,7 @@ test('published external collection is unique, complete and uses official source
   assert.equal(new Set(clean.map(book => normalizeArabic(book.title))).size, clean.length);
   for (const book of clean) {
     assert.ok(book.rightsUrl);
-    assert.ok(book.language.includes('العربية'));
+    assert.ok(book.language && Array.isArray(book.languages) && book.languages.length > 0);
   }
 });
 
@@ -61,4 +61,53 @@ test('verified astronomy, geography and botany batch retains official reader and
     assert.equal(matches[0].rightsUrl, 'https://aco.dlib.nyu.edu/about');
     assert.equal(matches[0].searchable, false);
   }
+});
+
+test('allows every loc.gov subdomain but rejects lookalike hosts', () => {
+  assert.equal(isAllowedExternalUrl('https://www.loc.gov/item/1'), true);
+  assert.equal(isAllowedExternalUrl('https://catalog.loc.gov/item/1'), true);
+  assert.equal(isAllowedExternalUrl('https://loc.gov.evil.example/item/1'), false);
+  assert.equal(isAllowedExternalUrl('https://evil-loc.gov.example/item/1'), false);
+});
+
+test('keeps ambiguous language explicitly unknown and preserves multilingual metadata', () => {
+  const records = sanitizeBooks([
+    { id: 'unknown', title: 'Unknown', language: 'unknown', kind: 'كتاب', sourceName: 'x', source: 'https://www.loc.gov/x', reader: 'https://www.loc.gov/r', rights: 'open' },
+    { id: 'multi', title: 'Multi', languageCodes: ['ar', 'en'], kind: 'بحث', sourceName: 'x', source: 'https://www.loc.gov/x', reader: 'https://www.loc.gov/r', rights: 'open' },
+  ]);
+  assert.equal(records[0].languageUnknown, true);
+  assert.equal(records[0].language, 'غير معروفة');
+  assert.deepEqual(records[1].languages, ['العربية', 'الإنجليزية']);
+  assert.equal(filterBooks(records, { language: 'الإنجليزية', kind: 'بحث' }).length, 1);
+  assert.equal(filterBooks(records, { query: 'الإنجليزية' }).length, 1);
+});
+
+
+test('uses supplied Arabic labels once and keeps ISO codes stable', () => {
+  const metadata = normalizeLanguageMetadata({ languageCodes: ['ara', 'eng'], languages: ['العربية', 'الإنجليزية'], language: 'العربية، الإنجليزية' });
+  assert.deepEqual(metadata.languageCodes, ['ara', 'eng']);
+  assert.deepEqual(metadata.languages, ['العربية', 'الإنجليزية']);
+  assert.equal(new Set(metadata.languages).size, metadata.languages.length);
+});
+
+test('counts legacy local Arabic language and leaves unknown codes unknown', () => {
+  assert.deepEqual(normalizeLanguageMetadata({ language: 'العربية' }).languages, ['العربية']);
+  for (const code of ['und', 'mul']) {
+    const metadata = normalizeLanguageMetadata({ languageCodes: [code] });
+    assert.deepEqual(metadata.languages, ['غير معروفة']);
+    assert.equal(metadata.languageUnknown, true);
+    assert.deepEqual(metadata.languageCodes, [code]);
+  }
+});
+
+test('deduplicates normalized titles independently within each language', () => {
+  assert.deepEqual(languageDistribution([
+    { title: 'كتاب واحد', language: 'العربية' },
+    { title: 'كِتاب واحد', language: 'العربية' },
+    { title: 'كتاب واحد', languageCodes: ['eng'] },
+    { title: 'كتاب مختلف', languages: ['العربية', 'الإنجليزية'] },
+  ]).sort((a, b) => a.language.localeCompare(b.language, 'ar')), [
+    { language: 'العربية', count: 2 },
+    { language: 'الإنجليزية', count: 2 },
+  ].sort((a, b) => a.language.localeCompare(b.language, 'ar')));
 });

@@ -37,6 +37,12 @@
 .president-banner-site-note{margin-top:10px;padding-top:8px;border-top:1px solid #83b9b2;color:#204c49;font-size:13px;line-height:1.8;overflow-wrap:break-word}
 .president-banner-site-note p{margin:0}
 .president-banner-site-note p+p{margin-top:5px}
+#headerReadingSummary{padding:9px 8px;background:#fff3ce;border:1px solid #d5b35e;border-radius:10px;color:#514019}
+#headerReadingSummary .header-reading-counts strong{color:#55400c}
+#headerReadingSummary .header-reading-language-summary{margin-top:7px;font-size:11px;line-height:1.65}
+#headerReadingSummary .header-reading-language-summary summary{cursor:pointer;font-weight:700;padding:5px 0}
+#headerReadingSummary .header-reading-language-summary span{display:block;max-height:220px;overflow:auto;padding:5px 0}
+#headerReadingSummary .header-reading-language-summary small{display:block;margin-top:5px}
 @media(min-width:701px) and (max-width:1040px){
   .site-header{
     grid-template-columns:minmax(0,1fr) minmax(220px,280px);

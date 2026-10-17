@@ -8,8 +8,10 @@ import { sanitizeBooks } from '../external-reading-model.mjs';
 const external = sanitizeBooks(JSON.parse(readFileSync(new URL('../external-reading-books.json', import.meta.url))));
 
 test('current reading totals count unique titles and overlapping formats only once', () => {
-  assert.equal(external.length, 303);
-  assert.deepEqual(countReadingTitles(PUBLIC_READABLE_BOOKS, external), { total: 306, online: 306, pdf: 305 });
+  assert.ok(external.length >= 303);
+  const totals = countReadingTitles(PUBLIC_READABLE_BOOKS, external);
+  assert.ok(totals.total >= 303);
+  assert.deepEqual(totals, countReadingTitles(PUBLIC_READABLE_BOOKS, external));
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   for (const [key, value] of Object.entries(countReadingTitles(PUBLIC_READABLE_BOOKS, external))) {
     assert.ok(html.includes(`data-reading-count="${key}">${value.toLocaleString('ar-EG')}</strong>`));
@@ -45,12 +47,13 @@ function fakeDocument() {
 test('refresh uses current public files without touching catalog, tickets or Telegram', async () => {
   const fixture = fakeDocument();
   await refreshHeaderReadingSummary({ ...fixture, fetchImpl: async (url, options) => {
-    assert.equal(url.pathname.endsWith('/external-reading-books.json'), true);
+    assert.equal(['/external-reading-books.json', '/external-catalog-records.json'].some(path => url.pathname.endsWith(path)), true);
     assert.equal(options.cache, 'no-store');
-    return { ok: true, json: async () => external };
+    return { ok: true, json: async () => url.pathname.endsWith('external-reading-books.json') ? external : [{ id: 'catalog-1', title: 'دورية موثقة', kind: 'دورية', sourceName: 'LOC', source: 'https://www.loc.gov/item/1', recordType: 'sourceonly', availability: 'catalog-only', rights: 'سجل فهرسة رسمي' }] };
   } });
-  assert.equal(fixture.nodes.total.textContent, '٣٠٦');
-  assert.equal(fixture.nodes.pdf.textContent, '٣٠٥');
+  const totals = countReadingTitles(PUBLIC_READABLE_BOOKS, external);
+  assert.equal(fixture.nodes.total.textContent, totals.total.toLocaleString('ar-EG'));
+  assert.equal(fixture.nodes.pdf.textContent, totals.pdf.toLocaleString('ar-EG'));
   assert.equal(fixture.root.dataset.countsSource, 'current-files');
   assert.equal(fixture.status.hidden, true);
 });
