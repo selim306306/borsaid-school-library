@@ -2,7 +2,7 @@ import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js';
 import { sanitizeBooks } from './external-reading-model.mjs';
 
 const DATA_URL = 'external-reading-books.json';
-const ROTATION_MS = 7600;
+const ROTATION_MS = 4000;
 
 export function buildTickerItems(externalBooks = []) {
   const local = PUBLIC_READABLE_BOOKS.map((book) => ({
@@ -99,7 +99,7 @@ export function mountBookUpdatesTicker({ documentRef = globalThis.document, fetc
     viewport.append(link, meta);
     ticker.dataset.source = item.kind;
     if (!reducedMotion.matches && typeof viewport.animate === 'function') {
-      viewport.animate([{ opacity: 0.25 }, { opacity: 1 }], { duration: 350, easing: 'ease-out' });
+      viewport.animate([{ opacity: 0.4, transform: 'translateX(-5px)' }, { opacity: 1, transform: 'translateX(0)' }], { duration: 240, easing: 'ease-out' });
     }
   };
   const stopTimer = () => { if (timer) { clearInterval(timer); timer = null; } };

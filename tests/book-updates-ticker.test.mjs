@@ -38,3 +38,14 @@ test('يحتوي الملف على نقطة إدراج بعد site-header، تو
   assert.match(source, /noopener noreferrer/);
   assert.match(source, /visibilitychange/);
 });
+
+test('سرعة الشريط أربع ثوانٍ مع خلفية ملونة وحافة واضحة وإتاحة الحركة', async () => {
+  const js = await fs.readFile(new URL('book-updates-ticker.js', root), 'utf8');
+  const css = await fs.readFile(new URL('book-updates-ticker.css', root), 'utf8');
+  assert.match(js, /const ROTATION_MS = 4000;/);
+  assert.match(js, /duration: 240/);
+  assert.match(css, /background: linear-gradient/);
+  assert.match(css, /border-inline-start: 6px solid/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /:focus-visible/);
+});
