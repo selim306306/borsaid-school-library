@@ -1,8 +1,13 @@
+import { answerPublicQuestion } from "./assistant.js";
+import { handleTelegramMessage } from "./bot-handler.js";
+
 const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
 const OWNER_SETUP_CODE = Deno.env.get("TELEGRAM_OWNER_SETUP_CODE") ?? "";
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
+const configuredModel = Deno.env.get("VISITOR_ASSISTANT_GEMINI_MODEL") ?? "gemini-3.8-flash";
 const PUBLISHABLE_KEYS = (() => {
   try {
     const value = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}");
@@ -12,6 +17,7 @@ const PUBLISHABLE_KEYS = (() => {
   }
 })();
 const PUBLISHABLE_KEY = PUBLISHABLE_KEYS.default ?? Object.values(PUBLISHABLE_KEYS)[0] ?? Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+const WEBSITE_FORM_URL = "https://selim306306.github.io/borsaid-school-library/#visitorQuestions";
 
 function response(body: unknown, status = 200, origin = "") {
   const headers = new Headers({
@@ -110,7 +116,28 @@ async function getOwnerChatId() {
   return String(result.data[0].owner_chat_id);
 }
 
-const WEBSITE_FORM_URL = "https://selim306306.github.io/borsaid-school-library/#visitorQuestions";
+async function linkOwner(chatId: string) {
+  const now = new Date().toISOString();
+  const filter = new URLSearchParams({ id: "eq.true", owner_chat_id: "is.null", select: "owner_chat_id" });
+  const linked = await databaseRequest(`telegram_bot_config?${filter.toString()}`, "PATCH", {
+    owner_chat_id: chatId,
+    owner_linked_at: now,
+    updated_at: now,
+  });
+  const row = Array.isArray(linked.data) ? linked.data[0] : null;
+  return linked.ok && String(row?.owner_chat_id ?? "") === chatId;
+}
+
+async function saveOwnerReply(replyCode: string, replyText: string) {
+  const filter = new URLSearchParams({ reply_code: `eq.${replyCode}`, select: "id" });
+  const updated = await databaseRequest(`visitor_questions?${filter.toString()}`, "PATCH", {
+    reply: replyText,
+    answered_at: new Date().toISOString(),
+    reply_source: "telegram",
+  });
+  const row = Array.isArray(updated.data) ? updated.data[0] : null;
+  return updated.ok && Boolean(row?.id);
+}
 
 Deno.serve(async (request: Request) => {
   const origin = request.headers.get("origin") ?? "";
@@ -131,7 +158,7 @@ Deno.serve(async (request: Request) => {
   }
 
   if (request.method === "GET" && url.searchParams.get("action") === "setup") {
-    // This bootstrap can only set the function's fixed Telegram webhook URL; it cannot expose or redirect the bot token.
+    // The setup route only registers the fixed webhook; it never exposes or redirects the bot token.
     if (origin !== ALLOWED_ORIGIN || !authorizedPublicKey(request)) return response({ error: "not_authorized" }, 403, origin);
     if (!BOT_TOKEN || !SUPABASE_URL) return response({ error: "service_not_ready" }, 503, origin);
     const registered = await registerWebhook();
@@ -152,61 +179,30 @@ Deno.serve(async (request: Request) => {
   }
   const message = update.message as Record<string, unknown> | undefined;
   const chat = message?.chat as Record<string, unknown> | undefined;
-  if (!chat || chat.type !== "private" || (typeof chat.id !== "number" && typeof chat.id !== "string")) return new Response("ok", { status: 200 });
-  const chatId = String(chat.id);
-  const text = typeof message?.text === "string" ? message.text.trim().slice(0, 4500) : "";
-  if (!text) return new Response("ok", { status: 200 });
+  if (!chat || (typeof chat.id !== "number" && typeof chat.id !== "string")) return new Response("ok", { status: 200 });
+  const resultText = typeof message?.text === "string" ? message.text : "";
+  if (!resultText.trim()) return new Response("ok", { status: 200 });
 
-  const ownerChatId = await getOwnerChatId();
-  const start = text.match(/^\/start(?:@[A-Za-z0-9_]+)?(?:\s+(\S+))?$/);
-  if (!ownerChatId && start) {
-    const suppliedCode = start[1] ?? "";
-    if (OWNER_SETUP_CODE && constantTimeEqual(suppliedCode, OWNER_SETUP_CODE)) {
-      const now = new Date().toISOString();
-      const filter = new URLSearchParams({ id: "eq.true", owner_chat_id: "is.null", select: "owner_chat_id" });
-      const linked = await databaseRequest(`telegram_bot_config?${filter.toString()}`, "PATCH", {
-        owner_chat_id: chatId,
-        owner_linked_at: now,
-        updated_at: now,
+  await handleTelegramMessage({
+    chatId: String(chat.id),
+    chatType: String(chat.type ?? ""),
+    text: resultText,
+    ownerChatId: await getOwnerChatId(),
+    ownerSetupCode: OWNER_SETUP_CODE,
+    websiteFormUrl: WEBSITE_FORM_URL,
+    linkOwner,
+    saveOwnerReply,
+    sendText,
+    answerWithGemini: async (question) => {
+      if (!GEMINI_API_KEY || !SUPABASE_URL || !PUBLISHABLE_KEY) return { ok: false };
+      return await answerPublicQuestion({
+        question,
+        apiKey: GEMINI_API_KEY,
+        model: configuredModel,
+        supabaseUrl: SUPABASE_URL,
+        publishableKey: PUBLISHABLE_KEY,
       });
-      const row = Array.isArray(linked.data) ? linked.data[0] : null;
-      if (linked.ok && row?.owner_chat_id && String(row.owner_chat_id) === chatId) {
-        await sendText(chatId, "تم ربط حساب مالك الموقع بنجاح. ستصلك هنا أسئلة الزوار المرسلة من الموقع. للرد على صاحب سؤال بعينه، أرسل:\n/reply رمز_السؤال نص_الرد\n\nكل رد يظهر في صفحة صاحب السؤال فقط.");
-      } else {
-        await sendText(chatId, "تعذر إكمال ربط الحساب. أعد المحاولة من جلسة المالك.");
-      }
-      return new Response("ok", { status: 200 });
-    }
-    await sendText(chatId, `لإرسال سؤال خاص والحصول على الرد في صفحة صاحب السؤال، استخدم نموذج الموقع:\n${WEBSITE_FORM_URL}`);
-    return new Response("ok", { status: 200 });
-  }
-
-  if (ownerChatId && chatId === ownerChatId) {
-    const reply = text.match(/^\/reply(?:@[A-Za-z0-9_]+)?\s+([A-Z2-9]{10})\s+([\s\S]{1,4000})$/);
-    if (reply) {
-      const replyCode = reply[1];
-      const replyText = reply[2].trim().slice(0, 4000);
-      if (!replyText) {
-        await sendText(chatId, "أضف نص الرد بعد رمز السؤال.");
-        return new Response("ok", { status: 200 });
-      }
-      const filter = new URLSearchParams({ reply_code: `eq.${replyCode}`, select: "id" });
-      const updated = await databaseRequest(`visitor_questions?${filter.toString()}`, "PATCH", {
-        reply: replyText,
-        answered_at: new Date().toISOString(),
-        reply_source: "telegram",
-      });
-      const row = Array.isArray(updated.data) ? updated.data[0] : null;
-      if (!updated.ok || !row?.id) await sendText(chatId, "لم أجد سؤالًا بهذا الرمز. راجع الرمز في رسالة السؤال وحاول مرة أخرى.");
-      else await sendText(chatId, "تم حفظ الرد. سيظهر لصاحب السؤال فقط في صفحة الموقع التي أرسل منها.");
-      return new Response("ok", { status: 200 });
-    }
-    await sendText(chatId, "للرد على سؤال: /reply رمز_السؤال نص_الرد\nمثال: /reply ABC2345678 شكرًا على سؤالك، هذه الإجابة.");
-    return new Response("ok", { status: 200 });
-  }
-
-  if (!ownerChatId && /^\/help(?:@[A-Za-z0-9_]+)?$/.test(text)) {
-    await sendText(chatId, `لإرسال سؤال خاص والحصول على الرد في صفحة صاحب السؤال، استخدم نموذج الموقع:\n${WEBSITE_FORM_URL}`);
-  }
+    },
+  });
   return new Response("ok", { status: 200 });
 });

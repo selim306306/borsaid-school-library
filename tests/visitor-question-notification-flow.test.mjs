@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildOwnerNotification, processVisitorQuestion } from '../supabase/functions/visitor-questions/submission-flow.js';
+import { processVisitorQuestion } from '../supabase/functions/visitor-questions/submission-flow.js';
 
 function setup({ sensitiveQuestion = 'كيف أبحث عن كتاب منشور؟', answer = { ok: true, text: 'اكتب عنوان الكتاب في مربع البحث.' }, ownerChatId = 'test-owner-chat', sendResult = true } = {}) {
-  const calls = { gemini: [], saved: [], telegram: [] };
+  const calls = { gemini: [], saved: [], telegram: [], getOwner: 0 };
   const deps = {
     question: sensitiveQuestion,
     visitorToken: 'test-visitor-token',
@@ -13,7 +13,7 @@ function setup({ sensitiveQuestion = 'كيف أبحث عن كتاب منشور؟
       calls.saved.push(args);
       return { id: '00000000-0000-4000-8000-000000000001', replyCode: 'ABC2345678', answeredAt: args.length > 2 ? '2026-01-01T00:00:00.000Z' : null };
     },
-    getOwnerChatId: async () => ownerChatId,
+    getOwnerChatId: async () => { calls.getOwner += 1; return ownerChatId; },
     sendTelegramMessage: async (chatId, text) => { calls.telegram.push({ chatId, text }); return sendResult; },
   };
   return { calls, deps };
@@ -49,21 +49,21 @@ test('Gemini failure sends a pending question and owner-only reply instruction',
   assert.equal(result.body.reply, undefined);
 });
 
-test('sensitive content skips Gemini and persists/notifies only a generic redaction', async () => {
+test('sensitive content is answered locally without sending, storing, or notifying', async () => {
   const secret = 'اسم الطالب أحمد ورقمه 12345678';
   const { calls, deps } = setup({ sensitiveQuestion: secret });
   const result = await processVisitorQuestion(deps);
-  assert.equal(result.status, 201);
+  assert.equal(result.status, 200);
+  assert.equal(result.body.privacy_blocked, true);
+  assert.equal(result.body.stored, false);
   assert.deepEqual(calls.gemini, []);
-  assert.equal(calls.saved[0][0], result.body.question_display);
-  assert.equal(calls.saved[0][0].includes('أحمد'), false);
-  assert.equal(calls.saved[0][0].includes('12345678'), false);
-  assert.equal(calls.telegram.length, 1);
-  assert.equal(calls.telegram[0].text, buildOwnerNotification({ sensitive: true }));
-  assert.equal(calls.telegram[0].text.includes(secret), false);
-  assert.equal(calls.telegram[0].text.includes('أحمد'), false);
-  assert.equal(calls.telegram[0].text.includes('12345678'), false);
+  assert.deepEqual(calls.saved, []);
+  assert.deepEqual(calls.telegram, []);
+  assert.equal(calls.getOwner, 0);
   assert.equal(result.body.question_display.includes('أحمد'), false);
+  assert.equal(result.body.question_display.includes('12345678'), false);
+  assert.equal(Object.hasOwn(result.body, 'question_id'), false);
+  assert.equal(Object.hasOwn(result.body, 'access_token'), false);
 });
 
 test('an unlinked owner never causes a pending ticket to be deleted or falsely marked as delivered', async () => {

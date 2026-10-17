@@ -1,3 +1,5 @@
+import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js';
+
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const ENDPOINT = `${SUPABASE_URL}/functions/v1/visitor-questions`;
@@ -10,6 +12,7 @@ const honeypotField = document.querySelector('#visitorQuestionWebsite');
 const statusField = document.querySelector('#visitorQuestionStatus');
 const ticketList = document.querySelector('#visitorQuestionTickets');
 const submitButton = document.querySelector('#visitorQuestionSubmit');
+const LOCAL_PRIVACY_REPLY = 'حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.';
 
 if (form && questionField && statusField && ticketList && submitButton) {
   let tickets = readTickets();
@@ -63,6 +66,16 @@ if (form && questionField && statusField && ticketList && submitButton) {
     for (const ticket of tickets) ticketList.append(makeTicketCard(ticket));
   }
 
+  function showLocalPrivacyReply() {
+    const card = document.createElement('article');
+    card.className = 'visitor-ticket visitor-ticket-local';
+    const reply = document.createElement('p');
+    reply.className = 'visitor-ticket-reply';
+    reply.textContent = LOCAL_PRIVACY_REPLY;
+    card.append(reply);
+    ticketList.prepend(card);
+  }
+
   async function pollTicket(ticket) {
     if (activePolls.has(ticket.id) || document.hidden) return;
     activePolls.add(ticket.id);
@@ -104,6 +117,12 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
+    if (containsSensitivePersonalData(question)) {
+      questionField.value = '';
+      showLocalPrivacyReply();
+      statusField.textContent = 'حُجب السؤال محليًا قبل الإرسال؛ لم يُرسل إلى Gemini أو Telegram ولم يُحفظ في قاعدة الموقع.';
+      return;
+    }
     submitButton.disabled = true;
     statusField.textContent = 'جارٍ إعداد إجابة خاصة من معلومات الموقع العامة…';
     try {
@@ -120,6 +139,12 @@ if (form && questionField && statusField && ticketList && submitButton) {
           service_not_ready: 'خدمة الرسائل غير متاحة مؤقتًا. حاول لاحقًا.',
         };
         statusField.textContent = messages[result?.error] || 'تعذر إرسال السؤال الآن. تحقق من الاتصال وحاول مجددًا.';
+        return;
+      }
+      if (result.privacy_blocked === true) {
+        questionField.value = '';
+        showLocalPrivacyReply();
+        statusField.textContent = 'حُجب السؤال قبل الحفظ؛ لم يُرسل إلى Gemini أو Telegram ولم يُحفظ في قاعدة الموقع.';
         return;
       }
       if (!result.question_id || !result.access_token) {

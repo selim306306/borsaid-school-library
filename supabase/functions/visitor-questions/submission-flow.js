@@ -1,7 +1,7 @@
 import { containsSensitivePersonalData } from "./privacy-guard.js";
 
 export const REDACTED_QUESTION = "تم حجب السؤال تلقائيًا لاحتوائه على بيانات شخصية أو سرية.";
-export const PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.";
+export const PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.";
 
 const REDACTED_OWNER_ALERT = "تنبيه خصوصية: حُجب سؤال زائر تلقائيًا لاحتوائه على بيانات شخصية أو سرية. لم يُرسل نص السؤال إلى Gemini أو Telegram، ولم يُدرج في هذا الإشعار.";
 
@@ -63,24 +63,16 @@ export async function processVisitorQuestion({
 }) {
   const sensitive = containsSensitivePersonalData(question);
   if (sensitive) {
-    const created = await saveQuestion(REDACTED_QUESTION, visitorTokenHash, PERSONAL_DATA_REPLY);
-    if (!created) return { status: 503, body: { error: "question_save_failed" } };
-    const ownerNotification = await notifyQuestionOwner({
-      sensitive: true,
-      getOwnerChatId,
-      sendTelegramMessage,
-    });
     return {
-      status: 201,
+      status: 200,
       body: {
         ok: true,
-        question_id: created.id,
-        access_token: visitorToken,
+        privacy_blocked: true,
+        stored: false,
         auto_answered: true,
         question_display: REDACTED_QUESTION,
         reply: PERSONAL_DATA_REPLY,
-        answered_at: created.answeredAt,
-        owner_notification: ownerNotification,
+        owner_notification: "not_sent",
       },
     };
   }

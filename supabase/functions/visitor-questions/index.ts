@@ -7,10 +7,10 @@ const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
 const ALLOWED_MODELS = new Set(["gemini-3.5-flash-lite", "gemini-3.8-flash"]);
-const configuredModel = Deno.env.get("GEMINI_MODEL") ?? "gemini-3.5-flash-lite";
+const configuredModel = Deno.env.get("VISITOR_ASSISTANT_GEMINI_MODEL") ?? "gemini-3.8-flash";
 const GEMINI_MODEL = ALLOWED_MODELS.has(configuredModel)
   ? configuredModel
-  : "gemini-3.5-flash-lite";
+  : "gemini-3.8-flash";
 
 function keySet(name: string): Record<string, string> {
   try {

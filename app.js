@@ -3,6 +3,7 @@ import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-cam
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
+import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=20261017-gemini-assistant-1';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
 import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
@@ -621,14 +622,33 @@ async function sendVisitorQuestion(question) {
   const text = String(question || '').trim().slice(0, 300);
   if (!text || visitorAssistantBusy) return;
   visitorAssistantBusy = true;
+  if (isVisitorAssistantQuestionSensitive(text)) {
+    appendVisitorAssistantMessage('assistant', VISITOR_PERSONAL_DATA_REPLY);
+    setMessage($('#visitorAssistantStatus'), 'حُجب هذا السؤال محليًا؛ لم يُرسل إلى Gemini أو Telegram ولم تُحفظ المحادثة.');
+    visitorAssistantBusy = false;
+    return;
+  }
   appendVisitorAssistantMessage('user', text);
-  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة من دليل الموقع والفهرس العام…');
+  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة من المعلومات العامة المنشورة…');
   const submit = $('#visitorAssistantForm button[type="submit"]');
   submit.disabled = true;
   try {
-    const answer = await answerVisitorQuestion(text);
+    const answer = await routeVisitorAssistantQuestion(text, {
+      askGemini: async publicQuestion => {
+        if (!publicSupabase) return null;
+        const { data, error } = await publicSupabase.functions.invoke('visitor-assistant', {
+          body: { question: publicQuestion },
+        });
+        return error || data?.ok !== true ? null : data;
+      },
+      answerLocally: answerVisitorQuestion,
+    });
     appendVisitorAssistantMessage('assistant', answer.text, answer);
-    setMessage($('#visitorAssistantStatus'), 'الإجابة مبنية على معلومات الموقع العامة؛ لا تُعد تأكيداً للإتاحة اللحظية إلا بعد مراجعة الفرع.');
+    setMessage($('#visitorAssistantStatus'), answer.source === 'gemini'
+      ? 'أجاب Gemini اعتمادًا على دليل الموقع والفهرس المنشور. لا تُعد الإتاحة اللحظية مؤكدة إلا بعد مراجعة الفرع.'
+      : answer.source === 'local-fallback'
+        ? 'Gemini غير متاح الآن؛ استخدم المساعد إجابة محلية من الموقع والفهرس المنشور.'
+        : 'إجابة محلية من معلومات الموقع العامة؛ لا تُعد تأكيدًا للإتاحة اللحظية إلا بعد مراجعة الفرع.');
   } catch {
     setMessage($('#visitorAssistantStatus'), 'تعذّر إكمال الإجابة الآن؛ يمكنك استخدام البحث والفروع المنشورة مباشرةً.', 'error');
   } finally {

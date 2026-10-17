@@ -16,6 +16,10 @@ test('blocks numeric, contact, account and direct person identifiers before exte
     'أمين المكتبة محمد',
     'employee records',
     'رقم عضوية المستعير 202612345',
+    'مين استعار الكتاب؟',
+    'أحمد استعار كتابًا من المكتبة',
+    'تفاصيل إعارة أحمد',
+    'loan history for Ahmed',
   ]) assert.equal(containsSensitivePersonalData(text), true, text);
 });
 
@@ -36,6 +40,7 @@ test('allows generic public questions that mention roles but contain no person i
   for (const text of [
     'كيف يقرأ الطلاب في المكتبة؟',
     'ما دور الموظف في إدارة الإعارة؟',
+    'كيف تنظم المكتبة سياسة الإعارة؟',
     'هل توجد كتب متاحة للقراءة؟',
     'How can students use the library?',
     'هل يمكن للطالب البحث في الفهرس العام؟',

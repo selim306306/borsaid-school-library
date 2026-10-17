@@ -39,12 +39,12 @@
   <link rel="stylesheet" href="site-media.css?v=20261016-header-album-25-1">
   <link rel="stylesheet" href="library-profiles.css?v=20261017-school-name-choice-1">
   <link rel="stylesheet" href="header-photo.css?v=20261016-ai-chat-cta-1">
-  <link rel="stylesheet" href="visitor-questions.css?v=20261016-visitor-chat-modal-1">
+  <link rel="stylesheet" href="visitor-questions.css?v=20261017-public-assistant-paths-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-school-name-choice-2"></script>
+  <script type="module" src="app.js?v=20261017-gemini-assistant-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -53,7 +53,7 @@
   <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261016-public-pdf-guide-2"></script>
-  <script type="module" src="visitor-questions.js?v=20261016-owner-question-dashboard-1"></script>
+  <script type="module" src="visitor-questions.js?v=20261017-local-privacy-block-1"></script>
   <link rel="stylesheet" href="font-step.css?v=20261015-2px">
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
@@ -154,6 +154,29 @@
               <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار التعليم</strong><small>موجز عربي وأبحاث مفتوحة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
             </nav>
           </aside>
+        </div>
+      </section>
+      <section class="visitor-pathways section-wrap" aria-labelledby="visitorPathwaysTitle">
+        <div class="visitor-pathways-heading"><span class="eyebrow">اختر طريقة التواصل</span><h2 id="visitorPathwaysTitle">ثلاثة مسارات واضحة لمساعدتك</h2><p>المساعد الذكي، نموذج أمين المكتبة، وبوت Telegram؛ لكل واحد استخدام وخصوصية مختلفان.</p></div>
+        <div class="visitor-pathway-grid">
+          <article class="visitor-pathway-card visitor-pathway-ai">
+            <span class="visitor-pathway-icon" aria-hidden="true">م</span>
+            <h3>المساعد الذكي</h3>
+            <p>إجابة فورية عن الموقع والكتب المنشورة. يرسل الأسئلة العامة تلقائيًا إلى Gemini، ولا تُحفظ المحادثة في قاعدة الموقع ولا تصل إلى المدير عبر Telegram. تُحجب البيانات الشخصية محليًا.</p>
+            <a class="visitor-pathway-action" href="#visitorAssistant">افتح المساعد الذكي <span aria-hidden="true">←</span></a>
+          </article>
+          <article class="visitor-pathway-card visitor-pathway-librarian">
+            <span class="visitor-pathway-icon" aria-hidden="true">؟</span>
+            <h3>اسأل أمين المكتبة</h3>
+            <p>لإرسال سؤال عام ومتابعة رد خاص في الصفحة. يُعالَج السؤال آليًا عبر Gemini وقد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram؛ لذلك لا تكتب بيانات شخصية.</p>
+            <a class="visitor-pathway-action" href="#visitorQuestions">اسأل أمين المكتبة <span aria-hidden="true">←</span></a>
+          </article>
+          <article class="visitor-pathway-card visitor-pathway-telegram">
+            <span class="visitor-pathway-icon" aria-hidden="true">↗</span>
+            <h3>بوت Telegram</h3>
+            <p>محادثة مستقلة ترد تلقائيًا عبر Gemini عن المعلومات العامة المنشورة فقط. موقع المكتبة لا يحفظ نصها؛ لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا.</p>
+            <a class="visitor-pathway-action" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">افتح بوت Telegram <span aria-hidden="true">↗</span></a>
+          </article>
         </div>
       </section>
       <section class="leadership-banner section-wrap" aria-labelledby="leadershipBannerTitle">
@@ -439,7 +462,7 @@
         <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
         <p>سيجيب مساعد المكتبة تلقائيًا عن الأسئلة العامة بالاستناد إلى معلومات الموقع والفهرس المنشور. يظهر رد كل سؤال لصاحبه فقط في هذه الصفحة.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">عند إرسال السؤال، تُفحص البيانات الحساسة أولًا. تُرسل الأسئلة العامة ونتائج الفهرس المنشورة إلى Gemini، ويصل إلى مدير الموقع عبر Telegram نص السؤال والرد الآلي؛ وإذا تعذّر الرد، يصله السؤال وحالة التعذّر للمتابعة. أما إذا احتوى السؤال بيانات شخصية أو سرية، فيُحجب نصه ولا يُرسل إلى Gemini أو Telegram، وقد يصل تنبيه عام فقط. يُحفظ السؤال أو النسخة المحجوبة في قاعدة خاصة، ويظهر الرد لصاحبه وحده هنا.</p>
+        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">تُعالج الأسئلة العامة تلقائيًا عبر Gemini اعتمادًا على معلومات الموقع والفهرس المنشورين. قد يصل نص السؤال والرد الآلي إلى مدير الموقع عبر Telegram، وتُحفظ التذكرة لمتابعة الرد الذي يظهر لصاحبها فقط. إذا اكتشف النظام بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يعتذر محليًا ولا يرسل السؤال إلى Gemini أو Telegram ولا يحفظه في قاعدة الموقع.</p>
         <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لخصوصيتك، لا تكتب أسماء أو أرقامًا أو بريدًا أو بيانات تخص طالبًا أو مستعيرًا أو موظفًا، ولا أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
@@ -458,7 +481,7 @@
     <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
       <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">محادثة مساعد الزوار</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق دردشة مساعد الزوار">×</button></header>
       <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-        <div class="visitor-assistant-copy"><span class="eyebrow">مساعد الزوار</span><h2 id="visitorAssistantTitle">اسأل عن المكتبة أو كتابك القادم</h2><p>إرشاد فوري عن طريقة البحث والإعارة والقراءة والفروع، مع البحث في الفهرس العام المنشور.</p><div class="assistant-privacy-note">يستخدم دليل الموقع والبيانات العامة المنشورة فقط؛ لا يرسل سؤالك إلى Gemini، وتبقى المحادثة مؤقتة في الصفحة ولا تُحفظ بعد انتهاء الجلسة.</div></div>
+        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · أسئلة عامة</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>إجابة تلقائية من Gemini مدعومة بدليل الموقع والفهرس العام؛ تحقّق من الفرع قبل الاعتماد على الإتاحة.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">تُرسل الأسئلة العامة تلقائيًا إلى Gemini ولا تُحفظ في قاعدة بيانات موقع المكتبة أو تُرسل لمديره عبر Telegram. تبقى المحادثة في الصفحة المفتوحة فقط. يُحجب السؤال الذي يتضمن بيانات شخصية أو سرية محليًا قبل أي إرسال. لمتابعة سؤال لدى أمين المكتبة استخدم النموذج المخصص، مع العلم أنه قد يصل للمدير.</div></div>
         <div class="visitor-assistant-box">
           <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
           <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
