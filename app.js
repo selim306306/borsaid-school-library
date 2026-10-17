@@ -1,3 +1,4 @@
+import { renderSchoolPrincipalCards } from './school-principal-photos.mjs?v=20261017-principal-1';
 import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-social-preview-1';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
@@ -324,6 +325,7 @@ function updatePublicBranding(profiles = []) {
   }
 }
 function paintBranches(rows, profiles = publicLibraryProfiles, updateHeaderBranding = true) {
+  renderSchoolPrincipalCards($('#leadershipList'), profiles, path => publicLogoUrl(path, { original: true }));
   const grid = $('#branchesGrid');
   const displayProfiles = deduplicatePublicSchoolProfiles(profiles);
   if (updateHeaderBranding) updatePublicBranding(displayProfiles);
@@ -373,7 +375,7 @@ function updateBranchFilter(rows) {
 async function loadPublicBranches() {
   const profilesRequest = renderPublicProfilesAsSoonAsAvailable(
     publicSupabase.from('library_profiles')
-      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,show_school_name_on_homepage')
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_photo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage')
       .order('school_name', { ascending: true }),
     profiles => {
       publicLibraryProfiles = profiles;
@@ -1758,6 +1760,7 @@ async function loadSiteMediaManager({ statusText = '' } = {}) {
 const SCHOOL_LOGO_MAX_BYTES = 2 * 1024 * 1024;
 const SCHOOL_LOGO_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp']);
 const SCHOOL_BRANDING_FIELDS = [
+  { key: 'principal_photo_path', fileName: 'principal_photo', removeName: 'remove_principal_photo', kind: 'principal-photo', preview: 'principalPhoto' },
   { key: 'school_logo_path', fileName: 'school_logo', removeName: 'remove_school_logo', kind: 'school-logo', preview: 'schoolLogo' },
   { key: 'governorate_logo_path', fileName: 'governorate_logo', removeName: 'remove_governorate_logo', kind: 'governorate-logo', preview: 'governorateLogo' },
 ];
@@ -1767,7 +1770,7 @@ function setSchoolProfileStatus(text, kind = '') {
   status.textContent = text || '';
   status.className = `school-profile-status${kind ? ` ${kind}` : ''}`;
 }
-function renderSchoolLogoPreview(field, path, caption = 'الشعار الحالي') {
+function renderSchoolLogoPreview(field, path, caption = 'الصورة الحالية') {
   const preview = $(`#${field.preview}Preview`);
   const image = $(`#${field.preview}Image`);
   const label = $(`#${field.preview}Caption`);
@@ -1778,11 +1781,11 @@ function renderSchoolLogoPreview(field, path, caption = 'الشعار الحال
   else image.removeAttribute('src');
   label.textContent = url ? caption : '';
 }
-async function uploadSchoolLogo(field, file) {
+async function uploadSchoolLogo(field, file, libraryId = currentLibraryId) {
   if (!SCHOOL_LOGO_TYPES.has(file.type) || file.size > SCHOOL_LOGO_MAX_BYTES) {
     throw new Error('المسموح PNG أو JPG أو WebP حتى 2 ميغابايت.');
   }
-  const path = `${currentLibraryId}/${field.kind}-${crypto.randomUUID()}`;
+  const path = `${libraryId}/${field.kind}-${crypto.randomUUID()}`;
   const { error } = await supabase.storage.from('school-branding').upload(path, file, {
     cacheControl: '3600', upsert: false, contentType: file.type,
   });
@@ -1800,10 +1803,10 @@ async function loadSchoolProfile() {
     renderSchoolLogoPreview(field, null);
   }
   const selectedOption = $('#librarySelect').selectedOptions[0];
-  $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${selectedOption?.textContent || 'المدرسة الحالية'}؛ حقلا المدير والوكلاء محفوظان لهذا الملف فقط.`;
+  $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${selectedOption?.textContent || 'المدرسة الحالية'}؛ اسم المدير وصورته والوكلاء محفوظون لهذا الملف فقط.`;
   setSchoolProfileStatus('جارٍ تحميل بيانات المدرسة…');
   const { data, error } = await supabase.from('library_profiles')
-    .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at')
+    .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_photo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at')
     .eq('library_id', currentLibraryId).maybeSingle();
   if (error) {
     currentLibraryProfile = null;
@@ -1830,7 +1833,7 @@ async function loadSchoolProfile() {
     renderSchoolLogoPreview(field, data?.[field.key] || null);
   }
   const refreshedOption = data ? updateLibraryProfileChoice(data) : selectedOption;
-  $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${refreshedOption?.textContent || data?.school_name || 'المدرسة الحالية'}؛ حقلا المدير والوكلاء محفوظان لهذا الملف فقط.`;
+  $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${refreshedOption?.textContent || data?.school_name || 'المدرسة الحالية'}؛ اسم المدير وصورته والوكلاء محفوظون لهذا الملف فقط.`;
   setSchoolProfileStatus(data
     ? 'البيانات المحفوظة تخص هذه المدرسة فقط. يظهر الملف عند تفعيل خيار العرض العام؛ نشر الكتب والفروع مستقل.'
     : 'لا يوجد ملف مدرسي بعد؛ اكتب الاسم الرسمي والبيانات التي تريد حفظها. لا توجد بيانات مفترضة.');
@@ -1843,21 +1846,26 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
   const schoolName = String(fields.get('school_name') || '').trim();
   if (schoolName.length < 2 || schoolName.length > 160) return setSchoolProfileStatus('أدخل اسم المدرسة الرسمي، من حرفين إلى 160 حرفاً.', 'error');
   const button = $('.school-profile-action', form);
+  const savingLibraryId = currentLibraryId;
+  const savingProfile = currentLibraryProfile;
+  if (form.elements.principal_photo.files?.length && !String(fields.get('principal_name') || '').trim()) {
+    return setSchoolProfileStatus('اكتب اسم مدير المدرسة قبل إضافة صورته.', 'error');
+  }
   button.disabled = true;
   try {
     const logoPaths = {};
     for (const field of SCHOOL_BRANDING_FIELDS) {
-      const file = form.elements[field.fileName].files?.[0];
-      if (file) {
-        logoPaths[field.key] = await uploadSchoolLogo(field, file);
+      const file = fields.get(field.fileName);
+      if (file?.size) {
+        logoPaths[field.key] = await uploadSchoolLogo(field, file, savingLibraryId);
       } else if (fields.get(field.removeName) === 'on') {
         logoPaths[field.key] = null;
       } else {
-        logoPaths[field.key] = currentLibraryProfile?.[field.key] || null;
+        logoPaths[field.key] = savingProfile?.[field.key] || null;
       }
     }
     const payload = {
-      library_id: currentLibraryId,
+      library_id: savingLibraryId,
       school_name: schoolName,
       educational_administration: String(fields.get('educational_administration') || '').trim() || null,
       librarian_name: String(fields.get('librarian_name') || '').trim() || null,
@@ -1865,19 +1873,24 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
       deputy_names: String(fields.get('deputy_names') || '').trim() || null,
       general_supervisor_name: String(fields.get('general_supervisor_name') || '').trim() || null,
       first_supervisor_name: String(fields.get('first_supervisor_name') || '').trim() || null,
+      principal_photo_path: logoPaths.principal_photo_path,
       school_logo_path: logoPaths.school_logo_path,
       governorate_logo_path: logoPaths.governorate_logo_path,
       is_public: fields.get('is_public') === 'on',
-      show_school_name_on_homepage: currentLibraryProfile?.show_school_name_on_homepage !== false,
+      show_school_name_on_homepage: savingProfile?.show_school_name_on_homepage !== false,
       updated_at: new Date().toISOString(),
     };
     const { data, error } = await supabase.from('library_profiles').upsert(payload, { onConflict: 'library_id' })
-      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at').single();
+      .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_photo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at').single();
     if (error || !data) throw error || new Error('save_failed');
+    if (currentLibraryId !== savingLibraryId) {
+      await loadPublicBranches().catch(() => {});
+      return;
+    }
     currentLibraryProfile = data;
     const option = updateLibraryProfileChoice(data);
     $('#workspaceTitle').textContent = option?.textContent || data.school_name;
-    $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${option?.textContent || data.school_name}؛ حقلا المدير والوكلاء محفوظان لهذا الملف فقط.`;
+    $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${option?.textContent || data.school_name}؛ اسم المدير وصورته والوكلاء محفوظون لهذا الملف فقط.`;
     for (const field of SCHOOL_BRANDING_FIELDS) {
       form.elements[field.fileName].value = '';
       form.elements[field.removeName].checked = false;
@@ -1888,13 +1901,16 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
   } catch (error) {
     setSchoolProfileStatus(error?.message?.includes('2 ميغابايت')
       ? error.message
-      : 'تعذّر حفظ البيانات أو رفع أحد الشعارات. لم تُغيّر حالة نشر المكتبة؛ تحقق من الحقول والاتصال ثم أعد المحاولة.', 'error');
+      : 'تعذّر حفظ البيانات أو رفع إحدى الصور. لم تُغيّر حالة نشر المكتبة؛ تحقق من الحقول والاتصال ثم أعد المحاولة.', 'error');
   } finally {
     button.disabled = false;
   }
 });
+function formSchoolImageInput(field) {
+  return $('#schoolProfileForm').elements[field.fileName];
+}
 for (const field of SCHOOL_BRANDING_FIELDS) {
-  const input = $(`#${field.preview === 'schoolLogo' ? 'schoolLogoFile' : 'governorateLogoFile'}`);
+  const input = formSchoolImageInput(field);
   input.addEventListener('change', () => {
     const file = input.files?.[0];
     if (!file) return;

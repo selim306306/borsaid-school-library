@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-platform-report-1"></script>
+  <script type="module" src="app.js?v=20261017-principal-photos-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -676,6 +676,7 @@
               <div class="school-profile-leadership-fields">
                 <h4>قيادة المدرسة المحددة</h4>
                 <label>اسم مدير المدرسة<input name="principal_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
+                <div class="school-profile-logo-field"><label for="principalPhotoFile">صورة مدير المدرسة في بانر القيادات</label><input id="principalPhotoFile" name="principal_photo" type="file" accept="image/png,image/jpeg,image/webp"><small>اختر صورة حقيقية مصرحاً بنشرها بصيغة PNG أو JPG أو WebP، حتى 2 ميغابايت. تظهر مع اسم المدير والمدرسة في بانر القيادات عند تفعيل العرض العام للملف. لتغييرها اختر صورة جديدة ثم احفظ.</small><div class="school-logo-preview" id="principalPhotoPreview" hidden><img id="principalPhotoImage" alt="معاينة صورة مدير المدرسة"><span id="principalPhotoCaption"></span></div><label class="school-profile-check"><input name="remove_principal_photo" type="checkbox"><span>إزالة صورة المدير من بانر القيادات عند الحفظ</span></label></div>
                 <label class="school-profile-multiline-field">أسماء الوكلاء<textarea name="deputy_names" rows="3" maxlength="1200" placeholder="اكتب اسم كل وكيل في سطر"></textarea></label>
                 <label>اسم الموجه العام<input name="general_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
                 <label>اسم الموجه الأول<input name="first_supervisor_name" maxlength="160" autocomplete="name" placeholder="اختياري"></label>
@@ -746,7 +747,7 @@
         </section>
         <section class="staff-panel site-media-panel" id="siteMediaPanel" hidden aria-labelledby="siteMediaPanelTitle">
           <div class="panel-heading"><div><h3 id="siteMediaPanelTitle">مكتبة صور الموقع</h3><p>استبدال الصور العامة للموقع ومعاينتها، مع حفظ الصور السابقة لاستعادتها لاحقاً.</p></div></div>
-          <p class="site-media-intro">تظهر هذه العناصر العامة فقط. شعارات المدرسة والمحافظة تبقى في تبويب «بيانات المدرسة» لكل مكتبة على حدة؛ وصور قيادات المحافظة والمديرية والمكتبات منفصلة عن مدير المدرسة.</p>
+          <p class="site-media-intro">تظهر هذه العناصر العامة فقط. شعارات المدرسة والمحافظة تبقى في تبويب «بيانات المدرسة» لكل مكتبة على حدة؛ وصور قيادات المحافظة والمديرية والمكتبات منفصلة؛ لرفع صورة مدير المدرسة أو تغييرها اختر المدرسة وافتح «بيانات المدرسة».</p>
           <section class="site-banner-album" aria-labelledby="siteBannerAlbumTitle">
             <div class="panel-heading"><div><h4 id="siteBannerAlbumTitle">ألبوم صور البنر</h4><p>يمكن أن يضم الألبوم حتى 25 صورة إجمالًا، بما فيها الصور الخمس الحالية؛ اختر أيضًا مدة عرض كل صورة.</p></div><button class="button button-primary" id="addHeaderGalleryPhoto" type="button">إضافة صورة للألبوم</button></div>
             <form class="site-banner-settings" id="headerGallerySettingsForm">

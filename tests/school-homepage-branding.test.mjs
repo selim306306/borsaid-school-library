@@ -42,7 +42,7 @@ test('the migration adds only an additive homepage-name setting and preserves ex
   assert.match(migration, /ADD COLUMN IF NOT EXISTS show_school_name_on_homepage boolean NOT NULL DEFAULT true/);
   assert.match(migration, /does not change directory publication, the school logo, the Egypt mark, or any school data/i);
   assert.match(app, /\.update\(\{ show_school_name_on_homepage: visible/);
-  assert.match(app, /show_school_name_on_homepage: currentLibraryProfile\?\.show_school_name_on_homepage !== false/);
+  assert.match(app, /show_school_name_on_homepage: savingProfile\?\.show_school_name_on_homepage !== false/);
 });
 
 test('public school profile data is painted immediately and only header logos bypass lazy loading', () => {
