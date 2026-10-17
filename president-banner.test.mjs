@@ -28,8 +28,9 @@ test('site note stays inside the presidential caption without changing its ident
  assert.ok(figure);
  const caption=figure.match(/<figcaption>[\s\S]*?<\/figcaption>/)?.[0];
  assert.ok(caption);
- assert.match(caption,/بوابتك لاكتشاف مكتبات بورسعيد والكتب العربية والمصادر الرقمية/);
- assert.doesNotMatch(caption,/وكيل ذكاء اصطناعي/);
+ assert.match(caption,/نطوّر الموقع باستمرار بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع\./);
+ assert.match(caption,/تابعونا لاكتشاف كل جديد\./);
+ assert.doesNotMatch(caption,/بوابتك لاكتشاف مكتبات بورسعيد/);
  assert.match(caption,/السيد الرئيس عبد الفتاح السيسي/);
  assert.match(caption,/مؤسس مصر الحديثة/);
  assert.ok(caption.indexOf('president-banner-site-note')>caption.indexOf('presidentBannerTitle'));
