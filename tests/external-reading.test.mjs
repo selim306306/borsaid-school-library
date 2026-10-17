@@ -43,8 +43,22 @@ test('published external collection is unique, complete and uses official source
   assert.equal(clean.length, raw.length);
   assert.equal(new Set(clean.map(book => book.id)).size, clean.length);
   assert.equal(new Set(clean.map(book => book.reader)).size, clean.length);
+  assert.equal(new Set(clean.map(book => normalizeArabic(book.title))).size, clean.length);
   for (const book of clean) {
     assert.ok(book.rightsUrl);
     assert.ok(book.language.includes('العربية'));
+  }
+});
+
+test('verified astronomy, geography and botany batch retains official reader and direct PDF links', () => {
+  const raw = JSON.parse(readFileSync(new URL('../external-reading-books.json', import.meta.url), 'utf8'));
+  const ids = ['aub_aco001576', 'aub_aco001532', 'nyu_aco001569', 'columbia_aco003217', 'columbia_aco003934', 'aub_aco001827', 'auc_aco000384', 'columbia_aco002956', 'columbia_aco000645', 'aub_aco004424'];
+  for (const id of ids) {
+    const matches = raw.filter(book => book.id === `aco-${id}`);
+    assert.equal(matches.length, 1);
+    assert.equal(matches[0].reader, `https://aco.dlib.nyu.edu/book/${id}/1?lang=ar`);
+    assert.equal(matches[0].pdf, `https://mc.dlib.nyu.edu/files/books/${id}/${id}_lo.pdf`);
+    assert.equal(matches[0].rightsUrl, 'https://aco.dlib.nyu.edu/about');
+    assert.equal(matches[0].searchable, false);
   }
 });
