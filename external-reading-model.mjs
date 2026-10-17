@@ -5,6 +5,7 @@ const ALLOWED_HOSTS = new Set([
   'mc.dlib.nyu.edu',
   'ar.wikisource.org',
   'loc.gov',
+  'www.aseeralkotb.com',
 ]);
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
@@ -109,7 +110,8 @@ export function normalizeLanguageMetadata(raw = {}) {
 export function sanitizeBook(raw, options = {}) {
   if (!raw || typeof raw !== 'object') return null;
   const book = {};
-  for (const key of ['id', 'title', 'author', 'subject', 'category', 'kind', 'sourceName', 'rights', 'publicationPlace', 'publicationYear', 'availability', 'completionStatus', 'recordType']) book[key] = typeof raw[key] === 'string' ? raw[key].trim() : raw[key] == null ? '' : String(raw[key]).trim();
+  for (const key of ['id', 'title', 'author', 'subject', 'category', 'kind', 'sourceName', 'rights', 'publicationPlace', 'publicationYear', 'availability', 'completionStatus', 'recordType', 'seriesId', 'seriesTitle', 'publisher', 'isbn', 'pages']) book[key] = typeof raw[key] === 'string' ? raw[key].trim() : raw[key] == null ? '' : String(raw[key]).trim();
+  if (Number.isInteger(raw.seriesOrder) && raw.seriesOrder > 0) book.seriesOrder = raw.seriesOrder;
   Object.assign(book, normalizeLanguageMetadata(raw));
   book.source = isAllowedExternalUrl(raw.source, options) ? raw.source.trim() : '';
   book.reader = isAllowedExternalUrl(raw.reader, options) ? raw.reader.trim() : '';
@@ -136,7 +138,7 @@ export function sanitizeBooks(data, options = {}) { return Array.isArray(data) ?
 export function filterBooks(books, { query = '', subject = '', source = '', language = '', kind = '', availability = '' } = {}) {
   const words = normalizeArabic(query).split(/\s+/).filter(Boolean);
   return books.filter(book => {
-    const searchable = [book.title, book.author, book.subject, book.category, book.sourceName, book.publicationPlace, book.language, ...(book.languages || []), ...(book.languageCodes || []), book.kind].map(normalizeArabic).join(' ');
+    const searchable = [book.title, book.author, book.subject, book.category, book.sourceName, book.publicationPlace, book.language, ...(book.languages || []), ...(book.languageCodes || []), book.kind, book.seriesTitle ? `سلسلة ${book.seriesTitle}` : '', book.publisher, book.isbn].map(normalizeArabic).join(' ');
     return (!words.length || words.every(word => searchable.includes(word))) && (!subject || normalizeArabic(book.category || book.subject) === normalizeArabic(subject)) && (!source || normalizeArabic(book.sourceName) === normalizeArabic(source)) && (!language || (book.languageCodes || []).includes(language) || (book.languages || []).includes(language) || book.language === language) && (!kind || book.kind === kind) && (!availability || (availability === 'catalog-only' ? book.availability === 'catalog-only' : book.availability !== 'catalog-only'));
   });
 }

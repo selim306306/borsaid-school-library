@@ -21810,5 +21810,121 @@
     "originalFormat": [
       "manuscript/mixed material"
     ]
+  },
+  {
+    "id": "aseer-zikola-1",
+    "title": "أرض زيكولا",
+    "author": "عمرو عبد الحميد",
+    "subject": "روايات؛ خيال ومغامرة؛ فانتازيا",
+    "category": "روايات",
+    "languages": [
+      "العربية"
+    ],
+    "languageCodes": [
+      "ara"
+    ],
+    "language": "العربية",
+    "languageUnknown": false,
+    "kind": "كتاب مطبوع — رابط الناشر",
+    "recordType": "book",
+    "sourceName": "عصير الكتب — الناشر الرسمي",
+    "source": "https://www.aseeralkotb.com/ar/books/أرض-زيكولا",
+    "reader": "",
+    "pdf": "",
+    "rights": "جميع حقوق الرواية محفوظة لأصحابها؛ فهرسة ورابط للناشر فقط، دون إعادة نشر النص أو الغلاف أو ملف الكتاب.",
+    "rightsUrl": "https://www.aseeralkotb.com/ar/books/أرض-زيكولا",
+    "availability": "catalog-only",
+    "completionStatus": "كتاب مطبوع؛ خيارات القراءة أو الشراء وشروطها لدى الناشر الرسمي، ولا يتوفر النص أو PDF على الموقع.",
+    "searchable": false,
+    "publicationYear": "2010",
+    "publicationPlace": "",
+    "publisher": "عصير الكتب للترجمة والنشر والتوزيع",
+    "seriesId": "ard-zikola",
+    "seriesTitle": "أرض زيكولا",
+    "seriesOrder": 1,
+    "pages": 288,
+    "verifiedAt": "2026-10-17",
+    "originalFormat": [
+      "book",
+      "print"
+    ],
+    "isbn": "9789776382398"
+  },
+  {
+    "id": "aseer-zikola-2",
+    "title": "أماريتا",
+    "author": "عمرو عبد الحميد",
+    "subject": "روايات؛ خيال ومغامرة؛ فانتازيا",
+    "category": "روايات",
+    "languages": [
+      "العربية"
+    ],
+    "languageCodes": [
+      "ara"
+    ],
+    "language": "العربية",
+    "languageUnknown": false,
+    "kind": "كتاب مطبوع — رابط الناشر",
+    "recordType": "book",
+    "sourceName": "عصير الكتب — الناشر الرسمي",
+    "source": "https://www.aseeralkotb.com/ar/books/أماريتا-سلسلة-أرض-زيكولا-الجزء-الثاني",
+    "reader": "",
+    "pdf": "",
+    "rights": "جميع حقوق الرواية محفوظة لأصحابها؛ فهرسة ورابط للناشر فقط، دون إعادة نشر النص أو الغلاف أو ملف الكتاب.",
+    "rightsUrl": "https://www.aseeralkotb.com/ar/books/أماريتا-سلسلة-أرض-زيكولا-الجزء-الثاني",
+    "availability": "catalog-only",
+    "completionStatus": "كتاب مطبوع؛ خيارات القراءة أو الشراء وشروطها لدى الناشر الرسمي، ولا يتوفر النص أو PDF على الموقع.",
+    "searchable": false,
+    "publicationYear": "2016",
+    "publicationPlace": "",
+    "publisher": "عصير الكتب للترجمة والنشر والتوزيع",
+    "seriesId": "ard-zikola",
+    "seriesTitle": "أرض زيكولا",
+    "seriesOrder": 2,
+    "pages": 328,
+    "verifiedAt": "2026-10-17",
+    "originalFormat": [
+      "book",
+      "print"
+    ],
+    "isbn": "9789776541054"
+  },
+  {
+    "id": "aseer-zikola-3",
+    "title": "وادي الذئاب المنسية",
+    "author": "عمرو عبد الحميد",
+    "subject": "روايات؛ خيال ومغامرة؛ فانتازيا",
+    "category": "روايات",
+    "languages": [
+      "العربية"
+    ],
+    "languageCodes": [
+      "ara"
+    ],
+    "language": "العربية",
+    "languageUnknown": false,
+    "kind": "كتاب مطبوع — رابط الناشر",
+    "recordType": "book",
+    "sourceName": "عصير الكتب — الناشر الرسمي",
+    "source": "https://www.aseeralkotb.com/ar/books/وادي-الذئاب-المنسية-سلسلة-أرض-زيكولا-الجزء-الثالث",
+    "reader": "",
+    "pdf": "",
+    "rights": "جميع حقوق الرواية محفوظة لأصحابها؛ فهرسة ورابط للناشر فقط، دون إعادة نشر النص أو الغلاف أو ملف الكتاب.",
+    "rightsUrl": "https://www.aseeralkotb.com/ar/books/وادي-الذئاب-المنسية-سلسلة-أرض-زيكولا-الجزء-الثالث",
+    "availability": "catalog-only",
+    "completionStatus": "كتاب مطبوع؛ خيارات القراءة أو الشراء وشروطها لدى الناشر الرسمي، ولا يتوفر النص أو PDF على الموقع.",
+    "searchable": false,
+    "publicationYear": "2023",
+    "publicationPlace": "",
+    "publisher": "عصير الكتب للترجمة والنشر والتوزيع",
+    "seriesId": "ard-zikola",
+    "seriesTitle": "أرض زيكولا",
+    "seriesOrder": 3,
+    "pages": 296,
+    "verifiedAt": "2026-10-17",
+    "originalFormat": [
+      "book",
+      "print"
+    ]
   }
 ]
