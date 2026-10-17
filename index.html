@@ -63,7 +63,8 @@
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
   <link rel="stylesheet" href="visual-polish.css?v=20261016-ai-chat-cta-1">
-  <link rel="stylesheet" href="president-banner.css?v=20261017-header-notice-4">
+  <link rel="stylesheet" href="president-banner.css?v=20261017-reading-counts-5">
+  <script type="module" src="header-reading-summary.js?v=20261017-1"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -106,6 +107,12 @@
     </button>
     <aside class="header-development-notice" aria-label="تنويه تطوير الموقع">
       <p>الموقع قيد التطوير بواسطة وكيل الذكاء الاصطناعي. يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.</p>
+      <div class="header-reading-summary" id="headerReadingSummary" role="group" aria-label="عناوين القراءة الحالية دون تكرار">
+        <p class="header-reading-counts" aria-live="polite" aria-atomic="true"><span>إجمالي العناوين: <strong data-reading-count="total">٢٩٦</strong></span><span>أونلاين: <strong data-reading-count="online">٢٩٦</strong></span><span>بصيغة <bdi>PDF</bdi>: <strong data-reading-count="pdf">٢٩٥</strong></span></p>
+        <p class="header-reading-legend">عناوين القراءة دون تكرار؛ <bdi>PDF</bdi> ضمن الأونلاين.</p>
+        <p class="header-reading-future">وستُضاف كتب أخرى تباعًا.</p>
+        <p class="header-reading-status" data-reading-status hidden></p>
+      </div>
     </aside>
     </div>
     <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
