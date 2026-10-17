@@ -26,3 +26,6 @@ verify_jwt = true
 
 [functions.visitor-question-submit]
 verify_jwt = false
+
+[functions.platform-library-report]
+verify_jwt = true

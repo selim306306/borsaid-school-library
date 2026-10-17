@@ -5,6 +5,7 @@ import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPubli
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
 import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=20261017-gemini-assistant-1';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
+import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=20261017-platform-report-1';
 import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
@@ -31,6 +32,7 @@ const PUBLIC_PAGE_VIEW_LABELS = Object.freeze({
 });
 let publicAnalyticsSupabase = null;
 let publicDirectoryAvailable = false;
+let platformLibraryReportData = null;
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
 const scrollBehavior = () => prefersReducedMotion() ? 'instant' : 'smooth';
 function trackPublicPageView(viewName) {
@@ -775,6 +777,16 @@ function configureRole(role) {
   $('#inviteForm').hidden = !administrator;
   $('#operationalBackupCard').hidden = role !== 'owner';
   $('#managerAssistantCard').hidden = !administrator;
+  const canViewPlatformReport = hasPlatformOwnerAccess(currentMemberships);
+  $('#platformReportSection').hidden = !canViewPlatformReport;
+  if (!canViewPlatformReport) {
+    platformLibraryReportData = null;
+    $('#platformReportSummary').replaceChildren();
+    $('#platformLibraryComparison').replaceChildren();
+    $('#platformReportStatus').textContent = '';
+    $('#platformAiSummaryOutput').replaceChildren();
+    $('#platformAiSummaryOutput').hidden = true;
+  }
   if (!(owner && hasSiteFooterOwnership())) {
     $('#ownerVisitorQuestionsList').replaceChildren();
     $('#visitorQuestionsStatus').textContent = '';
@@ -1026,6 +1038,7 @@ async function loadStaffData() {
   $('#sharingSettingsForm').hidden = true;
   await loadStaffBranches();
   const tasks = [refreshStaffStats(), loadInventory(), loadReports(), loadLibrarySettings()];
+  if (hasPlatformOwnerAccess(currentMemberships)) tasks.push(loadPlatformLibraryReport());
   if (currentRole === 'owner') tasks.push(loadSchoolProfile(), loadSiteFooter());
   if (currentRole === 'owner' && hasSiteFooterOwnership()) tasks.push(loadOwnerVisitorQuestions());
   if (hasSiteMediaOwnership()) tasks.push(loadSiteMediaManager(), loadSiteAnalytics());
@@ -2315,6 +2328,144 @@ async function loadReports() {
   const cards = [['العناوين', titles], ['النسخ المسجلة', copies], ['نسخ مفقودة', lost], ['تحت الصيانة', maintenance], ['الإعارات المفتوحة', open], ['الإعارات المتأخرة', overdue], ['الزوار المسجلون', visitors], ['عمليات الجرد', checks], ['حجوزات انتظار', waiting], ['جاهزة للاستلام', ready], ['الفروع', staffBranches.length]];
   $('#reportGrid').innerHTML = cards.map(([label, count]) => `<div class="report-card"><span>${label}</span><strong>${count === null ? '—' : Number(count).toLocaleString('ar-EG')}</strong></div>`).join('');
 }
+const PLATFORM_REPORT_METRICS = Object.freeze([
+  ['branches', 'الفروع'], ['titles', 'عناوين الكتب'], ['copies', 'النسخ المسجلة'],
+  ['available', 'نسخ متاحة'], ['lost', 'نسخ مفقودة'], ['open_loans', 'إعارات مفتوحة'],
+  ['overdue_loans', 'إعارات متأخرة الآن'], ['queued_reservations', 'حجوزات انتظار'],
+  ['ready_reservations', 'حجوزات جاهزة'],
+]);
+function platformReportNumber(value) {
+  const number = Number(value);
+  return Number.isFinite(number) && number >= 0 ? Math.trunc(number) : 0;
+}
+function formatPlatformReportDate(value) {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return 'غير متاح';
+  return new Intl.DateTimeFormat('ar-EG', {
+    dateStyle: 'medium', timeStyle: 'short', timeZone: 'Africa/Cairo',
+  }).format(date);
+}
+function renderPlatformLibraryReport() {
+  const report = platformLibraryReportData;
+  if (!report) return;
+  const libraries = Array.isArray(report.libraries) ? report.libraries : [];
+  const totals = report.totals || {};
+  const summary = [
+    ['المكتبات المسجلة', totals.libraries ?? libraries.length],
+    ...PLATFORM_REPORT_METRICS.map(([key, label]) => [label, totals[key]]),
+  ];
+  $('#platformReportSummary').innerHTML = summary.map(([label, value]) =>
+    `<article class="platform-report-stat"><span>${escapeHtml(label)}</span><strong>${platformReportNumber(value).toLocaleString('ar-EG')}</strong></article>`,
+  ).join('');
+  $('#platformReportScope').textContent = `${report.scope || 'لقطة حالية لجميع المكتبات المسجلة.'} تاريخ الإنشاء: ${formatPlatformReportDate(report.generated_at)} بتوقيت القاهرة.`;
+  if (!libraries.length) {
+    $('#platformLibraryComparison').innerHTML = '<p class="inline-alert">لا توجد مكتبات مسجلة لعرضها في هذه اللقطة.</p>';
+    return;
+  }
+  $('#platformLibraryComparison').innerHTML = libraries.map((library, index) => {
+    const metrics = PLATFORM_REPORT_METRICS.map(([key, label]) =>
+      `<div class="platform-report-metric"><span>${escapeHtml(label)}</span><strong>${platformReportNumber(library[key]).toLocaleString('ar-EG')}</strong></div>`,
+    ).join('');
+    const note = libraryHasOperationalData(library)
+      ? ''
+      : '<p class="platform-report-no-data">لا توجد بيانات تشغيلية مسجلة لهذه المكتبة في هذه المؤشرات؛ لا يعني ذلك نجاحاً أو قصوراً.</p>';
+    return `<article class="platform-library-card"><h4>${escapeHtml(library.name || `مكتبة ${index + 1}`)}</h4>${note}<div class="platform-report-metrics">${metrics}</div></article>`;
+  }).join('');
+}
+async function loadPlatformLibraryReport() {
+  const section = $('#platformReportSection');
+  if (!section || !hasPlatformOwnerAccess(currentMemberships) || !supabase) {
+    if (section) section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  $('#platformReportStatus').textContent = 'جارٍ إعداد لقطة مجمعة لجميع المكتبات…';
+  platformLibraryReportData = null;
+  $('#platformReportSummary').replaceChildren();
+  $('#platformLibraryComparison').replaceChildren();
+  $('#platformAiSummaryOutput').replaceChildren();
+  $('#platformAiSummaryOutput').hidden = true;
+  $('#platformAiSummaryStatus').textContent = '';
+  $('#exportPlatformReport').disabled = true;
+  const { data, error } = await supabase.rpc('get_platform_library_report', {});
+  if (error || !data || typeof data !== 'object') {
+    platformLibraryReportData = null;
+    $('#platformReportStatus').textContent = 'تعذّر تحميل التقرير. تحقّق من جلسة المالك والاتصال ثم أعد المحاولة.';
+    return;
+  }
+  platformLibraryReportData = data;
+  renderPlatformLibraryReport();
+  $('#exportPlatformReport').disabled = false;
+  $('#platformReportStatus').textContent = `تم إعداد التقرير الشامل لعدد ${platformReportNumber(data.totals?.libraries ?? data.libraries?.length).toLocaleString('ar-EG')} مكتبات.`;
+}
+$('#refreshPlatformReport').addEventListener('click', () => { void loadPlatformLibraryReport(); });
+$('#exportPlatformReport').addEventListener('click', () => {
+  const report = platformLibraryReportData;
+  if (!report || !hasPlatformOwnerAccess(currentMemberships)) return;
+  const rows = [
+    ['تقرير المكتبات المسجلّة — لقطة حالية'],
+    ['تاريخ الإنشاء', report.generated_at || ''],
+    ['النطاق', report.scope || 'جميع المكتبات المسجلة'],
+    [],
+    ['المكتبة', ...PLATFORM_REPORT_METRICS.map(([, label]) => label)],
+    ...(Array.isArray(report.libraries) ? report.libraries.map(library => [
+      library.name || '', ...PLATFORM_REPORT_METRICS.map(([key]) => platformReportNumber(library[key])),
+    ]) : []),
+    ['الإجمالي', ...PLATFORM_REPORT_METRICS.map(([key]) => platformReportNumber(report.totals?.[key]))],
+  ];
+  const csv = '\ufeff' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'borsaid-platform-library-report.csv';
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+$('#generatePlatformAiSummary').addEventListener('click', async event => {
+  const button = event.currentTarget;
+  if (!hasPlatformOwnerAccess(currentMemberships)) {
+    return setMessage($('#platformAiSummaryStatus'), 'تحليل التقرير الشامل متاح لمالك المنصة المخوّل فقط.', 'error');
+  }
+  button.disabled = true;
+  $('#platformAiSummaryOutput').hidden = true;
+  setMessage($('#platformAiSummaryStatus'), 'جارٍ تحديث اللقطة ثم إرسال أعداد مجهولة ومجمعة فقط إلى Gemini…');
+  try {
+    await loadPlatformLibraryReport();
+    if (!platformLibraryReportData) throw new Error('metrics_unavailable');
+    const { data, error } = await supabase.functions.invoke('platform-library-report', {
+      body: { action: 'summary', model: $('#assistantModel').value },
+    });
+    if (error || data?.error) {
+      const reason = data?.error || error?.message || '';
+      const message = reason.includes('not_authorized') || error?.status === 403
+        ? 'هذا التحليل متاح لمالك المنصة المخوّل فقط.'
+        : reason.includes('server_configuration_missing') || error?.status === 503
+          ? 'تعذّر التحليل؛ تحقّق من إعداد Gemini الخادمي. يظل التقرير العددي متاحاً.'
+          : 'تعذّر إنشاء التحليل. يظل التقرير العددي متاحاً ولم تتغير أي بيانات.';
+      return setMessage($('#platformAiSummaryStatus'), message, 'error');
+    }
+    const output = $('#platformAiSummaryOutput');
+    output.replaceChildren();
+    const summary = document.createElement('p');
+    summary.textContent = data?.summary || 'لا يوجد ملخص.';
+    output.append(summary);
+    if (Array.isArray(data?.actions) && data.actions.length) {
+      const list = document.createElement('ul');
+      data.actions.forEach(item => {
+        const action = document.createElement('li');
+        action.textContent = String(item);
+        list.append(action);
+      });
+      output.append(list);
+    }
+    output.hidden = false;
+    setMessage($('#platformAiSummaryStatus'), 'تحليل إرشادي للأعداد المجمعة المجهولة فقط؛ لا ينفذ إجراءً ولا يعرض بيانات أفراد.', 'success');
+  } catch {
+    setMessage($('#platformAiSummaryStatus'), 'تعذّر إنشاء التحليل أو تحديث التقرير. لم تتغير أي بيانات.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+});
 async function loadReservations() {
   const tbody = $('#reservationRows');
   let reservations;

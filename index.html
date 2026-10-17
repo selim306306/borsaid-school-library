@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/egypt-mark.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/header-photo-initial.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site.css?v=20261016-owner-question-dashboard-1">
+  <link rel="stylesheet" href="site.css?v=20261017-platform-report-1">
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-gemini-assistant-1"></script>
+  <script type="module" src="app.js?v=20261017-platform-report-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -807,6 +807,19 @@
         <section class="staff-panel" id="reportsPanel" hidden>
           <div class="panel-heading"><div><h3>تقارير سريعة وتصدير</h3><p>مؤشرات تشغيلية مبنية على سجلات هذه المكتبة فقط.</p></div></div>
           <div class="report-grid" id="reportGrid"></div>
+          <section class="platform-report-section" id="platformReportSection" hidden aria-labelledby="platformReportTitle">
+            <div class="panel-heading platform-report-heading"><div><span class="eyebrow">للمالك الرسمي فقط</span><h3 id="platformReportTitle">التقرير الشامل للمكتبات المسجلة</h3><p>مقارنة مجمعة لكل المكتبات، من دون بيانات أفراد. هذا التقرير لقطة حالية وليس اتجاهاً زمنياً.</p></div><div class="platform-report-actions"><button class="button button-outline" id="refreshPlatformReport" type="button">تحديث التقرير</button><button class="button button-primary" id="exportPlatformReport" type="button" disabled>تنزيل CSV</button></div></div>
+            <p class="form-message" id="platformReportStatus" role="status" aria-live="polite">جارٍ إعداد التقرير…</p>
+            <p class="platform-report-scope" id="platformReportScope">النطاق: جميع المكتبات المسجلة، بحسب الحالة وقت الإنشاء. لا توجد بيانات تشغيلية تعني «لا توجد بيانات مسجلة»، ولا تمثل حكماً على أداء المكتبة.</p>
+            <div class="platform-report-summary" id="platformReportSummary" aria-label="الإجماليات المجمعة"></div>
+            <div class="platform-library-comparison" id="platformLibraryComparison" aria-live="polite"></div>
+            <section class="platform-report-ai" aria-labelledby="platformReportAiTitle">
+              <div><h4 id="platformReportAiTitle">تحليل إرشادي بالذكاء الاصطناعي</h4><p>عند الطلب، يتلقى Gemini أعداداً مجمعة مجهولة فقط: بلا أسماء مكتبات أو معرّفات أو أسماء طلاب أو تفاصيل إعارات وحجوزات فردية.</p></div>
+              <button class="button button-soft" id="generatePlatformAiSummary" type="button">حلّل الأعداد المجمعة</button>
+              <p class="form-message" id="platformAiSummaryStatus" role="status" aria-live="polite"></p>
+              <div class="assistant-output" id="platformAiSummaryOutput" hidden></div>
+            </section>
+          </section>
           <div class="export-card"><div><strong>تصدير جرد الفهرس إلى CSV</strong><p>يشمل بيانات الكتب والنسخ والفروع فقط؛ لا يتضمن أسماء مستعيرين.</p></div><button class="button button-primary" id="exportInventory" type="button">تنزيل ملف الجرد</button></div>
           <div class="export-card"><div><strong>تصدير تقرير الإعارات المجمّع إلى CSV</strong><p>تجميع حسب الكتاب والفرع: إجمالي الإعارات والمفتوحة والمتأخرة والمرتجعة؛ بلا أسماء أو رموز مستعيرين أو تفاصيل إعارة فردية.</p></div><button class="button button-outline" id="exportLoanReport" type="button">تنزيل تقرير الإعارات</button></div>
           <div class="export-card" id="operationalBackupCard" hidden><div><strong>تصدير بيانات تشغيلية JSON</strong><p>يشمل سجلات المستعيرين والإعارة؛ ملف حساس، متاح لمالك المكتبة فقط.</p></div><button class="button button-outline" id="exportOperationalBackup" type="button">تنزيل التصدير</button></div>
