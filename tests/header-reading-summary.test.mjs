@@ -11,15 +11,19 @@ test('current reading totals count unique titles and overlapping formats only on
   assert.equal(external.length, 300);
   assert.deepEqual(countReadingTitles(PUBLIC_READABLE_BOOKS, external), { total: 296, online: 296, pdf: 295 });
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  for (const [key, value] of Object.entries(countReadingTitles(PUBLIC_READABLE_BOOKS, external)).filter(([key]) => key !== 'online')) {
+  for (const [key, value] of Object.entries(countReadingTitles(PUBLIC_READABLE_BOOKS, external))) {
     assert.ok(html.includes(`data-reading-count="${key}">${value.toLocaleString('ar-EG')}</strong>`));
   }
   assert.ok(html.indexOf('id="headerReadingSummary"') > html.indexOf('id="headerVisitorChatShortcut"'));
   assert.ok(html.indexOf('id="headerReadingSummary"') > html.indexOf('<figure class="president-banner"'));
-  assert.ok(!html.includes('header-development-notice'));
+  assert.ok(html.indexOf('header-development-notice') < html.indexOf('<figure class="president-banner"'));
+  assert.ok(html.includes('يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.'));
+  const president = html.slice(html.indexOf('<figure class="president-banner"'), html.indexOf('</figure>'));
+  assert.ok(!president.includes('الموقع قيد التطوير'));
+  assert.ok(president.includes('ضمن الإجمالي'));
   assert.ok(!html.includes('نطوّر الموقع باستمرار'));
   assert.ok(html.includes('مؤسس مصر الحديثة'));
-  assert.ok(html.includes('منها، وستضاف كتب أخرى تباعًا.'));
+  assert.ok(html.includes('ستضاف كتب أخرى تباعًا.'));
 });
 
 test('Arabic spelling duplicates merge access flags, but different volumes stay distinct', () => {

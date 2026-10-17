@@ -63,8 +63,8 @@
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
   <link rel="stylesheet" href="visual-polish.css?v=20261016-ai-chat-cta-1">
-  <link rel="stylesheet" href="president-banner.css?v=20261017-president-compact-6">
-  <script type="module" src="header-reading-summary.js?v=20261017-compact-2"></script>
+  <link rel="stylesheet" href="president-banner.css?v=20261017-split-notice-7">
+  <script type="module" src="header-reading-summary.js?v=20261017-split-3"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -105,15 +105,18 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
       <span>مساعد أمين المكتبة</span>
     </button>
+    <aside class="header-development-notice" aria-label="تنويه تطوير الموقع">
+      <p>الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع. يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.</p>
+    </aside>
     </div>
     <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
       <img src="president-480.webp" srcset="president-240.webp 240w, president-480.webp 480w" sizes="(max-width: 700px) 40vw, (max-width: 1040px) 280px, 250px" alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية" width="480" height="360" loading="eager" decoding="async">
       <figcaption>
         <strong class="president-banner-name" id="presidentBannerName">السيد الرئيس عبد الفتاح السيسي</strong>
         <span class="president-banner-title" id="presidentBannerTitle">مؤسس مصر الحديثة</span>
-        <div class="president-banner-site-note" id="headerReadingSummary" role="note" aria-label="تطوير الموقع وعناوين القراءة الحالية دون تكرار">
-          <p>الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع.</p>
-          <p class="header-reading-counts" aria-live="polite" aria-atomic="true"><strong data-reading-count="total">٢٩٦</strong> عنوانًا متاحًا أونلاين، ويتوفر <bdi>PDF</bdi> لـ<strong data-reading-count="pdf">٢٩٥</strong> منها، وستضاف كتب أخرى تباعًا.</p>
+        <div class="president-banner-site-note" id="headerReadingSummary" role="note" aria-label="عناوين القراءة الحالية دون تكرار">
+          <p class="header-reading-counts" aria-live="polite" aria-atomic="true">الإجمالي: <strong data-reading-count="total">٢٩٦</strong> عنوانًا<br>أونلاين: <strong data-reading-count="online">٢٩٦</strong><br><bdi>PDF</bdi> لـ<strong data-reading-count="pdf">٢٩٥</strong> منها (ضمن الإجمالي).</p>
+          <p>ستضاف كتب أخرى تباعًا.</p>
           <p class="header-reading-status" data-reading-status hidden></p>
         </div>
       </figcaption>
