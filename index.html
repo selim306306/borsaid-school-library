@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="visitor-questions.css?v=20261017-public-assistant-paths-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="public-site-stats.css?v=20261017-public-stats-1">
+  <link rel="stylesheet" href="site-footer.css?v=20261018-clean-footer-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
@@ -63,8 +64,6 @@
   <link rel="stylesheet" href="image-viewer.css?v=20261015-modal-2">
   <script defer src="image-viewer.js?v=20261015-modal-2"></script>
   <link rel="stylesheet" href="visual-polish.css?v=20261016-ai-chat-cta-1">
-  <link rel="stylesheet" href="zikola-promotion.css?v=20261017-official-app-2">
-  <script type="module" src="zikola-app-links.mjs?v=20261017-official-app-2"></script>
   <link rel="stylesheet" href="president-banner.css?v=20261017-loc-honey-1">
   <script type="module" src="header-reading-summary.js?v=20261017-loc-global-1"></script>
 </head>
@@ -109,25 +108,6 @@
     </button>
     <aside class="header-development-notice" aria-label="تنويه تطوير الموقع">
       <p>الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع. يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.</p>
-    </aside>
-    <aside class="zikola-promotion" id="zikolaPromotion" aria-labelledby="zikolaPromotionTitle">
-      <span class="zikola-promotion-label">ترشيح للقراءة · ثلاثية أرض زيكولا</span>
-      <h2 id="zikolaPromotionTitle">ثلاثة أبواب إلى عالم زيكولا… من أين تبدأ؟</h2>
-      <p class="zikola-promotion-intro">خذ خيالك في رحلة أبعد من المألوف!</p>
-      <ol class="zikola-promotion-parts" aria-label="أجزاء الثلاثية بالترتيب — القراءة الرسمية وحالة التوفر">
-        <li><a data-zikola-book="zikola" href="https://play.google.com/store/apps/details?id=com.asseralkotb" target="_blank" rel="noopener noreferrer" aria-describedby="zikolaAppNote"><span class="zikola-part-number" aria-hidden="true">١</span><span class="zikola-part-copy"><span>أرض زيكولا</span><small data-zikola-action>القراءة في تطبيق عصير الكتب · متجر Android</small></span><span class="zikola-part-arrow" aria-hidden="true">↗</span></a></li>
-        <li><a data-zikola-book="amarita" href="https://play.google.com/store/apps/details?id=com.asseralkotb" target="_blank" rel="noopener noreferrer" aria-describedby="zikolaAppNote"><span class="zikola-part-number" aria-hidden="true">٢</span><span class="zikola-part-copy"><span>أماريتا</span><small data-zikola-action>القراءة في تطبيق عصير الكتب · متجر Android</small></span><span class="zikola-part-arrow" aria-hidden="true">↗</span></a></li>
-        <li><div class="zikola-part-unavailable" aria-describedby="zikolaThirdNote"><span class="zikola-part-number" aria-hidden="true">٣</span><span class="zikola-part-copy"><span>وادي الذئاب المنسية</span><small id="zikolaThirdNote">قريبًا</small></span></div></li>
-      </ol>
-      <p class="zikola-promotion-caption" id="zikolaAppNote">الجزآن الأول والثاني: يعلن الناشر قراءتهما مجانًا داخل تطبيق عصير الكتب. بعد فتحه ابحث باسم الرواية ثم اختر القراءة؛ قد يلزم تسجيل الدخول.</p>
-      <a class="zikola-ios-link" href="https://apps.apple.com/eg/app/عصير-الكتب/id1573588874" target="_blank" rel="noopener noreferrer" aria-describedby="zikolaAppNote">تطبيق عصير الكتب على iPhone وiPad ↗</a>
-      <p class="zikola-promotion-caption">على Android المتوافق نحاول فتح التطبيق، وإلا متجره. على iPhone وiPad يفتح App Store؛ اختر «فتح» إن كان التطبيق مثبتًا، أو ثبّته. على الكمبيوتر استخدم رابط المتجر المناسب لهاتفك. لا يوجد قارئ ويب رسمي هنا.</p>
-      <details class="zikola-promotion-details">
-        <summary>عن الثلاثية وحقوق القراءة</summary>
-        <p>ابدأ بأرض زيكولا، وواصل المغامرة مع أماريتا، ثم اكتشف وادي الذئاب المنسية. ثلاث محطات، وموعد جديد مع الدهشة في كل جزء.</p>
-        <p>تأليف عمرو عبد الحميد · الناشر: عصير الكتب</p>
-        <p>القراءة خارج الموقع عبر تطبيق الناشر الرسمي، وليست صفحة شراء أو Google Books. فتح الرواية نفسها مباشرة غير مضمون؛ يعتمد على دعم التطبيق والجهاز وتوفر الكتاب وشروط الناشر. لا يتوفر نص الروايات أو PDF على هذا الموقع.</p>
-      </details>
     </aside>
     </div>
     <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
@@ -537,19 +517,27 @@
   </main>
 
   <footer class="site-footer section-wrap">
-    <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
-    <p class="footer-note" id="footerDescription">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
-    <section class="public-page-view-stats" id="publicPageViewStats" dir="rtl" aria-labelledby="publicPageViewStatsTitle">
-      <h2 id="publicPageViewStatsTitle">إحصاءات المشاهدة</h2>
-      <div class="public-page-view-stats-grid">
-        <div><span>الإجمالي المسجل</span><strong data-public-stats-value="total">—</strong></div>
-        <div><span>اليوم</span><strong data-public-stats-value="today">—</strong></div>
-        <div><span>هذا الشهر</span><strong data-public-stats-value="month">—</strong></div>
+    <div class="footer-card">
+      <div class="footer-main">
+        <div class="footer-brand"><img src="assets/mark.svg" alt="" width="38" height="38"><div><strong>مكتبات بورسعيد المدرسية</strong><small>اكتشاف عام · إدارة بصلاحيات</small></div></div>
+        <div class="footer-description">
+          <p class="footer-note" id="footerDescription">بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.</p>
+        </div>
       </div>
-      <p class="public-page-view-stats-note">مشاهدات أقسام الموقع وليست زوارًا فريدين · الإجمالي للفترة المحتفظ بها (حتى 400 يوم).</p>
-      <p class="public-page-view-stats-status" data-public-stats-status role="status" aria-live="polite" hidden></p>
-    </section>
-    <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><span class="responsibility">مسؤولية الموقع: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
+      <div class="footer-stats">
+        <section class="public-page-view-stats" id="publicPageViewStats" dir="rtl" aria-labelledby="publicPageViewStatsTitle">
+          <h2 id="publicPageViewStatsTitle">إحصاءات المشاهدة</h2>
+          <div class="public-page-view-stats-grid">
+            <div><span>الإجمالي المسجل</span><strong data-public-stats-value="total">—</strong></div>
+            <div><span>اليوم</span><strong data-public-stats-value="today">—</strong></div>
+            <div><span>هذا الشهر</span><strong data-public-stats-value="month">—</strong></div>
+          </div>
+          <p class="public-page-view-stats-note">مشاهدات أقسام الموقع وليست زوارًا فريدين · الإجمالي للفترة المحتفظ بها (حتى 400 يوم).</p>
+          <p class="public-page-view-stats-status" data-public-stats-status role="status" aria-live="polite" hidden></p>
+        </section>
+      </div>
+      <div class="footer-bottom"><span>© <span id="copyrightYear"></span> مكتبات بورسعيد المدرسية</span><span class="credit">تصميم وبرمجة: محمد حامد</span><span class="responsibility">مسؤولية الموقع: محمد حامد</span><a href="#top">العودة للأعلى ↑</a></div>
+    </div>
   </footer>
 
   <dialog id="staffDialog" class="staff-dialog" aria-labelledby="staffDialogTitle">

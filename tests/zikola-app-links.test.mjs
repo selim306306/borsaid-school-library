@@ -1,7 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {getReadingDestination,ANDROID_STORE,IOS_STORE,enhanceReadingLinks} from '../zikola-app-links.mjs';
+const homepage=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const android={userAgent:'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/130.0.0.0 Mobile Safari/537.36'};
+test('link helpers remain standalone and do not require an embedded homepage module',()=>{
+  assert.ok(!homepage.includes('zikola-app-links.mjs'));
+});
 test('Android Chrome uses official publisher HTTPS app route with explicit store fallback',()=>{
   for(const key of ['zikola','amarita']) {
     const d=getReadingDestination(key,android);

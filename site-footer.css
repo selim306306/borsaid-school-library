@@ -1,0 +1,19 @@
+.site-footer{margin-top:clamp(28px,6vw,64px);padding-block:0 28px;color:#24344f;direction:rtl}
+.site-footer .footer-card{display:grid;gap:22px;padding:clamp(20px,4vw,34px);border:1px solid #e5eaf2;border-radius:24px;background:#fff;box-shadow:0 16px 44px rgba(35,58,93,.08)}
+.site-footer .footer-main{display:grid;gap:16px;align-items:start}
+.site-footer .footer-brand{display:flex;align-items:center;gap:12px;margin:0}
+.site-footer .footer-brand img{flex:none;width:46px;height:46px;padding:7px;border:1px solid #e1e8f1;border-radius:14px;background:#f7fafc}
+.site-footer .footer-brand strong{display:block;color:#1f3658;font-size:clamp(1rem,2vw,1.2rem);line-height:1.55}
+.site-footer .footer-brand small{display:block;margin-top:3px;color:#718096;font-size:.8rem;line-height:1.6}
+.site-footer .footer-description{min-width:0}
+.site-footer .footer-note{max-width:42rem;margin:0;color:#607089;font-size:clamp(.92rem,1.5vw,1rem);line-height:1.9}
+.site-footer .footer-stats{min-width:0}
+.site-footer .public-page-view-stats{width:100%;margin:0;padding:16px;border:1px solid #e1e9e5;border-radius:18px;background:#f8fbfa;box-shadow:none}
+.site-footer .public-page-view-stats h2{margin:0 0 10px;color:#245449;font-size:1rem;line-height:1.5}
+.site-footer .public-page-view-stats-grid{gap:8px}
+.site-footer .public-page-view-stats-grid>div{padding:9px 8px;border-radius:11px}
+.site-footer .footer-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px;margin:0;padding-top:18px;border-top:1px solid #edf0f4;color:#78869a;font-size:.82rem;line-height:1.7}
+.site-footer .footer-bottom .credit,.site-footer .footer-bottom .responsibility{color:#405674;font-weight:700}
+.site-footer .footer-bottom a{color:#315b91;text-decoration:underline;text-underline-offset:3px}
+@media (min-width:760px){.site-footer .footer-card{grid-template-columns:minmax(0,1fr) minmax(320px,.8fr);gap:28px 42px}.site-footer .footer-main{align-content:start}.site-footer .footer-bottom{grid-column:1/-1}.site-footer .footer-bottom a{margin-inline-start:auto}}
+@media (max-width:480px){.site-footer .footer-card{padding:18px}.site-footer .public-page-view-stats-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.site-footer .footer-bottom{align-items:stretch;flex-direction:column;gap:5px}.site-footer .footer-bottom a{margin-top:6px}}
