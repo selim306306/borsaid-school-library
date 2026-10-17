@@ -33,7 +33,8 @@ export async function refreshHeaderReadingSummary({ documentRef = globalThis.doc
     if (!externalBooks.length || externalBooks.length !== raw.length) throw new Error('reading_source_invalid');
     const totals = countReadingTitles(PUBLIC_READABLE_BOOKS, externalBooks);
     for (const [name, count] of Object.entries(totals)) {
-      root.querySelector(`[data-reading-count="${name}"]`).textContent = count.toLocaleString('ar-EG');
+      const node = root.querySelector(`[data-reading-count="${name}"]`);
+      if (node) node.textContent = count.toLocaleString('ar-EG');
     }
     root.dataset.countsSource = 'current-files';
     status.textContent = '';

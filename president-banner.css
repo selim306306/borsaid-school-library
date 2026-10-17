@@ -5,35 +5,10 @@
   grid-template-areas:"brand photo president";
   gap:18px;
 }
-.site-header .header-feature-stack{width:100%;max-width:330px;align-self:stretch}
+.site-header .header-feature-stack{width:100%;max-width:330px;align-self:start}
 .site-header .header-feature-image-slot{flex:0 0 auto}
-.header-development-notice{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  align-self:stretch;
-  flex:1 0 auto;
-  min-width:0;
-  margin:0;
-  padding:12px;
-  border:1px solid #dfc783;
-  border-radius:14px;
-  background:#fff5db;
-  color:#634d20;
-  font-size:14px;
-  line-height:1.8;
-  text-align:center;
-  overflow-wrap:break-word;
-}
-.header-development-notice p{margin:0}
-.header-reading-summary{align-self:stretch;min-width:0;margin-top:7px;padding-top:7px;border-top:1px solid #dfc783}
-.header-reading-counts{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 9px;font-size:12px;line-height:1.7}
-.header-reading-counts span{white-space:nowrap}
 .header-reading-counts strong{color:#194e49;font-weight:700}
-.header-development-notice .header-reading-legend{margin-top:4px;font-size:11px;line-height:1.6}
-.header-development-notice .header-reading-future{margin-top:3px;font-size:12px;line-height:1.6;font-weight:600}
-.header-development-notice .header-reading-status{margin-top:4px;font-size:11px;line-height:1.6}
+.header-reading-status{font-size:11px;line-height:1.6}
 .president-banner{
   grid-area:president;
   align-self:start;
@@ -81,8 +56,7 @@
     padding:8px;
   }
   .site-header .brand-copy strong{white-space:normal;overflow:visible;text-overflow:clip}
-  .site-header .header-feature-stack{align-self:stretch;gap:8px}
-  .header-development-notice{padding:9px 7px;border-radius:11px;font-size:12px;line-height:1.8}
+  .site-header .header-feature-stack{align-self:start;gap:8px}
   .site-header .header-chat-shortcut{min-height:44px;padding:7px 5px;gap:4px;font-size:12px;white-space:normal;line-height:1.5}
   .site-header .header-chat-shortcut svg{width:14px;height:14px}
   .site-header .header-photo-controls{top:4px;right:4px;gap:1px;padding:2px}
@@ -91,5 +65,5 @@
   .president-banner figcaption{padding:6px 5px 8px;border-top-width:2px}
   .president-banner-name{font-size:14px;line-height:1.5}
   .president-banner-title{font-size:12px;line-height:1.5}
-  .president-banner-site-note{margin-top:8px;padding-top:6px;font-size:12px;line-height:1.7}
+  .president-banner-site-note{margin-top:8px;padding-top:6px;font-size:11px;line-height:1.65}
 }
