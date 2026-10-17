@@ -19,9 +19,9 @@
 .site-header .zikola-promotion p {margin:5px 0;font-size:12px;line-height:1.7;color:#244552}
 .zikola-promotion-parts {display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin:11px 0 6px;padding:0;list-style:none}
 .zikola-promotion-parts li {min-width:0;margin:0;padding:0}
-.zikola-promotion-parts a {box-sizing:border-box;display:flex;align-items:center;gap:7px;width:100%;min-height:44px;padding:6px 8px;border:1px solid #78babc;border-radius:10px;background:#f4fffd;color:#07535a;font-size:13px;font-weight:800;line-height:1.5;text-decoration:none;transition:background-color .15s ease}
+.zikola-promotion-parts a,.zikola-part-unavailable {box-sizing:border-box;display:flex;align-items:center;gap:7px;width:100%;min-height:44px;padding:6px 8px;border:1px solid #78babc;border-radius:10px;background:#f4fffd;color:#07535a;font-size:13px;font-weight:800;line-height:1.5;text-decoration:none;transition:background-color .15s ease}
 .zikola-promotion-parts li:nth-child(2) a {background:#fff8de;border-color:#c9a44e;color:#694600}
-.zikola-promotion-parts li:nth-child(3) a {background:#edf4ff;border-color:#8eafd8;color:#214d81}
+.zikola-part-unavailable {background:#edf4ff;border-color:#8eafd8;color:#214d81}
 .zikola-part-number {display:grid;place-items:center;flex:0 0 25px;height:25px;border-radius:8px;background:#087a7c;color:#fff;font-size:13px}
 .zikola-promotion-parts li:nth-child(2) .zikola-part-number {background:#8a5b00}
 .zikola-promotion-parts li:nth-child(3) .zikola-part-number {background:#285a97}
@@ -41,7 +41,7 @@
   .zikola-promotion-label {font-size:10px}
   .site-header .zikola-promotion p {font-size:11px}
   .zikola-promotion-parts {gap:5px;margin-top:8px}
-  .zikola-promotion-parts a {font-size:12px;padding:6px;gap:5px}
+  .zikola-promotion-parts a,.zikola-part-unavailable {font-size:12px;padding:6px;gap:5px}
   .zikola-part-number {flex-basis:22px;height:24px}
 }
 @media(prefers-reduced-motion:reduce) {.zikola-promotion-parts a {transition:none}}
