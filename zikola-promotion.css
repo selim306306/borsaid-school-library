@@ -26,6 +26,10 @@
 .zikola-promotion-parts li:nth-child(2) .zikola-part-number {background:#8a5b00}
 .zikola-promotion-parts li:nth-child(3) .zikola-part-number {background:#285a97}
 .zikola-part-arrow {margin-inline-start:auto;flex:none;font-size:16px}
+.zikola-part-copy {display:block;min-width:0}
+.zikola-part-copy > span,.zikola-part-copy small {display:block}
+.zikola-part-copy small {font-size:10px;font-weight:500;line-height:1.6}
+.zikola-ios-link {display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;padding:6px 4px;color:#153e63;font-size:11px;font-weight:700;line-height:1.6;text-align:center;text-underline-offset:3px}
 .zikola-promotion-parts a:hover {background:#fff;text-decoration:underline;text-underline-offset:3px}
 .site-header .zikola-promotion .zikola-promotion-caption {text-align:center;font-size:11px;color:#36515c}
 .zikola-promotion-details {margin-top:6px;border-top:1px solid #a7b8ad;padding-top:3px}
