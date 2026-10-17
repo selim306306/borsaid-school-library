@@ -29,6 +29,9 @@
 .president-banner figcaption{padding:10px 8px 12px;border-top:3px solid #c8a359}
 .president-banner-name{display:block;color:#182744;font-size:16px;font-weight:700;line-height:1.6}
 .president-banner-title{display:block;margin-top:3px;color:#4a3e23;font-size:14px;font-weight:600;line-height:1.6}
+.president-banner-site-note{margin-top:10px;padding-top:8px;border-top:1px solid #e0e5ed;color:#40516a;font-size:13px;line-height:1.8;overflow-wrap:break-word}
+.president-banner-site-note p{margin:0}
+.president-banner-site-note p+p{margin-top:5px}
 @media(min-width:701px) and (max-width:1040px){
   .site-header{
     grid-template-columns:minmax(0,1fr) minmax(220px,280px);
@@ -59,4 +62,5 @@
   .president-banner figcaption{padding:6px 5px 8px;border-top-width:2px}
   .president-banner-name{font-size:14px;line-height:1.5}
   .president-banner-title{font-size:12px;line-height:1.5}
+  .president-banner-site-note{margin-top:8px;padding-top:6px;font-size:12px;line-height:1.7}
 }

@@ -22,3 +22,16 @@ test('portrait stays in flow, uses the left RTL grid area and preserves the full
  for(const width of [240,480]) assert.ok(statSync(new URL(`./president-${width}.webp`,import.meta.url)).size<22000);
  assert.ok(statSync(new URL('./president-original.jpg',import.meta.url)).size>0);
 });
+
+test('site note stays inside the presidential caption without changing its identity',()=>{
+ const figure=html.match(/<figure class="president-banner"[^>]*>[\s\S]*?<\/figure>/)?.[0];
+ assert.ok(figure);
+ const caption=figure.match(/<figcaption>[\s\S]*?<\/figcaption>/)?.[0];
+ assert.ok(caption);
+ assert.match(caption,/تطوير الموقع بمساندة وكيل ذكاء اصطناعي، بإشراف إدارة الموقع/);
+ assert.match(caption,/زوروا الموقع باستمرار للاطلاع على آخر التحديثات/);
+ assert.match(caption,/بإشراف إدارة الموقع/);
+ assert.match(caption,/السيد الرئيس عبد الفتاح السيسي/);
+ assert.match(caption,/مؤسس مصر الحديثة/);
+ assert.ok(caption.indexOf('president-banner-site-note')>caption.indexOf('presidentBannerTitle'));
+});
