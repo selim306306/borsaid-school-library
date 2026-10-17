@@ -1,3 +1,4 @@
+import { isClearVisitorCatalogSearch } from "./visitor-catalog-intent.mjs";
 import { containsSensitivePersonalData, normalizeDigits } from "./privacy-guard.js";
 
 export const PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.";
@@ -34,7 +35,7 @@ function isPdfQuestion(question) {
 }
 
 function isCatalogQuestion(question) {
-  return /(?:كتاب|كتب|عنوان|مؤلف|فهرس|ابحث|بحث|رقم\s*عام|isbn)/u.test(normalizeText(question));
+  return isClearVisitorCatalogSearch(question);
 }
 
 function isBranchQuestion(question) {
@@ -179,9 +180,9 @@ export async function answerPublicQuestion({
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: systemInstruction }] },
           contents: [{ role: "user", parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.25, maxOutputTokens: 500 },
+          generationConfig: { temperature: 0.25, maxOutputTokens: 900 },
         }),
-        signal: AbortSignal.timeout(20000),
+        signal: AbortSignal.timeout(55000),
       },
     );
     if (!response.ok) return { ok: false, reason: "provider_failed" };

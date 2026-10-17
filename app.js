@@ -6,7 +6,8 @@ import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-cam
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=20261017-visitor-intents-2';
-import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=20261017-gemini-assistant-1';
+import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=20261017-gemini-routing-2';
+import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=20261017-catalog-intent-1';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=20261017-owner-school-delete-1';
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=20261017-platform-report-1';
 import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
@@ -512,7 +513,7 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
   const label = document.createElement('strong');
-  label.textContent = kind === 'user' ? 'أنت' : 'مساعد الزوار';
+  label.textContent = kind === 'user' ? 'أنت' : 'مساعد أمين المكتبة';
   const body = document.createElement('p');
   body.textContent = text;
   item.append(label, body);
@@ -614,6 +615,16 @@ async function answerVisitorQuestion(question) {
   }
   if (/(من نحن|عن المكتبة|عن الموقع|تعريف|هدف|ما هي المكتبة|ما هي مكتبات|مكتبات بورسعيد|المكتبات المدرسية|ماهو الموقع|ايه الموقع|الموقع ده)/.test(normalized)) {
     return { text: 'هذه بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
+  }
+  if (/^(?:اهلا|أهلا|مرحبا|مرحباً|السلام عليكم|صباح الخير|مساء الخير)(?:\s+بكم?)?[.!،؟]*$/u.test(String(question).trim())) {
+    return { text: 'أهلاً بك. يمكنني مساعدتك في معلومات الموقع العامة، أو الإجابة عن كتاب/مؤلف، أو البحث عن عنوان منشور عند طلب ذلك بوضوح.' };
+  }
+  const catalogIntent = classifyVisitorCatalogIntent(question);
+  if (catalogIntent.kind === 'clarify') {
+    return { text: 'هل تريد معلومات عن هذا الكتاب أو مؤلفه، أم تريد البحث عن نسخة منشورة منه في فهرس المكتبة؟ اكتب مثلاً: «ابحث عن حي بن يقظان».' };
+  }
+  if (catalogIntent.kind !== 'search') {
+    return { text: 'تعذّر الاتصال بـGemini الآن، لذلك لن أحوّل سؤالك العام إلى بحث في الفهرس. أعد المحاولة لاحقًا، أو استخدم قسم «اسأل أمين المكتبة».' };
   }
   const query = extractVisitorCatalogQuery(question);
   if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو مصادر القراءة الخارجية أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };

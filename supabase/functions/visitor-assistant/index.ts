@@ -4,7 +4,7 @@ import { answerPublicQuestion, PERSONAL_DATA_REPLY } from "./assistant.js";
 const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
-const configuredModel = Deno.env.get("VISITOR_ASSISTANT_GEMINI_MODEL") ?? "gemini-3.8-flash";
+const configuredModel = "gemini-3.5-flash-lite";
 const PUBLISHABLE_KEY = (() => {
   try {
     const keys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}") as Record<string, string>;
@@ -19,7 +19,7 @@ const rateBuckets = new Map<string, { startedAt: number; count: number }>();
 function corsHeaders(origin: string) {
   return {
     "Access-Control-Allow-Origin": origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : "null",
-    "Access-Control-Allow-Headers": "apikey, content-type, x-client-info",
+    "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Max-Age": "86400",
     "Vary": "Origin",
@@ -86,13 +86,29 @@ Deno.serve(async (request: Request) => {
   const rateKey = await hashedRateKey(request);
   if (!allowRate(rateKey)) return jsonResponse({ error: "rate_limited" }, 429, origin);
 
+  let providerStatus = 0;
+  let providerCode = "";
+  const providerFetch: typeof fetch = async (input, init) => {
+    let response: Response;
+    try { response = await fetch(input, init); }
+    catch (error) { providerCode = error instanceof Error ? error.name.replace(/[^A-Za-z]/g, "").slice(0, 40) : "NetworkError"; throw error; }
+    if (String(input).startsWith("https://generativelanguage.googleapis.com/")) {
+      providerStatus = response.status;
+      if (!response.ok) {
+        const error = await response.clone().json().catch(() => null);
+        providerCode = String(error?.error?.status ?? "").replace(/[^A-Z_]/g, "").slice(0, 60);
+      }
+    }
+    return response;
+  };
   const result = await answerPublicQuestion({
     question,
     apiKey: GEMINI_API_KEY,
     model: configuredModel,
     supabaseUrl: SUPABASE_URL,
     publishableKey: PUBLISHABLE_KEY,
+    fetchImpl: providerFetch,
   });
-  if (!result.ok) return jsonResponse({ error: "assistant_unavailable" }, 502, origin);
+  if (!result.ok) return jsonResponse({ error: "assistant_unavailable", reason: result.reason, provider_status: providerStatus, provider_code: providerCode }, 502, origin);
   return jsonResponse({ ok: true, stored: false, ...result }, 200, origin);
 });
