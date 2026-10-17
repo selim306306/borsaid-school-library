@@ -17,7 +17,7 @@ const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const PAGE_SIZE = 100;
 const CACHE_KEY = 'borsaid-library-public-cache-v1';
-const INVITATIONS_ENABLED = false; // invite-library-member is not deployed for this project.
+const INVITATIONS_ENABLED = true;
 const ASSISTANT_MODELS = new Set(['gemini-3.5-flash-lite', 'gemini-3.8-flash']);
 const DEFAULT_ASSISTANT_MODEL = 'gemini-3.5-flash-lite';
 const DEFAULT_FOOTER_DESCRIPTION = 'بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.';
@@ -802,6 +802,12 @@ function configureRole(role) {
   $('#visitorForm').hidden = !circulation;
   $('#requestForm').hidden = !manager;
   $('#inviteForm').hidden = !administrator;
+  const inviteRoleSelect = $('#inviteForm select[name=role]');
+  if (inviteRoleSelect) {
+    const adminOption = inviteRoleSelect.querySelector('option[value=admin]');
+    if (adminOption) adminOption.hidden = role === 'admin';
+    if (role === 'admin' && inviteRoleSelect.value === 'admin') inviteRoleSelect.value = 'librarian';
+  }
   $('#operationalBackupCard').hidden = role !== 'owner';
   $('#managerAssistantCard').hidden = !administrator;
   const canViewPlatformReport = hasPlatformOwnerAccess(currentMemberships);
@@ -3132,15 +3138,25 @@ $('#memberRows').addEventListener('click', async event => {
 });
 $('#inviteForm').addEventListener('submit', async event => {
   event.preventDefault();
-  if (!INVITATIONS_ENABLED) return setMessage($('#inviteMessage'), 'الدعوات متوقفة؛ لم تُنشر وظيفة الدعوات في هذا المشروع.', 'error');
-  const fields = new FormData(event.currentTarget);
-  const { data, error } = await supabase.functions.invoke('invite-library-member', {
-    body: { library_id: currentLibraryId, email: String(fields.get('email')).trim(), role: fields.get('role') },
-  });
-  if (error) return setMessage($('#inviteMessage'), 'خدمة الدعوات غير مهيأة بعد؛ يلزم نشر الوظيفة وضبط نطاق الموقع وإعادة التوجيه على الخادم.', 'error');
-  event.currentTarget.reset();
-  setMessage($('#inviteMessage'), data?.message || 'أُرسلت الدعوة وأُضيفت العضوية.', 'success');
-  await loadLibraryMembers();
+  const form = event.currentTarget;
+  const submit = form.querySelector('button[type=submit]');
+  if (!INVITATIONS_ENABLED) return setMessage($('#inviteMessage'), 'الدعوات متوقفة حالياً.', 'error');
+  if (!currentLibraryId || !supabase) return setMessage($('#inviteMessage'), 'لا توجد مكتبة محددة أو جلسة صالحة.', 'error');
+  const fields = new FormData(form);
+  const role = String(fields.get('role') || '');
+  if (role === 'owner' || (currentRole === 'admin' && role === 'admin')) return setMessage($('#inviteMessage'), 'لا يمكن لهذا الدور دعوة مالك أو مسؤول آخر.', 'error');
+  submit.disabled = true;
+  setMessage($('#inviteMessage'), 'جارٍ إرسال الدعوة والتحقق من الصلاحيات…', '');
+  try {
+    const { data, error } = await supabase.functions.invoke('invite-library-member', {
+      body: { library_id: currentLibraryId, email: String(fields.get('email') || '').trim(), role },
+    });
+    if (error) return setMessage($('#inviteMessage'), 'تعذّر إرسال الدعوة. لم تُحذف أي حسابات؛ تحقق من البريد والصلاحية ثم حاول مجدداً.', 'error');
+    form.reset();
+    setMessage($('#inviteMessage'), data?.message || 'أُرسلت الدعوة وأُضيفت العضوية.', 'success');
+    await loadLibraryMembers();
+  } catch { setMessage($('#inviteMessage'), 'تعذّر الاتصال بخدمة الدعوات. لم تُحذف أي حسابات؛ حاول لاحقاً.', 'error'); }
+  finally { submit.disabled = false; }
 });
 function renderAutomationTasks() {
   const summary = $('#automationSummary');
