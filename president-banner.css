@@ -12,10 +12,10 @@
   min-width:0;
   margin:0;
   overflow:hidden;
-  border:1px solid #e0e5ed;
+  border:1px solid #6faeae;
   border-radius:16px;
-  background:#fff;
-  box-shadow:0 5px 16px rgba(34,54,98,.06);
+  background:#dff3f0;
+  box-shadow:0 5px 16px rgba(20,90,85,.12);
   text-align:center;
 }
 .president-banner img{
@@ -29,7 +29,7 @@
 .president-banner figcaption{padding:10px 8px 12px;border-top:3px solid #c8a359}
 .president-banner-name{display:block;color:#182744;font-size:16px;font-weight:700;line-height:1.6}
 .president-banner-title{display:block;margin-top:3px;color:#4a3e23;font-size:14px;font-weight:600;line-height:1.6}
-.president-banner-site-note{margin-top:10px;padding-top:8px;border-top:1px solid #e0e5ed;color:#40516a;font-size:13px;line-height:1.8;overflow-wrap:break-word}
+.president-banner-site-note{margin-top:10px;padding-top:8px;border-top:1px solid #83b9b2;color:#204c49;font-size:13px;line-height:1.8;overflow-wrap:break-word}
 .president-banner-site-note p{margin:0}
 .president-banner-site-note p+p{margin-top:5px}
 @media(min-width:701px) and (max-width:1040px){

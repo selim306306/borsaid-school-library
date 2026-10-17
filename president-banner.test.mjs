@@ -28,10 +28,15 @@ test('site note stays inside the presidential caption without changing its ident
  assert.ok(figure);
  const caption=figure.match(/<figcaption>[\s\S]*?<\/figcaption>/)?.[0];
  assert.ok(caption);
- assert.match(caption,/تطوير الموقع بمساندة وكيل ذكاء اصطناعي، بإشراف إدارة الموقع/);
- assert.match(caption,/زوروا الموقع باستمرار للاطلاع على آخر التحديثات/);
- assert.match(caption,/بإشراف إدارة الموقع/);
+ assert.match(caption,/بوابتك لاكتشاف مكتبات بورسعيد والكتب العربية والمصادر الرقمية/);
+ assert.doesNotMatch(caption,/وكيل ذكاء اصطناعي/);
  assert.match(caption,/السيد الرئيس عبد الفتاح السيسي/);
  assert.match(caption,/مؤسس مصر الحديثة/);
  assert.ok(caption.indexOf('president-banner-site-note')>caption.indexOf('presidentBannerTitle'));
+});
+
+test('presidential banner uses the requested calm teal colors',()=>{
+ assert.match(css,/background:#dff3f0/);
+ assert.match(css,/color:#204c49/);
+ assert.match(css,/border:1px solid #6faeae/);
 });
