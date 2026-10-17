@@ -29,3 +29,9 @@ verify_jwt = false
 
 [functions.platform-library-report]
 verify_jwt = true
+
+[functions.library-admin-monitor]
+verify_jwt = false
+
+[functions.library-admin-agent]
+verify_jwt = true

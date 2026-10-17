@@ -12,6 +12,7 @@ import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessag
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=20261017-platform-report-1';
 import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage } from './school-homepage-branding.mjs?v=20261017-school-homepage-name-2';
 import { loadPublicPageViewStats } from './public-site-stats.js?v=20261017-public-stats-1';
+import { initializeAdminAgent } from './admin-agent-controller.mjs?v=20261018-admin-agent-1';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 // Publishable key is intended for browser use. Never place a service-role key here.
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -166,12 +167,19 @@ let inventoryHoldings = [];
 let reservationRows = [];
 let requestRecords = new Map();
 let openLoans = [];
+let adminAgentController = null;
+
 
 function setMessage(target, text, kind = '') {
   if (!target) return;
   target.textContent = text || '';
   target.className = `form-message${kind ? ` ${kind}` : ''}`;
 }
+adminAgentController = initializeAdminAgent({
+  getClient: () => supabase,
+  getContext: () => ({ libraryId: currentLibraryId, role: currentRole, sessionId: currentUserId }),
+  getModel: () => $('#assistantModel')?.value || DEFAULT_ASSISTANT_MODEL,
+});
 function assistantModelKey() { return `borsaid-library-assistant-model-v1:${currentLibraryId || 'default'}`; }
 function loadAssistantModelChoice() {
   const select = $('#assistantModel');
@@ -761,6 +769,7 @@ function configureRole(role) {
   const administrator = ['owner', 'admin'].includes(role);
   const owner = role === 'owner';
   const assistant = manager || role === 'reporter';
+  adminAgentController?.configureRole(role);
   $('#ownerTelegramReportCard').hidden = !hasPlatformOwnerAccess(currentMemberships);
   ownerReportPreview = null;
   $('#ownerReportDialog').close();
@@ -2652,6 +2661,7 @@ $('#forgotPasswordButton').addEventListener('click', async event => {
   setMessage(loginMessage, 'إذا كان البريد مسجلاً، فسيصلك رابط لتعيين كلمة المرور. افحص صندوق الوارد والرسائل غير المرغوب فيها.', 'success');
 });
 $('#signOut').addEventListener('click', async () => {
+  adminAgentController?.reset();
   await supabase?.auth.signOut();
   clearAssistantChat();
   currentLibraryId = null;
@@ -3505,6 +3515,7 @@ async function start() {
       currentRole = null;
       currentUserId = null;
       currentMemberships = [];
+      adminAgentController?.reset();
       configureRole(null);
       $('#ownerVisitorQuestionsList').replaceChildren();
       setWorkspaceMode(false);

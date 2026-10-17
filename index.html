@@ -43,10 +43,11 @@
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="public-site-stats.css?v=20261017-public-stats-1">
   <link rel="stylesheet" href="site-footer.css?v=20261018-clean-footer-1">
+  <link rel="stylesheet" href="admin-agent.css?v=20261018-admin-agent-2">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261018-digital-library-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261018-digital-library-1"></script>
+  <script type="module" src="app.js?v=20261018-admin-agent-2"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=20261018-digital-library-1"></script>
@@ -573,7 +574,7 @@
           <button class="staff-tab" data-panel="reportsPanel" type="button">التقارير</button>
           <button class="staff-tab" data-panel="automationPanel" type="button">مركز الفحص الآلي</button>
           <button class="staff-tab" data-panel="membersPanel" type="button">المستخدمون والصلاحيات</button>
-          <button class="staff-tab" data-panel="assistantPanel" type="button">مساعد Gemini</button>
+          <button class="staff-tab" data-panel="assistantPanel" type="button">وكيل الإدارة وGemini</button>
         </nav>
         <section class="staff-panel active" id="catalogPanel">
           <div class="panel-heading"><div><h3>تسجيل عنوان ونسخة</h3><p>يبدأ السجل مخفياً عن البحث العام حتى تختار نشره.</p></div></div>
@@ -880,7 +881,7 @@
 	          <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
 	          <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
 	          <ol id="automationTasks" class="automation-task-list"></ol>
-	          <section class="manager-assistant-card" id="managerAssistantCard" hidden aria-labelledby="managerAssistantTitle">
+          <section class="manager-assistant-card" id="managerAssistantCard" hidden aria-labelledby="managerAssistantTitle">
 	            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط</span><h3 id="managerAssistantTitle">مساعد مدير المكتبة</h3><p>ملخص ذكي للأعداد والإعدادات المجمعة، يُنشأ عند الطلب ولا يقرأ أسماء أو سجلات أفراد.</p></div></div>
 	            <form id="managerAssistantForm"><button class="button button-primary" type="submit">أنشئ ملخص المدير الآن</button></form>
 	            <p class="form-message" id="managerAssistantMessage" role="status" aria-live="polite">يحتاج إلى نشر وظيفة Gemini وضبط أسرارها خادمياً قبل أن يعمل.</p>
@@ -896,8 +897,30 @@
           <div class="privacy-banner">الدعوات للحسابات الجديدة فقط، وبعد تحقق الخادم من صلاحياتك. يلزم إعداد بريد SMTP مخصص لإرسالها خارج فريق المشروع؛ لا تتغير عضوية موجودة تلقائياً.</div>
         </section>
         <section class="staff-panel" id="assistantPanel" hidden>
+          <section class="admin-agent-section" id="adminAgentSection" hidden aria-labelledby="adminAgentTitle">
+            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط</span><h3 id="adminAgentTitle">وكيل مدير المكتبة</h3><p class="admin-agent-lead">يراجع جودة الفهرس ويقترح تنظيف المسافات. لا يختلق بيانات المؤلف أو ISBN أو ديوي، ولا يحذف أو ينشر أو يغيّر الصلاحيات أو كود الموقع.</p></div></div>
+            <div class="admin-agent-actions">
+              <button class="button button-outline" id="adminAgentLocalReview" type="button">مراجعة الفهرس عبر الخادم</button>
+              <label for="adminAgentGoal">هدف تحليل Gemini<select id="adminAgentGoal"><option value="review">مراجعة الأعداد</option><option value="normalize_catalog">اقتراح تنظيف الفهرس</option></select></label>
+              <label class="admin-agent-consent"><input id="adminAgentConsent" type="checkbox"> أوافق على إرسال أعداد مجمعة فقط إلى Gemini (لا نصوص خام ولا أي سجلات).</label>
+              <button class="button button-primary" id="adminAgentGemini" type="button">تحليل Gemini</button>
+            </div>
+            <p class="admin-agent-note">التنفيذ من اللوحة متاح عند الطلب، والمتابعة الخلفية مجدولة يوميًا 09:00 بتوقيت مصر. هذا ليس وكيلًا متصلًا لحظيًا طوال اليوم، ولا يحتاج إبقاء الصفحة مفتوحة.</p>
+            <p class="admin-agent-monitor-status" id="adminAgentMonitorStatus" role="status" aria-live="polite">المتابعة الخادمية يوميًا 09:00 بتوقيت مصر؛ تُقرأ الحالة عند فتح السياق فقط، بلا polling. التنبيه عند نقص بيانات الفهرس؛ لا تنفيذ حذف أو تغييرات حساسة عبر Telegram.</p>
+            <div id="adminAgentPreview" hidden><div class="admin-agent-metrics" id="adminAgentMetrics" aria-label="أعداد مشاكل الفهرس"></div><p>بعد معاينة العدد المتأثر، ينظف الإصلاح الثابت المسافات الزائدة في العنوان والمؤلف واسم السلسلة (حتى 100 سجل) فقط.</p><button class="button button-primary" id="adminAgentNormalize" type="button">تنفيذ الإصلاح الآمن</button></div>
+            <p class="form-message admin-agent-status" id="adminAgentStatus" role="status" aria-live="polite"></p>
+            <div class="admin-agent-output" id="adminAgentOutput" hidden></div>
+            <h4>تاريخ التشغيل</h4><ul class="admin-agent-history" id="adminAgentHistory"></ul>
+            <section class="admin-design-review" aria-labelledby="adminDesignTitle">
+              <h4 id="adminDesignTitle">مراجعة التصميم وتجربة الاستخدام</h4>
+              <p>الفحص اليومي يراجع مؤشرات HTML/CSS العامة ويقارن المشكلات الجديدة فقط. الخطوط المحسوبة، والتسلسل البصري، والتجاوب الفعلي وسهولة الاستخدام تحتاج اختبار متصفح منفصلًا؛ لا يُدّعى تشغيل Playwright يوميًا.</p>
+              <button class="button button-outline" id="adminAgentDesignReview" type="button">إعادة فحص التصميم تقنيًا الآن</button>
+              <p class="admin-agent-note">النتائج اقتراحات للمراجعة، وليست تغييرات منشورة. لن تتغير الهوية أو الأسماء أو الصور أو ما يراه الزائر دون موافقة المالك على معاينة محددة.</p>
+              <div id="adminAgentDesignReport" class="admin-design-report" aria-live="polite"></div>
+            </section>
+          </section>
           <div class="panel-heading"><div><h3>مساعد المكتبة الذكي</h3><p>ملخصات للعدادات ودردشة إرشادية لأعضاء المكتبة المصرّح لهم.</p></div><button class="button button-outline" id="assistantTestButton" type="button">اختبار اتصال Gemini</button></div>
-	          <div class="privacy-banner">اختبار الاتصال يرسل طلباً ثابتاً بلا بيانات مكتبة. الدردشة الإرشادية خاصة بوظائف الموقع والعمل المكتبي ولا تُرفق سجلات المكتبة؛ يُرسل نص السؤال إلى Gemini فقط بعد موافقتك. لا تكتب أسماء طلاب أو مستعيرين أو أرقام عضوية أو هاتفاً أو بريداً أو سجلات إعارة. لا تُحفظ المحادثة في قاعدة البيانات.</div>
+          <div class="privacy-banner">اختبار الاتصال يرسل طلباً ثابتاً بلا بيانات مكتبة. الدردشة الإرشادية خاصة بوظائف الموقع والعمل المكتبي ولا تُرفق سجلات المكتبة؛ يُرسل نص السؤال إلى Gemini فقط بعد موافقتك. لا تكتب أسماء طلاب أو مستعيرين أو أرقام عضوية أو هاتفاً أو بريداً أو سجلات إعارة. لا تُحفظ المحادثة في قاعدة البيانات.</div>
           <p class="form-message" id="assistantTestMessage" role="status" aria-live="polite">لم يُجر اختبار الاتصال بعد.</p>
           <details class="assistant-settings"><summary>إعدادات النموذج</summary><p>اختيار النموذج يُحفظ على هذا المتصفح فقط. مفتاح Gemini لا يُدخل هنا ولا يصل إلى الواجهة؛ يُضبط كسِرّ خادمي في Supabase.</p><label>النموذج<select id="assistantModel" name="model"><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — أخف وأسرع</option><option value="gemini-3.8-flash">Gemini 3.8 Flash — أكثر قدرة</option></select></label></details>
           <form id="assistantForm" class="staff-form-grid compact-form"><label>نوع الملخص<select name="intent"><option value="inventory_summary">الجرد والمفقود والصيانة</option><option value="circulation_summary">الإعارات والاستحقاقات</option><option value="reservation_summary">الحجوزات والانتظار</option></select></label><button class="button button-primary form-action" type="submit">إنشاء ملخص</button></form>
