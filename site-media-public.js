@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.0';
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261016-social-preview-1';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS } from './site-media-config.js?v=20261018-digital-library-1';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -29,7 +29,7 @@ function setMetaImage(key, imageUrl, altText) {
     const alt = document.querySelector(selector);
     if (alt) alt.content = altText;
   }
-  if (!imageUrl.endsWith('/assets/social-preview-20261016.jpg')) {
+  if (!imageUrl.endsWith('/assets/social-preview-20261018.jpg')) {
     for (const selector of ['meta[property="og:image:type"]', 'meta[property="og:image:width"]', 'meta[property="og:image:height"]']) {
       document.querySelector(selector)?.remove();
     }
@@ -68,7 +68,7 @@ function syncDynamicHeaderSlides(slots) {
     image.className = 'brand-header-photo';
     image.dataset.siteMediaKey = slide.media_key;
     image.dataset.siteMediaDynamic = 'true';
-    image.alt = slide.title || 'صورة إضافية في ألبوم مكتبات بورسعيد';
+    image.alt = slide.title || 'صورة إضافية في ألبوم المكتبة المدرسية الرقمية';
     image.width = 960;
     image.height = 720;
     image.loading = 'lazy';
@@ -206,10 +206,10 @@ export async function refreshPublicSiteMedia() {
     const dynamicGalleryItems = dynamicGallerySlides.map(slot => ({
       key: slot.media_key,
       category: 'ألبوم صور البنر',
-      title: slot.title || 'صورة إضافية في ألبوم مكتبات بورسعيد',
+      title: slot.title || 'صورة إضافية في ألبوم المكتبة المدرسية الرقمية',
       usage: 'صورة أضافها مالك الموقع إلى ألبوم البنر.',
       defaultSrc: 'assets/header-photo-placeholder.svg',
-      defaultAlt: slot.title || 'صورة إضافية في ألبوم مكتبات بورسعيد',
+      defaultAlt: slot.title || 'صورة إضافية في ألبوم المكتبة المدرسية الرقمية',
       selectors: [],
     }));
     const activeSlots = new Map(slots.map(slot => [slot.media_key, slot]));

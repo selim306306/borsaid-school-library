@@ -244,7 +244,7 @@ function showNoResults(query, digitalFilterActive) {
   const title = digitalFilterActive ? 'لم تظهر سجلات بصيغة رقمية في هذه الدفعة.' : 'لم يعثر فهرس الكتب في مكتبة الكونجرس على نتائج بهذه العبارة.';
   const description = digitalFilterActive
     ? 'أُخفيت السجلات التي لا يظهر فيها تنسيق إلكتروني، أو التي يذكر LOC أن الوصول الكامل إليها مقيّد بالموقع. يمكنك تحميل دفعة أخرى أو إلغاء الفلتر.'
-    : 'جرّب عنواناً أقصر أو الاسم بلغة أخرى. هذه النتائج مستقلة عن مقتنيات مكتبات بورسعيد.';
+    : 'جرّب عنواناً أقصر أو الاسم بلغة أخرى. هذه النتائج مستقلة عن مقتنيات المكتبة المدرسية الرقمية.';
   const url = new URL(LOC_BOOKS_URL);
   url.searchParams.set('q', query);
   grid.replaceChildren(createEmptyPanel(title, description, 'ابحث مباشرة في موقع مكتبة الكونجرس', url.href));

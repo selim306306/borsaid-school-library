@@ -1,7 +1,7 @@
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
 import { renderSchoolPrincipalCards } from './school-principal-photos.mjs?v=20261017-principal-1';
-import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-social-preview-1';
+import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261018-digital-library-1';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=20261015-staff-import-1';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
@@ -295,10 +295,10 @@ function updatePublicBranding(profiles = []) {
     governorateLogo.src = governorateUrl;
   }
   else governorateLogo.removeAttribute('src');
-  title.textContent = 'بوابة مدارس بورسعيد';
+  title.textContent = 'المكتبة المدرسية الرقمية';
   subtitle.replaceChildren();
   if (!schoolProfiles.length) {
-    subtitle.textContent = 'شبكة المكتبات المدرسية';
+    subtitle.textContent = 'مكتبات المدارس في بورسعيد';
     return;
   }
   subtitle.title = visibleNameProfiles.map(profile => profile.school_name).join('، ');
@@ -466,7 +466,7 @@ $$('input[name="homeSearchScope"]').forEach(radio => radio.addEventListener('cha
   homeDiscoveryInput.placeholder = worldSearch ? 'عنوان أو مؤلف في مصدر خارجي…' : 'عنوان كتاب، مؤلف، أو رقم عام…';
   homeSearchDescription.textContent = worldSearch
     ? 'اختر فهرس الإسكندرية أو مكتبة الكونجرس؛ النتائج مستقلة عن مقتنيات بورسعيد.'
-    : 'سيُبحث في السجلات التي نشرتها مكتبات بورسعيد؛ اختر القراءة العالمية للبحث خارجها.';
+    : 'سيُبحث في السجلات المنشورة في المكتبة المدرسية الرقمية؛ اختر القراءة العالمية للبحث خارجها.';
 }));
 homeDiscoveryForm?.addEventListener('submit', event => {
   event.preventDefault();
@@ -615,7 +615,7 @@ async function answerVisitorQuestion(question) {
     return { text: publicBranchAnswer(question) };
   }
   if (/(من نحن|عن المكتبة|عن الموقع|تعريف|هدف|ما هي المكتبة|ما هي مكتبات|مكتبات بورسعيد|المكتبات المدرسية|ماهو الموقع|ايه الموقع|الموقع ده)/.test(normalized)) {
-    return { text: 'هذه بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
+    return { text: 'هذه المكتبة المدرسية الرقمية، بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
   }
   if (/^(?:اهلا|أهلا|مرحبا|مرحباً|السلام عليكم|صباح الخير|مساء الخير)(?:\s+بكم?)?[.!،؟]*$/u.test(String(question).trim())) {
     return { text: 'أهلاً بك. يمكنني مساعدتك في معلومات الموقع العامة، أو الإجابة عن كتاب/مؤلف، أو البحث عن عنوان منشور عند طلب ذلك بوضوح.' };

@@ -48,7 +48,7 @@
 
       const brand = image.closest('.brand,.footer-brand,.dialog-brand');
       if (brand) {
-        return { name: text(brand, '.brand-copy strong, strong') || alt || 'هوية مكتبات بورسعيد', role: text(brand, '.brand-copy small, small') || 'هوية الموقع', details: 'شعار أو علامة تعريفية للموقع.', source: safeSource(image.closest('a[href]')) };
+        return { name: text(brand, '.brand-copy strong, strong') || alt || 'هوية المكتبة المدرسية الرقمية', role: text(brand, '.brand-copy small, small') || 'هوية الموقع', details: 'شعار أو علامة تعريفية للموقع.', source: safeSource(image.closest('a[href]')) };
       }
 
       const hero = image.closest('.hero-image-wrap');

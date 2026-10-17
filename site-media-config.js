@@ -2,10 +2,10 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
   {
     key: 'site-mark',
     category: 'هوية الموقع',
-    title: 'شعار بوابة مدارس بورسعيد',
+    title: 'شعار المكتبة المدرسية الرقمية',
     usage: 'أيقونة الرأس والتذييل ونوافذ دخول الموظفين.',
     defaultSrc: 'assets/mark.svg',
-    defaultAlt: 'شعار بوابة مدارس بورسعيد',
+    defaultAlt: 'شعار المكتبة المدرسية الرقمية',
     selectors: ['#brandDefaultLogo', '.footer-brand img', '.dialog-brand img', '.auth-brand img'],
   },
   {
@@ -75,7 +75,7 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
     title: 'أيقونة المتصفح',
     usage: 'الأيقونة الصغيرة بجوار عنوان الموقع في المتصفح.',
     defaultSrc: 'assets/mark.svg',
-    defaultAlt: 'أيقونة بوابة مدارس بورسعيد',
+    defaultAlt: 'أيقونة المكتبة المدرسية الرقمية',
     selectors: [],
   },
   {
@@ -83,8 +83,8 @@ export const SITE_MEDIA_ITEMS = Object.freeze([
     category: 'هوية الموقع',
     title: 'صورة المشاركة والتعريف',
     usage: 'بطاقة معاينة رابط الموقع الثابتة بمقاس 1200×630؛ يمكن للمالك استبدالها من مكتبة الوسائط.',
-    defaultSrc: 'https://selim306306.github.io/borsaid-school-library/assets/social-preview-20261016.jpg',
-    defaultAlt: 'بطاقة مكتبات بورسعيد المدرسية بعنوان «كتابك أقرب» مع صورة رفوف كتب.',
+    defaultSrc: 'https://selim306306.github.io/borsaid-school-library/assets/social-preview-20261018.jpg',
+    defaultAlt: 'بطاقة المكتبة المدرسية الرقمية بعنوان «كتابك أقرب» مع صورة رفوف كتب.',
     selectors: [],
   },
   {
