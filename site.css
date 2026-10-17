@@ -811,3 +811,9 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .platform-report-ai .assistant-output{margin-top:0}
 @media(max-width:900px){.platform-report-summary{grid-template-columns:repeat(3,minmax(0,1fr))}.platform-report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.platform-report-section{padding:12px}.platform-report-heading{display:block}.platform-report-actions{margin-top:12px}.platform-report-actions .button{flex:1;min-width:120px}.platform-report-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.platform-report-stat{padding:10px}.platform-library-comparison{grid-template-columns:1fr;gap:9px}.platform-library-card{padding:12px}.platform-report-ai{grid-template-columns:1fr}.platform-report-ai>.button{width:100%}}
+
+/* Private, owner-triggered report preview; readable on phones and RTL. */
+.owner-report-dialog{width:min(720px,calc(100% - 24px));max-height:85dvh;overflow:auto;border:1px solid #d9dfeb;border-radius:16px;padding:22px;background:#fff;color:#25324a;text-align:start}
+.owner-report-dialog::backdrop{background:rgba(20,35,60,.5)}
+.owner-report-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.9;background:#f5f8fc;border:1px solid #e1e7ef;border-radius:10px;padding:14px}
+.owner-report-dialog .platform-report-actions{display:flex;flex-wrap:wrap;gap:10px}

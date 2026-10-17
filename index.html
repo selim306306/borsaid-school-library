@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/egypt-mark.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/header-photo-initial.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site.css?v=20261017-platform-report-1">
+  <link rel="stylesheet" href="site.css?v=20261017-manual-report-2">
   <link rel="stylesheet" href="book-catalog-assistant.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-school-picker-1"></script>
+  <script type="module" src="app.js?v=manual-report-2-20261017-school-picker-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -76,7 +76,7 @@
     <nav class="desktop-nav" aria-label="التنقل الرئيسي">
       <a href="#discover">اكتشف الكتب</a>
       <a href="#branches">المكتبات</a>
-      <a href="#visitorAssistant">اسأل المساعد</a>
+      <a href="#visitorAssistant">مساعد أمين المكتبة</a>
       <a href="#features">ماذا يقدّم الموقع؟</a>
       <a href="#visitorQuestions">اسأل أمين المكتبة</a>
     </nav>
@@ -95,9 +95,9 @@
       <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
     </div>
     <div class="header-photo-attribution is-empty" id="headerPhotoAttribution" role="note" aria-label="مصدر الصورة" aria-hidden="true"></div>
-    <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح دردشة المساعد الذكي AI" aria-haspopup="dialog" aria-controls="visitorChatDialog">
+    <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح مساعد أمين المكتبة المدعوم بـGemini" aria-haspopup="dialog" aria-controls="visitorChatDialog">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
-      <span>المساعد الذكي AI</span>
+      <span>مساعد أمين المكتبة</span>
     </button>
     </div>
     <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
@@ -111,7 +111,7 @@
   <nav class="mobile-nav section-wrap" aria-label="تنقل سريع">
     <a href="#discover">اكتشف الكتب</a>
     <a href="#branches">المكتبات</a>
-    <a href="#visitorAssistant">اسأل المساعد</a>
+    <a href="#visitorAssistant">مساعد أمين المكتبة</a>
     <a href="#features">مزايا الموقع</a>
     <a href="#visitorQuestions">اسأل أمين المكتبة</a>
   </nav>
@@ -158,7 +158,7 @@
             <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
             <nav class="portal-side-links">
               <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-              <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>اسأل المساعد</strong><small>إرشاد سريع للبحث والاستخدام</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+              <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد سريع بالاستناد إلى Gemini</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
               <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار التعليم</strong><small>موجز عربي وأبحاث مفتوحة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
             </nav>
           </aside>
@@ -169,9 +169,9 @@
         <div class="visitor-pathway-grid">
           <article class="visitor-pathway-card visitor-pathway-ai">
             <span class="visitor-pathway-icon" aria-hidden="true">م</span>
-            <h3>المساعد الذكي</h3>
+            <h3>مساعد أمين المكتبة</h3>
             <p>إجابة فورية عن الموقع والكتب المنشورة. يرسل الأسئلة العامة تلقائيًا إلى Gemini، ولا تُحفظ المحادثة في قاعدة الموقع ولا تصل إلى المدير عبر Telegram. تُحجب البيانات الشخصية محليًا.</p>
-            <a class="visitor-pathway-action" href="#visitorAssistant">افتح المساعد الذكي <span aria-hidden="true">←</span></a>
+            <a class="visitor-pathway-action" href="#visitorAssistant">افتح مساعد أمين المكتبة <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-librarian">
             <span class="visitor-pathway-icon" aria-hidden="true">؟</span>
@@ -487,11 +487,11 @@
     </section>
     </section>
     <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
-      <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">محادثة مساعد الزوار</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق دردشة مساعد الزوار">×</button></header>
+      <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">مساعد أمين المكتبة المدعوم بـGemini</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق مساعد أمين المكتبة">×</button></header>
       <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · أسئلة عامة</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>إجابة تلقائية من Gemini مدعومة بدليل الموقع والفهرس العام؛ تحقّق من الفرع قبل الاعتماد على الإتاحة.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">تُرسل الأسئلة العامة تلقائيًا إلى Gemini ولا تُحفظ في قاعدة بيانات موقع المكتبة أو تُرسل لمديره عبر Telegram. تبقى المحادثة في الصفحة المفتوحة فقط. يُحجب السؤال الذي يتضمن بيانات شخصية أو سرية محليًا قبل أي إرسال. لمتابعة سؤال لدى أمين المكتبة استخدم النموذج المخصص، مع العلم أنه قد يصل للمدير.</div></div>
+        <div class="visitor-assistant-copy"><span class="eyebrow">مساعد أمين المكتبة · Gemini</span><h2 id="visitorAssistantTitle">اسأل مساعد أمين المكتبة عن الموقع أو كتاب منشور</h2><p>إجابة تلقائية من Gemini مدعومة بدليل الموقع والفهرس العام؛ تحقّق من الفرع قبل الاعتماد على الإتاحة.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">تُرسل الأسئلة العامة تلقائيًا إلى Gemini ولا تُحفظ في قاعدة بيانات موقع المكتبة أو تُرسل لمديره عبر Telegram. تبقى المحادثة في الصفحة المفتوحة فقط. يُحجب السؤال الذي يتضمن بيانات شخصية أو سرية محليًا قبل أي إرسال. لمتابعة سؤال لدى أمين المكتبة استخدم النموذج المخصص، مع العلم أنه قد يصل للمدير.</div></div>
         <div class="visitor-assistant-box">
-          <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد الزوار"><article class="visitor-assistant-message assistant"><strong>مساعد الزوار</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
+          <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد أمين المكتبة"><article class="visitor-assistant-message assistant"><strong>مساعد أمين المكتبة</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
           <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
           <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
           <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
@@ -851,7 +851,8 @@
 	            <form id="managerAssistantForm"><button class="button button-primary" type="submit">أنشئ ملخص المدير الآن</button></form>
 	            <p class="form-message" id="managerAssistantMessage" role="status" aria-live="polite">يحتاج إلى نشر وظيفة Gemini وضبط أسرارها خادمياً قبل أن يعمل.</p>
 	            <div id="managerAssistantOutput" class="assistant-output" hidden></div>
-	            <details class="telegram-setup-note"><summary>تنبيهات Telegram (اختياري — غير مفعّلة)</summary><p>لا يوجد بوت منشأ أو رسائل مرسلة. إذا رغبت لاحقاً، يلزم إذنك الصريح أولاً، وتحديد نوع التنبيه ومستلمه وحدوده، ثم إعداد الأسرار في الخادم فقط واختبار قناة خاصة مع إمكانية إيقافها. لا تدخل رمز بوت أو بيانات هنا.</p></details>
+	            <section class="telegram-setup-note" id="ownerTelegramReportCard" hidden aria-labelledby="ownerTelegramReportTitle"><h4 id="ownerTelegramReportTitle">تقارير Telegram — إرسال يدوي للمالك</h4><p>البوت الموجود مخصص لاستقبال تقرير شامل لكل مكتبة والإجمالي الكلي في حساب المالك المحفوظ. لا يوجد إرسال يومي أو تلقائي. تُرسل أعداد مجمعة فقط؛ بلا أسماء أشخاص أو معرّفات أو تفاصيل إعارات وحجوزات فردية. مسار مستقل عن أسئلة الزوار.</p><button class="button button-primary" id="previewOwnerReport" type="button">إرسال التقرير الآن</button><p class="form-message" id="ownerReportDeliveryStatus" role="status" aria-live="polite">يفتح الزر معاينة أولًا؛ لا يُرسل شيء قبل تأكيدك.</p></section>
+                <dialog class="owner-report-dialog" id="ownerReportDialog" aria-labelledby="ownerReportDialogTitle"><h3 id="ownerReportDialogTitle">معاينة التقرير قبل إرساله</h3><p id="ownerReportPreviewDestination"></p><p>هذه هي الرسائل التي ستُرسل كما هي. راجع ملخص Gemini الإرشادي إن وُجد. المعاينة صالحة لعشر دقائق.</p><div id="ownerReportPreviewText"></div><div class="platform-report-actions"><button class="button button-primary" id="confirmOwnerReportSend" type="button">تأكيد وإرسال التقرير إلى Telegram</button><button class="button button-outline" id="cancelOwnerReportSend" type="button">إلغاء</button></div><p class="form-message" id="ownerReportDialogStatus" role="status" aria-live="polite"></p></dialog>
 	          </section>
 	        </section>
         <section class="staff-panel" id="membersPanel" hidden>

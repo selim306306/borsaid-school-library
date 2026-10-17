@@ -1,3 +1,5 @@
+let ownerReportPreview = null;
+let ownerReportDeliveryBusy = false;
 import { renderSchoolPrincipalCards } from './school-principal-photos.mjs?v=20261017-principal-1';
 import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './site-media-config.js?v=20261016-social-preview-1';
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=20261015-camera-title-page-1';
@@ -747,6 +749,9 @@ function configureRole(role) {
   const administrator = ['owner', 'admin'].includes(role);
   const owner = role === 'owner';
   const assistant = manager || role === 'reporter';
+  $('#ownerTelegramReportCard').hidden = !hasPlatformOwnerAccess(currentMemberships);
+  ownerReportPreview = null;
+  $('#ownerReportDialog').close();
   const circulation = manager || role === 'circulation';
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
@@ -2450,6 +2455,7 @@ async function loadPlatformLibraryReport() {
     if (section) section.hidden = true;
     return;
   }
+  $('#ownerTelegramReportCard').hidden = false;
   section.hidden = false;
   $('#platformReportStatus').textContent = 'جارٍ إعداد لقطة مجمعة لجميع المكتبات…';
   platformLibraryReportData = null;
@@ -3715,4 +3721,53 @@ $('#sharingSettingsForm').addEventListener('submit', async event => {
   setMessage($('#sharingSettingsMessage'), 'حُفظ إعداد المشاركة بين المكتبات.', 'success');
   await loadPublicBranches().catch(() => {});
   await loadInterlibraryRequests();
+});
+
+// Manual owner report: preview never sends; only the explicit confirmation calls send.
+$('#previewOwnerReport').addEventListener('click', async event => {
+  if (ownerReportDeliveryBusy || !supabase || !hasPlatformOwnerAccess(currentMemberships)) return;
+  const button = event.currentTarget;
+  ownerReportDeliveryBusy = true;
+  button.disabled = true;
+  ownerReportPreview = null;
+  setMessage($('#ownerReportDeliveryStatus'), 'جارٍ إعداد معاينة التقرير الشامل؛ لن تُرسل رسائل الآن…');
+  try {
+    const { data, error } = await supabase.functions.invoke('platform-library-report', {
+      body: { action: 'preview', model: $('#assistantModel').value },
+    });
+    if (error || !data?.token || !Array.isArray(data.messages)) throw new Error('preview_failed');
+    ownerReportPreview = { token: data.token, expires: Date.parse(data.expires_at) };
+    $('#ownerReportPreviewDestination').textContent = `الوجهة: ${data.destination}. عدد الرسائل: ${data.messages.length}. ${data.ai_included ? 'يتضمن ملخص Gemini.' : 'ملخص Gemini غير متاح؛ يتضمن التقرير العددي الكامل.'}`;
+    const output = $('#ownerReportPreviewText');
+    output.replaceChildren();
+    data.messages.forEach(text => { const part = document.createElement('pre'); part.textContent = text; output.append(part); });
+    $('#confirmOwnerReportSend').disabled = false;
+    setMessage($('#ownerReportDialogStatus'), 'لم يُرسل التقرير بعد.');
+    $('#ownerReportDialog').showModal();
+    setMessage($('#ownerReportDeliveryStatus'), 'المعاينة جاهزة؛ راجعها ثم أكّد الإرسال أو ألغِه.');
+  } catch {
+    setMessage($('#ownerReportDeliveryStatus'), 'تعذّر إعداد المعاينة. تحقّق من جلسة المالك وإعداد البوت الخادمي؛ لم تُرسل أي رسالة.', 'error');
+  } finally { button.disabled = false; ownerReportDeliveryBusy = false; }
+});
+$('#cancelOwnerReportSend').addEventListener('click', () => { ownerReportPreview = null; $('#ownerReportDialog').close(); });
+$('#ownerReportDialog').addEventListener('cancel', event => { if (ownerReportDeliveryBusy) event.preventDefault(); else ownerReportPreview = null; });
+$('#confirmOwnerReportSend').addEventListener('click', async event => {
+  if (ownerReportDeliveryBusy || !ownerReportPreview || !hasPlatformOwnerAccess(currentMemberships)) return;
+  if (Date.now() >= ownerReportPreview.expires) { ownerReportPreview = null; event.currentTarget.disabled = true; return setMessage($('#ownerReportDialogStatus'), 'انتهت المعاينة؛ أغلقها وأنشئ معاينة جديدة.', 'error'); }
+  const token = ownerReportPreview.token;
+  ownerReportPreview = null;
+  ownerReportDeliveryBusy = true;
+  event.currentTarget.disabled = true;
+  $('#cancelOwnerReportSend').disabled = true;
+  setMessage($('#ownerReportDialogStatus'), 'جارٍ إرسال الرسائل المعروضة إلى المالك… لا تضغط مرة أخرى.');
+  try {
+    const { data, error } = await supabase.functions.invoke('platform-library-report', { body: { action: 'send', token, confirm: true } });
+    if (error || !data?.ok) throw new Error('delivery_uncertain');
+    setMessage($('#ownerReportDialogStatus'), `تم إرسال التقرير كاملًا (${data.sent_parts} رسائل) إلى Telegram.`, 'success');
+    setMessage($('#ownerReportDeliveryStatus'), 'تم إرسال التقرير يدويًا بنجاح. الإرسال التلقائي غير مفعّل.', 'success');
+  } catch {
+    const message = 'تعذّر تأكيد اكتمال الإرسال؛ قد تكون بعض الرسائل وصلت. راجع Telegram قبل إنشاء معاينة جديدة؛ لن نعيد الإرسال تلقائيًا.';
+    setMessage($('#ownerReportDialogStatus'), message, 'error');
+    setMessage($('#ownerReportDeliveryStatus'), message, 'error');
+  } finally { ownerReportDeliveryBusy = false; $('#cancelOwnerReportSend').disabled = false; }
 });
