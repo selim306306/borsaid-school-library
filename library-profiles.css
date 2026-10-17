@@ -133,3 +133,17 @@
 .school-delete-actions .school-delete-action{justify-self:auto;min-width:190px}
 .school-delete-action:focus-visible,.school-delete-preview-action:focus-visible,.school-homepage-name-action:focus-visible,.school-delete-actions .button:focus-visible{outline:3px solid #425fc1;outline-offset:2px}
 @media(max-width:700px){.school-action-choices{grid-template-columns:1fr}.school-delete-preview-action,.school-delete-actions .button{width:100%}.school-delete-actions{display:grid;grid-template-columns:1fr}.school-delete-actions .school-delete-action{width:100%}.school-delete-impact-list li{align-items:flex-start}}
+
+/* A dedicated, touch-friendly owner school switcher; explicit arrow survives global select resets. */
+.school-profile-picker{display:grid;gap:9px;margin:0 0 18px;padding:16px;border:2px solid #b9caed;border-radius:14px;background:#eff5ff;color:#283f70;min-width:0}
+.school-profile-picker[hidden]{display:none!important}
+.school-profile-picker>label{font-weight:800;line-height:1.7}
+.school-profile-select-wrap{position:relative;min-width:0}
+#schoolProfileSelect{display:block;appearance:none;-webkit-appearance:none;box-sizing:border-box;width:100%;min-width:0;min-height:54px;padding:12px 14px 12px 48px;border:1px solid #8da7db;border-radius:11px;background:#fff;color:#182744;font:inherit;font-size:16px;line-height:1.6;cursor:pointer;text-overflow:ellipsis}
+#schoolProfileSelect:focus-visible{outline:3px solid #7899df;outline-offset:3px}
+#schoolProfileSelect:disabled{opacity:.7;cursor:wait}
+.school-profile-select-arrow{position:absolute;left:14px;top:50%;transform:translateY(-60%);font-size:30px;line-height:1;color:#385dcc;pointer-events:none}
+.school-profile-picker p{margin:0;font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.school-profile-fieldset{border:0;margin:0;padding:0;min-width:0}
+.school-profile-fieldset:disabled{opacity:.65}
+@media(max-width:700px){.school-profile-picker{padding:12px}.school-profile-picker>label{font-size:15px}}

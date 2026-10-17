@@ -144,6 +144,10 @@ let currentSearch = { query: '', branch_id: null, available_only: false };
 let searchTimer = 0;
 let currentLibraryId = null;
 let currentLibraryProfile = null;
+let schoolProfileLoadedId = null;
+let schoolProfileLoadGeneration = 0;
+let schoolProfileSaving = false;
+let librarySwitchInProgress = false;
 let currentMemberships = [];
 let staffBranches = [];
 let branchLoadFailed = false;
@@ -766,6 +770,10 @@ function configureRole(role) {
   $('#siteMediaTab').hidden = !hasSiteMediaOwnership();
   $('#siteAnalyticsTab').hidden = !hasSiteMediaOwnership();
   $('#schoolProfileForm').hidden = !owner;
+  schoolProfileLoadedId = null;
+  schoolProfileLoadGeneration += 1;
+  $('#schoolProfileFields').disabled = true;
+  syncSchoolProfilePicker();
   $('#siteFooterEditor').hidden = !hasSiteFooterOwnership();
   $('#createSchoolForm').hidden = !owner;
   $('#deleteSchoolCard').hidden = !canDeleteOwnedSchool(role, currentLibraryId);
@@ -891,6 +899,7 @@ function updateLibraryProfileChoice(profile) {
   option.dataset.schoolName = profile.school_name || '';
   option.dataset.profilePublic = String(Boolean(profile.is_public));
   option.textContent = libraryProfileLabel(profile);
+  syncSchoolProfilePicker();
   return option;
 }
 
@@ -1013,17 +1022,43 @@ async function loadMemberships(preferredLibraryId = null) {
   setWorkspaceMode(true);
   await loadStaffData();
 }
-$('#librarySelect').addEventListener('change', async event => {
-  const nextId = event.target.value;
-  if (!currentMemberships.some(membership => membership.library_id === nextId)) return;
+function syncSchoolProfilePicker() {
+  const select = $('#schoolProfileSelect');
+  $('#schoolProfilePicker').hidden = currentRole !== 'owner';
+  const ownedIds = new Set(currentMemberships.filter(item => item.role === 'owner' && item.status === 'active').map(item => item.library_id));
+  select.replaceChildren(...[...$('#librarySelect').options].filter(option => ownedIds.has(option.value)).map(option => option.cloneNode(true)));
+  select.value = currentLibraryId || '';
+  select.disabled = schoolProfileSaving || librarySwitchInProgress || !select.options.length;
+}
+async function switchWorkspaceLibrary(nextId) {
+  if (schoolProfileSaving || librarySwitchInProgress) {
+    $('#librarySelect').value = currentLibraryId || '';
+    syncSchoolProfilePicker();
+    return;
+  }
+  const membership = currentMemberships.find(item => item.library_id === nextId && item.status === 'active');
+  if (!membership || nextId === currentLibraryId) return;
+  librarySwitchInProgress = true;
+  $('#librarySelect').disabled = true;
   clearAssistantChat();
   currentLibraryId = nextId;
-  currentRole = currentMemberships.find(membership => membership.library_id === nextId)?.role || null;
+  currentLibraryProfile = null;
+  currentRole = membership.role;
+  $('#librarySelect').value = nextId;
   configureRole(currentRole);
   loadAssistantModelChoice();
-  await loadStaffData();
+  try {
+    await loadStaffData();
+  } finally {
+    librarySwitchInProgress = false;
+    $('#librarySelect').disabled = schoolProfileSaving;
+    syncSchoolProfilePicker();
+  }
+}
+$('#librarySelect').addEventListener('change', event => { void switchWorkspaceLibrary(event.target.value); });
+$('#schoolProfileSelect').addEventListener('change', event => {
+  if (activeOwnedSchoolMembership(event.target.value)) void switchWorkspaceLibrary(event.target.value);
 });
-
 async function loadStaffData() {
   if (!currentLibraryId) return;
   const option = $('#librarySelect').selectedOptions[0];
@@ -1795,6 +1830,12 @@ async function uploadSchoolLogo(field, file, libraryId = currentLibraryId) {
 async function loadSchoolProfile() {
   if (!currentLibraryId || currentRole !== 'owner') return;
   const form = $('#schoolProfileForm');
+  const loadingLibraryId = currentLibraryId;
+  const generation = ++schoolProfileLoadGeneration;
+  schoolProfileLoadedId = null;
+  currentLibraryProfile = null;
+  $('#schoolProfileFields').disabled = true;
+  form.setAttribute('aria-busy', 'true');
   form.hidden = false;
   form.reset();
   for (const field of SCHOOL_BRANDING_FIELDS) {
@@ -1807,7 +1848,9 @@ async function loadSchoolProfile() {
   setSchoolProfileStatus('جارٍ تحميل بيانات المدرسة…');
   const { data, error } = await supabase.from('library_profiles')
     .select('library_id,school_name,educational_administration,librarian_name,school_logo_path,governorate_logo_path,principal_photo_path,principal_name,deputy_names,general_supervisor_name,first_supervisor_name,is_public,show_school_name_on_homepage,updated_at')
-    .eq('library_id', currentLibraryId).maybeSingle();
+    .eq('library_id', loadingLibraryId).maybeSingle();
+  if (generation !== schoolProfileLoadGeneration || currentLibraryId !== loadingLibraryId || currentRole !== 'owner') return;
+  form.setAttribute('aria-busy', 'false');
   if (error) {
     currentLibraryProfile = null;
     form.hidden = true;
@@ -1832,6 +1875,8 @@ async function loadSchoolProfile() {
     form.elements[field.removeName].checked = false;
     renderSchoolLogoPreview(field, data?.[field.key] || null);
   }
+  schoolProfileLoadedId = loadingLibraryId;
+  $('#schoolProfileFields').disabled = schoolProfileSaving;
   const refreshedOption = data ? updateLibraryProfileChoice(data) : selectedOption;
   $('#schoolProfileLibraryContext').textContent = `الملف المحدد: ${refreshedOption?.textContent || data?.school_name || 'المدرسة الحالية'}؛ اسم المدير وصورته والوكلاء محفوظون لهذا الملف فقط.`;
   setSchoolProfileStatus(data
@@ -1842,6 +1887,9 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
   event.preventDefault();
   if (currentRole !== 'owner') return setSchoolProfileStatus('تعديل بيانات المدرسة متاح للمالك فقط.', 'error');
   const form = event.currentTarget;
+  if (schoolProfileSaving || schoolProfileLoadedId !== currentLibraryId || !currentLibraryId || (currentLibraryProfile && currentLibraryProfile.library_id !== currentLibraryId)) {
+    return setSchoolProfileStatus('انتظر اكتمال تحميل المدرسة المختارة قبل الحفظ.', 'error');
+  }
   const fields = new FormData(form);
   const schoolName = String(fields.get('school_name') || '').trim();
   if (schoolName.length < 2 || schoolName.length > 160) return setSchoolProfileStatus('أدخل اسم المدرسة الرسمي، من حرفين إلى 160 حرفاً.', 'error');
@@ -1851,7 +1899,11 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
   if (form.elements.principal_photo.files?.length && !String(fields.get('principal_name') || '').trim()) {
     return setSchoolProfileStatus('اكتب اسم مدير المدرسة قبل إضافة صورته.', 'error');
   }
+  schoolProfileSaving = true;
   button.disabled = true;
+  $('#schoolProfileFields').disabled = true;
+  $('#librarySelect').disabled = true;
+  syncSchoolProfilePicker();
   try {
     const logoPaths = {};
     for (const field of SCHOOL_BRANDING_FIELDS) {
@@ -1903,7 +1955,11 @@ $('#schoolProfileForm').addEventListener('submit', async event => {
       ? error.message
       : 'تعذّر حفظ البيانات أو رفع إحدى الصور. لم تُغيّر حالة نشر المكتبة؛ تحقق من الحقول والاتصال ثم أعد المحاولة.', 'error');
   } finally {
+    schoolProfileSaving = false;
     button.disabled = false;
+    $('#schoolProfileFields').disabled = schoolProfileLoadedId !== currentLibraryId;
+    $('#librarySelect').disabled = librarySwitchInProgress;
+    syncSchoolProfilePicker();
   }
 });
 function formSchoolImageInput(field) {

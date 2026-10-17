@@ -37,14 +37,14 @@
   <link rel="stylesheet" href="book-cover-capture.css?v=20261015-camera-title-page-1">
   <link rel="stylesheet" href="staff-import.css?v=20261015-staff-import-1">
   <link rel="stylesheet" href="site-media.css?v=20261016-header-album-25-1">
-  <link rel="stylesheet" href="library-profiles.css?v=20261017-school-name-choice-1">
+  <link rel="stylesheet" href="library-profiles.css?v=20261017-school-picker-1">
   <link rel="stylesheet" href="header-photo.css?v=20261016-ai-chat-cta-1">
   <link rel="stylesheet" href="visitor-questions.css?v=20261017-public-assistant-paths-1">
   <link rel="stylesheet" href="site-analytics.css?v=20261015-aggregate-page-views-1">
   <link rel="stylesheet" href="open-books-reader.css?v=20261015-font-step-2">
   <script type="module" src="site-media-public.js?v=20261016-social-preview-1"></script>
   <script type="module" src="header-photo-carousel.js?v=20261016-header-album-25-1"></script>
-  <script type="module" src="app.js?v=20261017-principal-photos-1"></script>
+  <script type="module" src="app.js?v=20261017-school-picker-1"></script>
   <script type="module" src="book-catalog-assistant.js?v=20261015-camera-title-page-1"></script>
   <link rel="stylesheet" href="global-reading.css?v=20261015-font-step-2">
   <script type="module" src="global-reading.js?v=5"></script>
@@ -667,7 +667,13 @@
         <section class="staff-panel" id="schoolProfilePanel" hidden>
           <div class="panel-heading"><div><h3>بيانات المدرسة وشعاراتها</h3><p>ملف مستقل لكل مدرسة تملكها؛ لا تنشر هذه البيانات تلقائياً.</p></div></div>
           <p class="school-profile-intro">أدخل البيانات الرسمية لكل مدرسة على حدة. عند إظهار الملف للعامة ستظهر بيانات المدرسة والشعارات والقيادات التي تدخلها في دليل المكتبات، بينما يظل نشر الكتب والفروع إعداداً منفصلاً. لا تضف إلا معلومات مصرحاً بنشرها.</p>
+          <div class="school-profile-picker" id="schoolProfilePicker" hidden>
+            <label for="schoolProfileSelect">اختر المدرسة لتعديل بياناتها وصورة المدير</label>
+            <div class="school-profile-select-wrap"><select id="schoolProfileSelect" aria-describedby="schoolProfilePickerHint schoolProfileLibraryContext" disabled><option value="">جارٍ تحميل مدارسك…</option></select><span class="school-profile-select-arrow" aria-hidden="true">⌄</span></div>
+            <p id="schoolProfilePickerHint">اضغط على اسم المدرسة أو السهم للتبديل. تُحمّل بيانات المدرسة المختارة قبل الحفظ؛ احفظ تعديلاتك قبل الانتقال إلى مدرسة أخرى.</p>
+          </div>
           <form id="schoolProfileForm" class="school-profile-panel" hidden>
+            <fieldset id="schoolProfileFields" class="school-profile-fieldset" disabled>
             <div class="school-profile-grid">
               <label>اسم المدرسة الرسمي<input name="school_name" required minlength="2" maxlength="160" autocomplete="organization" placeholder="اكتب الاسم المعتمد"></label>
               <label>الإدارة التعليمية<input name="educational_administration" maxlength="160" autocomplete="off" placeholder="اكتب اسم الإدارة المعتمد"></label>
@@ -687,6 +693,7 @@
               <button class="button button-primary school-profile-action" type="submit">حفظ بيانات المدرسة</button>
             </div>
             <p class="school-profile-private-note">تعديل هذا الملف مسموح لمالك المكتبة فقط. حفظ البيانات لا يغيّر حالة نشر المكتبة أو الفروع أو الكتب.</p>
+            </fieldset>
           </form>
           <p class="school-profile-status" id="schoolProfileStatus" role="status" aria-live="polite">جارٍ تحميل بيانات المدرسة…</p>
           <section class="school-delete-card" id="deleteSchoolCard" hidden aria-labelledby="deleteSchoolTitle">
