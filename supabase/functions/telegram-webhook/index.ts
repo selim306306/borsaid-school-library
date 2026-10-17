@@ -1,5 +1,6 @@
 import { answerPublicQuestion } from "./assistant.js";
 import { handleTelegramMessage } from "./bot-handler.js";
+import { isSetupOwner } from "./setup-auth.js";
 
 const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
@@ -27,7 +28,7 @@ function response(body: unknown, status = 200, origin = "") {
   });
   if (origin === ALLOWED_ORIGIN) {
     headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-    headers.set("Access-Control-Allow-Headers", "apikey, content-type, x-client-info");
+    headers.set("Access-Control-Allow-Headers", "authorization, apikey, content-type, x-client-info");
     headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
     headers.set("Vary", "Origin");
   }
@@ -149,7 +150,7 @@ Deno.serve(async (request: Request) => {
       status: 204,
       headers: {
         "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-        "Access-Control-Allow-Headers": "apikey, content-type, x-client-info",
+        "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Access-Control-Max-Age": "86400",
         "Vary": "Origin",
@@ -160,6 +161,7 @@ Deno.serve(async (request: Request) => {
   if (request.method === "GET" && url.searchParams.get("action") === "setup") {
     // The setup route only registers the fixed webhook; it never exposes or redirects the bot token.
     if (origin !== ALLOWED_ORIGIN || !authorizedPublicKey(request)) return response({ error: "not_authorized" }, 403, origin);
+    if (!await isSetupOwner(request, { supabaseUrl: SUPABASE_URL, publishableKey: PUBLISHABLE_KEY })) return response({ error: "not_authorized" }, 403, origin);
     if (!BOT_TOKEN || !SUPABASE_URL) return response({ error: "service_not_ready" }, 503, origin);
     const registered = await registerWebhook();
     return response(registered.ok ? { ok: true } : { ok: false, reason: registered.reason, error_code: registered.errorCode }, registered.ok ? 200 : 502, origin);

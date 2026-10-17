@@ -1,5 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { XMLParser, XMLValidator } from "npm:fast-xml-parser@4.5.0";
+import { XMLParser, XMLValidator } from "npm:fast-xml-parser@4.5.4";
 
 const ALLOWED_ORIGINS = new Set(["https://selim306306.github.io"]);
 const MAX_RESPONSE_BYTES = 2_000_000;
@@ -17,7 +17,12 @@ const SOURCES = [
     allowedHosts: ["bbc.com", "bbc.co.uk"],
   },
 ] as const;
-const xmlParser = new XMLParser({ ignoreAttributes: false, parseTagValue: false, trimValues: true });
+const xmlParser = new XMLParser({
+  ignoreAttributes: false,
+  parseTagValue: false,
+  trimValues: true,
+  processEntities: false,
+});
 
 type FeedItem = { title: string; description: string; pubDate: string; link: string };
 type FeedResult = { id: string; status: "ok" | "error"; items: FeedItem[] };
@@ -71,6 +76,12 @@ function allowedArticleUrl(value: string, allowedHosts: readonly string[]) {
   }
 }
 
+function rejectXmlDeclarations(xml: string) {
+  if (/<\s*!DOCTYPE\b/i.test(xml) || /<\s*!ENTITY\b/i.test(xml)) {
+    throw new Error("unsupported_xml_declaration");
+  }
+}
+
 async function fetchFeed(source: (typeof SOURCES)[number]): Promise<FeedItem[]> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12_000);
@@ -86,6 +97,7 @@ async function fetchFeed(source: (typeof SOURCES)[number]): Promise<FeedItem[]> 
     if (!response.ok) throw new Error("upstream_http_error");
     const xml = await response.text();
     if (new TextEncoder().encode(xml).byteLength > MAX_RESPONSE_BYTES) throw new Error("upstream_response_too_large");
+    rejectXmlDeclarations(xml);
     if (XMLValidator.validate(xml) !== true) throw new Error("invalid_xml");
     const parsed = xmlParser.parse(xml) as Record<string, any>;
     const candidates = asArray(parsed?.rss?.channel?.item ?? parsed?.feed?.entry);
