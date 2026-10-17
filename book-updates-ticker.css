@@ -1,0 +1,39 @@
+.book-updates-ticker {
+  --ticker-ink: #284551;
+  --ticker-muted: #66808a;
+  --ticker-line: #d9e8e8;
+  --ticker-accent: #397f79;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .55rem;
+  width: min(100% - 1.5rem, 1180px);
+  min-height: 2.8rem;
+  margin: .55rem auto .35rem;
+  padding: .35rem .5rem;
+  color: var(--ticker-ink);
+  background: #f7fbfa;
+  border: 1px solid var(--ticker-line);
+  border-radius: .8rem;
+  box-shadow: 0 3px 14px rgb(42 76 82 / 7%);
+  font-size: .82rem;
+}
+.book-updates-ticker-title { margin: 0; color: var(--ticker-accent); font-size: .78rem; white-space: nowrap; }
+.book-updates-ticker-viewport { min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .42rem; overflow: hidden; }
+.book-updates-ticker-link { min-width: 0; overflow: hidden; color: var(--ticker-ink); font-weight: 700; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.book-updates-ticker-link:hover, .book-updates-ticker-link:focus-visible { color: var(--ticker-accent); text-decoration: underline; }
+.book-updates-ticker-meta { overflow: hidden; color: var(--ticker-muted); font-size: .72rem; text-overflow: ellipsis; white-space: nowrap; }
+.book-updates-ticker-controls { display: flex; align-items: center; gap: .18rem; }
+.book-updates-ticker-control { min-height: 1.9rem; padding: .18rem .42rem; color: var(--ticker-ink); background: #fff; border: 1px solid var(--ticker-line); border-radius: .45rem; cursor: pointer; font: inherit; font-size: .72rem; }
+.book-updates-ticker-control:hover, .book-updates-ticker-control:focus-visible { border-color: var(--ticker-accent); color: var(--ticker-accent); outline: 2px solid rgb(57 127 121 / 22%); outline-offset: 1px; }
+.book-updates-ticker-status { grid-column: 1 / -1; margin: .05rem 0 0; color: #765b35; font-size: .72rem; }
+@media (max-width: 520px) {
+  .book-updates-ticker { grid-template-columns: 1fr auto; gap: .3rem .45rem; width: calc(100% - 1rem); margin-top: .4rem; padding: .35rem .45rem; }
+  .book-updates-ticker-title { grid-column: 1 / -1; }
+  .book-updates-ticker-viewport { grid-column: 1; }
+  .book-updates-ticker-controls { grid-column: 2; grid-row: 2; }
+  .book-updates-ticker-control { min-height: 1.75rem; padding-inline: .32rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .book-updates-ticker *, .book-updates-ticker { scroll-behavior: auto; transition: none !important; animation: none !important; }
+}
