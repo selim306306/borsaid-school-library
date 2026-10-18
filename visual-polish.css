@@ -130,6 +130,31 @@
   color:#4c5969;
   font-size:calc(9.5px + var(--site-font-step, 2px));
 }
+.page-home .leadership-photo-credits summary{
+  display:list-item;
+  min-height:44px;
+  padding:10px 4px;
+  box-sizing:border-box;
+  color:#4c5969;
+  line-height:1.6;
+  border-radius:6px;
+}
+.page-home .leadership-photo-credits summary:focus-visible{
+  outline:2px solid #287b73;
+  outline-offset:3px;
+}
+.page-home .leadership-photo-credits .leadership-credits-list{
+  display:grid;
+  gap:6px;
+  margin:4px 0 0;
+  padding:10px 12px 10px 28px;
+  padding-inline:28px 12px;
+  border:1px solid #e6ebf0;
+  border-radius:10px;
+  background:#f8fafb;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
 .page-home .home-news-grid .news-card-summary{
   color:#4c5b6c!important;
 }
