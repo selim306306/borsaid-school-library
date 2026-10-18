@@ -6,6 +6,13 @@ const ALLOWED_HOSTS = new Set([
   'ar.wikisource.org',
   'loc.gov',
   'www.aseeralkotb.com',
+  'magazine.raspberrypi.com',
+  'greenteapress.com',
+  'allendowney.github.io',
+  'chrismayfield.github.io',
+  'inventwithpython.com',
+  'automatetheboringstuff.com',
+  'openstax.org',
 ]);
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
