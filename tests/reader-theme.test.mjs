@@ -5,7 +5,7 @@ const css = readFileSync(new URL('../reader-theme.css', import.meta.url), 'utf8'
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 test('reader theme is the final stylesheet and preserves public identity and placement', () => {
   const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(sheets.at(-1), 'reader-theme.css?v=20261018-reader-1');
+  assert.equal(sheets.at(-1), 'reader-theme.css?v=20261018-reader-2');
   for (const text of ['المكتبة المدرسية الرقمية', 'بورسعيد', 'تصميم وبرمجة: محمد حامد', 'مسؤولية الموقع: محمد حامد']) assert.ok(html.includes(text));
   assert.ok(html.indexOf('compact-pathways') < html.indexOf('id="homeNews"'));
 });
@@ -19,4 +19,12 @@ test('reader theme provides keyboard focus and reduced motion safeguards', () =>
   assert.match(css, /scroll-behavior: auto/);
   assert.match(css, /transition: none !important/);
   assert.match(css, /hover: hover/);
+});
+test('visible palette uses full color surfaces and readable text without changing geometry', () => {
+  assert.match(css, /\.site-header \.brand \{ background: #123f47;/);
+  assert.match(css, /\.site-header \.brand-copy strong \{ color: #fff;/);
+  assert.match(css, /\.page-home \.portal-side-library \{ background: #dceee4;/);
+  assert.match(css, /\.page-home \.portal-side-assistant \{ background: #e9e3f5;/);
+  assert.match(css, /\.page-home \.portal-side-news \{ background: #f5e9c8;/);
+  assert.match(css, /linear-gradient\(150deg, #cce6dd, #f8f3df\)/);
 });

@@ -160,3 +160,69 @@ body { background: #f5f8f8; }
   :is(.site-header, .site-tabs, .page-view, .site-footer) *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .page-view :is(.button, .book-card, .openbooks-card, .global-book-card, .education-work-card, .education-news-card, .portal-side-link):hover { transform: none !important; }
 }
+
+/* Visible palette revision: stronger color surfaces, unchanged content and geometry. */
+body { background: #f6f4ee; }
+.announcement { color: #fff; background: #123f47; }
+.site-header { background: linear-gradient(120deg, #fffdf8 35%, #e2f0eb 100%); border-color: #a9cbc3; }
+.site-header .brand { background: #123f47; border-color: #123f47; box-shadow: 0 5px 16px rgb(18 63 71 / 12%); }
+.site-header .brand-copy strong { color: #fff; }
+.site-header .brand-school-identities,
+.site-header .brand-school-identity,
+.site-header .brand-school-name { color: #e3f3ef; }
+.site-header .brand-school-identity { background: transparent; }
+.site-header .header-chat-shortcut { background: #0c5351; border-color: #0c5351; }
+.site-header .president-banner figcaption { background: #dcece5; }
+.book-updates-ticker { background: #d3e9e4; border-color: #94beb4; border-inline-start-color: #0c5351; }
+.book-updates-ticker-title { background: #123f47; }
+#visitorTabs { background: #e4ede9; border-color: #b2ccc4; border-radius: 13px; }
+#visitorTabs .view-tab { color: #264e53; }
+#visitorTabs .view-tab.active { background: #123f47; color: #fff; }
+#homeView { background: #f6f4ee; }
+.page-home > .portal-hero {
+  background: linear-gradient(115deg, #cce6dd 0%, #e1efe4 50%, #f8f3df 100%);
+  border-color: #98bdb0;
+  box-shadow: 0 6px 22px rgb(18 63 71 / 7%);
+}
+.page-home .portal-main h1 { color: #123f47; }
+.page-home .portal-title-accent { color: #0c6657; }
+.page-home .portal-lede { color: #354f4b; }
+.page-home .portal-search-panel { background: #fffefa; border-color: #9ebfb4; }
+.page-home .portal-search-submit { background: #0c5351; }
+.page-home .portal-side { background: #fffdf8; border-color: #aecbc0; }
+.page-home .portal-side-link { border-radius: 10px; border-color: #bcd5ca; }
+.page-home .portal-side-library { background: #dceee4; }
+.page-home .portal-side-assistant { background: #e9e3f5; border-color: #cdc1e2; }
+.page-home .portal-side-news { background: #f5e9c8; border-color: #decb95; }
+.page-home .portal-side-books,
+.page-home .portal-side-reading { background: #dcecf5; border-color: #b3cfdf; }
+.page-home .portal-side-copy strong { color: #23454b; }
+.page-home .portal-side-copy small { color: #485e64; }
+.page-home .portal-side-arrow { color: #3b5b61; }
+.page-home .portal-side-books .portal-side-icon { background: #c5dfec; color: #20516b; }
+.page-home > .compact-pathways { background: #dcece5; border-color: #a9cbbd; }
+.page-home > #homeNews { background: #dde8f1; border-color: #adc4d7; }
+.page-home #homeNews .home-news-grid > .live-news-card { background: #fbfefa; border-color: #bad3cb; border-top-color: #137766; }
+.page-home #homeNews .home-news-grid > .live-news-card:nth-child(2) { background: #f5f8ff; border-color: #c4cfe5; border-top-color: #536ea0; }
+.page-home #homeNews .home-news-grid > .live-news-card:nth-child(3) { background: #fffaf0; border-color: #dfcfa8; border-top-color: #9d7730; }
+#discoverView { --reader-section: #dceee4; }
+#branchesView { --reader-section: #f3e8cd; }
+#announcementsView { --reader-section: #f4e8cc; }
+#aboutView { --reader-section: #e9e1f2; }
+#globalReadingView { --reader-section: #d9edf0; }
+#educationResearchView { --reader-section: #dfe7f3; }
+#branchesView .school-profile-card { background: #fff8e8; border-color: #d3b970; }
+#branchesView .school-profile-card:nth-child(2n) { background: #e9f4ed; border-color: #98bcaa; }
+.page-view .book-card,
+.page-view .global-book-card,
+.page-view .openbooks-card,
+.page-view .external-reading-card { border-color: #a9c7c6; background: #fffef9; }
+#aboutView .feature-blue { background: #d9eaf2; }
+#aboutView .feature-red { background: #e6ddf3; }
+#aboutView .feature-yellow { background: #f3e4ba; }
+.site-footer .footer-card { background: #fffdf6; border-color: #b5cec4; }
+.site-footer .footer-note { background: #dcece5; color: #234e4b; }
+@media (max-width: 700px) {
+  .site-header .brand { background: #123f47; }
+  .page-home > .portal-hero { background: linear-gradient(150deg, #cce6dd, #f8f3df); }
+}
