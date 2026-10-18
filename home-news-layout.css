@@ -104,3 +104,54 @@
 }
 /* Override the legacy one-story strip, which hid the update timestamp. */
 #homeNews .home-news-meta .news-updated { display: block; }
+
+/* Source-published news photos: fixed ratio, lazy-loaded by site-news.js, never invented. */
+.live-news-card .news-card-image-wrap {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin: 0 0 12px;
+  border-radius: 11px;
+  background: #eef3f6;
+}
+.live-news-card .news-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-home #homeNews .home-news-grid > .live-news-card {
+  padding: 13px;
+}
+.page-home #homeNews .news-card-image-wrap { aspect-ratio: 2.8 / 1; margin-block: 7px 6px; }
+.page-home #homeNews .home-news-grid .news-card-title { font-size: 16px !important; line-height: 1.6 !important; margin-block: 6px 8px !important; }
+.page-home #homeNews .home-news-grid .news-card-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  margin-bottom: 9px !important;
+}
+.education-news-section .live-news-card .news-card-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+}
+@media (min-width: 700px) {
+  .page-home #homeNews .home-news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .page-home #homeNews .home-news-grid > .live-news-card { padding: 12px; display: grid; grid-template-columns: 94px minmax(0, 1fr); gap: 7px 10px; align-content: start; }
+  .page-home #homeNews .education-news-card-top,
+  .page-home #homeNews .news-card-summary,
+  .page-home #homeNews .news-card-metadata,
+  .page-home #homeNews .news-source-link { grid-column: 1 / -1; }
+  .page-home #homeNews .news-card-image-wrap { grid-column: 1; grid-row: 2; aspect-ratio: 1.15; margin: 0; }
+  .page-home #homeNews .home-news-grid .news-card-title { grid-column: 2; grid-row: 2; margin: 0 !important; }
+  .page-home #homeNews .live-news-card:not(:has(.news-card-image-wrap)) .news-card-title { grid-column: 1 / -1; }
+  .page-home #homeNews .home-news-grid .news-card-summary { margin: 0 !important; }
+  .page-home #homeNews .news-card-metadata { margin: 0; padding: 0; }
+  .live-news-card .news-card-image-wrap { margin-bottom: 10px; }
+}

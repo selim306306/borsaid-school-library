@@ -135,7 +135,7 @@ function item(id, days, overrides = {}) {
 
 test('site-news.js يرشح ويزيل التكرار ويرتب أحدث ثلاثة ويعرض أرشيف ستة', async () => {
   const raw = [
-    item('a', 0), item('b', 1), item('c', 2), item('d', 3), item('e', 4), item('f', 5),
+    item('a', 0, { image_url: 'https://images.source.test/a.webp' }), item('b', 1), item('c', 2), item('d', 3), item('e', 4), item('f', 5),
     item('a', 7, { source_url: 'https://source.test/news/another-id' }), item('unique-id', 8, { source_url: 'https://source.test/news/a?utm=ignored#fragment' }),
     item('duplicate-url', 9, { source_url: 'https://source.test/news/a?utm=ignored#fragment' }),
     item('empty-source', 10, { source_name: '   ' }),
@@ -146,6 +146,13 @@ test('site-news.js يرشح ويزيل التكرار ويرتب أحدث ثلا
   assert.equal(nodes.homeNewsGrid.children.length, 3);
   assert.equal(nodes.educationNewsGrid.children.length, 6);
   assert.deepEqual(nodes.homeNewsGrid.children.map(card => card.querySelector('.news-card-title').textContent), ['عنوان a', 'عنوان b', 'عنوان c']);
+  const sourceImage = nodes.homeNewsGrid.children[0].querySelector('.news-card-image');
+  assert.ok(sourceImage);
+  assert.equal(sourceImage.src, 'https://images.source.test/a.webp');
+  assert.equal(sourceImage.loading, 'lazy');
+  assert.equal(sourceImage.decoding, 'async');
+  assert.equal(sourceImage.alt, 'مصدر a — صورة الخبر');
+  assert.equal(nodes.homeNewsGrid.children[1].querySelector('.news-card-image'), null);
   assert.equal(nodes.educationNewsPageSummary.textContent.includes('من ٦'), true);
   assert.equal(nodes.homeNewsGrid.getAttribute('aria-busy'), 'false');
   assert.equal(nodes.educationNewsGrid.getAttribute('aria-busy'), 'false');
@@ -167,4 +174,22 @@ test('site-news.js يتعامل مع فشل HTTP وفشل الشبكة دون خ
   assert.equal(empty.homeNewsGrid.children.length, 0);
   assert.equal(empty.educationNewsGrid.children.length, 0);
   assert.equal(empty.educationNewsPagination.hidden, true);
+});
+
+test('site-news.js لا يمرر صورة غير HTTPS أو بيانات اعتماد داخل الرابط', async () => {
+  const nodes = await runNews({ items: [
+    item('http', 0, { image_url: 'http://images.source.test/a.webp' }),
+    item('credential', 1, { image_url: 'https://user:pass@images.source.test/b.webp' }),
+    item('fallback', 2, { media_url: 'https://images.source.test/c.webp' }),
+  ] });
+  assert.equal(nodes.homeNewsGrid.children[0].querySelector('.news-card-image'), null);
+  assert.equal(nodes.homeNewsGrid.children[1].querySelector('.news-card-image'), null);
+  assert.equal(nodes.homeNewsGrid.children[2].querySelector('.news-card-image').src, 'https://images.source.test/c.webp');
+});
+test('الأخبار المصورة مدمجة بثلاثة أعمدة وصورة مصغرة على الهاتف', () => {
+  const css = readFileSync(new URL('../home-news-layout.css', import.meta.url), 'utf8');
+  assert.match(css, /@media \(min-width: 700px\)/);
+  assert.match(css, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(css, /grid-template-columns: 94px minmax\(0, 1fr\)/);
+  assert.match(css, /-webkit-line-clamp: 2/);
 });

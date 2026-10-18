@@ -60,6 +60,13 @@ function validHttpsUrl(value) {
   }
 }
 
+function validNewsImageUrl(value) {
+  const safeUrl = validHttpsUrl(value);
+  if (!safeUrl) return '';
+  const url = new URL(safeUrl);
+  return url.username || url.password ? '' : url.href;
+}
+
 function canonicalSourceUrl(value) {
   const safeUrl = validHttpsUrl(value);
   if (!safeUrl) return '';
@@ -101,6 +108,20 @@ function createNewsCard(item) {
     makeText('span', 'news-language-tag', item.source_language === 'ar' ? 'ملخص عربي' : 'ترجمة موجزة'),
   );
   article.append(top);
+  const imageUrl = validNewsImageUrl(item.image_url ?? item.media_url ?? item.og_image);
+  if (imageUrl) {
+    const figure = document.createElement('div');
+    figure.className = 'news-card-image-wrap';
+    const image = document.createElement('img');
+    image.className = 'news-card-image';
+    image.src = imageUrl;
+    image.alt = `${String(item.source_name || 'مصدر الخبر').trim()} — صورة الخبر`;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.addEventListener('error', () => figure.remove());
+    figure.append(image);
+    article.append(figure);
+  }
   article.append(makeText('h3', 'news-card-title', item.title_ar));
   article.append(makeText('p', 'news-card-summary', item.summary_ar));
 
