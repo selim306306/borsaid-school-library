@@ -53,7 +53,7 @@
   <script type="module" src="global-reading.js?v=20261018-digital-library-1"></script>
   <link rel="stylesheet" href="education-research.css?v=20261015-font-step-2">
   <script type="module" src="education-research.js?v=4"></script>
-  <script type="module" src="site-news.js?v=20261015-news-cache-fix-1"></script>
+  <script type="module" src="site-news.js?v=20261018-home-news-1"></script>
   <link rel="stylesheet" href="open-books-live.css?v=20261015-font-step-2">
   <script type="module" src="open-books-live.js?v=20261016-public-pdf-guide-2"></script>
   <link rel="stylesheet" href="external-reading.css?v=20261017-zikola-home-2">
@@ -68,6 +68,7 @@
   <link rel="stylesheet" href="president-banner.css?v=20261017-loc-honey-1">
   <link rel="stylesheet" href="header-refinements.css?v=20261018-touch-compact-1">
   <script type="module" src="header-reading-summary.js?v=20261018-compact-summary-1"></script>
+  <link rel="stylesheet" href="home-news-layout.css?v=20261018-1">
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -183,8 +184,17 @@
           </aside>
         </div>
       </section>
-      <section class="visitor-pathways section-wrap" aria-labelledby="visitorPathwaysTitle">
-        <div class="visitor-pathways-heading"><span class="eyebrow">اختر طريقة التواصل</span><h2 id="visitorPathwaysTitle">ثلاثة مسارات واضحة لمساعدتك</h2><p>المساعد الذكي، نموذج أمين المكتبة، وبوت Telegram؛ لكل واحد استخدام وخصوصية مختلفان.</p></div>
+      <section class="visitor-pathways section-wrap compact-pathways" aria-labelledby="visitorPathwaysTitle">
+        <div class="compact-pathways-bar">
+          <h2 id="visitorPathwaysTitle">مساعدة سريعة</h2>
+          <nav class="assistant-shortcuts" aria-label="طرق المساعدة الثلاث">
+            <a class="assistant-shortcut assistant-shortcut-ai" href="#visitorAssistant"><span aria-hidden="true">م</span> المساعد الذكي</a>
+            <a class="assistant-shortcut assistant-shortcut-librarian" href="#visitorQuestions"><span aria-hidden="true">؟</span> اسأل أمين المكتبة</a>
+            <a class="assistant-shortcut assistant-shortcut-telegram" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> بوت <bdi>Telegram</bdi></a>
+          </nav>
+        </div>
+        <details class="assistant-pathway-details">
+          <summary>الفرق بين المسارات وسياسة الخصوصية</summary>
         <div class="visitor-pathway-grid">
           <article class="visitor-pathway-card visitor-pathway-ai">
             <span class="visitor-pathway-icon" aria-hidden="true">م</span>
@@ -205,6 +215,16 @@
             <a class="visitor-pathway-action" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">افتح بوت Telegram <span aria-hidden="true">↗</span></a>
           </article>
         </div>
+        </details>
+      </section>
+      <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
+        <header class="home-news-heading">
+          <div><span class="eyebrow">من الأرشيف الموثق · الأحدث أولًا</span><h2 id="homeNewsTitle">الأخبار الواردة</h2></div>
+          <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">جارٍ تحميل آخر الأخبار…</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
+        </header>
+        <p class="home-news-intro">أحدث أخبار التعليم والمكتبات، مع تاريخ النشر ورابط المصدر الأصلي لكل خبر.</p>
+        <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
+        <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
       </section>
       <section class="leadership-banner section-wrap" aria-labelledby="leadershipBannerTitle">
         <div class="leadership-banner-head">
@@ -223,14 +243,7 @@
         </ul>
         <details class="leadership-photo-credits" id="leaderImageCredits"><summary>تفاصيل إضافية</summary><p>صورة السيد الرئيس عبد الفتاح السيسي: صورة من المكتب الرئاسي الروسي / Kremlin.ru، منشورة في <a href="https://commons.wikimedia.org/wiki/File:Abdel_Fattah_el-Sisi.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> بترخيص <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>، ومقصوصة بصريًا لملاءمة البطاقة. صورة السيد محمد عبد اللطيف: صورة رسمية من وزارة التربية والتعليم المصرية، <a href="https://commons.wikimedia.org/wiki/File:Mohamed_Abdel_Latif.jpg" target="_blank" rel="noopener noreferrer">ملف الصورة وتفاصيل الملك العام في مصر</a> وفق المادة ١٤١ لسنة ٢٠٠٢. صور د. أميرة عبد اللطيف، والأستاذ محمود بدوي وحسن محمد حسن ومحمد سمير أبو عميرة، ومحمد حامد مقدمة لإدارة الموقع.</p></details>
       </section>
-      <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
-        <header class="home-news-heading">
-          <div><span class="eyebrow">موجز عربي مختصر</span><h2 id="homeNewsTitle">آخر أخبار التعليم</h2></div>
-          <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">يتجدد الموجز دوريًا</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
-        </header>
-        <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
-        <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
-      </section>
+
     <section class="home-guide section-wrap" id="homeGuide" aria-labelledby="homeGuideTitle">
       <div class="home-guide-heading">
         <div><span class="eyebrow">دليل الزائر</span><h2 id="homeGuideTitle">اكتشف، تحقّق، ثم اختر خطوتك</h2></div>

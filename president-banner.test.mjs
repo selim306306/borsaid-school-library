@@ -23,13 +23,17 @@ test('portrait stays in flow, uses the left RTL grid area and preserves the full
  assert.ok(statSync(new URL('./president-original.jpg',import.meta.url)).size>0);
 });
 
-test('site note stays inside the presidential caption without changing its identity',()=>{
+test('development notice stays separate and presidential caption retains identity and reading summary',()=>{
  const figure=html.match(/<figure class="president-banner"[^>]*>[\s\S]*?<\/figure>/)?.[0];
  assert.ok(figure);
  const caption=figure.match(/<figcaption>[\s\S]*?<\/figcaption>/)?.[0];
  assert.ok(caption);
- assert.match(caption,/نطوّر الموقع باستمرار بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع\./);
- assert.match(caption,/تابعونا لاكتشاف كل جديد\./);
+ const notice=html.match(/<aside class="header-development-notice"[^>]*>[\s\S]*?<\/aside>/)?.[0];
+ assert.ok(notice);
+ assert.match(notice,/الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع\./);
+ assert.match(notice,/يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات\./);
+ assert.doesNotMatch(caption,/header-development-notice/);
+ assert.match(caption,/id="headerReadingSummary"/);
  assert.doesNotMatch(caption,/بوابتك لاكتشاف مكتبات بورسعيد/);
  assert.match(caption,/السيد الرئيس عبد الفتاح السيسي/);
  assert.match(caption,/مؤسس مصر الحديثة/);

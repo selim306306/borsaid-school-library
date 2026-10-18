@@ -1,5 +1,5 @@
 const NEWS_PATH = new URL('./news.json', import.meta.url);
-const NEWS_HOME_COUNT = 1;
+const NEWS_HOME_COUNT = 3;
 const NEWS_ARCHIVE_PAGE_SIZE = 6;
 
 const homeGrid = document.querySelector('#homeNewsGrid');
@@ -177,7 +177,7 @@ async function loadNews() {
       const publishedAt = item?.published_at ? new Date(item.published_at).getTime() : NaN;
       return item && typeof item.title_ar === 'string' && item.title_ar.trim() &&
         typeof item.summary_ar === 'string' && item.summary_ar.trim() &&
-        typeof item.source_name === 'string' && validHttpsUrl(item.source_url) &&
+        typeof item.source_name === 'string' && item.source_name.trim() && validHttpsUrl(item.source_url) &&
         Number.isFinite(publishedAt);
     }) : [];
 
@@ -192,11 +192,14 @@ async function loadNews() {
     if (data.updated_at) {
       const updated = `آخر تحديث للأخبار: ${formatArabicDate(data.updated_at)} · ${formatCadence(data)}`;
       for (const node of updatedNodes) node.textContent = updated;
+    } else {
+      for (const node of updatedNodes) node.textContent = 'تاريخ تحديث الأرشيف غير متاح';
     }
     setStatus(archivedItems.length ? '' : 'لا توجد أخبار موثقة حالياً؛ سيبقى القسم هادئاً بدلاً من عرض خبر غير متحقق منه.');
   } catch {
     for (const grid of [homeGrid, educationGrid].filter(Boolean)) grid.setAttribute('aria-busy', 'false');
     if (archivePagination) archivePagination.hidden = true;
+    for (const node of updatedNodes) node.textContent = 'تحديث الأخبار غير متاح الآن';
     setStatus('تعذّر تحميل موجز الأخبار الآن. حاول تحديث الصفحة لاحقاً.', true);
   }
 }
