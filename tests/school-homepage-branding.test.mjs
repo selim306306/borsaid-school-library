@@ -6,6 +6,7 @@ import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage }
 const migration = readFileSync(new URL('../supabase/migrations/20261016225711_school_homepage_name_visibility.sql', import.meta.url), 'utf8');
 const app = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const branding = readFileSync(new URL('../school-homepage-branding.mjs', import.meta.url), 'utf8');
 
 test('homepage school-name visibility defaults to visible and can be hidden independently', () => {
   assert.equal(shouldShowSchoolNameOnHomepage({ is_public: true }), true);
@@ -52,9 +53,9 @@ test('public school profile data is painted immediately and only header logos by
   assert.match(publicLoader, /renderPublicProfilesAsSoonAsAvailable/);
   assert.match(publicLoader, /paintBranches\(\[\], profiles\)/);
   assert.match(publicLoader, /paintBranches\(publicBranches, publicLibraryProfiles, false\)/);
-  assert.match(app, /image\.loading = eager \? 'eager' : 'lazy'/);
-  assert.match(app, /image\.fetchPriority = eager \? 'high' : 'low'/);
-  assert.match(app, /bindPublicLogoFallback\(logo, publicLogoUrl\(profile\.school_logo_path, \{ original: true \}\), \{ eager: true \}\)/);
+  assert.match(branding, /image\.loading = eager \? 'eager' : 'lazy'/);
+  assert.match(branding, /image\.fetchPriority = eager \? 'high' : 'low'/);
+  assert.match(branding, /bindPublicLogoFallback\(logo, publicLogoUrl\(profile\.school_logo_path, \{ original: true \}\), \{ eager: true \}\)/);
   assert.match(app, /await Promise\.all\(\[\s*loadSiteFooter\(\)\.catch\(\(\) => \{\}\),\s*loadPublicBranches\(\)/);
 });
 

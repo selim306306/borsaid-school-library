@@ -23,7 +23,9 @@ test('public text and media fallbacks contain no obsolete branding', () => {
     assert.doesNotMatch(read(name), /مكتبات بورسعيد|بوابة مدارس بورسعيد/, name);
   }
   const app = read('app.js');
-  assert.match(app, /title.textContent = 'المكتبة المدرسية الرقمية'/);
+  const branding = read('school-homepage-branding.mjs');
+  assert.match(branding, /title.textContent = 'المكتبة المدرسية الرقمية'/);
+  assert.match(app, /renderPublicSchoolBranding\(profiles, publicLogoUrl\)/);
   // Historical user-input intent aliases stay compatible, but are never rendered.
   assert.doesNotMatch(app.split('\n').filter(line => !line.includes('.test(normalized)')).join('\n'), /مكتبات بورسعيد|بوابة مدارس بورسعيد/);
   assert.ok(app.includes('profile.school_name'));
