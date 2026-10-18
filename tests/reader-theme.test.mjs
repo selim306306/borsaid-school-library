@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const css = readFileSync(new URL('../reader-theme.css', import.meta.url), 'utf8');
+const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+test('reader theme is the final stylesheet and preserves public identity and placement', () => {
+  const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map(m => m[1]);
+  assert.equal(sheets.at(-1), 'reader-theme.css?v=20261018-reader-1');
+  for (const text of ['المكتبة المدرسية الرقمية', 'بورسعيد', 'تصميم وبرمجة: محمد حامد', 'مسؤولية الموقع: محمد حامد']) assert.ok(html.includes(text));
+  assert.ok(html.indexOf('compact-pathways') < html.indexOf('id="homeNews"'));
+});
+test('reader theme does not reorder, hide, crop, enlarge or replace content and assets', () => {
+  assert.doesNotMatch(css, /(?:^|[;{\s])(?:display|order|position|height|min-height|max-height|width|min-width|max-width|font-size|padding|margin|overflow|object-fit|object-position|zoom)\s*:/m);
+  assert.doesNotMatch(css, /url\(|line-clamp|\[hidden\]|staff-workspace|\.workspace\b/);
+});
+test('reader theme provides keyboard focus and reduced motion safeguards', () => {
+  assert.match(css, /:focus-visible\s*\{\s*outline:\s*3px solid #116b68/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /scroll-behavior: auto/);
+  assert.match(css, /transition: none !important/);
+  assert.match(css, /hover: hover/);
+});

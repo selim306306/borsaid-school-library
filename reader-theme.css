@@ -1,0 +1,162 @@
+/* Public reader theme. Presentation only: no content, asset or layout-order changes. */
+:root {
+  --reader-ink: #183b49;
+  --reader-muted: #526771;
+  --reader-teal: #116b68;
+  --reader-teal-dark: #0c5351;
+  --reader-line: #d6e3e4;
+  --reader-paper: #f5f8f8;
+  --reader-shadow: 0 5px 18px rgb(24 59 73 / 5%);
+}
+body { background: #f5f8f8; }
+.announcement { background: #e7f0ef; color: #315a60; }
+.site-header { background: #fff; border-color: var(--reader-line); }
+.site-header .brand { background: #f5f8f8; border-color: transparent; box-shadow: none; }
+.site-header .brand-copy strong { color: var(--reader-ink); }
+.site-header .brand-school-identity { color: #445e66; background: transparent; border-color: transparent; }
+.header-feature-image-slot { box-shadow: var(--reader-shadow); }
+.site-header .header-chat-shortcut { background: var(--reader-teal); border-color: var(--reader-teal); box-shadow: 0 3px 10px rgb(17 107 104 / 14%); }
+.site-header .header-chat-shortcut:hover { background: var(--reader-teal-dark); }
+.site-header .header-development-notice { background: #faf6e9; border-color: #e5dab4; color: #65552e; box-shadow: none; }
+.site-header .president-banner { border-color: #bfd8d7; background: #edf5f4; box-shadow: none; }
+.site-header .president-banner figcaption { background: #edf5f4; }
+.site-header .president-banner-name { color: var(--reader-ink); }
+.site-header .president-banner-site-note { background: #faf6e9; border-color: #e5dab4; }
+.book-updates-ticker { background: #e0efee; border-color: #bdd7d4; border-inline-start-color: #116b68; box-shadow: none; }
+.book-updates-ticker-title { background: #185f60; }
+.site-tabs { border-bottom-color: var(--reader-line); }
+.site-tabs .view-tab { color: #455d68; border-radius: 9px 9px 0 0; transition: background-color .16s ease, color .16s ease; }
+.site-tabs .view-tab:hover { color: var(--reader-teal-dark); background: #e6efef; }
+#visitorTabs .view-tab.active { color: #fff; background: #185f60; font-weight: 700; }
+#visitorTabs .view-tab.active::after { background: #83b6ad; }
+#visitorTabs .view-tab.active .view-tab-icon { color: currentColor; }
+.site-tabs .staff-nav-button { color: #39516a; background: #fff; border-color: #cddadd; box-shadow: none; }
+.page-view { color: var(--reader-ink); }
+.page-view .eyebrow { color: var(--reader-teal); }
+.page-home > .portal-hero {
+  background: linear-gradient(110deg, #e4f0ee 0%, #f2f7f5 48%, #fff 100%);
+  border-color: #c9dddb;
+  box-shadow: none;
+}
+.page-home > .portal-hero::before { background: none; }
+.page-home .portal-main h1 { color: #183b49; letter-spacing: -.7px; }
+.page-home .portal-title-accent { color: #116b68; }
+.page-home .portal-kicker { color: #315e63; }
+.page-home .portal-kicker-mark { color: #fff; background: #116b68; }
+.page-home .portal-lede { color: #4c636b; }
+.page-home .portal-search-panel { background: #fff; border-color: #cbdcdd; box-shadow: var(--reader-shadow); }
+.page-home .portal-search-heading strong { color: var(--reader-ink); }
+.page-home .portal-search-description { color: #526771; }
+.page-home .portal-search-row { border-color: #bdced1; background: #fcfdfd; box-shadow: none; }
+.page-home .portal-search-row:focus-within { border-color: #116b68; box-shadow: 0 0 0 3px rgb(17 107 104 / 12%); }
+.page-home .portal-search-row input::placeholder { color: #657881; opacity: 1; }
+.page-home .portal-search-submit { color: #fff; background: var(--reader-teal); box-shadow: none; }
+.page-home .portal-search-submit:hover { background: var(--reader-teal-dark); }
+.page-home .portal-scope label span { border-color: #d5e2e3; color: #49636b; }
+.page-home .portal-scope input:checked + span { background: #e0f0ed; color: #185b55; border-color: #9bc5bd; }
+.page-home .portal-side { background: #fff; border-color: #d6e3e4; box-shadow: none; }
+.page-home .portal-side-heading > strong { color: var(--reader-ink); }
+.page-home .portal-side-link { border-color: #e0e9ea; }
+.page-home .portal-side-copy strong { color: #294b56; }
+.page-home .portal-side-copy small { color: #596d76; }
+.page-home .portal-side-library .portal-side-icon { color: #21645b; background: #e5f2ec; }
+.page-home .portal-side-assistant .portal-side-icon { color: #58518c; background: #eeebf7; }
+.page-home .portal-side-news .portal-side-icon { color: #8a6425; background: #f8efd8; }
+.page-home .portal-side-reading .portal-side-icon { color: #28617f; background: #e7f1f7; }
+.page-home > .compact-pathways { background: #edf4f2; border-color: #d0e1dc; }
+.assistant-shortcut { box-shadow: none; }
+.assistant-shortcut-ai { background: #116b68; border-color: #116b68; }
+.assistant-shortcut-librarian { background: #f0edf8; color: #534980; border-color: #d3cde5; }
+.assistant-shortcut-telegram { background: #eaf3f8; color: #245d77; border-color: #c8dfe9; }
+.page-home > #homeNews { background: #edf2f8; border-color: #d1dce8; }
+#homeNews .home-news-heading h2 { color: #213f60; }
+#homeNews .home-news-heading .eyebrow { color: #496883; }
+#homeNews .home-news-intro, #homeNews .news-updated { color: #526579; }
+.page-home #homeNews .home-news-grid > .live-news-card { border-color: #d4e0e8; border-top-color: #24887d; box-shadow: 0 3px 10px rgb(31 63 87 / 4%); }
+.page-home #homeNews .live-news-card:nth-child(2) { border-top-color: #647fa9; }
+.page-home #homeNews .live-news-card:nth-child(3) { border-top-color: #b39551; }
+.page-home #homeNews .home-news-grid .news-card-title { color: #234552; }
+.page-home #homeNews .home-news-grid .news-source-name { color: #3e647d; font-weight: 600; }
+.page-home #homeNews .home-news-grid .news-source-link { color: #285777; background: #edf3f8; border-color: #d3e0eb; border-radius: 9px; }
+.page-home > .leadership-banner { background: #fff; border-color: var(--reader-line); }
+.page-home .leadership-banner .leadership-person { background: #f8fafb; border-color: #dde5e8; box-shadow: none; }
+.page-home .leadership-banner-heading { color: var(--reader-ink); }
+/* Distinct, quiet section families: catalogue/mint, schools/sand, reading/sea, research/blue. */
+#discoverView { --reader-section: #edf5f1; --reader-accent: #236957; }
+#branchesView { --reader-section: #f8f4ea; --reader-accent: #826429; }
+#announcementsView { --reader-section: #f8f3e9; --reader-accent: #856327; }
+#aboutView { --reader-section: #f2eff7; --reader-accent: #655586; }
+#globalReadingView { --reader-section: #edf5f6; --reader-accent: #256c75; }
+#educationResearchView { --reader-section: #eef2f8; --reader-accent: #3a5f91; }
+.page-view .search-section,
+.page-view .global-reading-section,
+.page-view .education-research-section,
+.page-view .openbooks-section,
+.page-view .external-reading-section { background: var(--reader-section, #f2f6f6); border-color: #d5e1e3; box-shadow: none; }
+.page-view .section-heading h2,
+.page-view .global-reading-heading h2,
+.page-view .openbooks-heading h2,
+.page-view .education-research-heading h2,
+.page-view .education-section-heading h3 { color: var(--reader-ink); }
+.page-view .section-heading p { color: var(--reader-muted); }
+.page-view .book-card,
+.page-view .branch-card,
+.page-view .global-book-card,
+.page-view .openbooks-card,
+.page-view .external-reading-card,
+.page-view .education-work-card,
+.page-view .education-news-card {
+  border-color: #d7e2e5;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: var(--reader-shadow);
+}
+#branchesView .school-profile-card { border-top: 3px solid #b59a5d; background: #fffdf8; }
+#branchesView .school-profile-card:nth-child(2n) { border-top-color: #6b9d91; background: #f9fcfb; }
+#announcementsView .public-notice { background: #fcf8ee; border-color: #e8ddc4; }
+#aboutView .feature-blue { background: #eaf2f5; }
+#aboutView .feature-red { background: #f0edf7; }
+#aboutView .feature-yellow { background: #f8f0df; }
+.page-view .button-primary { background: var(--reader-accent, var(--reader-teal)); box-shadow: 0 3px 9px rgb(24 59 73 / 10%); }
+.page-view .button-outline { border-color: #c9d9dd; color: #2e5664; background: #fff; }
+.page-view .button-soft { background: #e7f0f0; color: #205b60; }
+.page-view .search-box { border-color: #c8d9dc; box-shadow: none; }
+.page-view .search-box:focus-within { border-color: var(--reader-teal); }
+.page-view :is(.openbooks-search-button, .external-reading-submit, .education-research-submit) { color: #fff; background: var(--reader-accent, var(--reader-teal)); border-color: var(--reader-accent, var(--reader-teal)); box-shadow: none; }
+.page-view :is(.openbooks-action, .global-reading-link, .external-reading-link, .education-research-link) { border-radius: 9px; }
+.page-view .openbooks-action { color: #315d69; border-color: #cbdcde; }
+.page-view .openbooks-action-primary { color: #fff; background: #256c75; border-color: #256c75; }
+.site-footer { border-top-color: #d8e4e4; background: transparent; }
+.site-footer .footer-card { background: #fff; border-color: var(--reader-line); box-shadow: var(--reader-shadow); }
+.site-footer .footer-note { background: #edf4f2; color: #415e62; }
+.site-footer .footer-brand strong { color: var(--reader-ink); }
+/* Color and elevation only: keep all existing grids, reading order and mobile density. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .page-view .book-card,
+  .page-view .openbooks-card,
+  .page-view .global-book-card,
+  .page-view .education-work-card,
+  .page-view .education-news-card { transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+  .page-view .book-card:hover,
+  .page-view .openbooks-card:hover,
+  .page-view .global-book-card:hover,
+  .page-view .education-work-card:hover,
+  .page-view .education-news-card:hover { border-color: #9dbbbf; box-shadow: 0 7px 18px rgb(24 59 73 / 9%); transform: translateY(-2px); }
+}
+:is(.site-header, .site-tabs, .page-view, .site-footer) :is(a, button, input, select, summary):focus-visible {
+  outline: 3px solid #116b68;
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .site-header .brand { background: transparent; }
+  .site-tabs .view-tab { border-radius: 9px; }
+  .page-home > .portal-hero { background: linear-gradient(150deg, #e6f1ee, #fff 85%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  :is(.site-header, .site-tabs, .page-view, .site-footer),
+  :is(.site-header, .site-tabs, .page-view, .site-footer) *,
+  :is(.site-header, .site-tabs, .page-view, .site-footer) *::before,
+  :is(.site-header, .site-tabs, .page-view, .site-footer) *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .page-view :is(.button, .book-card, .openbooks-card, .global-book-card, .education-work-card, .education-news-card, .portal-side-link):hover { transform: none !important; }
+}
