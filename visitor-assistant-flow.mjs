@@ -1,6 +1,6 @@
-import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js';
-import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs';
-import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs';
+import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js?v=7cc123df22c3c45f';
+import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=eb8188fbc2f4c295';
+import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=931445641eb2e68b';
 
 export const VISITOR_PERSONAL_DATA_REPLY = 'حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.';
 

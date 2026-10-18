@@ -1,5 +1,5 @@
-import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
-import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs';
+import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
+import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=3ee1aa50144d7c9a';
 
 function readable(book) { return book?.availability !== 'catalog-only' && Boolean(book?.reader || book?.pdf); }
 export function countReadingTitles(localBooks = [], externalBooks = []) {

@@ -1,4 +1,4 @@
-import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js';
+import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js?v=7cc123df22c3c45f';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';

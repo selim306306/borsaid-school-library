@@ -5,7 +5,7 @@ const css = readFileSync(new URL('../reader-theme.css', import.meta.url), 'utf8'
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 test('reader theme is the final stylesheet and preserves public identity and placement', () => {
   const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(sheets.at(-1), 'reader-theme.css?v=20261018-reader-2');
+  assert.match(sheets.at(-1), /^reader-theme\.css\?v=[a-f0-9]{16}$/);
   for (const text of ['المكتبة المدرسية الرقمية', 'بورسعيد', 'تصميم وبرمجة: محمد حامد', 'مسؤولية الموقع: محمد حامد']) assert.ok(html.includes(text));
   assert.ok(html.indexOf('compact-pathways') < html.indexOf('id="homeNews"'));
 });

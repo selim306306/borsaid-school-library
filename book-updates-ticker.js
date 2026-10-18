@@ -1,5 +1,5 @@
-import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js';
-import { sanitizeBooks } from './external-reading-model.mjs';
+import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
+import { sanitizeBooks } from './external-reading-model.mjs?v=3ee1aa50144d7c9a';
 
 const DATA_URL = 'external-reading-books.json';
 const ROTATION_MS = 4000;

@@ -1,4 +1,4 @@
-import { PUBLIC_READABLE_BOOKS as BOOKS, PUBLIC_READING_LICENSE_URL as LICENSE_URL } from './public-reading-books.js?v=20261016-public-pdf-guide-2';
+import { PUBLIC_READABLE_BOOKS as BOOKS, PUBLIC_READING_LICENSE_URL as LICENSE_URL } from './public-reading-books.js?v=5401d58c55dcc6a9';
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
 const NEWS_ENDPOINT = `${SUPABASE_URL}/functions/v1/education-news`;

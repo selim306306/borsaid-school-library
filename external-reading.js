@@ -1,4 +1,4 @@
-import { filterBooks, languageDistribution, sanitizeBooks, uniqueValues } from './external-reading-model.mjs';
+import { filterBooks, languageDistribution, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=3ee1aa50144d7c9a';
 const PAGE_SIZE = 12;
 const DATA_URLS = ['external-reading-books.json', 'external-catalog-records.json'];
 const el = (tag, className, text) => { const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node; };

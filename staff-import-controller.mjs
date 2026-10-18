@@ -1,4 +1,4 @@
-import { BOOK_IMPORT_MAX_BYTES, BOOK_IMPORT_MAX_ROWS, parseBookImportMatrix, parseDelimitedText, parsePublishedCell } from './staff-import.mjs';
+import { BOOK_IMPORT_MAX_BYTES, BOOK_IMPORT_MAX_ROWS, parseBookImportMatrix, parseDelimitedText, parsePublishedCell } from './staff-import.mjs?v=644ac9f4f499a253';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const normalizeText = value => String(value ?? '').normalize('NFKC')
@@ -66,7 +66,7 @@ export function initializeBookImportControls({
     if (!window.__borsaidXlsxPromise) {
       window.__borsaidXlsxPromise = new Promise((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = new URL('./assets/vendor/xlsx.full.min.js', import.meta.url).href;
+        script.src = new URL('./assets/vendor/xlsx.full.min.js?v=cc015130aa8521e7', import.meta.url).href;
         script.async = true;
         script.onload = () => window.XLSX?.read ? resolve(window.XLSX) : reject(new Error('تعذّر تهيئة قارئ Excel.'));
         script.onerror = () => reject(new Error('تعذّر تحميل قارئ Excel المحلي.'));
