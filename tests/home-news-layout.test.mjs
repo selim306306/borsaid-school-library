@@ -129,7 +129,7 @@ async function runNews(payload, { fetchError = false, httpError = false } = {}) 
 }
 
 function item(id, days, overrides = {}) {
-  return { id, title_ar: `عنوان ${id}`, summary_ar: `ملخص ${id}`, source_name: `مصدر ${id}`,
+  return { id, scope: 'school-library', title_ar: `عنوان ${id}`, summary_ar: `ملخص ${id}`, source_name: `مصدر ${id}`,
     source_url: `https://source.test/news/${id}`, published_at: `2026-10-${String(18 - days).padStart(2, '0')}T12:00:00Z`, ...overrides };
 }
 
@@ -192,4 +192,18 @@ test('الأخبار المصورة مدمجة بثلاثة أعمدة وصور�
   assert.match(css, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
   assert.match(css, /grid-template-columns: 94px minmax\(0, 1fr\)/);
   assert.match(css, /-webkit-line-clamp: 2/);
+});
+
+test('الرئيسية تستبعد التعليم العام مع حفظه في الأرشيف ولا تختلق يوم نشر للمصدر الشهري', async () => {
+  const nodes = await runNews({ items: [
+    item('general', 0, {scope: undefined}),
+    item('library', 1, {published_at: '2026-10', date_precision: 'month', image_url: 'https://site.test/news.svg', image_alt: 'رسم أصلي', image_credit: 'ليس صورة للحدث', image_license: 'CC0 1.0', image_license_url: 'https://creativecommons.org/publicdomain/zero/1.0/'}),
+  ] });
+  assert.equal(nodes.homeNewsGrid.children.length, 1);
+  assert.equal(nodes.educationNewsGrid.children.length, 2);
+  const card = nodes.homeNewsGrid.children[0];
+  assert.equal(card.querySelector('.news-card-title').textContent, 'عنوان library');
+  assert.equal(card.querySelector('.news-card-image').alt, 'رسم أصلي');
+  assert.match(card.querySelector('.news-image-credit').textContent, /ليس صورة للحدث/);
+  assert.equal(card.querySelector('time').textContent, new Intl.DateTimeFormat('ar-EG', {year:'numeric', month:'short', timeZone:'Africa/Cairo'}).format(new Date('2026-10')));
 });

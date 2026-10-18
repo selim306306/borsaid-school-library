@@ -27,11 +27,11 @@ function setStatus(message, isError = false) {
   }
 }
 
-function formatArabicDate(value) {
+function formatArabicDate(value, precision = 'day') {
   const date = new Date(value);
   if (!Number.isFinite(date.getTime())) return 'تاريخ النشر غير متاح';
   return new Intl.DateTimeFormat('ar-EG', {
-    year: 'numeric', month: 'short', day: 'numeric',
+    year: 'numeric', month: 'short', day: precision === 'month' ? undefined : 'numeric',
     timeZone: 'Africa/Cairo',
   }).format(date);
 }
@@ -115,12 +115,24 @@ function createNewsCard(item) {
     const image = document.createElement('img');
     image.className = 'news-card-image';
     image.src = imageUrl;
-    image.alt = `${String(item.source_name || 'مصدر الخبر').trim()} — صورة الخبر`;
+    image.alt = item.image_alt || `${String(item.source_name || 'مصدر الخبر').trim()} — صورة الخبر`;
     image.loading = 'lazy';
     image.decoding = 'async';
     image.addEventListener('error', () => figure.remove());
     figure.append(image);
     article.append(figure);
+    if (item.image_credit) {
+      const credit = makeText('small', 'news-image-credit', item.image_credit);
+      const licenseUrl = validHttpsUrl(item.image_license_url);
+      if (licenseUrl && item.image_license) {
+        const license = makeText('a', 'news-image-license', ` · ${item.image_license}`);
+        license.href = licenseUrl;
+        license.target = '_blank';
+        license.rel = 'noopener noreferrer';
+        credit.append(license);
+      }
+      article.append(credit);
+    }
   }
   article.append(makeText('h3', 'news-card-title', item.title_ar));
   article.append(makeText('p', 'news-card-summary', item.summary_ar));
@@ -129,7 +141,7 @@ function createNewsCard(item) {
   metadata.className = 'news-card-metadata';
   metadata.append(
     makeText('span', 'news-category', item.category || 'تعليم'),
-    makeText('time', 'news-date', formatArabicDate(item.published_at)),
+    makeText('time', 'news-date', formatArabicDate(item.published_at, item.date_precision)),
   );
   const time = metadata.querySelector('time');
   if (time && item.published_at) time.dateTime = item.published_at;
@@ -207,7 +219,8 @@ async function loadNews() {
       return dateDifference || String(a.id ?? '').localeCompare(String(b.id ?? ''));
     });
     currentArchivePage = 1;
-    renderGrid(homeGrid, archivedItems.slice(0, NEWS_HOME_COUNT));
+    const schoolLibraryItems = archivedItems.filter(item => item.scope === 'school-library');
+    renderGrid(homeGrid, schoolLibraryItems.slice(0, NEWS_HOME_COUNT));
     renderArchivePage();
 
     if (data.updated_at) {

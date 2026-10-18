@@ -1,9 +1,58 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T18:30:34+03:00",
+  "updated_at": "2026-10-18T21:14:26+03:00",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
+    {
+      "id": "iasl-islm-2026-libraries-literacy-ai",
+      "title_ar": "شهر المكتبات المدرسية ٢٠٢٦ يربط القراءة بالذكاء الاصطناعي",
+      "summary_ar": "تعلن الجمعية الدولية لأمانة المكتبات المدرسية أن احتفال أكتوبر ٢٠٢٦ يأتي بعنوان «المكتبات ومحو الأمية والذكاء الاصطناعي». وتدعو مشروعات الشهر الطلاب من ٣ إلى ٢٢ عامًا إلى استكشاف القراءة والإبداع والتواصل الإنساني عبر المكتبات المدرسية. تعرض الصفحة الرسمية فتح التسجيل؛ ولا تحدد تاريخ نشر يوميًا، لذا يُعرض الشهر فقط.",
+      "source_name": "الجمعية الدولية لأمانة المكتبات المدرسية (IASL)",
+      "source_url": "https://www.iasl-online.org/ISLM-2026",
+      "category": "مكتبات مدرسية · القراءة والذكاء الاصطناعي",
+      "published_at": "2026-10",
+      "date_precision": "month",
+      "image_alt": "رسم توضيحي أصلي: كتاب مفتوح وروابط رقمية ترمز للقراءة والذكاء الاصطناعي",
+      "source_language": "en",
+      "scope": "school-library",
+      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-month.svg",
+      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
+      "image_license": "CC0 1.0",
+      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "ifla-school-libraries-climate-mil-2026-09-27",
+      "title_ar": "ندوة IFLA تناقش دور المكتبات المدرسية في مواجهة التضليل المناخي",
+      "summary_ar": "أعلن قسما الوعي المعلوماتي والمكتبات المدرسية في IFLA ندوة عبر الإنترنت يوم ٢٩ أكتوبر ٢٠٢٦، حول التفكير النقدي والوعي المناخي. وتشمل محاورها تقييم مصادر المعلومات والتحقق من الادعاءات والاستخدام المسؤول للذكاء الاصطناعي. انتهى موعد تقديم المقترحات في ٧ أكتوبر؛ الخبر عن الندوة المرتقبة، وليس دعوة تسجيل مفتوحة أو تقريرًا عن نتائجها.",
+      "source_name": "الاتحاد الدولي لجمعيات ومؤسسات المكتبات (IFLA)",
+      "source_url": "https://www.ifla.org/news/call-for-presentation-ifla-ils-sls-global-mil-week-webinar-2026/",
+      "category": "مكتبات مدرسية · الوعي المعلوماتي · تطوير مهني",
+      "published_at": "2026-09-27",
+      "image_alt": "رسم توضيحي أصلي: كتاب وعدسة تحقق وورقة نبات ترمز للوعي المعلوماتي والمناخي",
+      "source_language": "en",
+      "scope": "school-library",
+      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-climate.svg",
+      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
+      "image_license": "CC0 1.0",
+      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "aasl-standards-portal-relaunch-2026-09-23",
+      "title_ar": "AASL تجدّد بوابة معايير المكتبات المدرسية وموارد تطبيقها",
+      "summary_ar": "أعلنت الجمعية الأمريكية لأخصائيي مكتبات المدارس إعادة إطلاق بوابة معاييرها، لدعم استكشاف الطبعة الثانية وتطبيقها في التعليم والتعلّم. وتضم البوابة دليل بدء ومجموعات موارد منتقاة ومكتبة محتوى وبحثًا محسّنًا، لمساعدة أخصائي المكتبة على التخطيط للتدريس والتعاون وإبراز دوره في تعلّم الطلاب. لا يعني الإعلان إتاحة الكتاب الكامل مجانًا.",
+      "source_name": "الجمعية الأمريكية لأخصائيي مكتبات المدارس (AASL)",
+      "source_url": "https://www.ala.org/news/2026/09/aasl-announces-relaunch-aasl-standards-web-portal",
+      "category": "مكتبات مدرسية · معايير مهنية · مصادر تعلّم",
+      "published_at": "2026-09-23",
+      "image_alt": "رسم توضيحي أصلي: شاشة تعرض قوائم موارد ومعايير للمكتبات المدرسية",
+      "source_language": "en",
+      "scope": "school-library",
+      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-standards.svg",
+      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
+      "image_license": "CC0 1.0",
+      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
     {
       "id": "unesco-2026-10-17-southern-africa-living-heritage-education",
       "title_ar": "اليونسكو تبرز دمج التراث الحي في التعليم الأساسي بثلاث دول أفريقية",
@@ -178,5 +227,7 @@
       "category": "دولي · إعداد المعلمين",
       "published_at": "2026-10-05"
     }
-  ]
+  ],
+  "editorial_scope": "school-libraries",
+  "editorial_policy_ar": "الأخبار الجديدة تخص علم المكتبات المدرسية وأخصائييها وخدمات القراءة ومصادر التعلم المرتبطة بها مباشرة. لا تُحذف مواد الأرشيف السابقة. تحتاج أخبار الرئيسية إلى scope: school-library وصورة موثقة الحقوق."
 }
