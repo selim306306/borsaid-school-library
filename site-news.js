@@ -219,7 +219,7 @@ async function loadNews() {
       return dateDifference || String(a.id ?? '').localeCompare(String(b.id ?? ''));
     });
     currentArchivePage = 1;
-    const schoolLibraryItems = archivedItems.filter(item => item.scope === 'school-library');
+    const schoolLibraryItems = archivedItems.filter(item => item.scope === 'school-library' && item.home_excluded !== true);
     renderGrid(homeGrid, schoolLibraryItems.slice(0, NEWS_HOME_COUNT));
     renderArchivePage();
 
