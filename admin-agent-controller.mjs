@@ -5,6 +5,18 @@ const byId = id => typeof document === 'undefined' ? null : document.getElementB
 const asCount = value => Number.isSafeInteger(Number(value)) && Number(value) >= 0 ? Number(value) : 0;
 const cleanMetrics = metrics => Object.fromEntries(['titles', 'missing_author', 'missing_classification', 'missing_isbn', 'whitespace_candidates'].map(key => [key, asCount(metrics?.[key])]));
 const errorText = error => String(error?.message || error || '').toLowerCase();
+function formatCairoTime(value, fallback) {
+  if (!value) return fallback;
+  const date = new Date(value);
+  return Number.isFinite(date.getTime()) ? date.toLocaleString('ar-EG', { timeZone: 'Africa/Cairo' }) : fallback;
+}
+export function formatMonitorStatus(m = {}) {
+  const checked = formatCairoTime(m.last_checked_at, 'لا يوجد وقت فحص مؤكد');
+  const next = formatCairoTime(m.next_review_help, 'لم يُحدد بعد');
+  const delivery = ({ sent: 'تم التسليم', failed: 'تعذّر تأكيد التسليم', pending: 'إرسال قيد التحقق' })[m.last_delivery_status] || 'لا توجد رسالة مسجلة';
+  const schedule = m.enabled ? `مفعّلة · الموعد التالي: ${next}` : 'غير مفعّلة لهذه المكتبة';
+  return `المتابعة اليومية 09:00 بتوقيت مصر: ${schedule} · آخر فحص: ${checked} · آخر تنبيه مسجل: ${delivery} (قد يخص فحصًا سابقًا؛ ليس نتيجة آخر فحص بالضرورة). جميع الأوقات بتوقيت مصر. لا تنفيذ حذف أو تغييرات حساسة عبر Telegram.`;
+}
 function translateError(error) {
   const text = errorText(error);
   if (/401|403|auth|permission|unauthori|forbidden/.test(text)) return 'لا تملك صلاحية تنفيذ هذا الإجراء.';
@@ -150,10 +162,7 @@ export function initializeAdminAgent({ getClient, getContext, getModel } = {}) {
       const { data, error } = await getClient().rpc('admin_agent_monitor_status', { p_library_id: currentContext().libraryId });
       if (error) throw error;
       if (stale(token)) return;
-      const m = data || {};
-      const checked = m.last_checked_at ? new Date(m.last_checked_at).toLocaleString('ar-EG') : 'لم يبدأ الفحص الدوري بعد';
-      const delivery = ({ sent: 'تم التسليم', failed: 'تعذّر تأكيد التسليم', pending: 'إرسال قيد التحقق' })[m.last_delivery_status] || 'لا توجد رسالة بعد';
-      monitorNode.textContent = `المتابعة اليومية 09:00 بتوقيت مصر: ${m.enabled ? 'مفعّلة' : 'غير مفعّلة لهذه المكتبة'} · آخر فحص: ${checked} · التنبيه: ${delivery}. لا تنفيذ حذف أو تغييرات حساسة عبر Telegram.`;
+      monitorNode.textContent = formatMonitorStatus(data || {});
     } catch {
       if (!stale(token)) monitorNode.textContent = 'تعذّر قراءة حالة المتابعة الخادمية الآن. لا يُعد ذلك تأكيدًا لتشغيلها أو وصول رسالة.';
     }
