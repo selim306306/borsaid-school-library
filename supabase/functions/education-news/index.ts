@@ -1,5 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { XMLParser, XMLValidator } from "npm:fast-xml-parser@4.5.4";
+import { XMLParser, XMLValidator } from "npm:fast-xml-parser@4.5.5";
 
 const ALLOWED_ORIGINS = new Set(["https://selim306306.github.io"]);
 const MAX_RESPONSE_BYTES = 2_000_000;
