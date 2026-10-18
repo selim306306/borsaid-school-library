@@ -4,9 +4,11 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, relative, extname } from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { buildStyles } from './build-styles.mjs';
 
 export function versionAssets(root, { check = false } = {}) {
   root = resolve(root);
+  const bundled = buildStyles(root, { check });
   const sources = readdirSync(root).filter(name => /\.(?:js|mjs|css|html)$/.test(name) && !name.endsWith('.test.mjs'));
   const planned = new Map();
   const visiting = new Set();
@@ -47,7 +49,7 @@ export function versionAssets(root, { check = false } = {}) {
     return text;
   }
   for (const source of sources) transform(resolve(root, source));
-  const changed = [];
+  const changed = [...bundled];
   for (const [file, content] of planned) {
     if (readFileSync(file, 'utf8') !== content) {
       changed.push(relative(root, file));

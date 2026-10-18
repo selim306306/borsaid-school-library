@@ -12,7 +12,9 @@ test('presidential portrait is shared outside SPA panels and keeps the requested
  assert.match(header,/alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية"/);
  assert.match(header,/width="480" height="360" loading="eager"/);
  assert.match(header,/srcset="president-240.webp 240w, president-480.webp 480w"/);
- assert.ok(html.indexOf('president-banner.css')>html.indexOf('visual-polish.css'));
+ const sources=JSON.parse(readFileSync(new URL('./scripts/stylesheets.json',import.meta.url),'utf8'));
+ assert.ok(sources.indexOf('president-banner.css')>sources.indexOf('visual-polish.css'));
+ assert.ok(readFileSync(new URL('./site-bundle.css',import.meta.url),'utf8').includes(css));
 });
 test('portrait stays in flow, uses the left RTL grid area and preserves the full frame',()=>{
  assert.match(css,/grid-template-areas:"brand photo president"/);

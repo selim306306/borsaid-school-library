@@ -1,4 +1,5 @@
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
+import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=3ee1aa50144d7c9a';
 
 function readable(book) { return book?.availability !== 'catalog-only' && Boolean(book?.reader || book?.pdf); }
@@ -28,9 +29,7 @@ export async function refreshHeaderReadingSummary({ documentRef = globalThis.doc
   const status = root.querySelector('[data-reading-status]');
   try {
     const urls = ['external-reading-books.json', 'external-catalog-records.json'].map(name => new URL(name, import.meta.url));
-    const responses = await Promise.all(urls.map(url => fetchImpl(url, { credentials: 'same-origin', cache: 'no-store' })));
-    if (responses.some(response => !response.ok)) throw new Error('reading_source_unavailable');
-    const [readingRaw, catalogRaw] = await Promise.all(responses.map(response => response.json()));
+    const [readingRaw, catalogRaw] = await Promise.all(urls.map(url => fetchSharedPublicReadingJson(url, fetchImpl)));
     const externalBooks = sanitizeBooks(readingRaw); const catalog = sanitizeBooks(catalogRaw);
     if (!externalBooks.length || externalBooks.length !== readingRaw.length || catalog.length !== catalogRaw.length) throw new Error('reading_source_invalid');
     const totals = countIndexedMaterials([], [...PUBLIC_READABLE_BOOKS, ...externalBooks], catalog);

@@ -1,4 +1,5 @@
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
+import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 import { sanitizeBooks } from './external-reading-model.mjs?v=3ee1aa50144d7c9a';
 
 const DATA_URL = 'external-reading-books.json';
@@ -27,9 +28,7 @@ export function buildTickerItems(externalBooks = []) {
 
 export async function loadExternalBooks(fetchImpl = globalThis.fetch, currentOrigin = globalThis.location?.origin) {
   if (typeof fetchImpl !== 'function') throw new Error('fetch غير متاح');
-  const response = await fetchImpl(DATA_URL, { credentials: 'same-origin', cache: 'no-store' });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const data = await response.json();
+  const data = await fetchSharedPublicReadingJson(DATA_URL, fetchImpl);
   const books = sanitizeBooks(data, { currentOrigin });
   if (!books.length) throw new Error('لا توجد بيانات خارجية صالحة');
   return books;

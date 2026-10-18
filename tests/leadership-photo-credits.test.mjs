@@ -31,5 +31,7 @@ test('credits retain a touch target, visible keyboard focus and wrapping', () =>
   assert.match(css, /\.leadership-photo-credits summary\{[^}]*min-height:44px/s);
   assert.match(css, /\.leadership-photo-credits summary:focus-visible\{[^}]*outline:2px solid/s);
   assert.match(css, /\.leadership-credits-list\{[^}]*overflow-wrap:anywhere/s);
-  assert.match(html, /visual-polish\.css\?v=[a-f0-9]{16}/);
+  assert.match(html, /site-bundle\.css\?v=[a-f0-9]{16}/);
+  const bundle = readFileSync(new URL('../site-bundle.css', import.meta.url), 'utf8');
+  assert.ok(bundle.includes(css));
 });
