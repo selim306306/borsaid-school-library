@@ -1,0 +1,82 @@
+name: Sync media bootstrap
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: sync-media-bootstrap-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  sync:
+    if: github.repository == 'selim306306/borsaid-school-library' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout freshest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Switch to latest main with fast-forward only
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = selim306306/borsaid-school-library
+          test "$GITHUB_REF" = refs/heads/main
+          git fetch --prune origin main
+          git switch --force-create sync-work origin/main
+          git merge --ff-only origin/main
+      - name: Set up Python Pillow
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check --no-input Pillow
+      - name: Sync and validate
+        run: node scripts/sync-media-bootstrap.mjs
+      - name: Version, check, and test
+        run: |
+          set -euo pipefail
+          node scripts/version-assets.mjs
+          node scripts/version-assets.mjs --check
+          node --test tests/media-bootstrap*.test.mjs
+      - name: Commit only approved generated files
+        id: commit
+        run: |
+          set -euo pipefail
+          allowed='^(index\.html|assets/(header-feature-image-initial-[0-9a-f]+\.webp|site-mark-initial-[0-9a-f]+\.webp|media-bootstrap\.json)|site-media-config\.js|site-media-public\.js)$'
+          git status --short
+          git reset
+          git add -- index.html assets/media-bootstrap.json
+          git add -- site-media-config.js site-media-public.js
+          while IFS= read -r file; do git add -- "assets/$file"; done < <(find assets -maxdepth 1 -type f -regextype posix-extended -printf '%f\n' | grep -E '^(header-feature-image|site-mark)-initial-[0-9a-f]+\.webp$' || true)
+          bad=$(git diff --cached --name-only | grep -Ev "$allowed" || true)
+          test -z "$bad" || { echo "Disallowed staged files:"; echo "$bad"; exit 1; }
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          if git diff --cached --quiet; then echo changed=false >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -m 'Sync Supabase media bootstrap'
+          git fetch --prune origin main
+          git merge --ff-only origin/main
+          git push origin HEAD:main
+          echo changed=true >> "$GITHUB_OUTPUT"
+      - name: Request Pages build with finite retry
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            code=$(curl --silent --show-error --connect-timeout 10 --max-time 25 --output /tmp/pages-build.json --write-out '%{http_code}' \
+              -X POST -H "Authorization: Bearer $GITHUB_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds") || code=000
+            if [ "$code" = 201 ] || [ "$code" = 202 ]; then exit 0; fi
+            echo "Pages build request failed (attempt $attempt, HTTP $code)" >&2
+            sleep $((attempt * 5))
+          done
+          cat /tmp/pages-build.json >&2
+          exit 1

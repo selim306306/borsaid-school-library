@@ -1,0 +1,16 @@
+{
+  "header-feature-image": {
+    "source": "supabase",
+    "path": "media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg",
+    "id": "e6ae3e3a-53a9-422e-bda3-bf615a82d482",
+    "version": "2026-10-15T20:52:59.39+00:00",
+    "hash": "ffd841114ce7dbe17d6017d44fb644b7b0fa8e3d7e1ec621704d4b4efcaeb157"
+  },
+  "site-mark": {
+    "source": "supabase",
+    "path": "media/site-mark/7e0a385e-61e0-4d9f-abd3-0489f676ea88.png",
+    "id": "354977c3-87df-4681-9eac-fdc1011f67d8",
+    "version": "2026-10-17T22:35:10.32+00:00",
+    "hash": "f16baa04509ec8b9750f30d68c6dd4a6daa9cca39c12607b72382b9a4d3f1386"
+  }
+}

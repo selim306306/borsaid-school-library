@@ -1246,6 +1246,33 @@ const SITE_MEDIA_ASSET_COLUMNS = 'id,media_key,storage_path,original_file_name,m
 const HEADER_GALLERY_SLOT_PATTERN = /^header-feature-image-(?:[6-9]|1[0-9]|2[0-5])$/;
 const HEADER_GALLERY_MAX_PHOTOS = 25;
 let siteMediaLoadGeneration = 0;
+async function requestMediaBootstrapSync(mediaKey) {
+  if (!['header-feature-image', 'site-mark'].includes(mediaKey) || !hasSiteFooterOwnership()) return null;
+  try {
+    const { data, error } = await supabase.functions.invoke('sync-media-bootstrap', { body: { media_key: mediaKey } });
+    return !error && data?.accepted === true;
+  } catch { return false; }
+}
+function showMediaBootstrapSyncResult(mediaKey, accepted) {
+  $('#retryMediaBootstrapSync')?.remove();
+  if (accepted === null) return;
+  if (accepted) {
+    setSiteMediaManagerStatus('حُفظت الصورة وأُرسل طلب تحديث صورة البداية. يكتمل البناء أولًا، وقد يحتفظ Pages بصفحة قديمة حتى ١٠ دقائق بعد النشر.');
+  } else {
+    setSiteMediaManagerStatus('حُفظت الصورة، لكن تعذّر إرسال طلب تحديث صورة البداية؛ أعد المحاولة دون إعادة رفع الصورة.', 'error');
+  }
+  const retry = document.createElement('button');
+  retry.id = 'retryMediaBootstrapSync';
+  retry.type = 'button';
+  retry.className = 'button button-secondary';
+  retry.textContent = accepted ? 'إعادة الطلب عند تعثّر البناء' : 'إعادة طلب تحديث صورة البداية';
+  retry.addEventListener('click', async () => {
+    retry.disabled = true;
+    const result = await requestMediaBootstrapSync(mediaKey);
+    showMediaBootstrapSyncResult(mediaKey, result);
+  });
+  $('#siteMediaManagerStatus')?.after(retry);
+}
 function setSiteMediaManagerStatus(text, kind = '') {
   const status = $('#siteMediaManagerStatus');
   if (!status) return;
@@ -1572,6 +1599,8 @@ function createSiteMediaCard(item, slot, currentAsset, mediaAssets, currentUrl) 
       await loadSiteMediaManager({ statusText: choiceValue === '__default__' && !newFile
         ? `عاد ${item.title} إلى الأصل الافتراضي؛ الملف السابق محفوظ ويمكن اختياره مجدداً.`
         : `تم حفظ ${item.title} وتحديث معاينته للزوار.` });
+      const bootstrapSyncAccepted = await requestMediaBootstrapSync(item.key);
+      showMediaBootstrapSyncResult(item.key, bootstrapSyncAccepted);
     } catch (error) {
       status.textContent = error.message || 'تعذّر الحفظ؛ الصورة القديمة ما زالت هي المعروضة للزوار.';
       status.className = 'site-media-status error';
