@@ -197,13 +197,13 @@ test('الأخبار المصورة مدمجة بثلاثة أعمدة وصور�
 test('الرئيسية تستبعد التعليم العام مع حفظه في الأرشيف ولا تختلق يوم نشر للمصدر الشهري', async () => {
   const nodes = await runNews({ items: [
     item('general', 0, {scope: undefined}),
-    item('library', 1, {published_at: '2026-10', date_precision: 'month', image_url: 'https://site.test/news.svg', image_alt: 'رسم أصلي', image_credit: 'ليس صورة للحدث', image_license: 'CC0 1.0', image_license_url: 'https://creativecommons.org/publicdomain/zero/1.0/'}),
+    item('library', 1, {published_at: '2026-10', date_precision: 'month', image_url: 'https://site.test/news.svg', image_alt: 'صورة من مصدر الخبر', image_credit: 'الصورة: المصدر الأصلي', image_license: 'CC BY 4.0', image_license_url: 'https://creativecommons.org/licenses/by/4.0/'}),
   ] });
   assert.equal(nodes.homeNewsGrid.children.length, 1);
   assert.equal(nodes.educationNewsGrid.children.length, 2);
   const card = nodes.homeNewsGrid.children[0];
   assert.equal(card.querySelector('.news-card-title').textContent, 'عنوان library');
-  assert.equal(card.querySelector('.news-card-image').alt, 'رسم أصلي');
-  assert.match(card.querySelector('.news-image-credit').textContent, /ليس صورة للحدث/);
+  assert.equal(card.querySelector('.news-card-image').alt, 'صورة من مصدر الخبر');
+  assert.match(card.querySelector('.news-image-credit').textContent, /الصورة: المصدر الأصلي/);
   assert.equal(card.querySelector('time').textContent, new Intl.DateTimeFormat('ar-EG', {year:'numeric', month:'short', timeZone:'Africa/Cairo'}).format(new Date('2026-10')));
 });

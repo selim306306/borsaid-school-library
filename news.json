@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T21:14:26+03:00",
+  "updated_at": "2026-10-18T21:15:45+03:00",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -13,13 +13,8 @@
       "category": "مكتبات مدرسية · القراءة والذكاء الاصطناعي",
       "published_at": "2026-10",
       "date_precision": "month",
-      "image_alt": "رسم توضيحي أصلي: كتاب مفتوح وروابط رقمية ترمز للقراءة والذكاء الاصطناعي",
       "source_language": "en",
-      "scope": "school-library",
-      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-month.svg",
-      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
-      "image_license": "CC0 1.0",
-      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "scope": "school-library"
     },
     {
       "id": "ifla-school-libraries-climate-mil-2026-09-27",
@@ -29,13 +24,8 @@
       "source_url": "https://www.ifla.org/news/call-for-presentation-ifla-ils-sls-global-mil-week-webinar-2026/",
       "category": "مكتبات مدرسية · الوعي المعلوماتي · تطوير مهني",
       "published_at": "2026-09-27",
-      "image_alt": "رسم توضيحي أصلي: كتاب وعدسة تحقق وورقة نبات ترمز للوعي المعلوماتي والمناخي",
       "source_language": "en",
-      "scope": "school-library",
-      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-climate.svg",
-      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
-      "image_license": "CC0 1.0",
-      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "scope": "school-library"
     },
     {
       "id": "aasl-standards-portal-relaunch-2026-09-23",
@@ -45,13 +35,8 @@
       "source_url": "https://www.ala.org/news/2026/09/aasl-announces-relaunch-aasl-standards-web-portal",
       "category": "مكتبات مدرسية · معايير مهنية · مصادر تعلّم",
       "published_at": "2026-09-23",
-      "image_alt": "رسم توضيحي أصلي: شاشة تعرض قوائم موارد ومعايير للمكتبات المدرسية",
       "source_language": "en",
-      "scope": "school-library",
-      "image_url": "https://selim306306.github.io/borsaid-school-library/assets/news/school-library-standards.svg",
-      "image_credit": "رسم توضيحي أصلي للمكتبة المدرسية الرقمية — ليس صورة للحدث",
-      "image_license": "CC0 1.0",
-      "image_license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "scope": "school-library"
     },
     {
       "id": "unesco-2026-10-17-southern-africa-living-heritage-education",
@@ -229,5 +214,5 @@
     }
   ],
   "editorial_scope": "school-libraries",
-  "editorial_policy_ar": "الأخبار الجديدة تخص علم المكتبات المدرسية وأخصائييها وخدمات القراءة ومصادر التعلم المرتبطة بها مباشرة. لا تُحذف مواد الأرشيف السابقة. تحتاج أخبار الرئيسية إلى scope: school-library وصورة موثقة الحقوق."
+  "editorial_policy_ar": "الأخبار الجديدة تخص علم المكتبات المدرسية مباشرة. لا تحذف مواد الأرشيف. الصور من الخبر الأصلي نفسه فقط بترخيص صريح وإسناد؛ لا رسوم عامة، ويترك الخبر بلا صورة عند تعذر الترخيص."
 }

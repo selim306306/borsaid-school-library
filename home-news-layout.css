@@ -105,7 +105,7 @@
 /* Override the legacy one-story strip, which hid the update timestamp. */
 #homeNews .home-news-meta .news-updated { display: block; }
 
-/* News images: source photos or clearly labelled original editorial illustrations. */
+/* News images: source-published photos only; rights checked before adding new images. */
 .live-news-card .news-card-image-wrap {
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -156,7 +156,7 @@
   .live-news-card .news-card-image-wrap { margin-bottom: 10px; }
 }
 
-/* Visible rights for original illustrations, including compact phone cards. */
+/* Visible rights for source photographs, including compact phone cards. */
 .live-news-card .news-image-credit { display: block; grid-column: 1 / -1; margin: 2px 0 8px; color: #526473; font-size: 10px; line-height: 1.7; overflow-wrap: anywhere; }
 .live-news-card .news-image-license { color: #205b4d; text-decoration: underline; }
 .live-news-card:has(.news-image-credit) .news-card-image { object-fit: contain; }
