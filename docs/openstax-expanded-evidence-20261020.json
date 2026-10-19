@@ -1,0 +1,2086 @@
+{
+  "sourcePolicy": "عناوين OpenStax الجديدة فقط غير ملف 19 وclone؛ فحص API الرسمي؛ لا PDF ولا نص كتاب نُزّل.",
+  "checkedAt": "2026-10-20",
+  "officialCatalog": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+  "licensePage": "https://openstax.org/license",
+  "recordsCount": 38,
+  "records": [
+    {
+      "id": "openstax-expanded-verified-20261020-additive-manufacturing-essentials",
+      "title": "Additive Manufacturing Essentials",
+      "officialDetailsUrl": "https://openstax.org/details/books/additive-manufacturing-essentials",
+      "officialReaderUrl": "https://openstax.org/books/additive-manufacturing-essentials/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/873/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Additive Manufacturing Essentials  is an introduction to the core principles, technologies, and methods in the field of additive manufacturing. Rooted in industry practice and innovation, the material presents examples and approaches from an array of companies, equipment producers, and software developers. The book is designed to support readers from an array of fields and areas of study, including engineering, science, management, operations, entrepreneurship, and education. With a focus on und",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-algebra-1",
+      "title": "Algebra 1",
+      "officialDetailsUrl": "https://openstax.org/details/books/algebra-1",
+      "officialReaderUrl": "https://openstax.org/books/algebra-1/pages/quick-start",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/867/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "ثانوي متقدم/مرجع علمي — Algebra 1  is a complete high school algebra curriculum that is 100% aligned with the Texas Essential Knowledge and Skills (TEKS) and the English Language Proficiency Standards (ELPS). OpenStax  Algebra 1  is a high-quality instructional material (HQIM) that is flexible enough for core adoption and adaptable enough to support a wide range of teaching strategies and student needs.  Algebra 1  is a research-backed curriculum designed to strengthen teaching and learning in all classrooms.  The Open",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-algebra-and-trigonometry-2e",
+      "title": "Algebra and Trigonometry 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/algebra-and-trigonometry-2e",
+      "officialReaderUrl": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/1-introduction-to-prerequisites",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/553/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Algebra and Trigonometry 2e  provides a comprehensive exploration of mathematical principles and meets scope and sequence requirements for a typical introductory algebra and trigonometry course. The modular approach and the richness of content ensure that the book addresses the needs of a variety of courses.  Algebra and Trigonometry   2e  offers a wealth of examples with detailed, conceptual explanations, building a strong foundation in the material before asking students to apply what they’ve ",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-american-government-4e",
+      "title": "American Government 4e",
+      "officialDetailsUrl": "https://openstax.org/details/books/american-government-4e",
+      "officialReaderUrl": "https://openstax.org/books/american-government-4e/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/931/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — American Government 4e  aligns with the topics and objectives of many government courses. The authors have worked to develop meaningful and memorable explanations, narratives, and examples regarding the actions, workings, and outputs of government. The offering focuses on the real-world impact of government, and presents the importance and benefits of civic engagement by students.  This book follows a logical progression from the fundamental principles of institutional design at the founding, to",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-college-algebra-2e",
+      "title": "College Algebra 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-algebra-2e",
+      "officialReaderUrl": "https://openstax.org/books/college-algebra-2e/pages/1-introduction-to-prerequisites",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/550/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — College Algebra 2e  provides a comprehensive exploration of algebraic principles and meets scope and sequence requirements for a typical introductory algebra course. The modular approach and richness of content ensure that the book addresses the needs of a variety of courses.  College Algebra   2e  offers a wealth of examples with detailed, conceptual explanations, building a strong foundation in the material before asking students to apply what they’ve learned.    The  College Algebra 2e  revis",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-college-algebra-corequisite-support-2e",
+      "title": "College Algebra 2e with Corequisite Support",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-algebra-corequisite-support-2e",
+      "officialReaderUrl": "https://openstax.org/books/college-algebra-corequisite-support-2e/pages/1-introduction-to-prerequisites",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/554/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — College Algebra 2e with Corequisite Support  integrates comprehensive algebraic principles with effective foundational review. Each textbook section is paired with a thoughtfully developed, topically aligned skills module that prepares students for the course material. The modules include conceptual overviews, worked examples, and guided practice; they incorporate relevant material from OpenStax’s Developmental Math series.   To offer the most flexibility as possible, the material within  Colleg",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-college-physics-2e",
+      "title": "College Physics 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-physics-2e",
+      "officialReaderUrl": "https://openstax.org/books/college-physics-2e/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/603/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "ثانوي متقدم/مرجع علمي — College Physics 2e  introduces topics conceptually and progresses through clear explanations in the context of career-oriented, practical applications, and meets the scope and sequence of an algebra-based physics course. The narrative of physics and scientific discovery has been even further expanded to focus on including more diverse contributors to the field. Building on the success of the first edition the authors have increased focus on interdisciplinary connections, including enhancements t",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-college-physics-ap-courses-2e",
+      "title": "College Physics For AP® Courses 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-physics-ap-courses-2e",
+      "officialReaderUrl": "https://openstax.org/books/college-physics-ap-courses-2e/pages/1-connection-for-ap-r-courses",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/604/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "ثانوي متقدم/إعداد AP — College Physics for AP® Courses 2e  is designed to engage students in their exploration of physics and help them apply these concepts to the Advanced Placement® test. Because physics is integral to modern technology and other sciences, the book also includes content that goes beyond the scope of the AP® course to further student understanding. The AP® Connection in each chapter directs students to the material they should focus on for the AP® exam, and what content — although interesting — is no",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-contemporary-mathematics",
+      "title": "Contemporary Mathematics",
+      "officialDetailsUrl": "https://openstax.org/details/books/contemporary-mathematics",
+      "officialReaderUrl": "https://openstax.org/books/contemporary-mathematics/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/689/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Contemporary Mathematics  is designed to meet the scope and sequence requirements for a liberal arts mathematics course. This resource provides stand-alone sections with a focus on showing relevance in the features as well as the examples, exercises, and exposition.  Contemporary Mathematics  integrates technology applications, projects, and highlights a diverse group of contributors to mathematics, statistics, and related fields.",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-foundations-information-systems",
+      "title": "Foundations of Information Systems",
+      "officialDetailsUrl": "https://openstax.org/details/books/foundations-information-systems",
+      "officialReaderUrl": "https://openstax.org/books/foundations-information-systems/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/870/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Foundations of Information Systems  aligns to the topics and objectives of most introductory information systems courses in computer science and information technology, as well as in other subject areas such as health and business information systems. The offering helps students understand foundational concepts including hardware, software, database management systems, and data networks. The instruction is based on the ACM/IEEE/AIS curriculum standards for information systems (IS2020) that allow",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-anthropology",
+      "title": "Introduction to Anthropology",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-anthropology",
+      "officialReaderUrl": "https://openstax.org/books/introduction-anthropology/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/573/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Designed to meet the scope and sequence of your course, OpenStax  Introduction to Anthropology  is a four-field text integrating diverse voices, engaging field activities, and meaningful themes like Indigenous experiences and social inequality to engage students and enrich learning. The text showcases the historical context of the discipline, with a strong focus on anthropology as a living and evolving field.  There is significant discussion of recent efforts to make the field more diverse—in it",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-behavioral-neuroscience",
+      "title": "Introduction to Behavioral Neuroscience",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-behavioral-neuroscience",
+      "officialReaderUrl": "https://openstax.org/books/introduction-behavioral-neuroscience/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/844/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Introduction to Behavioral Neuroscience  aligns to the topics and objectives of introductory behavioral neuroscience courses taught in psychology, biology, neuroscience, and similar departments. This offering is intended for undergraduates with no presumed college-level science coursework, and presents the foundational principles of brain-behavior-environment interactions.  In  Introduction to Behavioral Neuroscience , students will begin to understand how the physiology of the nervous system an",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-computer-science",
+      "title": "Introduction to Computer Science",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-computer-science",
+      "officialReaderUrl": "https://openstax.org/books/introduction-computer-science/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/847/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Introduction to Computer Science  provides a comprehensive foundation in core computer science concepts and principles, aligning with the scope and sequence of most introductory computer science courses. The offering serves as an engaging entry point for students pursuing diverse fields of study and employment, including computer science, business, engineering, data science, social sciences, and related disciplines. By addressing a broad learner audience—ranging from computer science majors to n",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-philosophy",
+      "title": "Introduction to Philosophy",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-philosophy",
+      "officialReaderUrl": "https://openstax.org/books/introduction-philosophy/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/601/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Designed to meet the scope and sequence of your course,  Introduction to Philosophy  surveys logic, metaphysics, epistemology, theories of value, and history of philosophy thematically. To provide a strong foundation in global philosophical discourse, diverse primary sources and examples are central to the design, and the text emphasizes engaged reading, critical thinking, research, and analytical skill-building through guided activities.",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-political-science",
+      "title": "Introduction to Political Science",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-political-science",
+      "officialReaderUrl": "https://openstax.org/books/introduction-political-science/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/598/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Designed to meet the scope and sequence of your course, OpenStax  Introduction to Political Science  provides a strong foundation in global political systems, exploring  how  and  why  political realities unfold. Rich with examples of individual and national social action, this text emphasizes students’ role in the political sphere and equips them to be active and informed participants in civil society. Learn more about what this free,  openly-licensed  textbook has to offer you and your student",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-python-programming",
+      "title": "Introduction to Python Programming",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-python-programming",
+      "officialReaderUrl": "https://openstax.org/books/introduction-python-programming/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/775/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Introduction to Python Programming  provides a comprehensive foundation in programming concepts and skills, and it is aligned to the scope of most introductory courses. A wide array of scenarios, contexts, and problems reflect programming applications in many disciplines and careers. The offering is suitable for a diverse learner audience, including those pursuing computer science, business, science, social science, statistics, data science, and related areas of study and employment.   Introduct",
+      "licenseEvidence": "Introduction to Python Programming  by OpenStax is licensed under Creative Commons Attribution-NonCommercial-ShareAlike License v4.0.  This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved.",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introduction-sociology-3e",
+      "title": "Introduction to Sociology 3e",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-sociology-3e",
+      "officialReaderUrl": "https://openstax.org/books/introduction-sociology-3e/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/515/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Introduction to Sociology 3e  aligns to the topics and objectives of many introductory sociology courses. It is arranged in a manner that provides foundational sociological theories and contexts, then progresses through various aspects of human and societal interactions. The new edition is focused on driving meaningful and memorable learning experiences related to critical thinking about society and culture. The text includes comprehensive coverage of core concepts, discussions and data relevant",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-lifespan-development",
+      "title": "Lifespan Development",
+      "officialDetailsUrl": "https://openstax.org/details/books/lifespan-development",
+      "officialReaderUrl": "https://openstax.org/books/lifespan-development/pages/1-what-does-psychology-say",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/834/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Lifespan Development  aligns to the topics and objectives of most introductory developmental psychology courses taught across departments. Grounded in foundational theories and scientific research, the text teaches students about core aspects of human development—physical, cognitive, social, emotional—across the lifespan. A primary goal of the book is to incorporate content, scholarship, and activities that explore a variety of perspectives that encourage all students to feel seen and included. ",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-organic-chemistry",
+      "title": "Organic Chemistry: A Tenth Edition",
+      "officialDetailsUrl": "https://openstax.org/details/books/organic-chemistry",
+      "officialReaderUrl": "https://openstax.org/books/organic-chemistry/pages/dedication-and-preface",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/707/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — John McMurry's   Organic Chemistry   is renowned as the most clearly written book available for organic chemistry. In John McMurry's words, \"I wrote this book because I love writing. I get great pleasure and satisfaction from taking a complicated subject, turning it around until I see it clearly from a new angle, and then explaining it in simple words.\" In   Organic Chemistry: A Tenth Edition   from OpenStax, McMurry continues this tradition while updating scientific discoveries, highlighting ne",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-precalculus-2e",
+      "title": "Precalculus 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/precalculus-2e",
+      "officialReaderUrl": "https://openstax.org/books/precalculus-2e/pages/1-introduction-to-functions",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/551/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Precalculus 2e  provides a comprehensive exploration of mathematical principles and meets scope and sequence requirements for a typical precalculus course. The text proceeds from functions through trigonometry and ends with an introduction to calculus. The modular approach and the richness of content ensure that the book addresses the needs of a variety of courses.  Precalculus 2e  offers a wealth of examples with detailed, conceptual explanations, building a strong foundation in the material be",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-principles-economics-3e",
+      "title": "Principles of Economics 3e",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-economics-3e",
+      "officialReaderUrl": "https://openstax.org/books/principles-economics-3e/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/620/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Principles of Economics 3e  covers the scope and sequence of most introductory economics courses. The third edition takes a balanced approach to the theory and application of economics concepts. The text uses conversational language and ample illustrations to explore economic theories, and provides a wide array of examples using both fictional and real-world scenarios. The third edition has been carefully and thoroughly updated to reflect current data and understanding, as well as to provide a d",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-principles-macroeconomics-3e",
+      "title": "Principles of Macroeconomics 3e",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-macroeconomics-3e",
+      "officialReaderUrl": "https://openstax.org/books/principles-macroeconomics-3e/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/622/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Principles of Macroeconomics 3e  covers the scope and sequence of most one semester introductory macroeconomics courses. The third edition takes a balanced approach to the theory and application of macroeconomics concepts. The text uses conversational language and ample illustrations to explore economic theories, and provides a wide array of examples using both fictional and real-world scenarios. The third edition has been carefully and thoroughly updated to reflect current data and understandin",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-principles-microeconomics-3e",
+      "title": "Principles of Microeconomics 3e",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-microeconomics-3e",
+      "officialReaderUrl": "https://openstax.org/books/principles-microeconomics-3e/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/621/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Principles of Microeconomics 3e  covers the scope and sequence of most one semester introductory microeconomics courses. The third edition takes a balanced approach to the theory and application of microeconomics concepts. The text uses conversational language and ample illustrations to explore economic theories, and provides a wide array of examples using both fictional and real-world applications. The third edition has been carefully and thoroughly updated to reflect recent developments, as we",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-statistics",
+      "title": "Statistics",
+      "officialDetailsUrl": "https://openstax.org/details/books/statistics",
+      "officialReaderUrl": "https://openstax.org/books/statistics/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/413/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — This  Statistics  resource was developed under the guidance and support of experienced high school teachers and subject matter experts. It is presented here in multiple formats: PDF, online, and low-cost print.  Statistics  offers instruction in grade-level appropriate concepts and skills in a logical, engaging progression that begins with sampling and data and covers topics such as probability, random variables, the normal distribution, and hypothesis testing. This content was developed with st",
+      "licenseEvidence": "by Texas Education Agency (TEA) is licensed under Creative Commons Attribution License v4.0",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-world-history-volume-1",
+      "title": "World History, Volume 1: to 1500",
+      "officialDetailsUrl": "https://openstax.org/details/books/world-history-volume-1",
+      "officialReaderUrl": "https://openstax.org/books/world-history-volume-1/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/690/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — World History, Volume 1: to 1500  is designed to meet the scope and sequence of a world history course to 1500 offered at both two-year and four-year institutions. Suitable for both majors and non majors  World History, Volume 1: to 1500  introduces students to a global perspective of history couched in an engaging narrative. Concepts and assessments help students think critically about the issues they encounter so they can broaden their perspective of global history. A special effort has been m",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-workplace-software-skills",
+      "title": "Workplace Software and Skills",
+      "officialDetailsUrl": "https://openstax.org/details/books/workplace-software-skills",
+      "officialReaderUrl": "https://openstax.org/books/workplace-software-skills/pages/1-chapter-scenario",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/745/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — Workplace Software and Skills  is designed to flexibly support a range of courses covering computer literacy, Microsoft Office, and Google Suite applications. The textbook covers both hard and soft skills that are applicable to a broad range of academic majors and careers. Chapters combine studio learning and guided practice with scaffolded activities designed to reinforce a student’s ability to perform higher-order tasks independently.  Workplace Software and Skills  leverages complementary pro",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-world-history-volume-2",
+      "title": "World History, Volume 2: from 1400",
+      "officialDetailsUrl": "https://openstax.org/details/books/world-history-volume-2",
+      "officialReaderUrl": "https://openstax.org/books/world-history-volume-2/pages/1-introduction",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/623/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي — World History, Volume 2: from 1400  is designed to meet the scope and sequence of a world history course from 1400 offered at both two-year and four-year institutions. Suitable for both majors and non majors  World History, Volume 2: from 1400  introduces students to a global perspective of history couched in an engaging narrative. Concepts and assessments help students think critically about the issues they encounter so they can broaden their perspective of global history. A special effort has ",
+      "licenseEvidence": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-c-lculo-volumen-1",
+      "title": "Cálculo volumen 1",
+      "officialDetailsUrl": "https://openstax.org/details/books/cálculo-volumen-1",
+      "officialReaderUrl": "https://openstax.org/books/c%C3%A1lculo-volumen-1/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/578/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Cálculo  está diseñado para el curso típico de cálculo general de dos o tres semestres, e incorpora características innovadoras que refuerzan el aprendizaje. El libro guía a los estudiantes a través de los conceptos básicos del cálculo y los ayuda a comprender cómo se aplican a sus vidas y al mundo que los rodea. Debido a la naturaleza integral del material, ofrecemos el libro en tres volúmenes para mayor flexibilidad y eficiencia. El volumen 1 abarca las funciones, los límites, las derivadas y ",
+      "licenseEvidence": "CC BY NC SA",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-c-lculo-volumen-2",
+      "title": "Cálculo volumen 2",
+      "officialDetailsUrl": "https://openstax.org/details/books/cálculo-volumen-2",
+      "officialReaderUrl": "https://openstax.org/books/c%C3%A1lculo-volumen-2/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/579/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Cálculo  está diseñado para el curso típico de cálculo general de dos o tres semestres, e incorpora características innovadoras que refuerzan el aprendizaje. El libro guía a los estudiantes a través de los conceptos básicos del cálculo y los ayuda a comprender cómo se aplican a sus vidas y al mundo que los rodea. Debido a la naturaleza integral del material, ofrecemos el libro en tres volúmenes para mayor flexibilidad y eficiencia. El volumen 2 abarca la integración, la ecuación diferencial, las",
+      "licenseEvidence": "OpenStax license",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-c-lculo-volumen-3",
+      "title": "Cálculo volumen 3",
+      "officialDetailsUrl": "https://openstax.org/details/books/cálculo-volumen-3",
+      "officialReaderUrl": "https://openstax.org/books/c%C3%A1lculo-volumen-3/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/580/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Cálculo  está diseñado para el curso típico de cálculo general de dos o tres semestres, e incorpora características innovadoras que refuerzan el aprendizaje. El libro guía a los estudiantes a través de los conceptos básicos del cálculo y los ayuda a comprender cómo se aplican a sus vidas y al mundo que los rodea. Debido a la naturaleza integral del material, ofrecemos el libro en tres volúmenes para mayor flexibilidad y eficiencia. El volumen 3 abarca las ecuaciones paramétricas y las coordenada",
+      "licenseEvidence": "OpenStax license",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-1",
+      "title": "Física universitaria volumen 1",
+      "officialDetailsUrl": "https://openstax.org/details/books/física-universitaria-volumen-1",
+      "officialReaderUrl": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-1/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/534/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Física universitaria  es una colección de tres volúmenes que cumple con los requisitos de alcance y secuencia para los cursos de física de dos y tres semestres con base en el cálculo. El volumen 1 abarca la mecánica, el sonido, las oscilaciones y las ondas.  El volumen 2  abarca la termodinámica, la electricidad y el magnetismo, y  el volumen 3  abarca la óptica y la física moderna. Este libro de texto hace hincapié en la conexión entre la teoría y la práctica, por lo que los conceptos de la fís",
+      "licenseEvidence": "CC BY",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-2",
+      "title": "Física universitaria volumen 2",
+      "officialDetailsUrl": "https://openstax.org/details/books/física-universitaria-volumen-2",
+      "officialReaderUrl": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-2/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/547/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Física universitaria  es una colección de tres volúmenes que cumple con los requisitos de alcance y secuencia para los cursos de física de dos y tres semestres con base en el cálculo.  El volumen 1  abarca la mecánica, el sonido, las oscilaciones y las ondas. El volumen 2 abarca la termodinámica, la electricidad y el magnetismo, y  el volumen 3  abarca la óptica y la física moderna. Este libro de texto hace hincapié en la conexión entre la teoría y la práctica, por lo que los conceptos de la fís",
+      "licenseEvidence": "CC BY",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-3",
+      "title": "Física universitaria volumen 3",
+      "officialDetailsUrl": "https://openstax.org/details/books/física-universitaria-volumen-3",
+      "officialReaderUrl": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-3/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/548/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Física universitaria  es una colección de tres volúmenes que cumple con los requisitos de alcance y secuencia para los cursos de física de dos y tres semestres con base en el cálculo.  El volumen 1  abarca la mecánica, el sonido, las oscilaciones y las ondas.  El volumen 2  abarca la termodinámica, la electricidad y el magnetismo, y el volumen 3 abarca la óptica y la física moderna. Este libro de texto hace hincapié en la conexión entre la teoría y la práctica, por lo que los conceptos de la fís",
+      "licenseEvidence": "CC BY",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introducci-n-estad-stica",
+      "title": "Introducción a la estadística",
+      "officialDetailsUrl": "https://openstax.org/details/books/introducción-estadística",
+      "officialReaderUrl": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/564/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Introducción a la estadística  sigue los requisitos de alcance y secuencia de un curso de introducción a la estadística de un semestre y está dirigido a los estudiantes que se especializan en campos distintos a las matemáticas o la ingeniería. El texto asume cierto conocimiento de álgebra intermedia y se centra en la aplicación de la estadística sobre la teoría.  Introducción a la estadística  incluye aplicaciones prácticas innovadoras que hacen que el texto sea relevante y accesible, así como e",
+      "licenseEvidence": "OpenStax license",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-introducci-n-estad-stica-empresarial",
+      "title": "Introducción a la estadística empresarial",
+      "officialDetailsUrl": "https://openstax.org/details/books/introducción-estadística-empresarial",
+      "officialReaderUrl": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica-empresarial/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/565/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Introducción a la estadística empresarial  está diseñado para cumplir con los requisitos de alcance y secuencia del curso de estadística de un semestre en las carreras de negocios, economía y afines. Los conceptos y conocimientos estadísticos básicos se han ampliado con ejemplos prácticos de negocios, situaciones y ejercicios. El resultado es la comprensión significativa de la disciplina, que servirá a los estudiantes en sus carreras empresariales y en sus experiencias en el mundo real.    Si se",
+      "licenseEvidence": "OpenStax license",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-prec-lculo-2ed",
+      "title": "Precálculo 2ed",
+      "officialDetailsUrl": "https://openstax.org/details/books/precálculo-2ed",
+      "officialReaderUrl": "https://openstax.org/books/prec%C3%A1lculo-2ed/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/597/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Precálculo   2ed  es adaptable y está diseñado para satisfacer las necesidades de diversos cursos de precálculo. Es un texto integral que abarca más temas que un curso típico de precálculo de un semestre. El contenido está organizado por objetivos de aprendizaje claramente definidos e incluye ejemplos prácticos que demuestran enfoques de resolución de problemas de una forma accesible.    Si se encuentra con una pantalla blanca mientras intenta acceder a su libro de texto de Openstax, nuestros de",
+      "licenseEvidence": "OpenStax license",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-qu-mica-2ed",
+      "title": "Química 2ed",
+      "officialDetailsUrl": "https://openstax.org/details/books/química-2ed",
+      "officialReaderUrl": "https://openstax.org/books/qu%C3%ADmica-2ed/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/599/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Química 2ed  está diseñado para cumplir con los requisitos de alcance y secuencia del curso de química general de dos semestres. Este libro de texto brinda una gran oportunidad para que los estudiantes aprendan los conceptos básicos de la química y comprendan cómo se aplican a sus vidas y al mundo que los rodea. El libro incluye una serie de características innovadoras, como ejercicios interactivos y aplicaciones del mundo real, destinadas a reforzar el aprendizaje. La segunda edición fue revisa",
+      "licenseEvidence": "CC BY",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-expanded-verified-20261020-qu-mica-comenzando-tomos-2ed",
+      "title": "Química: Comenzando con los átomos 2ed",
+      "officialDetailsUrl": "https://openstax.org/details/books/química-comenzando-átomos-2ed",
+      "officialReaderUrl": "https://openstax.org/books/qu%C3%ADmica-comenzando-%C3%A1tomos-2ed/pages/1-introduccion",
+      "metadataApiUrl": "https://openstax.org/apps/cms/api/v2/pages/600/",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "locale/اللغة",
+        "الحالة live",
+        "وصف الجمهور/المجال",
+        "الرخصة",
+        "رابط القراءة HTML"
+      ],
+      "audienceEvidence": "مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية — Química: Comenzando con los átomos 2ed  es un libro de texto introductorio, revisado por colegas y con licencia abierta. Es el producto de la alianza editorial entre OpenStax, la Universidad de Connecticut y su Federación de Centros de Estudiantes. Este libro es la adaptación de  Química: Comenzando con los átomos 2ed  de OpenStax. La intención de \"comenzando con los átomos\" implica algunos principios básicos. En primer lugar, presenta la estructura atómica y molecular mucho antes que el enfoque",
+      "licenseEvidence": "CC BY",
+      "freeAccessEvidence": "OpenStax CMS API يسجل الكتاب live، وصفحة OpenStax الرسمية متاحة للقراءة عبر HTML؛ لا PDF محلي.",
+      "catalogSource": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&fields=*",
+      "linkVerification": {
+        "detailsHttpStatus": 200,
+        "readerHttpStatus": 200
+      },
+      "checkedAt": "2026-10-20"
+    }
+  ],
+  "screenedCount": 129,
+  "screened": [
+    {
+      "title": "Additive Manufacturing Essentials",
+      "slug": "additive-manufacturing-essentials",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Algebra 1",
+      "slug": "algebra-1",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Algebra and Trigonometry",
+      "slug": "algebra-and-trigonometry",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/algebra-and-trigonometry"
+    },
+    {
+      "title": "Algebra and Trigonometry 2e",
+      "slug": "algebra-and-trigonometry-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "American Government",
+      "slug": "american-government",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/american-government"
+    },
+    {
+      "title": "American Government 2e",
+      "slug": "american-government-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/american-government-2e"
+    },
+    {
+      "title": "American Government 3e",
+      "slug": "american-government-3e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/american-government-3e"
+    },
+    {
+      "title": "American Government 4e",
+      "slug": "american-government-4e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Anatomy and Physiology",
+      "slug": "anatomy-and-physiology",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/anatomy-and-physiology"
+    },
+    {
+      "title": "Anatomy and Physiology 2e",
+      "slug": "anatomy-and-physiology-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/anatomy-and-physiology-2e"
+    },
+    {
+      "title": "The AP Physics Collection",
+      "slug": "college-physics-ap-courses",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-physics-ap-courses"
+    },
+    {
+      "title": "Astronomy",
+      "slug": "astronomy",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/astronomy"
+    },
+    {
+      "title": "Astronomy 2e",
+      "slug": "astronomy-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/astronomy-2e"
+    },
+    {
+      "title": "Biology",
+      "slug": "biology",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/biology"
+    },
+    {
+      "title": "Biology 2e",
+      "slug": "biology-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/biology-2e"
+    },
+    {
+      "title": "Biology for AP® Courses",
+      "slug": "biology-ap-courses",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/biology-ap-courses"
+    },
+    {
+      "title": "Business Ethics",
+      "slug": "business-ethics",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "إدارة/أخلاقيات أعمال مهنية؛ صلة منخفضة بمكتبة مدرسية مقارنة بالعلوم والعلوم الاجتماعية العامة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/business-ethics"
+    },
+    {
+      "title": "Business Law I Essentials",
+      "slug": "business-law-i-essentials",
+      "locale": "en",
+      "bookState": "deprecated",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: deprecated",
+      "officialDetailsUrl": "https://openstax.org/details/books/business-law-i-essentials"
+    },
+    {
+      "title": "Business Law I Essentials 2e",
+      "slug": "business-law-i-essentials-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "قانون أعمال مهني؛ صلة منخفضة بالمكتبة المدرسية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/business-law-i-essentials-2e"
+    },
+    {
+      "title": "Calculus Volume 1",
+      "slug": "calculus-volume-1",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-1"
+    },
+    {
+      "title": "Calculus Volume 2",
+      "slug": "calculus-volume-2",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-2"
+    },
+    {
+      "title": "Calculus Volume 3",
+      "slug": "calculus-volume-3",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-3"
+    },
+    {
+      "title": "Chemistry",
+      "slug": "chemistry",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry"
+    },
+    {
+      "title": "Chemistry 2e",
+      "slug": "chemistry-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry-2e"
+    },
+    {
+      "title": "Chemistry: Atoms First 2e",
+      "slug": "chemistry-atoms-first-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry-atoms-first-2e"
+    },
+    {
+      "title": "Chemistry: Atoms First",
+      "slug": "chemistry-atoms-first",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry-atoms-first"
+    },
+    {
+      "title": "Clinical Nursing Skills",
+      "slug": "clinical-nursing-skills",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمريض سريري مهني؛ صلة منخفضة وموجه للممارسة الصحية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/clinical-nursing-skills"
+    },
+    {
+      "title": "College Algebra",
+      "slug": "college-algebra",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-algebra"
+    },
+    {
+      "title": "College Algebra 2e",
+      "slug": "college-algebra-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "College Algebra with Corequisite Support",
+      "slug": "college-algebra-corequisite-support",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-algebra-corequisite-support"
+    },
+    {
+      "title": "College Algebra 2e with Corequisite Support",
+      "slug": "college-algebra-corequisite-support-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "College Physics",
+      "slug": "college-physics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-physics"
+    },
+    {
+      "title": "College Physics 2e",
+      "slug": "college-physics-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "College Physics For AP® Courses 2e",
+      "slug": "college-physics-ap-courses-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "College Physics with Courseware",
+      "slug": "college-physics-courseware",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-physics-courseware"
+    },
+    {
+      "title": "College Success",
+      "slug": "college-success",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مهارات نجاح جامعي عامة؛ أقل أولوية من المراجع العلمية/المدرسية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-success"
+    },
+    {
+      "title": "College Success Concise",
+      "slug": "college-success-concise",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "نسخة مختصرة لمهارات النجاح الجامعي؛ أقل أولوية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/college-success-concise"
+    },
+    {
+      "title": "Concepts of Biology",
+      "slug": "concepts-biology",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/concepts-biology"
+    },
+    {
+      "title": "Contemporary Mathematics",
+      "slug": "contemporary-mathematics",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Elementary Algebra",
+      "slug": "elementary-algebra",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/elementary-algebra"
+    },
+    {
+      "title": "Elementary Algebra 2e",
+      "slug": "elementary-algebra-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/elementary-algebra-2e"
+    },
+    {
+      "title": "Entrepreneurship",
+      "slug": "entrepreneurship",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "ريادة أعمال وإدارة؛ صلة منخفضة نسبيًا بالمكتبة المدرسية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/entrepreneurship"
+    },
+    {
+      "title": "Fizyka dla szkół wyższych. Tom 1",
+      "slug": "fizyka-dla-szkół-wyższych-tom-1",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-1"
+    },
+    {
+      "title": "Fizyka dla szkół wyższych. Tom 2",
+      "slug": "fizyka-dla-szkół-wyższych-tom-2",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-2"
+    },
+    {
+      "title": "Fizyka dla szkół wyższych. Tom 3",
+      "slug": "fizyka-dla-szkół-wyższych-tom-3",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/fizyka-dla-szkół-wyższych-tom-3"
+    },
+    {
+      "title": "Foundations of Information Systems",
+      "slug": "foundations-information-systems",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Fundamentals of Nursing",
+      "slug": "fundamentals-nursing",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمريض مهني؛ صلة منخفضة وموجه لبرامج التمريض.",
+      "officialDetailsUrl": "https://openstax.org/details/books/fundamentals-nursing"
+    },
+    {
+      "title": "Intermediate Algebra",
+      "slug": "intermediate-algebra",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/intermediate-algebra"
+    },
+    {
+      "title": "Intermediate Algebra 2e",
+      "slug": "intermediate-algebra-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/intermediate-algebra-2e"
+    },
+    {
+      "title": "Introduction to Anthropology",
+      "slug": "introduction-anthropology",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Behavioral Neuroscience",
+      "slug": "introduction-behavioral-neuroscience",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Business",
+      "slug": "introduction-business",
+      "locale": "en",
+      "bookState": "deprecated",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: deprecated",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-business"
+    },
+    {
+      "title": "Introduction to Business 2e",
+      "slug": "introduction-business-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مدخل إلى الأعمال؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-business-2e"
+    },
+    {
+      "title": "Introduction to Computer Science",
+      "slug": "introduction-computer-science",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Intellectual Property",
+      "slug": "introduction-intellectual-property",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "ملكية فكرية قانونية متخصصة؛ صلة منخفضة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-intellectual-property"
+    },
+    {
+      "title": "Introduction to Philosophy",
+      "slug": "introduction-philosophy",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Political Science",
+      "slug": "introduction-political-science",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Python Programming",
+      "slug": "introduction-python-programming",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introduction to Sociology",
+      "slug": "introduction-sociology",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-sociology"
+    },
+    {
+      "title": "Introduction to Sociology 2e",
+      "slug": "introduction-sociology-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/introduction-sociology-2e"
+    },
+    {
+      "title": "Introduction to Sociology 3e",
+      "slug": "introduction-sociology-3e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introductory Business Statistics",
+      "slug": "introductory-business-statistics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/introductory-business-statistics"
+    },
+    {
+      "title": "Introductory Business Statistics 2e",
+      "slug": "introductory-business-statistics-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "إحصاء أعمال؛ أُعطي الأولوية للإحصاء العام.",
+      "officialDetailsUrl": "https://openstax.org/details/books/introductory-business-statistics-2e"
+    },
+    {
+      "title": "Introductory Statistics",
+      "slug": "introductory-statistics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/introductory-statistics"
+    },
+    {
+      "title": "Introductory Statistics 2e",
+      "slug": "introductory-statistics-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/introductory-statistics-2e"
+    },
+    {
+      "title": "Life, Liberty, and the Pursuit of Happiness",
+      "slug": "life-liberty-and-pursuit-happiness",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/life-liberty-and-pursuit-happiness"
+    },
+    {
+      "title": "Lifespan Development",
+      "slug": "lifespan-development",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Marketing Podstawy",
+      "slug": "marketing-podstawy",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/marketing-podstawy"
+    },
+    {
+      "title": "Maternal-Newborn Nursing",
+      "slug": "maternal-newborn-nursing",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمريض أمومة وحديثي الولادة مهني؛ صلة منخفضة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/maternal-newborn-nursing"
+    },
+    {
+      "title": "Medical-Surgical Nursing",
+      "slug": "medical-surgical-nursing",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمريض طبي-جراحي مهني؛ صلة منخفضة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/medical-surgical-nursing"
+    },
+    {
+      "title": "Microbiology",
+      "slug": "microbiology",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/microbiology"
+    },
+    {
+      "title": "Makroekonomia – Podstawy",
+      "slug": "makroekonomia-podstawy",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/makroekonomia-podstawy"
+    },
+    {
+      "title": "Mikroekonomia – Podstawy",
+      "slug": "mikroekonomia-podstawy",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/mikroekonomia-podstawy"
+    },
+    {
+      "title": "Nutrition for Nurses",
+      "slug": "nutrition",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تغذية للتمريض؛ مسار صحي مهني منخفض الصلة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/nutrition"
+    },
+    {
+      "title": "Organic Chemistry: A Tenth Edition",
+      "slug": "organic-chemistry",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Organizational Behavior",
+      "slug": "organizational-behavior",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "سلوك تنظيمي وإدارة؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/organizational-behavior"
+    },
+    {
+      "title": "Pharmacology for Nurses",
+      "slug": "pharmacology",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "علم أدوية للتمريض؛ مسار صحي مهني منخفض الصلة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/pharmacology"
+    },
+    {
+      "title": "Physics",
+      "slug": "physics",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/physics"
+    },
+    {
+      "title": "Population Health for Nurses",
+      "slug": "population-health",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "صحة سكانية للممرضين؛ مسار صحي مهني منخفض الصلة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/population-health"
+    },
+    {
+      "title": "Prealgebra",
+      "slug": "prealgebra",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/prealgebra"
+    },
+    {
+      "title": "Prealgebra 2e",
+      "slug": "prealgebra-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/prealgebra-2e"
+    },
+    {
+      "title": "Precalculus",
+      "slug": "precalculus",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/precalculus"
+    },
+    {
+      "title": "Precalculus 2e",
+      "slug": "precalculus-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Preparing for College Success",
+      "slug": "preparing-for-college-success",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "إعداد للنجاح الجامعي؛ أقل أولوية من المواد الدراسية المرجعية.",
+      "officialDetailsUrl": "https://openstax.org/details/books/preparing-for-college-success"
+    },
+    {
+      "title": "Principles of Accounting, Volume 1: Financial Accounting",
+      "slug": "principles-financial-accounting",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "محاسبة مالية مهنية؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-financial-accounting"
+    },
+    {
+      "title": "Principles of Accounting, Volume 2: Managerial Accounting",
+      "slug": "principles-managerial-accounting",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "محاسبة إدارية مهنية؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-managerial-accounting"
+    },
+    {
+      "title": "Principles of Data Science",
+      "slug": "principles-data-science",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-data-science"
+    },
+    {
+      "title": "Principles of Economics",
+      "slug": "principles-economics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-economics"
+    },
+    {
+      "title": "Principles of Economics 2e",
+      "slug": "principles-economics-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-economics-2e"
+    },
+    {
+      "title": "Principles of Economics 3e",
+      "slug": "principles-economics-3e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Principles of Finance",
+      "slug": "principles-finance",
+      "locale": "en",
+      "bookState": "deprecated",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: deprecated",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-finance"
+    },
+    {
+      "title": "Principles of Finance 2e",
+      "slug": "principles-finance-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمويل أعمال؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-finance-2e"
+    },
+    {
+      "title": "Principles of Macroeconomics",
+      "slug": "principles-macroeconomics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-macroeconomics"
+    },
+    {
+      "title": "Principles of Macroeconomics 2e",
+      "slug": "principles-macroeconomics-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-macroeconomics-2e"
+    },
+    {
+      "title": "Principles of Macroeconomics 3e",
+      "slug": "principles-macroeconomics-3e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Principles of Macroeconomics for AP® Courses",
+      "slug": "principles-macroeconomics-ap-courses",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-macroeconomics-ap-courses"
+    },
+    {
+      "title": "Principles of Macroeconomics for AP® Courses 2e",
+      "slug": "principles-macroeconomics-ap-courses-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-macroeconomics-ap-courses-2e"
+    },
+    {
+      "title": "Principles of Management",
+      "slug": "principles-management",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "إدارة أعمال؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-management"
+    },
+    {
+      "title": "Principles of Marketing",
+      "slug": "principles-marketing",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تسويق أعمال؛ صلة منخفضة نسبيًا.",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-marketing"
+    },
+    {
+      "title": "Principles of Microeconomics",
+      "slug": "principles-microeconomics",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-microeconomics"
+    },
+    {
+      "title": "Principles of Microeconomics 2e",
+      "slug": "principles-microeconomics-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-microeconomics-2e"
+    },
+    {
+      "title": "Principles of Microeconomics 3e",
+      "slug": "principles-microeconomics-3e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Principles of Microeconomics for AP® Courses",
+      "slug": "principles-microeconomics-ap-courses",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-microeconomics-ap-courses"
+    },
+    {
+      "title": "Principles of Microeconomics for AP® Courses 2e",
+      "slug": "principles-microeconomics-ap-courses-2e",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-microeconomics-ap-courses-2e"
+    },
+    {
+      "title": "Psychologia",
+      "slug": "psychologia-polska",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/psychologia-polska"
+    },
+    {
+      "title": "Psychiatric-Mental Health Nursing",
+      "slug": "psychiatric-mental-health",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "تمريض الصحة النفسية؛ مسار صحي مهني منخفض الصلة.",
+      "officialDetailsUrl": "https://openstax.org/details/books/psychiatric-mental-health"
+    },
+    {
+      "title": "Psychology",
+      "slug": "psychology",
+      "locale": "en",
+      "bookState": "retired",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: retired",
+      "officialDetailsUrl": "https://openstax.org/details/books/psychology"
+    },
+    {
+      "title": "Psychology 2e",
+      "slug": "psychology-2e",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/psychology-2e"
+    },
+    {
+      "title": "Statistics",
+      "slug": "statistics",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "U.S. History",
+      "slug": "us-history",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/us-history"
+    },
+    {
+      "title": "University Physics Volume 1",
+      "slug": "university-physics-volume-1",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-1"
+    },
+    {
+      "title": "University Physics Volume 2",
+      "slug": "university-physics-volume-2",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-2"
+    },
+    {
+      "title": "University Physics Volume 3",
+      "slug": "university-physics-volume-3",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-3"
+    },
+    {
+      "title": "World History, Volume 1: to 1500",
+      "slug": "world-history-volume-1",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Workplace Software and Skills",
+      "slug": "workplace-software-skills",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "World History, Volume 2: from 1400",
+      "slug": "world-history-volume-2",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Writing Guide with Handbook",
+      "slug": "writing-guide",
+      "locale": "en",
+      "bookState": "live",
+      "decision": "excluded",
+      "reason": "مكرر في الملفات المسلّمة أو clone؛ لم يُضف.",
+      "officialDetailsUrl": "https://openstax.org/details/books/writing-guide"
+    },
+    {
+      "title": "Zywienie",
+      "slug": "zywienie",
+      "locale": "en",
+      "bookState": "unlisted",
+      "decision": "excluded",
+      "reason": "الحالة الرسمية ليست live: unlisted",
+      "officialDetailsUrl": "https://openstax.org/details/books/zywienie"
+    },
+    {
+      "title": "Cálculo volumen 1",
+      "slug": "cálculo-volumen-1",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Cálculo volumen 2",
+      "slug": "cálculo-volumen-2",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Cálculo volumen 3",
+      "slug": "cálculo-volumen-3",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Física universitaria volumen 1",
+      "slug": "física-universitaria-volumen-1",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Física universitaria volumen 2",
+      "slug": "física-universitaria-volumen-2",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Física universitaria volumen 3",
+      "slug": "física-universitaria-volumen-3",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introducción a la estadística",
+      "slug": "introducción-estadística",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Introducción a la estadística empresarial",
+      "slug": "introducción-estadística-empresarial",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Precálculo 2ed",
+      "slug": "precálculo-2ed",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Química 2ed",
+      "slug": "química-2ed",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    },
+    {
+      "title": "Química: Comenzando con los átomos 2ed",
+      "slug": "química-comenzando-átomos-2ed",
+      "locale": "es",
+      "bookState": "live",
+      "decision": "included",
+      "reason": "عنوان live جديد غير موجود في الملفات المسلّمة أو clone."
+    }
+  ],
+  "excludedSummary": "استُبعدت الحالات غير live، والمكررات، والعناوين الصحية المهنية/إدارة الأعمال منخفضة الصلة كما هو موضح لكل عنوان."
+}

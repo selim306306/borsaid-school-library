@@ -1,6 +1,6 @@
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
-import { sanitizeBooks } from './external-reading-model.mjs?v=1592e4746b4b5c28';
+import { sanitizeBooks } from './external-reading-model.mjs?v=897016c435810902';
 
 const DATA_URL = 'external-reading-books.json';
 const ROTATION_MS = 4000;

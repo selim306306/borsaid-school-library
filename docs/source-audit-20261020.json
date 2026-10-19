@@ -1,0 +1,347 @@
+{
+  "audit_date": "2026-10-20",
+  "scope": "تدقيق قائمة الأربعين المستخرجة حيًا من دليل docs.ai4arab.com/books لصالح موقع مكتبات بورسعيد؛ القرار على مستوى المواقع لا على مستوى كل كتاب.",
+  "source": {
+    "url": "https://docs.ai4arab.com/books",
+    "title": "مكاتب رقمية مجانية إعداد خَضر غَليون",
+    "access": "استخراج حي عبر Playwright من إطار Canva؛ النص والروابط الأربعون محفوظة في ملف الدليل المتحقق.",
+    "evidence": [
+      "https://docs.ai4arab.com/books",
+      "/workspace/current-ai4arab-directory-20261020.json"
+    ]
+  },
+  "result": {
+    "expected_sites": 40,
+    "extracted_sites": 40,
+    "complete_list_available": true,
+    "classification_counts": {
+      "وصول مشروط/غير مناسب/متعذر": 5,
+      "دليل اكتشاف لا يثبت حقوقًا": 10,
+      "صوتيات لا كتب قراءة": 1,
+      "مصدر نشر/مستودع قانوني مشروط بتحقق العمل": 6,
+      "مستبعد لمخاطر الحقوق": 18
+    },
+    "summary": "لا يعني هذا تدقيق كل كتاب داخل أي موقع؛ التصنيف قرار احترازي على الموقع/النموذج وشروط الوصول الظاهرة أو المعروفة، مع قبول المصادر القانونية فقط بعد تحقق العمل."
+  },
+  "sites": [
+    {
+      "number": 1,
+      "name": "Planet eBook",
+      "url": "https://www.planetebook.com/",
+      "classification": "وصول مشروط/غير مناسب/متعذر",
+      "decision_reason": "واجهة مجانية لكتب كلاسيكية، لكن حالة الحقوق والاختصاص القضائي لكل عنوان ليست مثبتة هنا؛ لا يُعتمد للنسخ قبل تحقق العمل."
+    },
+    {
+      "number": 2,
+      "name": "Free-eBooks.net",
+      "url": "https://www.free-ebooks.net/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "منصة قوائم وتنزيلات؛ وجود عنوان مجاني أو اشتراط حساب لا يثبت ترخيصه، لذا يلزم تحقق الناشر لكل عمل."
+    },
+    {
+      "number": 3,
+      "name": "ManyBooks",
+      "url": "https://manybooks.net/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "دليل/واجهة عروض لكتب مجانية ومدفوعة؛ لا يكفي إدراج العنوان لإثبات حق إعادة النشر."
+    },
+    {
+      "number": 4,
+      "name": "LibriVox",
+      "url": "https://librivox.org/",
+      "classification": "صوتيات لا كتب قراءة",
+      "decision_reason": "المصدر الرسمي يصفه بأنه كتب صوتية يقرأها متطوعون؛ مناسب للاستماع فقط وليس مصدر نص قراءة."
+    },
+    {
+      "number": 5,
+      "name": "Internet Archive",
+      "url": "https://archive.org/",
+      "classification": "وصول مشروط/غير مناسب/متعذر",
+      "decision_reason": "الإتاحة قد تكون إعارة رقمية محدودة أو مشروطة بالحساب والمدة؛ ليست إذنًا بإعادة نشر الملفات."
+    },
+    {
+      "number": 6,
+      "name": "BookBub",
+      "url": "https://www.bookbub.com/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "الموقع يعلن عن عروض وشراء من متاجر الكتب؛ هو اكتشاف/إحالة وليس مستودع نصوص حرة."
+    },
+    {
+      "number": 7,
+      "name": "Open Library",
+      "url": "https://openlibrary.org/",
+      "classification": "وصول مشروط/غير مناسب/متعذر",
+      "decision_reason": "الإعارة تتطلب حسابًا، ووفق FAQ قد تكون ساعة أو 14 يومًا وبعدد محدود؛ لا تعني ملكية أو ترخيص إعادة نشر."
+    },
+    {
+      "number": 8,
+      "name": "BookBoon",
+      "url": "https://bookboon.com/",
+      "classification": "وصول مشروط/غير مناسب/متعذر",
+      "decision_reason": "الوصول والعناوين قد يرتبطان بالتسجيل/الشروط التجارية؛ لا يُفترض أن المجاني يساوي ترخيص إعادة النشر."
+    },
+    {
+      "number": 9,
+      "name": "Feedbooks",
+      "url": "https://www.feedbooks.com/publicdomain",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "قسم Public Domain مفيد للاكتشاف، لكن يلزم فحص حالة كل عنوان وحقوق البلد قبل إدخاله."
+    },
+    {
+      "number": 10,
+      "name": "Smashwords",
+      "url": "https://www.smashwords.com/",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "منصة نشر وتوزيع للمؤلفين؛ الترخيص يختلف حسب العمل، لذلك يُقبل رابط الناشر بعد فحص الترخيص لا المنصة بالجملة."
+    },
+    {
+      "number": 11,
+      "name": "Project Gutenberg",
+      "url": "https://www.gutenberg.org/",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "مستودع قانوني للأعمال التي يعدّها في الملكية العامة بالولايات المتحدة؛ شروطه تحذر من اختلاف الحقوق خارج الولايات المتحدة، فيلزم تحقق العمل/البلد."
+    },
+    {
+      "number": 12,
+      "name": "Google Books",
+      "url": "https://books.google.com/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "فهرس/معاينة وروابط شراء أو قراءة بحسب العنوان؛ لا يثبت توفر نص كامل بترخيص حر."
+    },
+    {
+      "number": 13,
+      "name": "PDFBooksWorld",
+      "url": "https://www.pdfbooksworld.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل PDF تجميعي؛ لا توجد في هذه الدفعة قرينة ناشر/ترخيص لكل ملف، لذلك استُبعد احترازيًا دون زيارته."
+    },
+    {
+      "number": 14,
+      "name": "FreeTechBooks",
+      "url": "https://www.freetechbooks.com/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "يفهرس كتبًا تقنية وروابط خارجية؛ يلزم التحقق من ترخيص كل كتاب ومصدره الأصلي."
+    },
+    {
+      "number": 15,
+      "name": "Bookyards",
+      "url": "https://www.bookyards.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تجميعي لتنزيل الكتب دون تحقق موحد ظاهر للترخيص؛ استُبعد احترازيًا."
+    },
+    {
+      "number": 16,
+      "name": "GetFreeBooks",
+      "url": "https://www.getfreebooks.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "اسم/نموذج تنزيل تجميعي لا يثبت حقوق كل عنوان؛ استُبعد دون فتحه."
+    },
+    {
+      "number": 17,
+      "name": "eBookLobby",
+      "url": "https://www.ebooklobby.com/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "بوابة روابط/تصنيفات؛ لا يكفي عرض رابط أو كتاب مجاني لإثبات الإذن."
+    },
+    {
+      "number": 18,
+      "name": "FreeComputerBooks",
+      "url": "https://freecomputerbooks.com/",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "فهرس كتب تقنية وروابط؛ القرار على مستوى الفهرس لا يثبت تراخيص الأعمال الفردية."
+    },
+    {
+      "number": 19,
+      "name": "OpenCulture",
+      "url": "https://www.openculture.com/free_ebooks",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "قائمة تحريرية وروابط لمصادر متعددة؛ يلزم الرجوع إلى المصدر الأصلي لكل عمل."
+    },
+    {
+      "number": 20,
+      "name": "Library Genesis (LibGen)",
+      "url": "https://libgen.is/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "مستودع معروف بتوفير نسخ غير مرخصة؛ استُبعد ولم يُفتح وفق قيد المهمة."
+    },
+    {
+      "number": 21,
+      "name": "Goodreads",
+      "url": "https://www.goodreads.com/ebooks",
+      "classification": "دليل اكتشاف لا يثبت حقوقًا",
+      "decision_reason": "كتالوج اجتماعي/اكتشاف وروابط عروض؛ لا يثبت أن الكتاب قابل للتنزيل أو إعادة النشر."
+    },
+    {
+      "number": 22,
+      "name": "Obooko",
+      "url": "https://www.obooko.com/",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "يضم كتبًا مجانية من مؤلفين/ناشرين، لكن يجب فحص صفحة العمل وشروطه قبل الاعتماد."
+    },
+    {
+      "number": 23,
+      "name": "O'Reilly Open Books",
+      "url": "https://www.oreilly.com/openbook",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "صفحة ناشر لكتب مفتوحة محددة؛ لا يجوز تعميم الإتاحة على كل كتالوج O’Reilly، ويجب تسجيل ترخيص كل عنوان."
+    },
+    {
+      "number": 24,
+      "name": "PDF Drive",
+      "url": "https://www.pdfdrive.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "فهرس تنزيلات واسع بلا تحقق موحد ظاهر من إذن أصحاب الحقوق؛ استُبعد دون زيارة."
+    },
+    {
+      "number": 25,
+      "name": "Anna's Archive",
+      "url": "https://annas-archive.org/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "يجمع نسخًا من مصادر ظل/تنزيلات؛ خطر الحقوق مرتفع، فاستُبعد دون فتحه."
+    },
+    {
+      "number": 26,
+      "name": "PDF Room",
+      "url": "https://pdfroom.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل PDF تجميعي؛ لا يمكن إثبات ترخيص كل ملف من الدليل، فاستُبعد."
+    },
+    {
+      "number": 27,
+      "name": "PDF Coffee",
+      "url": "https://pdfcoffee.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "استضافة ملفات يرفعها المستخدمون دون تحقق موحد من حقوق النشر؛ استُبعد."
+    },
+    {
+      "number": 28,
+      "name": "Dokumen Pub",
+      "url": "https://dokumen.pub/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "مستودع وثائق/كتب تنزيلية لا يثبت الإذن لكل نسخة؛ استُبعد."
+    },
+    {
+      "number": 29,
+      "name": "Z-Library",
+      "url": "https://singlelogin.re/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "خدمة تنزيل كتب معروفة بمخاطر نسخ غير مرخصة؛ استُبعد ولم يُفتح."
+    },
+    {
+      "number": 30,
+      "name": "Ocean of PDF",
+      "url": "https://oceanofpdf.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل كتب تجميعي؛ لا يقدم أساسًا موحدًا للتحقق من حقوق العناوين، فاستُبعد."
+    },
+    {
+      "number": 31,
+      "name": "Dirzon",
+      "url": "https://www.dirzon.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تجميعي للتنزيل؛ لا تحقق موحد من حقوق الملفات، فاستُبعد."
+    },
+    {
+      "number": 32,
+      "name": "Booksfree",
+      "url": "https://www.booksfree.org/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع كتب مجانية تجميعي؛ المجانية وحدها ليست ترخيصًا، فاستُبعد."
+    },
+    {
+      "number": 33,
+      "name": "EngbooksPDF",
+      "url": "https://engbookspdf.com/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل PDF إنجليزي دون قرينة ترخيص لكل عنوان؛ استُبعد."
+    },
+    {
+      "number": 34,
+      "name": "Elejandria",
+      "url": "https://www.elejandria.com/",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "يوفر كتبًا مجانية/كلاسيكية بالإسبانية؛ يُقبل فقط بعد التحقق من حالة كل عمل وترخيص النسخة."
+    },
+    {
+      "number": 35,
+      "name": "Espaebook",
+      "url": "https://espaebook.org/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل تجميعي للأعمال الإسبانية؛ لا تحقق موحد ظاهر، فاستُبعد."
+    },
+    {
+      "number": 36,
+      "name": "Wonderful Books",
+      "url": "https://www.wonderfulbooks.com/",
+      "classification": "وصول مشروط/غير مناسب/متعذر",
+      "decision_reason": "لم يُثبت في هذه الدفعة مسار وصول موثوق أو ترخيص موحد للمحتوى؛ لا يُعتمد قبل تحقق مستقل."
+    },
+    {
+      "number": 37,
+      "name": "Lectulandia",
+      "url": "https://ww3.lectulandia.co/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع تنزيل تجميعي؛ خطر الحقوق يمنع استخدامه كمصدر."
+    },
+    {
+      "number": 38,
+      "name": "LeerLibrosOnline",
+      "url": "https://leerlibrosonline.net/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "موقع قراءة/تنزيل تجميعي دون إثبات ترخيص موحد؛ استُبعد."
+    },
+    {
+      "number": 39,
+      "name": "ePubLibre",
+      "url": "https://epublibre.org/",
+      "classification": "مستبعد لمخاطر الحقوق",
+      "decision_reason": "مستودع EPUB تجميعي؛ لا يكفي توفر الملف لإثبات الإذن، فاستُبعد."
+    },
+    {
+      "number": 40,
+      "name": "Standard Ebooks",
+      "url": "https://standardebooks.org/",
+      "classification": "مصدر نشر/مستودع قانوني مشروط بتحقق العمل",
+      "decision_reason": "المصدر الرسمي يذكر إصدارات من الملكية العامة الأمريكية وCC0 لما ينتجه المشروع؛ يبقى تحقق البلد والعمل مطلوبًا."
+    }
+  ],
+  "accepted_source_evidence": [
+    {
+      "name": "Project Gutenberg",
+      "url": "https://www.gutenberg.org/policy/terms_of_use.html",
+      "finding": "الشروط تنبه إلى أن بعض المحتوى قد يكون مقيدًا خارج الولايات المتحدة، وتمنع الربط واسع النطاق بملفات الكتب؛ استخدم صفحة العمل وتحقق من البلد."
+    },
+    {
+      "name": "Standard Ebooks",
+      "url": "https://standardebooks.org/",
+      "finding": "إصدارات كتب من الملكية العامة، ومخرجات المشروع مكرسة للملكية العامة/CC0؛ المحتوى المعروض من غير المشروع قد يخضع لحقوق أخرى."
+    },
+    {
+      "name": "O'Reilly Open Books",
+      "url": "https://www.oreilly.com/openbook/",
+      "finding": "المصدر ناشر تجاري وله صفحة Open Books؛ الاعتماد محصور في العناوين المفتوحة المحددة وترخيص كل عنوان، لا كامل المنصة."
+    },
+    {
+      "name": "LibriVox",
+      "url": "https://librivox.org/",
+      "finding": "يصف نفسه بأنه free public domain audiobooks؛ صوتيات للاستماع وليست كتب قراءة نصية."
+    },
+    {
+      "name": "Open Library",
+      "url": "https://openlibrary.org/help/faq/borrow",
+      "finding": "الإعارة تتطلب حسابًا، وقد تكون ساعة للتصفح أو 14 يومًا للإعارة الكاملة وبحد أقصى عشرة كتب؛ لا ترخيص إعادة نشر."
+    },
+    {
+      "name": "BookBub",
+      "url": "https://www.bookbub.com/",
+      "finding": "يعرض صفقات كتب إلكترونية ويقود للشراء من متجر القارئ؛ دليل اكتشاف لا مستودعًا حرًا."
+    }
+  ],
+  "method_and_constraints": [
+    "تم اعتماد الرابط الصحيح https://docs.ai4arab.com/books لا /library.",
+    "لم تتم زيارة مواقع المصنفة مستبعدة لمخاطر الحقوق، ولم يُنزّل كتاب أو PDF أو نص منها.",
+    "لا نزعم تدقيق كل كتاب داخل المواقع الأربعين؛ يلزم تحقق عنواني للناشر/الترخيص/الاختصاص القضائي قبل أي إدراج أو إعادة نشر.",
+    "تمت مراجعة مصادر آمنة ذات صلة فقط لتوثيق الشروط: Project Gutenberg وStandard Ebooks وO’Reilly Open Books، مع LibriVox وOpen Library وBookBub لتوضيح الفروق.",
+    "يتبع القرار سياسة المشروع: ميّز الرابط الخارجي عن النص الكامل ولا تعِد نشر أعمال محمية بحقوق النشر."
+  ]
+}

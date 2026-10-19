@@ -1,0 +1,351 @@
+{
+  "sourcePolicy": "سجلات جديدة فقط؛ استُبعدت عناوين external-reading-books.json الحالية والعناوين التاريخية/المسودات. لا PDF ولا محتوى كتاب نُزّل.",
+  "checkedAt": "2026-10-20",
+  "officialCatalog": "https://openstax.org/subjects",
+  "licensePage": "https://openstax.org/license",
+  "recordsCount": 19,
+  "records": [
+    {
+      "id": "openstax-verified-20261020-biology-2e",
+      "title": "Biology 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/biology-2e",
+      "officialReaderUrl": "https://openstax.org/books/biology-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الأحياء؛ مرجع متقدم/تمهيدي جامعي مناسب للثانوي المتقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-concepts-biology",
+      "title": "Concepts of Biology",
+      "officialDetailsUrl": "https://openstax.org/details/books/concepts-biology",
+      "officialReaderUrl": "https://openstax.org/books/concepts-biology/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "مفاهيم الأحياء؛ مرجع تمهيدي مناسب للثانوي",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-anatomy-and-physiology-2e",
+      "title": "Anatomy and Physiology 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/anatomy-and-physiology-2e",
+      "officialReaderUrl": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "التشريح وعلم وظائف الأعضاء؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-astronomy-2e",
+      "title": "Astronomy 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/astronomy-2e",
+      "officialReaderUrl": "https://openstax.org/books/astronomy-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "علم الفلك؛ مرجع متقدم/ثانوي متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-chemistry-2e",
+      "title": "Chemistry 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry-2e",
+      "officialReaderUrl": "https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الكيمياء؛ مرجع متقدم/ثانوي متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-chemistry-atoms-first-2e",
+      "title": "Chemistry: Atoms First 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/chemistry-atoms-first-2e",
+      "officialReaderUrl": "https://openstax.org/books/chemistry-atoms-first-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الكيمياء: الذرات أولًا؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-physics",
+      "title": "Physics",
+      "officialDetailsUrl": "https://openstax.org/details/books/physics",
+      "officialReaderUrl": "https://openstax.org/books/physics/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الفيزياء؛ كتاب ثانوي رسمي",
+      "licenseEvidence": "ترخيص مختلط: أصل Texas Education Agency تحت CC BY 4.0؛ مكونات OpenStax المحمية تحت CC BY-NC-SA 4.0؛ لا يُفترض أن كل المكونات تحت رخصة واحدة، وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-microbiology",
+      "title": "Microbiology",
+      "officialDetailsUrl": "https://openstax.org/details/books/microbiology",
+      "officialReaderUrl": "https://openstax.org/books/microbiology/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "علم الأحياء الدقيقة؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-university-physics-volume-1",
+      "title": "University Physics Volume 1",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-1",
+      "officialReaderUrl": "https://openstax.org/books/university-physics-volume-1/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الفيزياء الجامعية، المجلد 1؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-university-physics-volume-2",
+      "title": "University Physics Volume 2",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-2",
+      "officialReaderUrl": "https://openstax.org/books/university-physics-volume-2/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الفيزياء الجامعية، المجلد 2؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-university-physics-volume-3",
+      "title": "University Physics Volume 3",
+      "officialDetailsUrl": "https://openstax.org/details/books/university-physics-volume-3",
+      "officialReaderUrl": "https://openstax.org/books/university-physics-volume-3/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الفيزياء الجامعية، المجلد 3؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-calculus-volume-1",
+      "title": "Calculus Volume 1",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-1",
+      "officialReaderUrl": "https://openstax.org/books/calculus-volume-1/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "التفاضل والتكامل، المجلد 1؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-calculus-volume-2",
+      "title": "Calculus Volume 2",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-2",
+      "officialReaderUrl": "https://openstax.org/books/calculus-volume-2/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "التفاضل والتكامل، المجلد 2؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-calculus-volume-3",
+      "title": "Calculus Volume 3",
+      "officialDetailsUrl": "https://openstax.org/details/books/calculus-volume-3",
+      "officialReaderUrl": "https://openstax.org/books/calculus-volume-3/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "التفاضل والتكامل، المجلد 3؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-introductory-statistics-2e",
+      "title": "Introductory Statistics 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/introductory-statistics-2e",
+      "officialReaderUrl": "https://openstax.org/books/introductory-statistics-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "الإحصاء التمهيدي؛ ثانوي متقدم/مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-principles-data-science",
+      "title": "Principles of Data Science",
+      "officialDetailsUrl": "https://openstax.org/details/books/principles-data-science",
+      "officialReaderUrl": "https://openstax.org/books/principles-data-science/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "مبادئ علم البيانات؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-psychology-2e",
+      "title": "Psychology 2e",
+      "officialDetailsUrl": "https://openstax.org/details/books/psychology-2e",
+      "officialReaderUrl": "https://openstax.org/books/psychology-2e/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "علم النفس؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-us-history",
+      "title": "U.S. History",
+      "officialDetailsUrl": "https://openstax.org/details/books/us-history",
+      "officialReaderUrl": "https://openstax.org/books/us-history/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "تاريخ الولايات المتحدة؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    },
+    {
+      "id": "openstax-verified-20261020-writing-guide",
+      "title": "Writing Guide with Handbook",
+      "officialDetailsUrl": "https://openstax.org/details/books/writing-guide",
+      "officialReaderUrl": "https://openstax.org/books/writing-guide/pages/1-introduction",
+      "metadataChecked": [
+        "العنوان",
+        "المؤلفون",
+        "تاريخ النشر",
+        "صفحة القراءة HTML",
+        "نص الرخصة"
+      ],
+      "audienceEvidence": "دليل الكتابة؛ مرجع متقدم",
+      "licenseEvidence": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية.",
+      "freeAccessEvidence": "صفحة OpenStax الرسمية تعرض الكتاب للقراءة عبر الإنترنت مجانًا؛ كتالوج OpenStax يصف الكتب بأنها مجانية ومفتوحة الترخيص.",
+      "catalogSource": "https://openstax.org/subjects",
+      "checkedAt": "2026-10-20"
+    }
+  ]
+}

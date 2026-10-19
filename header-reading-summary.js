@@ -1,6 +1,6 @@
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
-import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=1592e4746b4b5c28';
+import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=897016c435810902';
 
 function readable(book) { return book?.availability !== 'catalog-only' && Boolean(book?.reader || book?.pdf); }
 export function countReadingTitles(localBooks = [], externalBooks = []) {
@@ -12,6 +12,13 @@ export function countReadingTitles(localBooks = [], externalBooks = []) {
   }
   const values = [...titles.values()];
   return { total: values.length, online: values.filter(b => b.online).length, pdf: values.filter(b => b.pdf).length };
+}
+
+// Only the reviewed local manifest can declare a locally hosted PDF file.
+export function countPdfLocations(localBooks = [], externalBooks = []) {
+  const localFiles = new Set(localBooks.filter(readable).map(book => String(book.pdf || '').trim()).filter(path => /^[^:/?#]+\.pdf$/i.test(path) && !path.split('/').includes('..')));
+  const externalTitles = new Set([...localBooks, ...externalBooks].filter(readable).filter(book => /^https:\/\//i.test(String(book.pdf || ''))).map(book => normalizeArabic(book.title)).filter(Boolean));
+  return { localPdfFiles: localFiles.size, externalPdf: externalTitles.size };
 }
 
 export { countIndexedMaterials };
@@ -33,7 +40,7 @@ export async function refreshHeaderReadingSummary({ documentRef = globalThis.doc
     const externalBooks = sanitizeBooks(readingRaw); const catalog = sanitizeBooks(catalogRaw);
     if (!externalBooks.length || externalBooks.length !== readingRaw.length || catalog.length !== catalogRaw.length) throw new Error('reading_source_invalid');
     const totals = countIndexedMaterials([], [...PUBLIC_READABLE_BOOKS, ...externalBooks], catalog);
-    for (const [name, count] of Object.entries({ ...countReadingTitles(PUBLIC_READABLE_BOOKS, externalBooks), indexedRecords: totals.indexedRecords, completeBooks: totals.completeBooks, periodicals: totals.periodicals, catalogOnly: totals.catalogOnly })) {
+    for (const [name, count] of Object.entries({ ...countReadingTitles(PUBLIC_READABLE_BOOKS, externalBooks), ...countPdfLocations(PUBLIC_READABLE_BOOKS, externalBooks), indexedRecords: totals.indexedRecords, completeBooks: totals.completeBooks, periodicals: totals.periodicals, catalogOnly: totals.catalogOnly })) {
       const selector = `[data-reading-count="${name}"]`;
       const nodes = root.querySelectorAll ? root.querySelectorAll(selector) : [root.querySelector(selector)].filter(Boolean);
       for (const node of nodes) node.textContent = count.toLocaleString('ar-EG');

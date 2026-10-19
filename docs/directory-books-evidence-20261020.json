@@ -1,0 +1,186 @@
+{
+  "generated": "2026-10-20",
+  "count": 14,
+  "method": "Search ثم fetch لكل صفحة عنوان رسمية؛ لم تُنزّل كتب أو PDF أو نصوص كاملة.",
+  "sources": [
+    "Project Gutenberg",
+    "Standard Ebooks",
+    "O’Reilly Open Books"
+  ],
+  "records": [
+    {
+      "id": "gutenberg-20261020-story-book-science",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/56795",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-childrens-book-stars",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/28853",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-chambers-science-readers",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/18217",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-alice",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/11",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-wizard-oz",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/55",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-secret-garden",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/17396",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-peter-pan",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/16",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "gutenberg-20261020-wind-willows",
+      "officialTitlePage": "https://www.gutenberg.org/ebooks/289",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب."
+    },
+    {
+      "id": "standard-ebooks-20261020-just-so",
+      "officialTitlePage": "https://standardebooks.org/ebooks/rudyard-kipling/just-so-stories",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر."
+    },
+    {
+      "id": "standard-ebooks-20261020-childrens-stories",
+      "officialTitlePage": "https://standardebooks.org/ebooks/oscar-wilde/childrens-stories",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر."
+    },
+    {
+      "id": "standard-ebooks-20261020-beautiful-shakespeare",
+      "officialTitlePage": "https://standardebooks.org/ebooks/e-nesbit/beautiful-stories-from-shakespeare",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر."
+    },
+    {
+      "id": "standard-ebooks-20261020-water-babies",
+      "officialTitlePage": "https://standardebooks.org/ebooks/charles-kingsley/the-water-babies",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر."
+    },
+    {
+      "id": "standard-ebooks-20261020-five-children",
+      "officialTitlePage": "https://standardebooks.org/ebooks/e-nesbit/five-children-and-it",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر."
+    },
+    {
+      "id": "oreilly-20261020-webclient",
+      "officialTitlePage": "https://www.oreilly.com/openbook/webclient/",
+      "verifiedFields": [
+        "title",
+        "author",
+        "audience/subject",
+        "language",
+        "official availability/rights note"
+      ],
+      "note": "O’Reilly Open Books Project: the official title page says this out-of-print book was made available online; no specific license was visible on the fetched title page, so rights are recorded conservatively. External link only; verify local reuse rights."
+    }
+  ],
+  "limits": [
+    "Gutenberg وStandard Ebooks يصرحان بالوضع الأمريكي/المتوقع في الولايات المتحدة لا مصر؛ يلزم تحقق محلي قبل إعادة الاستخدام أو الاستضافة.",
+    "O’Reilly record has conservative rights because the fetched title page confirmed online availability but did not expose a specific license.",
+    "The requested external-reading schema is preserved: pdf empty, availability external-reading.",
+    "No historical sources or third-party interfaces were used."
+  ]
+}

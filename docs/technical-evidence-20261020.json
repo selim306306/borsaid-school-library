@@ -1,0 +1,188 @@
+{
+  "generated": "2026-10-20",
+  "existingFile": "/workspace/borsaid-unified-20261020/external-reading-books.json",
+  "existingCount": 2419,
+  "excludedExistingDuplicates": true,
+  "records": [
+    {
+      "id": "technical-20261020-think-python-2e",
+      "source": "https://greenteapress.com/wp/think-python-2e/",
+      "reader": "https://greenteapress.com/thinkpython2/html/index.html",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط؛ لا نستضيف نسخة."
+    },
+    {
+      "id": "technical-20261020-think-stats-3e",
+      "source": "https://greenteapress.com/wp/think-stats-3e/",
+      "reader": "https://allendowney.github.io/ThinkStats/",
+      "rightsUrl": "https://greenteapress.com/wp/think-stats-3e/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons license؛ الصفحة الرسمية تقر بحرية النسخ والتعديل مع النسبة وعدم الاستخدام التجاري. قراءة خارجية فقط."
+    },
+    {
+      "id": "technical-20261020-think-bayes-1e",
+      "source": "https://greenteapress.com/wp/think-bayes-1e/",
+      "reader": "https://greenteapress.com/thinkbayes/html/index.html",
+      "rightsUrl": "https://greenteapress.com/wp/think-bayes-1e/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Free book: copy, modify and distribute with attribution, share-alike and non-commercial terms as stated by the official page."
+    },
+    {
+      "id": "technical-20261020-think-dsp",
+      "source": "https://greenteapress.com/wp/think-dsp/",
+      "reader": "https://greenteapress.com/thinkdsp/html/index.html",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط."
+    },
+    {
+      "id": "technical-20261020-think-complexity-1e",
+      "source": "https://greenteapress.com/wp/think-complexity-1e/",
+      "reader": "https://greenteapress.com/complexity/html/index.html",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط."
+    },
+    {
+      "id": "technical-20261020-think-data-structures",
+      "source": "https://greenteapress.com/wp/think-data-structures/",
+      "reader": "https://greenteapress.com/thinkdast/html/index.html",
+      "rightsUrl": "https://greenteapress.com/wp/think-data-structures/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons license؛ الصفحة الرسمية تتيح النسخ والتعديل مع النسبة وعدم التجاري. قراءة خارجية فقط."
+    },
+    {
+      "id": "technical-20261020-modsimpy",
+      "source": "https://greenteapress.com/wp/modsimpy/",
+      "reader": "https://allendowney.github.io/ModSimPy/",
+      "rightsUrl": "https://greenteapress.com/wp/modsimpy/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Free book under a Creative Commons license؛ الصفحة الرسمية تصرح بحرية النسخ والتعديل مع النسبة وعدم التجاري. قراءة خارجية فقط."
+    },
+    {
+      "id": "technical-20261020-elements-data-science",
+      "source": "https://greenteapress.com/wp/elements-of-data-science/",
+      "reader": "https://allendowney.github.io/ElementsOfDataScience/",
+      "rightsUrl": "https://greenteapress.com/wp/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Green Tea Press states its books are available under free licenses; this official page provides the free online edition. License text is not specified on the individual page, so rights are recorded conservatively."
+    },
+    {
+      "id": "technical-20261020-think-os",
+      "source": "https://greenteapress.com/wp/think-os/",
+      "reader": "https://greenteapress.com/thinkos/html/index.html",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح الصفحة الرسمية. الصفحة تنبه أن النسخة مسودة."
+    },
+    {
+      "id": "technical-20261020-think-cpp",
+      "source": "https://greenteapress.com/wp/think-c/",
+      "reader": "https://greenteapress.com/wp/think-c/",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) كما تصرح الصفحة الرسمية. نستخدم رابط الناشر الخارجي ولا نستضيف PDF."
+    },
+    {
+      "id": "technical-20261020-dsirp",
+      "source": "https://greenteapress.com/wp/data-structures-and-information-retrieval-in-python/",
+      "reader": "http://allendowney.github.io/DSIRP",
+      "rightsUrl": "https://greenteapress.com/wp/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. Green Tea Press states its books are available under free licenses; the official page provides free online reading. The individual page does not name the exact license, so rights are recorded conservatively."
+    },
+    {
+      "id": "technical-20261020-recursive-book",
+      "source": "https://inventwithpython.com/recursion/",
+      "reader": "https://inventwithpython.com/recursion/",
+      "rightsUrl": "https://inventwithpython.com/",
+      "checked": [
+        "title",
+        "author",
+        "language (English page)",
+        "audience/description",
+        "official free online availability",
+        "rights/license statement"
+      ],
+      "verification": "Opened and reviewed the official author/publisher page via web fetch; no PDF or book text was downloaded. The author’s official site states all books are free under a Creative Commons license; this official page offers complete online reading. Exact license is not named on the individual page, so rights are recorded conservatively."
+    }
+  ]
+}

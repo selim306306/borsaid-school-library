@@ -1,5 +1,2736 @@
 [
   {
+    "id": "openstax-verified-20261020-biology-2e",
+    "title": "Biology 2e",
+    "author": "Mary Ann Clark, Matthew Douglas, Jung Choi",
+    "subject": "الأحياء؛ مرجع متقدم/تمهيدي جامعي مناسب للثانوي المتقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/biology-2e",
+    "reader": "https://openstax.org/books/biology-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/biology-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الأحياء؛ مرجع متقدم/تمهيدي جامعي مناسب للثانوي المتقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2018"
+  },
+  {
+    "id": "openstax-verified-20261020-concepts-biology",
+    "title": "Concepts of Biology",
+    "author": "Samantha Fowler, Rebecca Roush, James Wise",
+    "subject": "مفاهيم الأحياء؛ مرجع تمهيدي مناسب للثانوي",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/concepts-biology",
+    "reader": "https://openstax.org/books/concepts-biology/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/concepts-biology/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ مفاهيم الأحياء؛ مرجع تمهيدي مناسب للثانوي. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2013"
+  },
+  {
+    "id": "openstax-verified-20261020-anatomy-and-physiology-2e",
+    "title": "Anatomy and Physiology 2e",
+    "author": "J. Gordon Betts, Kelly A. Young, James A. Wise, Eddie Johnson, Brandon Poe, Dean H. Kruse, Oksana Korol, Jody E. Johnson, Mark Womble, Peter DeSaix",
+    "subject": "التشريح وعلم وظائف الأعضاء؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/anatomy-and-physiology-2e",
+    "reader": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ التشريح وعلم وظائف الأعضاء؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-verified-20261020-astronomy-2e",
+    "title": "Astronomy 2e",
+    "author": "Andrew Fraknoi, David Morrison, Sidney Wolff",
+    "subject": "علم الفلك؛ مرجع متقدم/ثانوي متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/astronomy-2e",
+    "reader": "https://openstax.org/books/astronomy-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/astronomy-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ علم الفلك؛ مرجع متقدم/ثانوي متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-verified-20261020-chemistry-2e",
+    "title": "Chemistry 2e",
+    "author": "Paul Flowers, Klaus Theopold, Richard Langley, William R. Robinson, PhD",
+    "subject": "الكيمياء؛ مرجع متقدم/ثانوي متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/chemistry-2e",
+    "reader": "https://openstax.org/books/chemistry-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/chemistry-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الكيمياء؛ مرجع متقدم/ثانوي متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2019"
+  },
+  {
+    "id": "openstax-verified-20261020-chemistry-atoms-first-2e",
+    "title": "Chemistry: Atoms First 2e",
+    "author": "Paul Flowers, Edward J. Neth, William R. Robinson, PhD, Klaus Theopold, Richard Langley",
+    "subject": "الكيمياء: الذرات أولًا؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/chemistry-atoms-first-2e",
+    "reader": "https://openstax.org/books/chemistry-atoms-first-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/chemistry-atoms-first-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الكيمياء: الذرات أولًا؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2019"
+  },
+  {
+    "id": "openstax-verified-20261020-microbiology",
+    "title": "Microbiology",
+    "author": "Nina Parker, Mark Schneegurt, Anh-Hue Thi Tu, Philip Lister, Brian M. Forster",
+    "subject": "علم الأحياء الدقيقة؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/microbiology",
+    "reader": "https://openstax.org/books/microbiology/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/microbiology/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ علم الأحياء الدقيقة؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-university-physics-volume-1",
+    "title": "University Physics Volume 1",
+    "author": "William Moebs, Samuel J. Ling, Jeff Sanny",
+    "subject": "الفيزياء الجامعية، المجلد 1؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/university-physics-volume-1",
+    "reader": "https://openstax.org/books/university-physics-volume-1/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/university-physics-volume-1/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الفيزياء الجامعية، المجلد 1؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-university-physics-volume-2",
+    "title": "University Physics Volume 2",
+    "author": "Samuel J. Ling, William Moebs, Jeff Sanny",
+    "subject": "الفيزياء الجامعية، المجلد 2؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/university-physics-volume-2",
+    "reader": "https://openstax.org/books/university-physics-volume-2/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/university-physics-volume-2/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الفيزياء الجامعية، المجلد 2؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-university-physics-volume-3",
+    "title": "University Physics Volume 3",
+    "author": "Samuel J. Ling, Jeff Sanny, William Moebs",
+    "subject": "الفيزياء الجامعية، المجلد 3؛ مرجع متقدم",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/university-physics-volume-3",
+    "reader": "https://openstax.org/books/university-physics-volume-3/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/university-physics-volume-3/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الفيزياء الجامعية، المجلد 3؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-calculus-volume-1",
+    "title": "Calculus Volume 1",
+    "author": "Gilbert Strang, Edwin “Jed” Herman",
+    "subject": "التفاضل والتكامل، المجلد 1؛ مرجع متقدم",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/calculus-volume-1",
+    "reader": "https://openstax.org/books/calculus-volume-1/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/calculus-volume-1/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ التفاضل والتكامل، المجلد 1؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-calculus-volume-2",
+    "title": "Calculus Volume 2",
+    "author": "Gilbert Strang, Edwin “Jed” Herman",
+    "subject": "التفاضل والتكامل، المجلد 2؛ مرجع متقدم",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/calculus-volume-2",
+    "reader": "https://openstax.org/books/calculus-volume-2/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/calculus-volume-2/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ التفاضل والتكامل، المجلد 2؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-calculus-volume-3",
+    "title": "Calculus Volume 3",
+    "author": "Gilbert Strang, Edwin “Jed” Herman",
+    "subject": "التفاضل والتكامل، المجلد 3؛ مرجع متقدم",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/calculus-volume-3",
+    "reader": "https://openstax.org/books/calculus-volume-3/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/calculus-volume-3/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ التفاضل والتكامل، المجلد 3؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "openstax-verified-20261020-introductory-statistics-2e",
+    "title": "Introductory Statistics 2e",
+    "author": "Barbara Illowsky, Susan Dean",
+    "subject": "الإحصاء التمهيدي؛ ثانوي متقدم/مرجع متقدم",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introductory-statistics-2e",
+    "reader": "https://openstax.org/books/introductory-statistics-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/introductory-statistics-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ الإحصاء التمهيدي؛ ثانوي متقدم/مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "openstax-verified-20261020-principles-data-science",
+    "title": "Principles of Data Science",
+    "author": "Dr. Shaun V. Ault, Dr. Soohyun Nam Liao, Larry Musolino",
+    "subject": "مبادئ علم البيانات؛ مرجع متقدم",
+    "category": "علوم الحاسب",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/principles-data-science",
+    "reader": "https://openstax.org/books/principles-data-science/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/principles-data-science/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ مبادئ علم البيانات؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "openstax-verified-20261020-psychology-2e",
+    "title": "Psychology 2e",
+    "author": "Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett",
+    "subject": "علم النفس؛ مرجع متقدم",
+    "category": "العلوم الاجتماعية",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/psychology-2e",
+    "reader": "https://openstax.org/books/psychology-2e/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/psychology-2e/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ علم النفس؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2020"
+  },
+  {
+    "id": "openstax-verified-20261020-us-history",
+    "title": "U.S. History",
+    "author": "P. Scott Corbett, Volker Janssen, John M. Lund, Todd Pfannestiel, Sylvie Waskiewicz, Paul Vickery",
+    "subject": "تاريخ الولايات المتحدة؛ مرجع متقدم",
+    "category": "العلوم الإنسانية",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/us-history",
+    "reader": "https://openstax.org/books/us-history/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/us-history/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ تاريخ الولايات المتحدة؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2014"
+  },
+  {
+    "id": "openstax-verified-20261020-writing-guide",
+    "title": "Writing Guide with Handbook",
+    "author": "Michelle Bachelor Robinson, Maria Jerskey, featuring Toby Fulwiler",
+    "subject": "دليل الكتابة؛ مرجع متقدم",
+    "category": "العلوم الإنسانية",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/writing-guide",
+    "reader": "https://openstax.org/books/writing-guide/pages/1-introduction",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) وفق صفحة القراءة الرسمية. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/books/writing-guide/pages/1-introduction",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "قراءة خارجية رسمية عبر HTML؛ دليل الكتابة؛ مرجع متقدم. مجاني للقراءة على OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-additive-manufacturing-essentials",
+    "title": "Additive Manufacturing Essentials",
+    "author": "John E. Barnes, Timothy E. Simpson, Ph.D., Kirk Rogers, Ph.D., Laura Ely, Kevin Slattery, D.Sc., Jennifer Coyne, Chelsea Cummings, Michael Hickner, Ph.D., David Dietrich",
+    "subject": "الأعمال؛ العلوم؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الأعمال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/additive-manufacturing-essentials",
+    "reader": "https://openstax.org/books/additive-manufacturing-essentials/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-algebra-1",
+    "title": "Algebra 1",
+    "author": "Lynn Marecek, MaryAnne Anthony-Smith, Andrea Honeycutt Mathis, Jay Abramson, Sharon North, Amy Baldwin, Alyssa Howell",
+    "subject": "الرياضيات؛ ثانوي متقدم/مرجع علمي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/algebra-1",
+    "reader": "https://openstax.org/books/algebra-1/pages/quick-start",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ ثانوي متقدم/مرجع علمي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-algebra-and-trigonometry-2e",
+    "title": "Algebra and Trigonometry 2e",
+    "author": "Jay Abramson, Valeree Falduto, Rachael Gross, David Lippman, Melonie Rasmussen, Rick Norwood, Nicholas Belloit, Harold Whipple, Jean-Marie Magnier, Christina Fernandez",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/algebra-and-trigonometry-2e",
+    "reader": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/1-introduction-to-prerequisites",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-american-government-4e",
+    "title": "American Government 4e",
+    "author": "Glen Krutz, Sylvie Waskiewicz, PhD, Prosper Bernard, Jr., Jennifer Danley-Scott, Ann Kordas, Christopher Lawrence, Tonya Neaves, Adam Newmark, Brooks D. Simpson, Joel Webb, Abram Trosky, Shawn Williams, Rhonda Wrzenski",
+    "subject": "Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/american-government-4e",
+    "reader": "https://openstax.org/books/american-government-4e/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-college-algebra-2e",
+    "title": "College Algebra 2e",
+    "author": "Jay Abramson, Valeree Falduto, Rachael Gross, David Lippman, Melonie Rasmussen, Rick Norwood, Nicholas Belloit, Harold Whipple, Jean-Marie Magnier, Christina Fernandez",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/college-algebra-2e",
+    "reader": "https://openstax.org/books/college-algebra-2e/pages/1-introduction-to-prerequisites",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-college-algebra-corequisite-support-2e",
+    "title": "College Algebra 2e with Corequisite Support",
+    "author": "Jay Abramson, Sharon North",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/college-algebra-corequisite-support-2e",
+    "reader": "https://openstax.org/books/college-algebra-corequisite-support-2e/pages/1-introduction-to-prerequisites",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-college-physics-2e",
+    "title": "College Physics 2e",
+    "author": "Paul Peter Urone, Roger Hinrichs, Kim Dirks, Manjula Sharma, Kenneth Podolak, Henry Smith",
+    "subject": "العلوم؛ ثانوي متقدم/مرجع علمي",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/college-physics-2e",
+    "reader": "https://openstax.org/books/college-physics-2e/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ ثانوي متقدم/مرجع علمي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-college-physics-ap-courses-2e",
+    "title": "College Physics For AP® Courses 2e",
+    "author": "Gregg Wolfe, Erika Gasper, John Stoke, Julie Kretchman, David Anderson, Nathan Czuba, Sudhi Oberoi, Liza Pujji, Irina Lyublinskaya, Douglas Ingram, Kenneth Podolak, Henry Smith",
+    "subject": "العلوم؛ ثانوي متقدم/إعداد AP",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/college-physics-ap-courses-2e",
+    "reader": "https://openstax.org/books/college-physics-ap-courses-2e/pages/1-connection-for-ap-r-courses",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ ثانوي متقدم/إعداد AP؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-contemporary-mathematics",
+    "title": "Contemporary Mathematics",
+    "author": "Donna Kirk, Barbara Boschmans, Brian Beaudrie, Matthew Cathey, Valeree Falduto, Maureen Gerlofs, Quin Hearn, Ian Walters",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/contemporary-mathematics",
+    "reader": "https://openstax.org/books/contemporary-mathematics/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-foundations-information-systems",
+    "title": "Foundations of Information Systems",
+    "author": "Dr. Mahesh S. Raisinghani, Amal Alhosban, Dax Bradley, Wade Chumney, Nicole Dhanraj, Sherita Freeman, James Gibbs, Sean Petty, Ayushi Tandon, Karen Srba, Michael MacLeod",
+    "subject": "علوم الحاسوب؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "علوم الحاسوب",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/foundations-information-systems",
+    "reader": "https://openstax.org/books/foundations-information-systems/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-anthropology",
+    "title": "Introduction to Anthropology",
+    "author": "Jennifer Hasty, David G. Lewis, Marjorie M. Snipes",
+    "subject": "Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-anthropology",
+    "reader": "https://openstax.org/books/introduction-anthropology/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-behavioral-neuroscience",
+    "title": "Introduction to Behavioral Neuroscience",
+    "author": "Elizabeth D. Kirby, Melissa J. Glenn, Noah J. Sandstrom, Christina L. Williams, S. D. Bilbo, Irina Calin-Jageman, Robert J. Calin-Jageman, Matt Carter, Victoria L. Castro, Christine J. Charvet, Natalia Duque-Wilckens, Amy L. Griffin, Yanabah Jaques, Daniela Kaufer, MeeJung Ko, Megan M. Mahoney, C. Daniel Meliza, Eric M. Mintz, Sandra E. Muroy, Richard Olivo, Yuan B. Peng, Briana E. Pinales, Anita M. Quintana, Shivon A. Robinson, Michael Sandstrom, Cecil J. Saunders, Gary L. Wenk, Cedric L. Williams, Kevin D. Wilson, Joseph D. Zak",
+    "subject": "العلوم؛ Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-behavioral-neuroscience",
+    "reader": "https://openstax.org/books/introduction-behavioral-neuroscience/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-computer-science",
+    "title": "Introduction to Computer Science",
+    "author": "Dr. Jean-Claude Franchitti, Amal Alhosban, Mark Buckler, Joanna Gilberti, Scott Gray, Matthew Hertz, Andrew Hurd, Kevin Lin, Sai Mukkavilli, Phuc (Brian) Nguyen, Shahab Tayeb, Zdeněk Troníček, Kevin Wortman, Mohamed Zahran",
+    "subject": "علوم الحاسوب؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "علوم الحاسوب",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-computer-science",
+    "reader": "https://openstax.org/books/introduction-computer-science/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-political-science",
+    "title": "Introduction to Political Science",
+    "author": "Mark Carl Rom, Masaki Hidaka, Rachel Bzostek Walker, Emilia B. Carvalho, Rebecca Eissler, Terri Susan Fine, Cassandra Khatri, Timothy Lim, Brenda Norton, Robert Postic, Joseph Prud’homme, Shyam Krishnan Sriram, Victoria Williams",
+    "subject": "Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-political-science",
+    "reader": "https://openstax.org/books/introduction-political-science/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-python-programming",
+    "title": "Introduction to Python Programming",
+    "author": "Udayan Das, Aubrey Lawson, Chris Mayfield, Narges Norouzi, Yamuna Rajasekhar, Reed Kanemaru",
+    "subject": "علوم الحاسوب؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "علوم الحاسوب",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-python-programming",
+    "reader": "https://openstax.org/books/introduction-python-programming/pages/1-introduction",
+    "pdf": "",
+    "rights": "Introduction to Python Programming  by OpenStax is licensed under Creative Commons Attribution-NonCommercial-ShareAlike License v4.0.  This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved. هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introduction-sociology-3e",
+    "title": "Introduction to Sociology 3e",
+    "author": "Tonja R. Conerly, Kathleen Holmes, Asha Lal Tamang, Jennifer Hensley, Jennifer L. Trost, Pamela Alcasey, Kate McGonigal, Heather Griffiths, Nathan Keirns, Eric Strayer, Tommy Sadler, Susan Cody-Rydzewski, Gail Scaramuzzo, Sally Vyain, Jeff Bry, Faye Jones",
+    "subject": "Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introduction-sociology-3e",
+    "reader": "https://openstax.org/books/introduction-sociology-3e/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-lifespan-development",
+    "title": "Lifespan Development",
+    "author": "Diana Riser, Rose Spielman, David Biek, Alisa Beyer, Bakhtawar Bhadha, Ellen Cotter, Kathleen Hughes, Deepti Karkhanis, Kris Kimbler, Julie Lazzara, Rebecca McDonald, Ronald Mossler, Paula Mullineaux, Amy Osmon, Jason Spiegelman, Erik Uliasz, John Woodman",
+    "subject": "Social Sciences؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/lifespan-development",
+    "reader": "https://openstax.org/books/lifespan-development/pages/1-what-does-psychology-say",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-organic-chemistry",
+    "title": "Organic Chemistry: A Tenth Edition",
+    "author": "John McMurry, Professor Emeritus",
+    "subject": "العلوم؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "العلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/organic-chemistry",
+    "reader": "https://openstax.org/books/organic-chemistry/pages/dedication-and-preface",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-precalculus-2e",
+    "title": "Precalculus 2e",
+    "author": "Jay Abramson, Valeree Falduto, Rachael Gross, David Lippman, Melonie Rasmussen, Rick Norwood, Nicholas Belloit, Harold Whipple, Jean-Marie Magnier, Christina Fernandez",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/precalculus-2e",
+    "reader": "https://openstax.org/books/precalculus-2e/pages/1-introduction-to-functions",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-principles-economics-3e",
+    "title": "Principles of Economics 3e",
+    "author": "Steven A. Greenlaw, David Shapiro, Daniel MacDonald, Eric Dodge, Cynthia Gamez, Andres Jauregui, Diane Keenan, Amyaz Moledina, Craig Richardson, Ralph Sonenshine",
+    "subject": "Social Sciences؛ الأعمال؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/principles-economics-3e",
+    "reader": "https://openstax.org/books/principles-economics-3e/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-principles-macroeconomics-3e",
+    "title": "Principles of Macroeconomics 3e",
+    "author": "David Shapiro, Daniel MacDonald, Steven A. Greenlaw, Eric Dodge, Cynthia Gamez, Andres Jauregui, Diane Keenan, Amyaz Moledina, Craig Richardson, Ralph Sonenshine",
+    "subject": "Social Sciences؛ الأعمال؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/principles-macroeconomics-3e",
+    "reader": "https://openstax.org/books/principles-macroeconomics-3e/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-principles-microeconomics-3e",
+    "title": "Principles of Microeconomics 3e",
+    "author": "David Shapiro, Daniel MacDonald, Steven A. Greenlaw, Eric Dodge, Cynthia Gamez, Andres Jauregui, Diane Keenan, Amyaz Moledina, Craig Richardson, Ralph Sonenshine",
+    "subject": "Social Sciences؛ الأعمال؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "Social Sciences",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/principles-microeconomics-3e",
+    "reader": "https://openstax.org/books/principles-microeconomics-3e/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-statistics",
+    "title": "Statistics",
+    "author": "Barbara Illowsky, Susan Dean, Daniel Birmajer, Bryan Blount, Sheri Boyd, Matthew Einsohn, James Helmreich, Lynette Kenyon, Sheldon Lee, Jeff Taub",
+    "subject": "الرياضيات؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الرياضيات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/statistics",
+    "reader": "https://openstax.org/books/statistics/pages/1-introduction",
+    "pdf": "",
+    "rights": "by Texas Education Agency (TEA) is licensed under Creative Commons Attribution License v4.0 هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2020"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-world-history-volume-1",
+    "title": "World History, Volume 1: to 1500",
+    "author": "Ann Kordas, Ryan J. Lynch, Brooke Nelson, Julie Tatlock, Chris Bingley, Celeste Chamberland, Scott Corbett, Rick Gianni, Jennifer Lawrence, Jamie McCandless, Cristina Mehrtens, Anthony Miller, Abigail Owen, David Price, Kim Richardson, Christopher S Rose, Joseph Snyder, Christopher Thrasher, David Toye, Alexander Wathen, Grace Hunt Watkinson, Joel Webb",
+    "subject": "العلوم الإنسانية؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "العلوم الإنسانية",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/world-history-volume-1",
+    "reader": "https://openstax.org/books/world-history-volume-1/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-workplace-software-skills",
+    "title": "Workplace Software and Skills",
+    "author": "Tammie Bolling, Angela Mitchell, Tanya Scott, Nyrobi Wheeler, Bridget Lepore, Janine Walton, Timothy Burgoyne, Rick Arguello, Valeree Falduto",
+    "subject": "الأعمال؛ علوم الحاسوب؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "الأعمال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/workplace-software-skills",
+    "reader": "https://openstax.org/books/workplace-software-skills/pages/1-chapter-scenario",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-world-history-volume-2",
+    "title": "World History, Volume 2: from 1400",
+    "author": "Ann Kordas, Ryan J. Lynch, Brooke Nelson, Julie Tatlock, Chris Bingley, Celeste Chamberland, Scott Corbett, Rick Gianni, Jennifer Lawrence, Jamie McCandless, Cristina Mehrtens, Anthony Miller, Abigail Owen, David Price, Kim Richardson, Christopher S Rose, Joseph Snyder, Christopher Thrasher, David Toye, Alexander Wathen, Grace Hunt Watkinson, Joel Webb",
+    "subject": "العلوم الإنسانية؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي",
+    "category": "العلوم الإنسانية",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/world-history-volume-2",
+    "reader": "https://openstax.org/books/world-history-volume-2/pages/1-introduction",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike License هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/تقني/إنساني متقدم؛ مناسب للثانوي المتقدم والمعلمين والتعلم الذاتي؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-c-lculo-volumen-1",
+    "title": "Cálculo volumen 1",
+    "author": "Gilbert Strang, Edwin “Jed” Herman, Joseph Lakey, Elaine A. Terry, Alfred K. Mulzet, Sheri J. Boyd, Joyati Debnath, Michelle Merriweather, David Smith, Nicoleta Virginia Bila, Valeree Falduto, Kirsten R. Messer, William Radulovich, Erica M. Rutter, David Torain, Catherine Abbott, Julie Levandosky, David McCune",
+    "subject": "Matemáticas؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Matemáticas",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/cálculo-volumen-1",
+    "reader": "https://openstax.org/books/c%C3%A1lculo-volumen-1/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY NC SA هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/cálculo-volumen-1",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-c-lculo-volumen-2",
+    "title": "Cálculo volumen 2",
+    "author": "Gilbert Strang, Edwin “Jed” Herman, William Radulovich, Erica M. Rutter, David Smith, Kirsten R. Messer, Alfred K. Mulzet, Nicoleta Virginia Bila, Sheri J. Boyd, Joyati Debnath, Valeree Falduto, Elaine A. Terry, David Torain, Michelle Merriweather, Catherine Abbott, Joseph Lakey, Julie Levandosky, David McCune",
+    "subject": "Matemáticas؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Matemáticas",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/cálculo-volumen-2",
+    "reader": "https://openstax.org/books/c%C3%A1lculo-volumen-2/pages/1-introduccion",
+    "pdf": "",
+    "rights": "OpenStax license هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/cálculo-volumen-2",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-c-lculo-volumen-3",
+    "title": "Cálculo volumen 3",
+    "author": "Gilbert Strang, Edwin “Jed” Herman, Nicoleta Virginia Bila, Sheri J. Boyd, David Smith, Elaine A. Terry, David Torain, Kirsten R. Messer, Alfred K. Mulzet, William Radulovich, Erica M. Rutter, David McCune, Michelle Merriweather, Joseph Lakey, Julie Levandosky, Valeree Falduto, Catherine Abbott, Joyati Debnath",
+    "subject": "Matemáticas؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Matemáticas",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/cálculo-volumen-3",
+    "reader": "https://openstax.org/books/c%C3%A1lculo-volumen-3/pages/1-introduccion",
+    "pdf": "",
+    "rights": "OpenStax license هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/cálculo-volumen-3",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-1",
+    "title": "Física universitaria volumen 1",
+    "author": "Stephen D. Druger, William Moebs, Samuel J. Ling, Jeff Sanny, David Anderson, Daniel Bowman, Gerald Friedman, Edw. S. Ginsberg, Kenneth Podolak, Takashi Sato, David Smith, Joseph Trout, Kevin Wheelock, Dedra Demaree, Richard Ludlow, Patrick Motl, Lev Gasparov, Lee LaRue, Mark Lattery, Tao Pang, Alice Kolakowska",
+    "subject": "Ciencia؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Ciencia",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/física-universitaria-volumen-1",
+    "reader": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-1/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-2",
+    "title": "Física universitaria volumen 2",
+    "author": "Stephen D. Druger, William Moebs, Samuel J. Ling, Jeff Sanny, David Anderson, Daniel Bowman, Gerald Friedman, Edw. S. Ginsberg, Kenneth Podolak, Takashi Sato, David Smith, Joseph Trout, Kevin Wheelock, Dedra Demaree, Richard Ludlow, Patrick Motl, Lev Gasparov, Lee LaRue, Mark Lattery, Tao Pang, Alice Kolakowska",
+    "subject": "Ciencia؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Ciencia",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/física-universitaria-volumen-2",
+    "reader": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-2/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/física-universitaria-volumen-2",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-f-sica-universitaria-volumen-3",
+    "title": "Física universitaria volumen 3",
+    "author": "Stephen D. Druger, William Moebs, Samuel J. Ling, Jeff Sanny, David Anderson, Daniel Bowman, Gerald Friedman, Edw. S. Ginsberg, Kenneth Podolak, Takashi Sato, David Smith, Joseph Trout, Kevin Wheelock, Dedra Demaree, Richard Ludlow, Patrick Motl, Lev Gasparov, Lee LaRue, Mark Lattery, Tao Pang, Alice Kolakowska",
+    "subject": "Ciencia؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Ciencia",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/física-universitaria-volumen-3",
+    "reader": "https://openstax.org/books/f%C3%ADsica-universitaria-volumen-3/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/física-universitaria-volumen-3",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introducci-n-estad-stica",
+    "title": "Introducción a la estadística",
+    "author": "Barbara Illowsky, Susan Dean, Daniel Birmajer, Bryan Blount, Sheri Boyd, Matthew Einsohn, James Helmreich, Lynette Kenyon, Sheldon Lee, Jeff Taub",
+    "subject": "Matemáticas؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Matemáticas",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introducción-estadística",
+    "reader": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/1-introduccion",
+    "pdf": "",
+    "rights": "OpenStax license هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/introducción-estadística",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-introducci-n-estad-stica-empresarial",
+    "title": "Introducción a la estadística empresarial",
+    "author": "Alexander Holmes, Barbara Illowsky, Susan Dean, Kevin Hadley, Analista",
+    "subject": "Empresarial؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Empresarial",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/introducción-estadística-empresarial",
+    "reader": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica-empresarial/pages/1-introduccion",
+    "pdf": "",
+    "rights": "OpenStax license هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/introducción-estadística-empresarial",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-prec-lculo-2ed",
+    "title": "Precálculo 2ed",
+    "author": "Jay Abramson, Valeree Falduto, Rachael Gross, David Lippman, Melonie Rasmussen, Rick Norwood, Nicholas Belloit, Jean-Marie Magnier, Harold Whipple, Christina Fernandez",
+    "subject": "Matemáticas؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Matemáticas",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/precálculo-2ed",
+    "reader": "https://openstax.org/books/prec%C3%A1lculo-2ed/pages/1-introduccion",
+    "pdf": "",
+    "rights": "OpenStax license هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/precálculo-2ed",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-qu-mica-2ed",
+    "title": "Química 2ed",
+    "author": "Paul Flowers, Klaus Theopold, Richard Langley, William R. Robinson, PhD",
+    "subject": "Ciencia؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Ciencia",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/química-2ed",
+    "reader": "https://openstax.org/books/qu%C3%ADmica-2ed/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/química-2ed",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "openstax-expanded-verified-20261020-qu-mica-comenzando-tomos-2ed",
+    "title": "Química: Comenzando con los átomos 2ed",
+    "author": "Edward J. Neth, Paul Flowers, Klaus Theopold, Richard Langley, William R. Robinson, PhD",
+    "subject": "Ciencia؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية",
+    "category": "Ciencia",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب تعليمي مفتوح",
+    "sourceName": "OpenStax — Rice University",
+    "publisher": "OpenStax — Rice University",
+    "source": "https://openstax.org/details/books/química-comenzando-átomos-2ed",
+    "reader": "https://openstax.org/books/qu%C3%ADmica-comenzando-%C3%A1tomos-2ed/pages/1-introduccion",
+    "pdf": "",
+    "rights": "CC BY هذا السجل رابط قراءة خارجي فقط؛ لا نستضيف أو ننزّل ملف الكتاب.",
+    "rightsUrl": "https://openstax.org/details/books/química-comenzando-átomos-2ed",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من API CMS الرسمي وصفحة التفاصيل/القراءة HTML؛ مرجع علمي/رياضي بالإسبانية؛ مناسب للتعلم اللغوي والقراءة المرجعية؛ القراءة الخارجية مجانية عبر OpenStax، ولا يوجد ملف مستضاف لدينا.",
+    "searchable": true,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "diverse-20261020-hindawi-science-seconds",
+    "title": "العلوم في ثوانٍ للأطفال: أكثر من ١٠٠ تجربة يمكن إجراؤها في ١٠ دقائق أو أقل",
+    "author": "جين بوتر؛ ترجمة أحمد شكل",
+    "subject": "تجارب علوم منزلية مبسطة للأطفال: الهواء والحيوانات والطاقة والجاذبية والضوء والماء والطقس",
+    "category": "العلوم وكتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي للأطفال",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/13026818/",
+    "reader": "https://www.safahat.org/books/13026818/",
+    "pdf": "",
+    "rights": "متاح مجانًا على صفحة الناشر بموجب اتفاق قانوني بين مؤسسة هنداوي وJohn Wiley & Sons؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. هذا سجل رابط خارجي فقط ولا يستضيف نصًا.",
+    "rightsUrl": "https://www.safahat.org/books/13026818/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور أطفال/ناشئة؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2017"
+  },
+  {
+    "id": "diverse-20261020-hindawi-railway-children",
+    "title": "أطفال السكة الحديدية",
+    "author": "إديث نسبيت؛ ترجمة إسلام سميح الردان",
+    "subject": "رواية مغامرة وأدب أطفال عن أسرة وأطفال يواجهون المصاعب",
+    "category": "قصص الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/31717369/",
+    "reader": "https://www.safahat.org/books/31717369/",
+    "pdf": "",
+    "rights": "متاح مجانًا قانونيًا من الناشر؛ العمل الأصلي في الملكية العامة، وحقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/31717369/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور أطفال/ناشئة؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2020"
+  },
+  {
+    "id": "diverse-20261020-hindawi-computational-thinking",
+    "title": "التفكير الحوسبي",
+    "author": "بيتر جيه دنينج وماتي تيدري؛ ترجمة هبة عبد العزيز غانم",
+    "subject": "مفاهيم التفكير الحوسبي والعمليات والخوارزميات وهندسة البرمجيات",
+    "category": "الحوسبة والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/14842524/",
+    "reader": "https://www.safahat.org/books/14842524/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وMIT؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/14842524/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/تعليم عالٍ تمهيدي؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "diverse-20261020-hindawi-data-science",
+    "title": "علم البيانات",
+    "author": "جون دي كيليهر وبريندان تيرني؛ ترجمة رشا صلاح الدخاخني",
+    "subject": "مبادئ علم البيانات والبيانات الكبيرة وتعلم الآلة والخصوصية والأخلاقيات",
+    "category": "التكنولوجيا والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/72952028/",
+    "reader": "https://www.safahat.org/books/72952028/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وMIT؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/72952028/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/تعليم عالٍ تمهيدي؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "diverse-20261020-hindawi-astrophysics",
+    "title": "الفيزياء الفلكية: مقدمة قصيرة جدًّا",
+    "author": "جيمس بيني؛ ترجمة ياسمين العربي",
+    "subject": "النجوم والمجرات والأنظمة الكوكبية والفيزياء الفلكية",
+    "category": "العلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/58169180/",
+    "reader": "https://www.safahat.org/books/58169180/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر جامعة أكسفورد؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/58169180/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/قارئ عام مهتم بالعلوم؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "diverse-20261020-hindawi-climate",
+    "title": "تغيُّر المناخ: مقدمة قصيرة جدًّا",
+    "author": "مارك ماسلين؛ ترجمة أمنية طلعت",
+    "subject": "أدلة تغير المناخ وتأثيراته وسياساته وحلوله",
+    "category": "علوم البيئة",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/50802935/",
+    "reader": "https://www.safahat.org/books/50802935/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر جامعة أكسفورد؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/50802935/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/قارئ عام مهتم بالبيئة؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "diverse-20261020-hindawi-nanotechnology",
+    "title": "تكنولوجيا النانو: مقدمة قصيرة جدًّا",
+    "author": "فيليب موريارتي؛ ترجمة لاميس عبد الحافظ سعيد",
+    "subject": "المفاهيم الأساسية لتكنولوجيا النانو والقوى الذرية والآلات الجزيئية",
+    "category": "التكنولوجيا والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/84290794/",
+    "reader": "https://www.safahat.org/books/84290794/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر جامعة أكسفورد؛ حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/84290794/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/قارئ عام مهتم بالتقنية؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "diverse-20261020-hindawi-physics-philosophy",
+    "title": "الفيزياء والفلسفة",
+    "author": "فيرنر هايزنبرج؛ ترجمة أحمد مستجير",
+    "subject": "ميكانيكا الكم والفيزياء الحديثة وعلاقتها بالفلسفة",
+    "category": "العلوم والفلسفة",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/46191474/",
+    "reader": "https://www.safahat.org/books/46191474/",
+    "pdf": "",
+    "rights": "متاح مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وأسرة الدكتور أحمد مستجير؛ رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/46191474/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور ناشئة/قارئ عام متقدم؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2025"
+  },
+  {
+    "id": "diverse-20261020-hindawi-five-children",
+    "title": "الأطفال الخمسة وعفريت الرمال",
+    "author": "إديث نسبيت؛ ترجمة صلاح عبد العزيز مفتاح",
+    "subject": "مغامرة وخيال وأدب أطفال عن خمسة أطفال وأمنياتهم",
+    "category": "قصص الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/30728384/",
+    "reader": "https://www.safahat.org/books/30728384/",
+    "pdf": "",
+    "rights": "متاح مجانًا قانونيًا من الناشر؛ العمل الأصلي في الملكية العامة، وحقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/30728384/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور أطفال/ناشئة؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2021"
+  },
+  {
+    "id": "diverse-20261020-hindawi-andersen",
+    "title": "حكايات هانس أندرسن الخيالية: المجموعة الأولى",
+    "author": "هانس كريستيان أندرسن؛ ترجمة دينا عادل غراب",
+    "subject": "قصص خيالية كلاسيكية مناسبة للأطفال في سن الثامنة أو التاسعة",
+    "category": "قصص الأطفال والأدب",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/37027416/",
+    "reader": "https://www.safahat.org/books/37027416/",
+    "pdf": "",
+    "rights": "متاح مجانًا قانونيًا من الناشر؛ النص الأصلي في الملكية العامة، وحقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط.",
+    "rightsUrl": "https://www.safahat.org/books/37027416/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة ناشر رسمية مقروءة؛ الجمهور أطفال (مذكور 8–9 سنوات)؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": "2020"
+  },
+  {
+    "id": "diverse-20261020-storyweaver-smile",
+    "title": "أرجوك ابتسم",
+    "author": "Sanjiv Jaiswal 'Sanjay'؛ ترجمة وليد السيف",
+    "subject": "قصة مصورة قصيرة، StoryWeaver المستوى 1 للأطفال",
+    "category": "كتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Pratham Books / StoryWeaver",
+    "publisher": "Pratham Books",
+    "source": "https://storyweaver.org.in/en/stories/109885-arjok-abtsm",
+    "reader": "https://storyweaver.org.in/en/stories/109885-arjok-abtsm",
+    "pdf": "",
+    "rights": "كتب StoryWeaver مرخصة CC BY 4.0 وفق صفحة المنصة؛ رابط قراءة خارجي فقط.",
+    "rightsUrl": "https://storyweaver.org.in/en/search?tags=arabic",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة StoryWeaver الرسمية وقائمة العربية مقروءتان؛ الجمهور أطفال مستوى 1؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": ""
+  },
+  {
+    "id": "diverse-20261020-storyweaver-piggy",
+    "title": "الخنزير يريد أن يطير",
+    "author": "Mut Kunthy؛ ترجمة Youm Kosal وعبد الله زهير",
+    "subject": "قصة مصورة قصيرة، StoryWeaver المستوى 1 للأطفال",
+    "category": "كتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Pratham Books / StoryWeaver",
+    "publisher": "Pratham Books",
+    "source": "https://storyweaver.org.in/en/stories/89267-al-khinzeer-yureedu-an-yathweer",
+    "reader": "https://storyweaver.org.in/en/stories/89267-al-khinzeer-yureedu-an-yathweer",
+    "pdf": "",
+    "rights": "كتب StoryWeaver مرخصة CC BY 4.0 وفق صفحة المنصة؛ رابط قراءة خارجي فقط.",
+    "rightsUrl": "https://storyweaver.org.in/en/search?tags=arabic",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة StoryWeaver الرسمية وقائمة العربية مقروءتان؛ الجمهور أطفال مستوى 1؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": ""
+  },
+  {
+    "id": "diverse-20261020-storyweaver-moon-cap",
+    "title": "القَمَرُ و القُبَعَةُ",
+    "author": "Rohini Nilekani؛ رسوم Angie & Upesh؛ ترجمة Sham Rahim",
+    "subject": "قصة مصورة قصيرة عن القمر والقبعة، StoryWeaver المستوى 1 للأطفال",
+    "category": "كتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Pratham Books / StoryWeaver",
+    "publisher": "Pratham Books",
+    "source": "https://storyweaver.org.in/en/stories/129721-al-kobatw-wal-al-kamar",
+    "reader": "https://storyweaver.org.in/en/stories/129721-al-kobatw-wal-al-kamar",
+    "pdf": "",
+    "rights": "كتب StoryWeaver مرخصة CC BY 4.0 وفق صفحة العنوان الرسمية؛ رابط قراءة خارجي فقط.",
+    "rightsUrl": "https://storyweaver.org.in/en/stories/129721-al-kobatw-wal-al-kamar",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة؛ الجمهور أطفال مستوى 1؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": ""
+  },
+  {
+    "id": "diverse-20261020-storyweaver-miracle",
+    "title": "معجزة",
+    "author": "Hriday Chavan؛ رسوم Angie & Upesh وNivong Sengsakoun وShubhshree Mathur",
+    "subject": "قصة أنشأها أطفال، StoryWeaver المستوى 3",
+    "category": "كتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Pratham Books / StoryWeaver",
+    "publisher": "Pratham Books",
+    "source": "https://storyweaver.org.in/en/stories/407761-miracle",
+    "reader": "https://storyweaver.org.in/en/stories/407761-miracle",
+    "pdf": "",
+    "rights": "كتب StoryWeaver مرخصة CC BY 4.0 وفق صفحة العنوان الرسمية؛ رابط قراءة خارجي فقط.",
+    "rightsUrl": "https://storyweaver.org.in/en/stories/407761-miracle",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة؛ الجمهور أطفال مستوى 3؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": ""
+  },
+  {
+    "id": "diverse-20261020-storyweaver-farhouda",
+    "title": "(فرهودة) تريد اللعب",
+    "author": "Marisa Steyn وSam Beckbessinger؛ رسوم Megan Andrews؛ ترجمة Dina Rabeh",
+    "subject": "قصة مصورة قصيرة عن اللعب، StoryWeaver المستوى 1 للأطفال",
+    "category": "كتب الأطفال",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Pratham Books / StoryWeaver",
+    "publisher": "Pratham Books",
+    "source": "https://storyweaver.org.in/en/stories/607380-farhouda-twreed-al-laaeb",
+    "reader": "https://storyweaver.org.in/en/stories/607380-farhouda-twreed-al-laaeb",
+    "pdf": "",
+    "rights": "كتب StoryWeaver مرخصة CC BY 4.0 وفق صفحة العنوان الرسمية؛ رابط قراءة خارجي فقط.",
+    "rightsUrl": "https://storyweaver.org.in/en/stories/607380-farhouda-twreed-al-laaeb",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة؛ الجمهور أطفال مستوى 1؛ لا ملف مستضاف.",
+    "searchable": false,
+    "publicationYear": ""
+  },
+  {
+    "id": "technical-20261020-think-python-2e",
+    "title": "Think Python: How to Think Like a Computer Scientist — 2nd edition",
+    "author": "Allen B. Downey",
+    "subject": "Python programming; beginner; secondary and teacher reference",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-python-2e/",
+    "reader": "https://greenteapress.com/thinkpython2/html/index.html",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط؛ لا نستضيف نسخة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مقدمة برمجة للمبتدئين، مناسبة للتعلم المدرسي الثانوي ومرجع المعلم؛ الصفحة الرسمية تصفها بأنها تبدأ بالمفاهيم الأساسية ولا تفترض خبرة متقدمة.",
+    "searchable": false,
+    "publicationYear": "2015"
+  },
+  {
+    "id": "technical-20261020-think-stats-3e",
+    "title": "Think Stats: Exploratory Data Analysis in Python — 3rd edition",
+    "author": "Allen B. Downey",
+    "subject": "Probability and statistics for Python programmers; secondary/advanced learner and teacher reference",
+    "category": "الرياضيات والإحصاء",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-stats-3e/",
+    "reader": "https://allendowney.github.io/ThinkStats/",
+    "pdf": "",
+    "rights": "Creative Commons license؛ الصفحة الرسمية تقر بحرية النسخ والتعديل مع النسبة وعدم الاستخدام التجاري. قراءة خارجية فقط.",
+    "rightsUrl": "https://greenteapress.com/wp/think-stats-3e/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مرجع رياضيات/إحصاء تطبيقي يتطلب مهارات Python أساسية؛ مناسب للثانوي المتقدم أو المعلم، وليس ادعاءً لملاءمة الأطفال.",
+    "searchable": false,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "technical-20261020-think-bayes-1e",
+    "title": "Think Bayes: Bayesian Statistics Made Simple — 1st edition",
+    "author": "Allen B. Downey",
+    "subject": "Bayesian statistics using computational methods and Python; teacher/advanced secondary reference",
+    "category": "الرياضيات والإحصاء",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-bayes-1e/",
+    "reader": "https://greenteapress.com/thinkbayes/html/index.html",
+    "pdf": "",
+    "rights": "Free book: copy, modify and distribute with attribution, share-alike and non-commercial terms as stated by the official page.",
+    "rightsUrl": "https://greenteapress.com/wp/think-bayes-1e/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مرجع إحصاء احتمالي تطبيقي للقارئ الذي يعرف البرمجة؛ ليس موجهاً للأطفال.",
+    "searchable": false,
+    "publicationYear": "2013"
+  },
+  {
+    "id": "technical-20261020-think-dsp",
+    "title": "Think DSP: Digital Signal Processing in Python",
+    "author": "Allen B. Downey",
+    "subject": "Digital signal processing with Python; advanced secondary/teacher reference",
+    "category": "الرياضيات والهندسة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-dsp/",
+    "reader": "https://greenteapress.com/thinkdsp/html/index.html",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مقدمة معالجة إشارات رقمية بمنهج برمجي؛ مرجع متقدم للثانوي أو المعلم، لا ادعاء لملاءمة الأطفال.",
+    "searchable": false,
+    "publicationYear": "2014"
+  },
+  {
+    "id": "technical-20261020-think-complexity-1e",
+    "title": "Think Complexity: Exploring Complexity Science with Python — 1st edition",
+    "author": "Allen B. Downey",
+    "subject": "Complexity science, data structures, algorithms and computational modeling; advanced secondary/teacher reference",
+    "category": "الحوسبة والرياضيات",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-complexity-1e/",
+    "reader": "https://greenteapress.com/complexity/html/index.html",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح صفحة الناشر. قراءة خارجية فقط.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مرجع متقدم يربط الخوارزميات والنمذجة والرياضيات المتقطعة؛ لا يوصف للأطفال.",
+    "searchable": false,
+    "publicationYear": "2012"
+  },
+  {
+    "id": "technical-20261020-think-data-structures",
+    "title": "Think Data Structures: Algorithms and Information Retrieval in Java",
+    "author": "Allen B. Downey",
+    "subject": "Data structures, algorithms, search and software engineering; teacher/advanced secondary reference",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-data-structures/",
+    "reader": "https://greenteapress.com/thinkdast/html/index.html",
+    "pdf": "",
+    "rights": "Creative Commons license؛ الصفحة الرسمية تتيح النسخ والتعديل مع النسبة وعدم التجاري. قراءة خارجية فقط.",
+    "rightsUrl": "https://greenteapress.com/wp/think-data-structures/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. الصفحة الرسمية تستهدف طلاب علوم الحاسب والمهندسين، وتذكر معرفة Java متوسطة؛ مناسب كمرجع معلم أو ثانوي متقدم.",
+    "searchable": false,
+    "publicationYear": "2016"
+  },
+  {
+    "id": "technical-20261020-modsimpy",
+    "title": "Modeling and Simulation in Python",
+    "author": "Allen B. Downey",
+    "subject": "Computational physical modeling: population, epidemics, mechanics; teacher/advanced secondary reference",
+    "category": "الرياضيات والفيزياء والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/modsimpy/",
+    "reader": "https://allendowney.github.io/ModSimPy/",
+    "pdf": "",
+    "rights": "Free book under a Creative Commons license؛ الصفحة الرسمية تصرح بحرية النسخ والتعديل مع النسبة وعدم التجاري. قراءة خارجية فقط.",
+    "rightsUrl": "https://greenteapress.com/wp/modsimpy/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. نمذجة فيزيائية حسابية، وتذكر الصفحة أنه مناسب لمن لم يبرمج من قبل؛ لا ادعاء لملاءمة الأطفال.",
+    "searchable": false,
+    "publicationYear": "2023"
+  },
+  {
+    "id": "technical-20261020-elements-data-science",
+    "title": "Elements of Data Science",
+    "author": "Allen B. Downey",
+    "subject": "Introductory data science with Python and Jupyter notebooks; secondary/teacher reference",
+    "category": "الحوسبة والرياضيات",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/elements-of-data-science/",
+    "reader": "https://allendowney.github.io/ElementsOfDataScience/",
+    "pdf": "",
+    "rights": "Green Tea Press states its books are available under free licenses; this official page provides the free online edition. License text is not specified on the individual page, so rights are recorded conservatively.",
+    "rightsUrl": "https://greenteapress.com/wp/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مقدمة لا تفترض معرفة بالبرمجة أو الإحصاء، مع تمارين؛ مناسبة للثانوي والمعلم، وليست دعوى للأطفال.",
+    "searchable": false,
+    "publicationYear": "2024"
+  },
+  {
+    "id": "technical-20261020-think-os",
+    "title": "Think OS: A Brief Introduction to Operating Systems",
+    "author": "Allen B. Downey",
+    "subject": "Operating systems and C for programmers; teacher/advanced secondary reference",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "مرجع تعليمي قيد التطوير",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-os/",
+    "reader": "https://greenteapress.com/thinkos/html/index.html",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) كما تصرح الصفحة الرسمية. الصفحة تنبه أن النسخة مسودة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc/3.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مرجع أنظمة تشغيل للمبرمجين، يشرح C ولا يفترض دراسة بنية الحاسوب؛ مناسب للمعلم أو الثانوي المتقدم مع التنبيه إلى أنه مسودة.",
+    "searchable": false,
+    "publicationYear": "2015"
+  },
+  {
+    "id": "technical-20261020-think-cpp",
+    "title": "Think C++: How to Think Like a Computer Scientist",
+    "author": "Allen B. Downey",
+    "subject": "Introductory C++ programming; secondary and teacher reference",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/think-c/",
+    "reader": "https://greenteapress.com/wp/think-c/",
+    "pdf": "",
+    "rights": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) كما تصرح الصفحة الرسمية. نستخدم رابط الناشر الخارجي ولا نستضيف PDF.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. كتب المؤلف أصلاً لمساعدة طلاب الاستعداد لامتحان AP Computer Science؛ لذلك هو مناسب بوضوح للثانوي ومرجع المعلم.",
+    "searchable": false,
+    "publicationYear": "2012"
+  },
+  {
+    "id": "technical-20261020-dsirp",
+    "title": "Data Structures and Information Retrieval in Python",
+    "author": "Allen B. Downey",
+    "subject": "Data structures, search engines, Python, Redis and Jupyter exercises; teacher/advanced secondary reference",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "مرجع تعليمي قيد التطوير",
+    "sourceName": "Green Tea Press",
+    "publisher": "Green Tea Press",
+    "source": "https://greenteapress.com/wp/data-structures-and-information-retrieval-in-python/",
+    "reader": "https://allendowney.github.io/DSIRP/",
+    "pdf": "",
+    "rights": "CC BY-NC-SA 4.0 وفق تذييل صفحة المؤلف الرسمية؛ صفحة تعليمية مجانية خارجية وموادها قيد التطوير، لا نستضيف نسخة.",
+    "rightsUrl": "https://allendowney.github.io/DSIRP/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. مرجع عملي متقدم في هياكل البيانات والاسترجاع؛ يتضمن 29 دفترًا وتمارين ويصلح للمعلم أو الثانوي المتقدم.",
+    "searchable": false,
+    "publicationYear": "2020"
+  },
+  {
+    "id": "technical-20261020-recursive-book",
+    "title": "The Recursive Book of Recursion",
+    "author": "Al Sweigart",
+    "subject": "Recursion and algorithms in Python and JavaScript; advanced secondary/teacher reference",
+    "category": "الحوسبة والرياضيات",
+    "language": "الإنجليزية",
+    "languageCodes": [
+      "en"
+    ],
+    "kind": "كتاب تعليمي",
+    "sourceName": "Invent with Python",
+    "publisher": "Invent with Python",
+    "source": "https://inventwithpython.com/recursion/",
+    "reader": "https://inventwithpython.com/recursion/",
+    "pdf": "",
+    "rights": "The author’s official site states all books are free under a Creative Commons license; this official page offers complete online reading. Exact license is not named on the individual page, so rights are recorded conservatively.",
+    "rightsUrl": "https://inventwithpython.com/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "متحقق من صفحة المؤلف/الناشر الرسمية؛ قراءة خارجية فقط ولا يوجد ملف مستضاف لدينا. كتاب مشروعات يشرح التكرار والخوارزميات (بحث ثنائي، الفرز، المتاهات، التوافيق، الكسوريات)؛ مناسب كمرجع ثانوي متقدم/معلم، وليس ادعاء للأطفال.",
+    "searchable": false,
+    "publicationYear": "2022"
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-94717039",
+    "title": "ما الفائدة؟: الفعالية اللامعقولة للرياضيات",
+    "author": "إيان ستيوارت؛ ترجمة محمد يحيى",
+    "subject": "الرياضيات وتطبيقاتها في السياسة والقانون والطب والإنترنت وتغير المناخ",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/94717039/",
+    "reader": "https://www.safahat.org/books/94717039/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وبروفايل بوكس ليمتد. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/94717039/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-71691319",
+    "title": "في الرياضيات وفلسفتها عند العرب",
+    "author": "رشدي راشد؛ ترجمة يمنى طريف الخولي",
+    "subject": "قضية الخط المقارب واللاتناهي وإسهام علماء الحضارة الإسلامية في فلسفة الرياضيات",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/71691319/",
+    "reader": "https://www.safahat.org/books/71691319/",
+    "pdf": "",
+    "rights": "هذه النسخة من الكتاب صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي والسيدة الدكتورة يمنى طريف الخولي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/71691319/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-61535725",
+    "title": "نماذج العقل: كيف شكلت الفيزياء والهندسة والرياضيات فهمنا للدماغ",
+    "author": "جريس لينزي؛ ترجمة نهى صلاح",
+    "subject": "استخدام النماذج الرياضية لفهم عمليات الدماغ ومفاهيم علوم الأعصاب الحديثة",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/61535725/",
+    "reader": "https://www.safahat.org/books/61535725/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر بلومزبري بابليشينج بي إل سي. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/61535725/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-13135190",
+    "title": "النمر الوهمي: استكشاف عالم الأرقام",
+    "author": "مايكل بلاستلاند وأندرو ديلنوت؛ ترجمة نبيل العدلي",
+    "subject": "فهم الأرقام والبيانات والإحصاءات وكيفية تجنب الخداع بها",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/13135190/",
+    "reader": "https://www.safahat.org/books/13135190/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وبروفايل بوكس ليمتد. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/13135190/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-14859206",
+    "title": "حساب الكون بالأرقام: كيف تكشف الرياضيات عن حقيقة الكون",
+    "author": "إيان ستيوارت؛ ترجمة الزهراء سامي",
+    "subject": "تطور فهم البشر للكون من رياضيات الفلك إلى النسبية والكون المظلم",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/14859206/",
+    "reader": "https://www.safahat.org/books/14859206/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي وبروفايل بوكس ليمتد. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/14859206/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-13139359",
+    "title": "الخوارزميات",
+    "author": "بانوس لوريداس؛ ترجمة إبراهيم سند أحمد",
+    "subject": "مقدمة مبسطة للخوارزميات والتمثيلات البيانية والبحث والترتيب والتعلم العميق",
+    "category": "العلوم والتكنولوجيا",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/13139359/",
+    "reader": "https://www.safahat.org/books/13139359/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ومعهد ماساتشوستس للتكنولوجيا (إم آي تي). حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/13139359/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-84935850",
+    "title": "مبرهنة فيرما الأخيرة: المعضلة التي حيَّرت عباقرة الرياضيات لقرون",
+    "author": "سايمون سينج؛ ترجمة الزهراء سامي",
+    "subject": "قصة مبرهنة فيرما الأخيرة وتاريخ حلها وعرض مبسط لأفكارها الرياضية",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/84935850/",
+    "reader": "https://www.safahat.org/books/84935850/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي والمؤلف سايمون سينج، عناية بيو ليتراري أجنسي ليمتد. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/84935850/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-68480403",
+    "title": "كل شيء وأكثر: تاريخ موجز للانهائية",
+    "author": "ديفيد فوستر والاس؛ ترجمة بيومي إبراهيم بيومي",
+    "subject": "مدخل تاريخي وفلسفي إلى فكرة اللانهائية في الرياضيات",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/68480403/",
+    "reader": "https://www.safahat.org/books/68480403/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر دبليو دبليو نورتون أند كومباني، إنك. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/68480403/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-74946286",
+    "title": "الأعداد وبناء الإنسان: العد ومسار الحضارات الإنسانية",
+    "author": "كيليب إفريت؛ ترجمة الزهراء سامي",
+    "subject": "دور الأعداد في الإدراك البشري واللغة والثقافة وتطور الحضارات",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/74946286/",
+    "reader": "https://www.safahat.org/books/74946286/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر هارفارد يونيفرسيتي برس. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/74946286/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "arabic-expanded-20261020-hindawi-40259539",
+    "title": "الأعداد: مقدمة قصيرة جدًّا",
+    "author": "بيتر إم هيجنز؛ ترجمة أحمد شكل",
+    "subject": "مفاهيم الأعداد الصحيحة والكسور والحقيقية والتخيلية ونشأة نظام الأعداد الحديث",
+    "category": "الرياضيات والعلوم",
+    "language": "العربية",
+    "languageCodes": [
+      "ar"
+    ],
+    "kind": "كتاب علمي",
+    "sourceName": "مؤسسة هنداوي / صفحات",
+    "publisher": "مؤسسة هنداوي",
+    "source": "https://www.safahat.org/books/40259539/",
+    "reader": "https://www.safahat.org/books/40259539/",
+    "pdf": "",
+    "rights": "هذه الترجمة العربية صادرة ومتاحة مجانًا بموجب اتفاق قانوني بين مؤسسة هنداوي ودار نشر جامعة أكسفورد. حقوق الترجمة محفوظة لمؤسسة هنداوي. رابط خارجي فقط؛ لا يستضيف هذا السجل نص الكتاب أو ملف PDF.",
+    "rightsUrl": "https://www.safahat.org/books/40259539/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة كتاب رسمية مقروءة؛ المؤلف/المترجم واللغة العربية والإتاحة القانونية تحققوا؛ الجمهور قارئ عام/ناشئة بحسب موضوع الكتاب دون اختراع عمر."
+  },
+  {
+    "id": "gutenberg-20261020-story-book-science",
+    "title": "The Story-book of Science",
+    "author": "Jean-Henri Fabre (1823–1915); translator Florence Constable Bicknell (1858–1941)",
+    "subject": "Science and nature narratives for young readers; 7th-grade reading level",
+    "category": "العلوم وكتب الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب علمي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/56795",
+    "reader": "https://www.gutenberg.org/ebooks/56795",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/56795",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف. مرجع تاريخي لتاريخ العلوم؛ لا يُعد بديلًا للمعلومات العلمية أو المنهج الحالي، ويحتاج اختيار المعلم.",
+    "searchable": true,
+    "publicationYear": "1910"
+  },
+  {
+    "id": "gutenberg-20261020-childrens-book-stars",
+    "title": "The Children's Book of Stars",
+    "author": "G. E. Mitton (1868–1955)",
+    "subject": "Introductory astronomy for children; 8th–9th grade reading level",
+    "category": "الفلك وكتب الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب علوم للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/28853",
+    "reader": "https://www.gutenberg.org/ebooks/28853",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/28853",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف. مرجع تاريخي لتاريخ العلوم؛ لا يُعد بديلًا للمعلومات العلمية أو المنهج الحالي، ويحتاج اختيار المعلم.",
+    "searchable": true,
+    "publicationYear": "1907"
+  },
+  {
+    "id": "gutenberg-20261020-chambers-science-readers",
+    "title": "Chambers's Elementary Science Readers, Book I",
+    "author": "Various",
+    "subject": "Elementary science readers about animals, plants and minerals; 5th-grade reading level",
+    "category": "العلوم والتعليم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تعليمي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/18217",
+    "reader": "https://www.gutenberg.org/ebooks/18217",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/18217",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف. مرجع تاريخي لتاريخ العلوم؛ لا يُعد بديلًا للمعلومات العلمية أو المنهج الحالي، ويحتاج اختيار المعلم.",
+    "searchable": true,
+    "publicationYear": "1899"
+  },
+  {
+    "id": "gutenberg-20261020-alice",
+    "title": "Alice's Adventures in Wonderland",
+    "author": "Lewis Carroll (1832–1898)",
+    "subject": "Children’s fantasy classic; 6th-grade reading level",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/11",
+    "reader": "https://www.gutenberg.org/ebooks/11",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/11",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1865"
+  },
+  {
+    "id": "gutenberg-20261020-wizard-oz",
+    "title": "The Wonderful Wizard of Oz",
+    "author": "L. Frank Baum (1856–1919)",
+    "subject": "Children’s fantasy adventure; 6th-grade reading level",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/55",
+    "reader": "https://www.gutenberg.org/ebooks/55",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/55",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1900"
+  },
+  {
+    "id": "gutenberg-20261020-secret-garden",
+    "title": "The Secret Garden",
+    "author": "Frances Hodgson Burnett (1849–1924)",
+    "subject": "Children’s fiction about friendship, gardens and personal growth; 5th-grade reading level",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/17396",
+    "reader": "https://www.gutenberg.org/ebooks/17396",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/17396",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1911"
+  },
+  {
+    "id": "gutenberg-20261020-peter-pan",
+    "title": "Peter Pan: [Peter and Wendy]",
+    "author": "J. M. Barrie (1860–1937)",
+    "subject": "Children’s fantasy adventure; 6th-grade reading level",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/16",
+    "reader": "https://www.gutenberg.org/ebooks/16",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/16",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1911"
+  },
+  {
+    "id": "gutenberg-20261020-wind-willows",
+    "title": "The Wind in the Willows",
+    "author": "Kenneth Grahame (1859–1932)",
+    "subject": "Children’s animal adventure and friendship classic; 7th-grade reading level",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Project Gutenberg",
+    "publisher": "www.gutenberg.org",
+    "source": "https://www.gutenberg.org/ebooks/289",
+    "reader": "https://www.gutenberg.org/ebooks/289",
+    "pdf": "",
+    "rights": "الحقوق: الصفحة الرسمية تصرح بالملكية العامة في الولايات المتحدة فقط؛ المؤلف توفي قبل 1955 أو العمل/الترجمة قديم، لكن ذلك ليس تأكيدًا للقانون المصري أو أي ولاية قضائية أخرى؛ تحقق محلي مطلوب.",
+    "rightsUrl": "https://www.gutenberg.org/ebooks/289",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1908"
+  },
+  {
+    "id": "standard-ebooks-20261020-just-so",
+    "title": "Just So Stories",
+    "author": "Rudyard Kipling (1865–1936)",
+    "subject": "Humorous origin tales for children; fairly easy reading",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Standard Ebooks",
+    "publisher": "standardebooks.org",
+    "source": "https://standardebooks.org/ebooks/rudyard-kipling/just-so-stories",
+    "reader": "https://standardebooks.org/ebooks/rudyard-kipling/just-so-stories",
+    "pdf": "",
+    "rights": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر.",
+    "rightsUrl": "https://standardebooks.org/ebooks/rudyard-kipling/just-so-stories",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1902"
+  },
+  {
+    "id": "standard-ebooks-20261020-childrens-stories",
+    "title": "Children’s Stories",
+    "author": "Oscar Wilde (1854–1900)",
+    "subject": "Children’s fairy tales about friendship, kindness and charity; fairly easy reading",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Standard Ebooks",
+    "publisher": "standardebooks.org",
+    "source": "https://standardebooks.org/ebooks/oscar-wilde/childrens-stories",
+    "reader": "https://standardebooks.org/ebooks/oscar-wilde/childrens-stories",
+    "pdf": "",
+    "rights": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر.",
+    "rightsUrl": "https://standardebooks.org/ebooks/oscar-wilde/childrens-stories",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1888–1891"
+  },
+  {
+    "id": "standard-ebooks-20261020-beautiful-shakespeare",
+    "title": "Beautiful Stories from Shakespeare",
+    "author": "E. Nesbit (1858–1924), retellings of William Shakespeare",
+    "subject": "Twenty simplified play retellings for children",
+    "category": "الأدب والتعليم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب أدبي تعليمي للأطفال",
+    "sourceName": "Standard Ebooks",
+    "publisher": "standardebooks.org",
+    "source": "https://standardebooks.org/ebooks/e-nesbit/beautiful-stories-from-shakespeare",
+    "reader": "https://standardebooks.org/ebooks/e-nesbit/beautiful-stories-from-shakespeare",
+    "pdf": "",
+    "rights": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر.",
+    "rightsUrl": "https://standardebooks.org/ebooks/e-nesbit/beautiful-stories-from-shakespeare",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1907"
+  },
+  {
+    "id": "standard-ebooks-20261020-water-babies",
+    "title": "The Water-Babies",
+    "author": "Charles Kingsley (1819–1875)",
+    "subject": "Children’s fantasy with moral education and introductory scientific themes",
+    "category": "قصص الأطفال والعلوم",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Standard Ebooks",
+    "publisher": "standardebooks.org",
+    "source": "https://standardebooks.org/ebooks/charles-kingsley/the-water-babies",
+    "reader": "https://standardebooks.org/ebooks/charles-kingsley/the-water-babies",
+    "pdf": "",
+    "rights": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر.",
+    "rightsUrl": "https://standardebooks.org/ebooks/charles-kingsley/the-water-babies",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1863"
+  },
+  {
+    "id": "standard-ebooks-20261020-five-children",
+    "title": "Five Children and It",
+    "author": "E. Nesbit (1858–1924)",
+    "subject": "Children’s fantasy about five siblings and wishes; easy reading",
+    "category": "قصص الأطفال",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب قصصي للأطفال",
+    "sourceName": "Standard Ebooks",
+    "publisher": "standardebooks.org",
+    "source": "https://standardebooks.org/ebooks/e-nesbit/five-children-and-it",
+    "reader": "https://standardebooks.org/ebooks/e-nesbit/five-children-and-it",
+    "pdf": "",
+    "rights": "الحقوق: Standard Ebooks تصف الإصدار بأنه متاح مجانًا/خالٍ من قيود حقوق النشر المتوقعة في الولايات المتحدة، وتنبّه صراحة إلى ضرورة التحقق من القانون المحلي خارجها؛ لا ضمان لقانونية مصر.",
+    "rightsUrl": "https://standardebooks.org/ebooks/e-nesbit/five-children-and-it",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف.",
+    "searchable": true,
+    "publicationYear": "1902"
+  },
+  {
+    "id": "oreilly-20261020-webclient",
+    "title": "Web Client Programming with Perl",
+    "author": "Clinton Wong",
+    "subject": "Automating tasks on the web; technical reference for teachers/advanced learners",
+    "category": "الحوسبة والبرمجة",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "كتاب تقني مفتوح القراءة",
+    "sourceName": "O’Reilly Media — Open Books",
+    "publisher": "www.oreilly.com",
+    "source": "https://www.oreilly.com/openbook/webclient/",
+    "reader": "https://www.oreilly.com/openbook/webclient/",
+    "pdf": "",
+    "rights": "O’Reilly Open Books Project: the official title page says this out-of-print book was made available online; no specific license was visible on the fetched title page, so rights are recorded conservatively. External link only; verify local reuse rights.",
+    "rightsUrl": "https://www.oreilly.com/openbook/webclient/",
+    "availability": "external-reading",
+    "recordType": "book",
+    "completionStatus": "صفحة العنوان الرسمية مقروءة بالبحث/الجلب؛ metadata فقط ورابط قراءة خارجي، ولا ملف مستضاف. مرجع تقني قديم لتاريخ برمجة الويب، لا دليل أمن أو أدوات حديثة.",
+    "searchable": true,
+    "publicationYear": "1997"
+  },
+  {
     "id": "open-edu-20261019-scratch",
     "title": "Essentials - Learn to Code with Scratch",
     "author": "غير مذكور في صفحة الناشر",

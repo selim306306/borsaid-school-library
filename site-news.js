@@ -100,6 +100,23 @@ function makeText(tag, className, value) {
 function createNewsCard(item) {
   const article = document.createElement('article');
   article.className = 'education-news-card live-news-card';
+  const itemId = String(item.id ?? '').trim();
+  const detailUrl = itemId ? `news.html?id=${encodeURIComponent(itemId)}` : 'news.html';
+  article.setAttribute('data-news-id', itemId);
+  article.setAttribute('role', 'link');
+  article.setAttribute('tabindex', '0');
+  const openDetails = () => { window.location.href = detailUrl; };
+  article.addEventListener('click', event => {
+    if (event.target?.closest?.('a')) return;
+    openDetails();
+  });
+  article.addEventListener('keydown', event => {
+    if (event.target?.closest?.('a,button')) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openDetails();
+    }
+  });
 
   const top = document.createElement('div');
   top.className = 'education-news-card-top';
@@ -134,7 +151,11 @@ function createNewsCard(item) {
       article.append(credit);
     }
   }
-  article.append(makeText('h3', 'news-card-title', item.title_ar));
+  const title = makeText('h3', 'news-card-title', '');
+  const detailLink = makeText('a', 'news-detail-link', item.title_ar);
+  detailLink.href = detailUrl;
+  title.append(detailLink);
+  article.append(title);
   article.append(makeText('p', 'news-card-summary', item.summary_ar));
 
   const metadata = document.createElement('div');

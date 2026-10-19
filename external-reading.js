@@ -1,4 +1,4 @@
-import { filterBooks, languageDistribution, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=1592e4746b4b5c28';
+import { filterBooks, languageDistribution, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=897016c435810902';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 const PAGE_SIZE = 12;
 const DATA_URLS = ['external-reading-books.json', 'external-catalog-records.json'];

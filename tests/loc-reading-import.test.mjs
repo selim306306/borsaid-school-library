@@ -42,13 +42,13 @@ test('every imported PDF has a successful first-byte signature check; catalog re
 
 test('indexed records, actual reading, complete books and periodicals remain different counts', () => {
   assert.deepEqual(countIndexedMaterials(PUBLIC_READABLE_BOOKS, reading, catalog), {
-    indexedRecords: 3098, readingTitles: 2422, completeBooks: 1242,
-    periodicals: 527, catalogOnly: 676, total: 2422, online: 2422, pdf: 2404,
+    indexedRecords: 3204, readingTitles: 2528, completeBooks: 1346,
+    periodicals: 527, catalogOnly: 676, total: 2528, online: 2528, pdf: 2404,
   });
   assert.equal(filterBooks([...reading, ...catalog], { availability: 'catalog-only' }).length, 676);
-  assert.equal(filterBooks([...reading, ...catalog], { availability: 'readable' }).length, 2419);
+  assert.equal(filterBooks([...reading, ...catalog], { availability: 'readable' }).length, 2525);
   const counts = languageDistribution([...PUBLIC_READABLE_BOOKS, ...reading, ...catalog], { deduplicateBy: 'id' });
-  assert.equal(counts.find(x => x.language === 'العربية').count, 1550);
+  assert.equal(counts.find(x => x.language === 'العربية').count, 1575);
   assert.equal(counts.find(x => x.language === 'غير معروفة').count, 1);
   assert.ok(counts.reduce((sum, x) => sum + x.count, 0) > 3078);
 });

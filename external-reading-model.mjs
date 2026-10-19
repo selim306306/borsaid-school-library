@@ -13,6 +13,11 @@ const ALLOWED_HOSTS = new Set([
   'inventwithpython.com',
   'automatetheboringstuff.com',
   'openstax.org',
+  'storyweaver.org.in',
+  'gutenberg.org',
+  'standardebooks.org',
+  'oreilly.com',
+  'creativecommons.org',
 ]);
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';

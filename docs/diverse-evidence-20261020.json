@@ -1,0 +1,143 @@
+{
+  "generated": "2026-10-20",
+  "baseline": "/workspace/borsaid-unified-20261020/external-reading-books.json",
+  "policy": "Metadata and official landing-page links only; no PDF or book text downloaded, copied, hosted, uploaded, repository files changed, commit, push, or database write.",
+  "duplicateCheck": "All 15 selected records were checked against the 2,419-record baseline by title/source URL; no matching title or source URL was found.",
+  "counts": {
+    "added": 15,
+    "hindawi": 10,
+    "storyweaver": 5,
+    "arabic": 15,
+    "english": 0,
+    "languages": 1,
+    "children": 9,
+    "scienceTechnology": 7
+  },
+  "sources": [
+    {
+      "name": "مؤسسة هنداوي / صفحات",
+      "url": "https://www.safahat.org/books/categories/children.stories/",
+      "opened": "2026-10-20",
+      "verified": "Official category showed 28 children's books; individual pages supplied title, author, audience/category, description and legal availability statement."
+    },
+    {
+      "name": "مؤسسة هنداوي / صفحات",
+      "url": "https://www.safahat.org/books/categories/science/",
+      "opened": "2026-10-20",
+      "verified": "Official category showed 174 science books; individual pages supplied title, author, subject and legal availability statement."
+    },
+    {
+      "name": "StoryWeaver / Pratham Books",
+      "url": "https://storyweaver.org.in/en/search?tags=arabic",
+      "opened": "2026-10-20",
+      "verified": "Official Arabic search listed 5 stories with Arabic language and levels; page states books are CC BY 4.0."
+    },
+    {
+      "name": "StoryWeaver / Pratham Books",
+      "url": "https://storyweaver.org.in/en/imld_global_partners",
+      "opened": "2026-10-20",
+      "verified": "Official platform/partner page identifies StoryWeaver as a multilingual children's repository and includes Arabic translation work; rights cross-checked against story pages."
+    }
+  ],
+  "recordEvidence": [
+    {
+      "ids": [
+        "diverse-20261020-hindawi-science-seconds"
+      ],
+      "url": "https://www.safahat.org/books/13026818/",
+      "facts": "جين بوتر؛ 108 experiments; children; Arabic translation; free under legal agreement with John Wiley & Sons."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-railway-children"
+      ],
+      "url": "https://www.safahat.org/books/31717369/",
+      "facts": "إديث نسبيت؛ children's story; original public domain; legal free Arabic translation."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-computational-thinking",
+        "diverse-20261020-hindawi-data-science"
+      ],
+      "url": "https://www.safahat.org/books/14842524/",
+      "facts": "Authors, technology/science categories, Arabic translators, MIT legal agreement."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-astrophysics"
+      ],
+      "url": "https://www.safahat.org/books/58169180/",
+      "facts": "James Binney; Oxford University Press agreement; Arabic science audience."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-climate"
+      ],
+      "url": "https://www.safahat.org/books/50802935/",
+      "facts": "Mark Maslin; climate science; Oxford University Press agreement."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-nanotechnology"
+      ],
+      "url": "https://www.safahat.org/books/84290794/",
+      "facts": "Philip Moriarty; technology/science; Oxford University Press agreement."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-physics-philosophy"
+      ],
+      "url": "https://www.safahat.org/books/46191474/",
+      "facts": "Werner Heisenberg; science/philosophy; legal agreement with Ahmed Mustagir family."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-five-children"
+      ],
+      "url": "https://www.safahat.org/books/30728384/",
+      "facts": "Edith Nesbit; children; original public domain; legal free Arabic translation."
+    },
+    {
+      "ids": [
+        "diverse-20261020-hindawi-andersen"
+      ],
+      "url": "https://www.safahat.org/books/37027416/",
+      "facts": "Hans Christian Andersen; explicitly suitable age 8–9; original public domain; legal free Arabic translation."
+    },
+    {
+      "ids": [
+        "diverse-20261020-storyweaver-smile",
+        "diverse-20261020-storyweaver-piggy"
+      ],
+      "url": "https://storyweaver.org.in/en/search?tags=arabic",
+      "facts": "Official Arabic listing provides titles, contributors and Level 1; platform rights statement CC BY 4.0."
+    },
+    {
+      "ids": [
+        "diverse-20261020-storyweaver-moon-cap"
+      ],
+      "url": "https://storyweaver.org.in/en/stories/129721-al-kobatw-wal-al-kamar",
+      "facts": "Title page provides Rohini Nilekani, Angie & Upesh, Sham Rahim, Arabic Level 1 and CC BY 4.0."
+    },
+    {
+      "ids": [
+        "diverse-20261020-storyweaver-miracle"
+      ],
+      "url": "https://storyweaver.org.in/en/stories/407761-miracle",
+      "facts": "Title page provides child creator Hriday Chavan, illustrators, Arabic Level 3 and CC BY 4.0."
+    },
+    {
+      "ids": [
+        "diverse-20261020-storyweaver-farhouda"
+      ],
+      "url": "https://storyweaver.org.in/en/stories/607380-farhouda-twreed-al-laaeb",
+      "facts": "Title page provides authors, illustrator, Arabic translator, Arabic Level 1 and CC BY 4.0."
+    }
+  ],
+  "limitations": [
+    "هنداوي يتيح القراءة/التنزيل من صفحاته، لكن هذه المهمة خزنت الرابط والبيانات الوصفية فقط؛ لم يُدَّعَ أن كل عنوان Creative Commons.",
+    "StoryWeaver pages are official and CC BY 4.0 for books; Readalongs/videos have a different CC BY-NC-ND 4.0 license and were not catalogued.",
+    "No age range was invented where a source supplied only StoryWeaver level; audience is recorded as children plus the displayed level.",
+    "Only Arabic records were added in this focused batch; technical/Raspberry Pi additions were intentionally left to the other researcher."
+  ]
+}
