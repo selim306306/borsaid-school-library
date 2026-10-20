@@ -187,7 +187,12 @@ export async function runPublisher({ file = join(dirname(fileURLToPath(import.me
     await writeFile(temp, JSON.stringify(merged.archive, null, 2) + '\n', { mode: 0o600 });
     await rename(temp, file);
   }
-  return { mode, received: result.items.length, rejected_count: result.rejected_count, added: merged.added.length, written: mode === 'write' && merged.changed };
+  const diagnostics = {};
+  for (const key of ['articles_fetched', 'eligible', 'generated', 'verified', 'source_failed', 'summary_failed', 'verifier_failed']) {
+    const value = body.diagnostics?.[key];
+    if (Number.isInteger(value) && value >= 0 && value <= 100) diagnostics[key] = value;
+  }
+  return { mode, received: result.items.length, rejected_count: result.rejected_count, added: merged.added.length, written: mode === 'write' && merged.changed, diagnostics };
 }
 
 async function main() {
