@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T21:18:50+03:00",
+  "updated_at": "2026-10-20T05:35:00.687Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -230,6 +230,17 @@
       "source_language": "en",
       "category": "دولي · إعداد المعلمين",
       "published_at": "2026-10-05"
+    },
+    {
+      "id": "auto-5a99a2a11c3280335080be376dd66c8db41a6d5f98586df0396485918b39d785",
+      "title_ar": "جمعية المكتبات الأمريكية وجمعية أمناء مكتبات المدارس تؤيدان مشروع قانون الشراكة للمعلمين",
+      "summary_ar": "أعلنت جمعية المكتبات الأمريكية وجمعية أمناء مكتبات المدارس تأييدهما لمشروع قانون الشراكة للمعلمين المعروض في الكونغرس الأمريكي، والذي يدعم أخصائيي مكتبات المدارس ويعالج نقص المعلمين عبر بناء البنية التحتية الفيدرالية وتوسيع المسارات المهنية.",
+      "source_name": "جمعية المكتبات الأمريكية",
+      "source_url": "https://www.ala.org/news/2026/09/ala-aasl-endorse-bicameral-quality-educator-partnership-act",
+      "published_at": "2026-09-30",
+      "scope": "school-library",
+      "source_language": "en",
+      "category": "مكتبات مدرسية"
     }
   ],
   "editorial_scope": "school-libraries",
