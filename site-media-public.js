@@ -7,7 +7,8 @@ const SIGNED_URL_TTL_SECONDS = 60 * 60;
 const DYNAMIC_HEADER_GALLERY_KEY = /^header-feature-image-(?:[6-9]|1[0-9]|2[0-5])$/;
 
 const publicClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  // Anonymous media reads must not initialize or contend with staff authentication.
+  accessToken: async () => null,
 });
 
 function setMetaImage(key, imageUrl, altText) {

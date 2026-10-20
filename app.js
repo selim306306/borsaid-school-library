@@ -3403,10 +3403,11 @@ async function start() {
   try {
     const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.57.0');
     publicSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      // Public requests use the publishable key, never the staff auth client or its lock.
+      accessToken: async () => null,
     });
     publicAnalyticsSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      accessToken: async () => null,
       global: {
         fetch: (input, init = {}) => fetch(input, {
           ...init,
