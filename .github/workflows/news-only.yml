@@ -1,0 +1,148 @@
+name: School library news only
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Validate and stage news without committing or requesting Pages build'
+        type: boolean
+        required: true
+        default: true
+
+# No repository-wide write default, OIDC, database, or media workflow access.
+permissions: {}
+concurrency:
+  group: school-library-news-only-main
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: github.repository == 'selim306306/borsaid-school-library' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.stage.outputs.changed }}
+      base_sha: ${{ steps.stage.outputs.base_sha }}
+      digest: ${{ steps.stage.outputs.digest }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Test news-only policy, authentication and append-only publisher
+        run: node --test scripts/news-function.test.mjs scripts/news-publisher.test.mjs
+      - name: Fetch, verify, summarize and stage public news only
+        id: stage
+        env:
+          NEWS_HMAC_SECRET: ${{ secrets.NEWS_HMAC_SECRET }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .nojekyll
+          cp news.json /tmp/news-base.json
+          node scripts/news-publisher.mjs --write
+          node scripts/news-publisher.mjs --verify-transition /tmp/news-base.json news.json
+          changed=false
+          if ! git diff --quiet -- news.json; then changed=true; fi
+          unexpected="$(git diff --name-only | grep -v '^news.json$' || true)"
+          test -z "$unexpected"
+          printf 'changed=%s\n' "$changed" >> "$GITHUB_OUTPUT"
+          printf 'base_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          printf 'digest=%s\n' "$(sha256sum news.json | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      - name: Stage validated archive for this run only
+        if: steps.stage.outputs.changed == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: news-only-${{ github.run_id }}-${{ github.run_attempt }}
+          path: news.json
+          if-no-files-found: error
+          retention-days: 2
+      - name: Report stage outcome without article bodies or credentials
+        env:
+          CHANGED: ${{ steps.stage.outputs.changed }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: printf 'Validated news archive. changed=%s dry_run=%s\n' "$CHANGED" "$DRY_RUN"
+
+  commit:
+    needs: collect
+    if: needs.collect.outputs.changed == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.dry_run)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      commit_sha: ${{ steps.commit.outputs.commit_sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: news-only-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/validated-news
+      - name: Revalidate immutable archive and commit news.json only
+        id: commit
+        env:
+          EXPECTED_BASE: ${{ needs.collect.outputs.base_sha }}
+          EXPECTED_DIGEST: ${{ needs.collect.outputs.digest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_BASE"
+          test -f .nojekyll
+          test "$(sha256sum /tmp/validated-news/news.json | cut -d' ' -f1)" = "$EXPECTED_DIGEST"
+          node scripts/news-publisher.mjs --verify-transition news.json /tmp/validated-news/news.json
+          cp /tmp/validated-news/news.json news.json
+          test "$(git diff --name-only)" = 'news.json'
+          git add -- news.json
+          test "$(git diff --cached --name-only)" = 'news.json'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'news: append verified school-library summaries'
+          git push origin HEAD:main
+          printf 'commit_sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: commit
+    if: needs.commit.outputs.commit_sha != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Branch-based Pages is unchanged. This job has no contents write or OIDC.
+    permissions:
+      pages: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXPECTED_COMMIT: ${{ needs.commit.outputs.commit_sha }}
+      REPO: selim306306/borsaid-school-library
+    steps:
+      - name: Request legacy Pages build only after real news commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPO/pages" --jq '{build_type,source}' > /tmp/pages-source.json
+          node -e "const p=require('/tmp/pages-source.json'); if(p.build_type!=='legacy'||p.source.branch!=='main'||p.source.path!=='/') process.exit(1)"
+          gh api --method POST "repos/$REPO/pages/builds" --jq '{status,commit}'
+          for attempt in $(seq 1 45); do
+            gh api "repos/$REPO/pages/builds/latest" --jq '{status,commit,error}' > /tmp/pages-build.json
+            status="$(node -p "require('/tmp/pages-build.json').status")"
+            commit="$(node -p "require('/tmp/pages-build.json').commit")"
+            if [ "$commit" = "$EXPECTED_COMMIT" ] && [ "$status" = 'built' ]; then
+              printf 'Pages built the verified news commit: %s\n' "$commit"
+              exit 0
+            fi
+            if [ "$commit" = "$EXPECTED_COMMIT" ] && [ "$status" = 'errored' ]; then
+              printf 'Pages build failed; no alternate deployment attempted.\n' >&2
+              exit 1
+            fi
+            sleep 8
+          done
+          printf 'Pages verification timed out; inspect the existing build before retrying.\n' >&2
+          exit 1
