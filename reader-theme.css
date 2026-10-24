@@ -226,3 +226,101 @@ body { background: #f6f4ee; }
   .site-header .brand { background: #123f47; }
   .page-home > .portal-hero { background: linear-gradient(150deg, #cce6dd, #f8f3df); }
 }
+
+
+/* Port Said home refresh: harbor ink, sea-glass surfaces, and a restrained sand accent. */
+.page-home {
+  --home-ink: #153b45;
+  --home-muted: #4d6268;
+  --home-harbor: #0f625e;
+  --home-harbor-deep: #10474f;
+  --home-mist: #edf5f2;
+  --home-sand: #f5e9c8;
+  --home-line: #c7dbd7;
+  color: var(--home-ink);
+}
+body { background: #f8faf9; }
+#homeView { background: #f8faf9; }
+.page-home > .portal-hero {
+  border-color: #a9c8c1;
+  border-radius: 24px;
+  background: radial-gradient(circle at 8% 8%, rgb(236 190 97 / 17%), transparent 22rem),
+    linear-gradient(125deg, #e9f3ef 0%, #f8fbfa 58%, #fcf7e9 100%);
+  box-shadow: 0 12px 28px rgb(21 59 69 / 7%);
+}
+.page-home .portal-main h1 { color: var(--home-ink); letter-spacing: -.045em; }
+.page-home .portal-title-accent { color: var(--home-harbor); }
+.page-home .portal-kicker { color: #315e63; }
+.page-home .portal-kicker-mark {
+  color: #fff;
+  background: var(--home-harbor);
+  box-shadow: 0 0 0 4px rgb(15 98 94 / 10%);
+}
+.page-home .portal-lede { color: #405b62; }
+.page-home .portal-search-panel {
+  border-color: #bdd3ce;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgb(21 59 69 / 6%);
+}
+.page-home .portal-search-heading strong { color: var(--home-ink); }
+.page-home .portal-search-description { color: var(--home-muted); }
+.page-home .portal-search-row {
+  border-color: #aec7c4;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgb(21 59 69 / 4%);
+}
+.page-home .portal-search-row:focus-within {
+  border-color: var(--home-harbor);
+  box-shadow: 0 0 0 3px rgb(15 98 94 / 13%);
+}
+.page-home .portal-search-row input::placeholder { color: #65777b; opacity: 1; }
+.page-home .portal-search-submit { color: #fff; background: var(--home-harbor); box-shadow: none; }
+.page-home .portal-search-submit:hover { background: var(--home-harbor-deep); }
+.page-home .portal-scope label span { border-color: #d1dfdc; color: #405b62; }
+.page-home .portal-scope input:checked + span {
+  border-color: #97beb5;
+  color: #164d4b;
+  background: #e7f2ee;
+}
+.page-home .portal-side {
+  border-color: #c7dbd7;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 8px 22px rgb(21 59 69 / 5%);
+}
+.page-home .portal-side-heading > strong { color: var(--home-ink); }
+.page-home .portal-side-link {
+  border-radius: 12px;
+  border-color: #d7e4e1;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.page-home .portal-side-library { background: #eff6f2; border-color: #d3e4dc; }
+.page-home .portal-side-assistant { background: #f2eff8; border-color: #ded8eb; }
+.page-home .portal-side-news { background: #faf5e8; border-color: #e9dfc3; }
+.page-home .portal-side-books,
+.page-home .portal-side-reading { background: #edf4f7; border-color: #d2e0e7; }
+.page-home .portal-side-copy strong { color: #234650; }
+.page-home .portal-side-copy small { color: #4e646c; }
+.page-home .portal-side-arrow { color: #315e63; }
+.page-home .portal-side-link:focus-visible { outline: 3px solid var(--home-harbor); outline-offset: 3px; }
+.page-home > .compact-pathways { border-color: #c8dcd6; background: #eef5f2; }
+.page-home > #homeNews { border-color: #d2dee5; background: linear-gradient(120deg, #eef3f7 0%, #f8fafb 70%, #fbf8ef 100%); }
+.page-home > .leadership-banner { border-color: #d6e1e2; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .page-home .portal-side-link:hover {
+    border-color: #9dbdb5;
+    box-shadow: 0 5px 14px rgb(21 59 69 / 8%);
+    transform: translateY(-1px);
+  }
+}
+@media (max-width: 700px) {
+  .page-home > .portal-hero {
+    border-radius: 18px;
+    background: linear-gradient(150deg, #e8f2ee 0%, #fbfcfb 76%, #faf5e7 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .portal-side-link { transition: none; transform: none; }
+}

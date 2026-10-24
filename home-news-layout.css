@@ -160,3 +160,79 @@
 .live-news-card .news-image-credit { display: block; grid-column: 1 / -1; margin: 2px 0 8px; color: #526473; font-size: 10px; line-height: 1.7; overflow-wrap: anywhere; }
 .live-news-card .news-image-license { color: #205b4d; text-decoration: underline; }
 .live-news-card:has(.news-image-credit) .news-card-image { object-fit: contain; }
+
+
+/* Port Said home refresh: responsive hierarchy and comfortable tap targets. */
+.page-home > .portal-hero { padding: clamp(18px, 2.5vw, 32px); }
+.page-home .portal-main h1 {
+  max-width: 16ch;
+  font-size: calc(clamp(2rem, 3.8vw, 3.25rem) + var(--site-font-step, 2px));
+  line-height: 1.25;
+}
+.page-home .portal-lede {
+  max-width: 54ch;
+  font-size: calc(15px + var(--site-font-step, 2px));
+  line-height: 1.8;
+}
+.page-home .portal-search-panel { padding: clamp(12px, 1.5vw, 18px); }
+.page-home .portal-search-row { min-height: 54px; }
+.page-home .portal-search-submit { min-height: 48px; }
+.page-home .portal-side-link { min-height: 54px; }
+@media (max-width: 700px) {
+  .page-home > .portal-hero { padding: 14px; }
+  .page-home .portal-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .page-home .portal-main h1 {
+    max-width: 18ch;
+    font-size: calc(clamp(1.9rem, 7vw, 2.55rem) + var(--site-font-step, 2px));
+    line-height: 1.3;
+  }
+  .page-home .portal-lede { font-size: calc(15px + var(--site-font-step, 2px)); }
+  .page-home .portal-search-panel { padding: 12px; }
+  .page-home .portal-search-row { min-height: 52px; gap: 6px; }
+  .page-home .portal-search-submit { min-height: 48px; padding-inline: 12px; }
+  .page-home .portal-scope { gap: 6px; }
+  .page-home .portal-scope label span { min-height: 42px; line-height: 1.5; }
+  .page-home .portal-side { padding: 12px; }
+  .page-home .portal-side-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+  .page-home .portal-side-link {
+    min-height: 52px;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+  .page-home .portal-side-copy strong { font-size: calc(13px + var(--site-font-step, 2px)); }
+  .page-home .portal-side-copy small { font-size: calc(11px + var(--site-font-step, 2px)); }
+  .page-home .portal-side-icon { flex: 0 0 32px; }
+}
+
+/* Keep all quick paths visible while shortening the standard-phone hero. */
+@media (max-width: 700px) {
+  .page-home .portal-side-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-home .portal-side-link {
+    min-height: 94px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px;
+  }
+  .page-home .portal-side-icon { width: 28px; height: 28px; flex: 0 0 28px; }
+  .page-home .portal-side-copy { width: 100%; min-width: 0; }
+}
+@media (max-width: 360px) {
+  .page-home .portal-side-links { grid-template-columns: minmax(0, 1fr); }
+  .page-home .portal-side-link {
+    min-height: 52px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+  .page-home .portal-side-icon { width: 32px; height: 32px; flex-basis: 32px; }
+}

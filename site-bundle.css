@@ -3417,6 +3417,82 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .live-news-card:has(.news-image-credit) .news-card-image { object-fit: contain; }
 
 
+/* Port Said home refresh: responsive hierarchy and comfortable tap targets. */
+.page-home > .portal-hero { padding: clamp(18px, 2.5vw, 32px); }
+.page-home .portal-main h1 {
+  max-width: 16ch;
+  font-size: calc(clamp(2rem, 3.8vw, 3.25rem) + var(--site-font-step, 2px));
+  line-height: 1.25;
+}
+.page-home .portal-lede {
+  max-width: 54ch;
+  font-size: calc(15px + var(--site-font-step, 2px));
+  line-height: 1.8;
+}
+.page-home .portal-search-panel { padding: clamp(12px, 1.5vw, 18px); }
+.page-home .portal-search-row { min-height: 54px; }
+.page-home .portal-search-submit { min-height: 48px; }
+.page-home .portal-side-link { min-height: 54px; }
+@media (max-width: 700px) {
+  .page-home > .portal-hero { padding: 14px; }
+  .page-home .portal-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .page-home .portal-main h1 {
+    max-width: 18ch;
+    font-size: calc(clamp(1.9rem, 7vw, 2.55rem) + var(--site-font-step, 2px));
+    line-height: 1.3;
+  }
+  .page-home .portal-lede { font-size: calc(15px + var(--site-font-step, 2px)); }
+  .page-home .portal-search-panel { padding: 12px; }
+  .page-home .portal-search-row { min-height: 52px; gap: 6px; }
+  .page-home .portal-search-submit { min-height: 48px; padding-inline: 12px; }
+  .page-home .portal-scope { gap: 6px; }
+  .page-home .portal-scope label span { min-height: 42px; line-height: 1.5; }
+  .page-home .portal-side { padding: 12px; }
+  .page-home .portal-side-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+  .page-home .portal-side-link {
+    min-height: 52px;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+  .page-home .portal-side-copy strong { font-size: calc(13px + var(--site-font-step, 2px)); }
+  .page-home .portal-side-copy small { font-size: calc(11px + var(--site-font-step, 2px)); }
+  .page-home .portal-side-icon { flex: 0 0 32px; }
+}
+
+/* Keep all quick paths visible while shortening the standard-phone hero. */
+@media (max-width: 700px) {
+  .page-home .portal-side-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-home .portal-side-link {
+    min-height: 94px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px;
+  }
+  .page-home .portal-side-icon { width: 28px; height: 28px; flex: 0 0 28px; }
+  .page-home .portal-side-copy { width: 100%; min-width: 0; }
+}
+@media (max-width: 360px) {
+  .page-home .portal-side-links { grid-template-columns: minmax(0, 1fr); }
+  .page-home .portal-side-link {
+    min-height: 52px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+  }
+  .page-home .portal-side-icon { width: 32px; height: 32px; flex-basis: 32px; }
+}
+
+
 /* Source: reader-theme.css */
 /* Public reader theme. Presentation only: no content, asset or layout-order changes. */
 :root {
@@ -3645,5 +3721,103 @@ body { background: #f6f4ee; }
 @media (max-width: 700px) {
   .site-header .brand { background: #123f47; }
   .page-home > .portal-hero { background: linear-gradient(150deg, #cce6dd, #f8f3df); }
+}
+
+
+/* Port Said home refresh: harbor ink, sea-glass surfaces, and a restrained sand accent. */
+.page-home {
+  --home-ink: #153b45;
+  --home-muted: #4d6268;
+  --home-harbor: #0f625e;
+  --home-harbor-deep: #10474f;
+  --home-mist: #edf5f2;
+  --home-sand: #f5e9c8;
+  --home-line: #c7dbd7;
+  color: var(--home-ink);
+}
+body { background: #f8faf9; }
+#homeView { background: #f8faf9; }
+.page-home > .portal-hero {
+  border-color: #a9c8c1;
+  border-radius: 24px;
+  background: radial-gradient(circle at 8% 8%, rgb(236 190 97 / 17%), transparent 22rem),
+    linear-gradient(125deg, #e9f3ef 0%, #f8fbfa 58%, #fcf7e9 100%);
+  box-shadow: 0 12px 28px rgb(21 59 69 / 7%);
+}
+.page-home .portal-main h1 { color: var(--home-ink); letter-spacing: -.045em; }
+.page-home .portal-title-accent { color: var(--home-harbor); }
+.page-home .portal-kicker { color: #315e63; }
+.page-home .portal-kicker-mark {
+  color: #fff;
+  background: var(--home-harbor);
+  box-shadow: 0 0 0 4px rgb(15 98 94 / 10%);
+}
+.page-home .portal-lede { color: #405b62; }
+.page-home .portal-search-panel {
+  border-color: #bdd3ce;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgb(21 59 69 / 6%);
+}
+.page-home .portal-search-heading strong { color: var(--home-ink); }
+.page-home .portal-search-description { color: var(--home-muted); }
+.page-home .portal-search-row {
+  border-color: #aec7c4;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgb(21 59 69 / 4%);
+}
+.page-home .portal-search-row:focus-within {
+  border-color: var(--home-harbor);
+  box-shadow: 0 0 0 3px rgb(15 98 94 / 13%);
+}
+.page-home .portal-search-row input::placeholder { color: #65777b; opacity: 1; }
+.page-home .portal-search-submit { color: #fff; background: var(--home-harbor); box-shadow: none; }
+.page-home .portal-search-submit:hover { background: var(--home-harbor-deep); }
+.page-home .portal-scope label span { border-color: #d1dfdc; color: #405b62; }
+.page-home .portal-scope input:checked + span {
+  border-color: #97beb5;
+  color: #164d4b;
+  background: #e7f2ee;
+}
+.page-home .portal-side {
+  border-color: #c7dbd7;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 8px 22px rgb(21 59 69 / 5%);
+}
+.page-home .portal-side-heading > strong { color: var(--home-ink); }
+.page-home .portal-side-link {
+  border-radius: 12px;
+  border-color: #d7e4e1;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.page-home .portal-side-library { background: #eff6f2; border-color: #d3e4dc; }
+.page-home .portal-side-assistant { background: #f2eff8; border-color: #ded8eb; }
+.page-home .portal-side-news { background: #faf5e8; border-color: #e9dfc3; }
+.page-home .portal-side-books,
+.page-home .portal-side-reading { background: #edf4f7; border-color: #d2e0e7; }
+.page-home .portal-side-copy strong { color: #234650; }
+.page-home .portal-side-copy small { color: #4e646c; }
+.page-home .portal-side-arrow { color: #315e63; }
+.page-home .portal-side-link:focus-visible { outline: 3px solid var(--home-harbor); outline-offset: 3px; }
+.page-home > .compact-pathways { border-color: #c8dcd6; background: #eef5f2; }
+.page-home > #homeNews { border-color: #d2dee5; background: linear-gradient(120deg, #eef3f7 0%, #f8fafb 70%, #fbf8ef 100%); }
+.page-home > .leadership-banner { border-color: #d6e1e2; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .page-home .portal-side-link:hover {
+    border-color: #9dbdb5;
+    box-shadow: 0 5px 14px rgb(21 59 69 / 8%);
+    transform: translateY(-1px);
+  }
+}
+@media (max-width: 700px) {
+  .page-home > .portal-hero {
+    border-radius: 18px;
+    background: linear-gradient(150deg, #e8f2ee 0%, #fbfcfb 76%, #faf5e7 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .portal-side-link { transition: none; transform: none; }
 }
 
