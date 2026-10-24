@@ -121,7 +121,7 @@ function createNewsCard(item) {
   const top = document.createElement('div');
   top.className = 'education-news-card-top';
   top.append(
-    makeText('span', 'news-source-name', item.source_name || 'مصدر تعليمي'),
+    makeText('span', 'news-source-name', item.source_name || 'مصدر موثوق'),
     makeText('span', 'news-language-tag', item.source_language === 'ar' ? 'ملخص عربي' : 'ترجمة موجزة'),
   );
   article.append(top);
@@ -161,7 +161,7 @@ function createNewsCard(item) {
   const metadata = document.createElement('div');
   metadata.className = 'news-card-metadata';
   metadata.append(
-    makeText('span', 'news-category', item.category || 'تعليم'),
+    makeText('span', 'news-category', item.category || 'أخبار المكتبات'),
     makeText('time', 'news-date', formatArabicDate(item.published_at, item.date_precision)),
   );
   const time = metadata.querySelector('time');
@@ -240,8 +240,8 @@ async function loadNews() {
       return dateDifference || String(a.id ?? '').localeCompare(String(b.id ?? ''));
     });
     currentArchivePage = 1;
-    const schoolLibraryItems = archivedItems.filter(item => item.scope === 'school-library' && item.home_excluded !== true);
-    renderGrid(homeGrid, schoolLibraryItems.slice(0, NEWS_HOME_COUNT));
+    const libraryNewsItems = archivedItems.filter(item => (item.scope === 'libraries' || item.scope === 'school-library') && item.home_excluded !== true);
+    renderGrid(homeGrid, libraryNewsItems.slice(0, NEWS_HOME_COUNT));
     renderArchivePage();
 
     if (data.updated_at) {

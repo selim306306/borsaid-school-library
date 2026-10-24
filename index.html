@@ -40,7 +40,7 @@
   <script type="module" src="book-catalog-assistant.js?v=da14aa037db0a967"></script>
   <script type="module" src="global-reading.js?v=5d64ca08e2de5f20"></script>
   <script type="module" src="education-research.js?v=e1dbe97e4e150c92"></script>
-  <script type="module" src="site-news.js?v=2fcfcd126f06b73e"></script>
+  <script type="module" src="site-news.js?v=85e2eaef806667c1"></script>
   <script type="module" src="open-books-live.js?v=6ca36f074c417c7b"></script>
   <script type="module" src="external-reading.js?v=66652a425b1f6b60"></script>
   <script type="module" src="book-updates-ticker.js?v=236549f5de5cb33f"></script>
@@ -158,7 +158,7 @@
             <nav class="portal-side-links">
               <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
               <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد سريع بالاستناد إلى Gemini</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-              <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات المدرسية</strong><small>موجز عربي وأبحاث مفتوحة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+              <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات في مصر والعالم</strong><small>موجز عربي ومصادر موثوقة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
             </nav>
           </aside>
         </div>
@@ -198,10 +198,10 @@
       </section>
       <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
         <header class="home-news-heading">
-          <div><span class="eyebrow">أخبار مختارة · مصادر موثقة</span><h2 id="homeNewsTitle">أخبار المكتبات المدرسية</h2></div>
+          <div><span class="eyebrow">أخبار مختارة · مصادر موثقة</span><h2 id="homeNewsTitle">أخبار المكتبات في مصر والعالم</h2></div>
           <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">جارٍ تحميل آخر الأخبار…</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
         </header>
-        <p class="home-news-intro">أخبار متحققة عن المكتبات المدرسية وأخصائييها والقراءة ومصادر التعلّم المرتبطة بها، مع المصدر وحقوق الصور.</p>
+        <p class="home-news-intro">أخبار متحققة عن المكتبات بمختلف أنواعها في مصر والعالم، ومبادراتها ومسابقاتها وأبحاثها وتطوراتها؛ وتشمل برامج القراءة المرتبطة بالمكتبات بوضوح. يظهر المصدر الأصلي، ولا تُستخدم الصور إلا بحقوق واضحة.</p>
         <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
         <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
       </section>
@@ -373,13 +373,13 @@
     <section class="page-view education-research-view" id="educationResearchView" data-view-panel="educationResearch" role="tabpanel" aria-labelledby="educationResearchTab" tabindex="0" hidden>
       <section class="education-research-section section-wrap" id="educationResearch" aria-labelledby="educationResearchTitle">
         <header class="education-research-heading">
-          <div><span class="eyebrow">موجز عربي · مصدر أصلي</span><h1 id="educationResearchTitle">أخبار المكتبات المدرسية والبحوث</h1><p>خلاصات عربية واضحة للأخبار المتحققة، مع رابط كل مصدر أصلي؛ وأسفلها بحث مباشر في بيانات الأوراق والمنشورات التعليمية المفتوحة.</p></div>
+          <div><span class="eyebrow">موجز عربي · مصدر أصلي</span><h1 id="educationResearchTitle">أخبار المكتبات في مصر والعالم</h1><p>خلاصات عربية واضحة لأخبار المكتبات المتحققة، مع رابط كل مصدر أصلي؛ وأسفلها بحث مباشر في بيانات الأوراق والمنشورات التعليمية المفتوحة.</p></div>
           <span class="education-research-stamp">أخبار عربية · أبحاث مفتوحة</span>
         </header>
         <aside class="education-research-intro"><span class="education-research-icon" aria-hidden="true">i</span><div><strong>ماذا ستجد هنا؟</strong><p>ملخصات وترجمات عربية موجزة للأخبار، تليها روابط المصادر للتحقق. أما البحث في OpenAlex ففهرسة آلية لا تثبت التحكيم العلمي ولا تضمن توفر ملف PDF مجانيّ؛ راجع شروط المصدر قبل الاستخدام.</p></div></aside>
 
         <section class="education-news-section" aria-labelledby="educationNewsTitle">
-          <div class="education-section-heading"><div><span class="eyebrow">ملخصات آلية · مصادر موثوقة</span><h2 id="educationNewsTitle">أرشيف أخبار المكتبات المدرسية</h2><p>تُخصص الإضافات الجديدة لعلم المكتبات المدرسية وأخصائييها وخدمات القراءة ومصادر التعلّم المرتبطة بها مباشرة. تبقى أخبار التعليم السابقة محفوظة في هذا الأرشيف دون حذف، مع تاريخ كل خبر ومصدره. فترة المراجعة المحددة ٢٤ ساعة.</p></div></div>
+          <div class="education-section-heading"><div><span class="eyebrow">ملخصات آلية · مصادر موثوقة</span><h2 id="educationNewsTitle">أرشيف أخبار المكتبات</h2><p>يشمل النطاق المكتبات العامة والمدرسية والأكاديمية والوطنية والمتخصصة والرقمية، ومبادراتها ومسابقاتها وأبحاثها وتطوراتها، وبرامج القراءة ذات الصلة الواضحة بالمكتبات. تبقى المواد التاريخية محفوظة كما هي، مع تاريخ كل خبر ومصدره. فترة المراجعة المحددة ٢٤ ساعة.</p></div></div>
           <p class="education-news-status" id="educationNewsStatus" role="status" aria-live="polite"></p>
           <div class="education-news-grid live-news-grid" id="educationNewsGrid" aria-live="polite" aria-busy="true"></div>
           <nav class="news-pagination" id="educationNewsPagination" aria-label="التنقل بين صفحات أرشيف الأخبار" hidden>

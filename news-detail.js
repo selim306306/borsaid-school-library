@@ -40,7 +40,7 @@ function setError(message) {
 function renderItem(item) {
   sourceNode.textContent = item.source_name;
   titleNode.textContent = item.title_ar;
-  document.title = `${item.title_ar} — المكتبة المدرسية الرقمية`;
+  document.title = `${item.title_ar} — أخبار المكتبات والقراءة | المكتبة المدرسية الرقمية`;
   categoryNode.textContent = item.category || 'تعليم';
   dateNode.textContent = formatArabicDate(item.published_at, item.date_precision);
   if (item.published_at) dateNode.dateTime = item.published_at;
