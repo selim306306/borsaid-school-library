@@ -18,7 +18,7 @@ test('كل بطاقة خبر تبني رابط news.html بمعرّف مشفّر
 
 test('صفحة التفاصيل ثابتة عامة للزحف ولا تدّعي معاينة لكل مقال', () => {
   assert.match(html, /dir="rtl"/);
-  assert.match(html, /property="og:title" content="أخبار المكتبة المدرسية الرقمية"/);
+  assert.match(html, /property="og:title" content="أخبار المكتبات والقراءة — المكتبة المدرسية الرقمية"/);
   assert.match(html, /لا يدّعي الموقع معاينة مختلفة لكل خبر/);
   assert.match(html, /news-detail\.js/);
   assert.match(html, /news-detail\.css/);
@@ -27,6 +27,7 @@ test('صفحة التفاصيل ثابتة عامة للزحف ولا تدّعي
 
 test('التفاصيل تعرض الحقول العربية المسموح بها فقط وتتحقق من HTTPS', () => {
   for (const token of ['title_ar', 'summary_ar', 'source_name', 'source_url', 'published_at', 'category']) assert.match(detailSource, new RegExp(token));
+  assert.match(detailSource, /document\.title = `\$\{item\.title_ar\} — أخبار المكتبات والقراءة \| المكتبة المدرسية الرقمية`/);
   assert.match(detailSource, /validHttpsUrl\(item\.source_url\)/);
   assert.match(detailSource, /لم يُعثر على هذا الخبر/);
   assert.match(detailSource, /معرّف الخبر مفقود أو غير صالح/);

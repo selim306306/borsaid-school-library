@@ -37,6 +37,7 @@ test('الأخبار المنزلية تسبق القيادة وتحافظ عل�
   assert.ok(html.indexOf('id="homeNews"') < html.indexOf('leadership-banner'));
   const home = sectionBetween('<section class="home-news-section', '<section class="leadership-banner');
   assert.match(home, /id="homeNews"/);
+  assert.match(home, /أخبار المكتبات في مصر والعالم/);
   assert.match(home, /id="homeNewsGrid"[^>]*aria-live="polite"[^>]*aria-busy="true"/);
   assert.match(home, /id="homeNewsStatus"/);
   const education = sectionBetween('<section class="education-research-section', '<section class="visitor-support');
@@ -129,7 +130,7 @@ async function runNews(payload, { fetchError = false, httpError = false } = {}) 
 }
 
 function item(id, days, overrides = {}) {
-  return { id, scope: 'school-library', title_ar: `عنوان ${id}`, summary_ar: `ملخص ${id}`, source_name: `مصدر ${id}`,
+  return { id, scope: 'libraries', title_ar: `عنوان ${id}`, summary_ar: `ملخص ${id}`, source_name: `مصدر ${id}`,
     source_url: `https://source.test/news/${id}`, published_at: `2026-10-${String(18 - days).padStart(2, '0')}T12:00:00Z`, ...overrides };
 }
 
@@ -194,7 +195,7 @@ test('الأخبار المصورة مدمجة بثلاثة أعمدة وصور�
   assert.match(css, /-webkit-line-clamp: 2/);
 });
 
-test('الرئيسية تستبعد التعليم العام مع حفظه في الأرشيف ولا تختلق يوم نشر للمصدر الشهري', async () => {
+test('الرئيسية تعرض أخبار المكتبات العامة مع حفظ المواد غير المصنفة في الأرشيف', async () => {
   const nodes = await runNews({ items: [
     item('general', 0, {scope: undefined}),
     item('library', 1, {published_at: '2026-10', date_precision: 'month', image_url: 'https://site.test/news.svg', image_alt: 'صورة من مصدر الخبر', image_credit: 'الصورة: المصدر الأصلي', image_license: 'CC BY 4.0', image_license_url: 'https://creativecommons.org/licenses/by/4.0/'}),
@@ -206,4 +207,16 @@ test('الرئيسية تستبعد التعليم العام مع حفظه في
   assert.equal(card.querySelector('.news-card-image').alt, 'صورة من مصدر الخبر');
   assert.match(card.querySelector('.news-image-credit').textContent, /الصورة: المصدر الأصلي/);
   assert.equal(card.querySelector('time').textContent, new Intl.DateTimeFormat('ar-EG', {year:'numeric', month:'short', timeZone:'Africa/Cairo'}).format(new Date('2026-10')));
+});
+
+test('الرئيسية تعرض النطاق الجديد والمدرسي التاريخي فقط وتحترم home_excluded', async () => {
+  const nodes = await runNews({ items: [
+    item('general-library', 0),
+    item('legacy-school-library', 1, { scope: 'school-library' }),
+    item('unclassified-archive', 2, { scope: undefined }),
+    item('excluded-library', 3, { home_excluded: true }),
+  ] });
+  assert.equal(nodes.homeNewsGrid.children.length, 2);
+  assert.deepEqual(nodes.homeNewsGrid.children.map(card => card.querySelector('.news-card-title').textContent), ['عنوان general-library', 'عنوان legacy-school-library']);
+  assert.equal(nodes.educationNewsGrid.children.length, 4);
 });
