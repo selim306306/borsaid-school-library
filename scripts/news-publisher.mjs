@@ -27,6 +27,9 @@ function sourceAllowed(url) {
   if (u.hostname === 'www.ifla.org') return u.pathname.startsWith('/news/') && u.pathname !== '/news/';
   if (u.hostname === 'www.ala.org') return u.pathname.startsWith('/news/') && u.pathname !== '/news/';
   if (u.hostname === 'www.unesco.org') return (/^\/(?:en|ar)\/articles\//u).test(u.pathname) && u.pathname.length > 14;
+  if (u.hostname === 'www.bibalex.org') { const params = [...u.searchParams.entries()]; return ['/en/news/details.aspx', '/news/details', '/en/news/details'].includes(u.pathname.toLowerCase()) && params.length === 1 && params[0][0].toLowerCase() === 'documentid' && /^\d+$/u.test(params[0][1]); }
+  if (u.hostname === 'www.darelkotob.gov.eg') { const params = [...u.searchParams.entries()]; return u.pathname.toLowerCase() === '/ar-eg/pages/news-details.aspx' && params.length === 1 && params[0][0].toLowerCase() === 'nid' && /^\d+$/u.test(params[0][1]); }
+  if (u.hostname === 'www.eifl.net') return /^\/news\/[a-z0-9][a-z0-9-]*$/iu.test(u.pathname);
   if (u.hostname === 'knowledgequest.aasl.org') return u.pathname.startsWith('/') && u.pathname !== '/';
   return false;
 }
@@ -64,7 +67,7 @@ export function validateNewsItem(candidate, now = new Date()) {
   const todayText = today.toISOString().slice(0, 10);
   const cutoff = new Date(today.getTime() - 30 * DAY).toISOString().slice(0, 10);
   if (published_at > todayText || published_at < cutoff) throw new Error('date_out_of_range');
-  if (candidate.scope !== 'school-library') throw new Error('invalid_scope');
+  if (candidate.scope !== 'libraries') throw new Error('invalid_scope');
   if (!text(candidate.title_ar, 15, 200) || !text(candidate.summary_ar, 60, 700) || !arabicFraction(candidate.title_ar) || !arabicFraction(candidate.summary_ar) || wordCount(candidate.summary_ar) > 80) throw new Error('invalid_text');
   if (typeof candidate.source_name !== 'string' || !text(candidate.source_name, 2, 120) || BIDI_OR_HTML.test(candidate.source_name)) throw new Error('invalid_source_name');
   if (!['en', 'ar'].includes(candidate.source_language)) throw new Error('invalid_language');
@@ -72,7 +75,7 @@ export function validateNewsItem(candidate, now = new Date()) {
   if (candidate.id !== undefined && (typeof candidate.id !== 'string' || candidate.id !== itemId(source_url))) throw new Error('invalid_id');
   return {
     id: itemId(source_url), title_ar: candidate.title_ar.trim(), summary_ar: candidate.summary_ar.trim(),
-    source_name: candidate.source_name.trim(), source_url, published_at, scope: 'school-library',
+    source_name: candidate.source_name.trim(), source_url, published_at, scope: 'libraries',
     source_language: candidate.source_language, category: candidate.category.trim(),
   };
 }

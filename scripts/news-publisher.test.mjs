@@ -7,12 +7,12 @@ import { buildPayload, canonicalUrl, mergeArchive, runPublisher, signedHeaders, 
 
 const NOW = new Date('2026-10-20T12:00:00.000Z');
 const item = (extra = {}) => ({
-  title_ar: 'خبر موثوق عن المكتبات المدرسية',
+  title_ar: 'خبر موثوق عن المكتبات العامة',
   summary_ar: 'هذا ملخص عربي تجريبي طويل بما يكفي لاجتياز التحقق الصارم للنشر الآمن.',
-  source_name: 'مصدر تجريبي موثوق', source_url: 'https://www.ifla.org/news/synthetic-school-library-item/?utm_source=x',
-  published_at: '2026-10-10', scope: 'school-library', source_language: 'en', category: 'مكتبات مدرسية', ...extra,
+  source_name: 'مصدر تجريبي موثوق', source_url: 'https://www.ifla.org/news/synthetic-library-item/?utm_source=x',
+  published_at: '2026-10-10', scope: 'libraries', source_language: 'en', category: 'أخبار المكتبات', ...extra,
 });
-const archive = (items = []) => ({ schema_version: 1, updated_at: '2026-10-01T00:00:00+03:00', schedule_interval_hours: 24, schedule_interval_seconds: 86400, items, editorial_scope: 'school-libraries', editorial_policy_ar: 'لا صور.', });
+const archive = (items = []) => ({ schema_version: 1, updated_at: '2026-10-01T00:00:00+03:00', schedule_interval_hours: 24, schedule_interval_seconds: 86400, items, editorial_scope: 'libraries-egypt-world', editorial_policy_ar: 'ملخصات عربية موثقة؛ لا صور إلا بإذن وإسناد وترخيص واضح.', });
 const response = (items = []) => ({ schema_version: 1, status: 'ok', items, rejected_count: 0 });
 function fakeRequest(body) { return async (_url, options) => ({ ok: true, async json() { return body; }, options }); }
 
@@ -53,6 +53,30 @@ test('strict source allowlist, dates, injection, and item fields', () => {
   const clean = validateNewsItem(item(), NOW); assert.equal(Object.hasOwn(clean, 'image_url'), false); assert.match(clean.id, /^auto-[a-f0-9]{64}$/);
 });
 
+test('trusted library institutions accept only their article URL patterns', () => {
+  const accepted = [
+    'https://www.ifla.org/news/library-research-update',
+    'https://www.ala.org/news/2026/10/public-library-initiative',
+    'https://www.unesco.org/en/articles/library-access-programme',
+    'https://www.bibalex.org/en/news/Details.aspx?DocumentID=46369',
+    'https://www.bibalex.org/news/Details?DocumentID=46369',
+    'https://www.bibalex.org/en/news/details?documentid=46369',
+    'https://www.darelkotob.gov.eg/ar-eg/Pages/news-details.aspx?nid=286',
+    'https://www.eifl.net/news/public-library-innovation-award',
+  ];
+  for (const source_url of accepted) assert.equal(validateNewsItem(item({ source_url }), NOW).source_url, source_url);
+  for (const source_url of [
+    'https://evil.example/news/story',
+    'https://www.bibalex.org/en/news/',
+    'https://www.bibalex.org/en/other/Details.aspx?DocumentID=46369',
+    'https://www.bibalex.org/news/other?DocumentID=46369',
+    'https://www.bibalex.org/en/news/other?documentid=46369',
+    'https://www.darelkotob.gov.eg/ar-eg/Pages/News.aspx',
+    'https://www.darelkotob.gov.eg/ar-eg/Pages/news-details.aspx?nid=abc',
+    'https://www.eifl.net/about',
+  ]) assert.throws(() => validateNewsItem(item({ source_url }), NOW));
+});
+
 test('response rejects over-limit and unknown/incomplete shapes; unknown item keys are discarded', () => {
   assert.throws(() => validateResponse({ schema_version: 1, status: 'ok', items: [item(), item(), item(), item()], rejected_count: 0 }, NOW));
   const result = validateResponse(response([item({ image_url: 'https://evil.test/x', secret: 'do-not-copy' })]), NOW);
@@ -70,7 +94,7 @@ import { verifyTransition, itemId } from './news-publisher.mjs';
 
 test('rejects scope, fabricated IDs, non-Arabic text, oversized summaries and encoded paths', () => {
   for (const extra of [
-    { scope: 'education' }, { id: 'forged' },
+    { scope: 'school-library' }, { scope: 'education' }, { id: 'forged' },
     { title_ar: 'A long English title about school libraries' },
     { summary_ar: 'English school library news '.repeat(4) },
     { summary_ar: 'مدرسة '.repeat(81) },
@@ -79,6 +103,7 @@ test('rejects scope, fabricated IDs, non-Arabic text, oversized summaries and en
   ]) assert.throws(() => validateNewsItem(item(extra), NOW));
   const good = validateNewsItem(item(), NOW);
   assert.equal(good.id, itemId(good.source_url));
+  assert.equal(good.scope, 'libraries');
 });
 
 test('append-only transition preserves every prior item and root metadata', () => {
