@@ -2,79 +2,79 @@
 :root {
   --reader-ink: #183b49;
   --reader-muted: #526771;
-  --reader-teal: #116b68;
-  --reader-teal-dark: #0c5351;
-  --reader-line: #d6e3e4;
+  --reader-teal: #11326b;
+  --reader-teal-dark: #0c2653;
+  --reader-line: #d6dbe4;
   --reader-paper: #f5f8f8;
   --reader-shadow: 0 5px 18px rgb(24 59 73 / 5%);
 }
 body { background: #f5f8f8; }
-.announcement { background: #e7f0ef; color: #315a60; }
+.announcement { background: #e8f1ff; color: #314260; }
 .site-header { background: #fff; border-color: var(--reader-line); }
 .site-header .brand { background: #f5f8f8; border-color: transparent; box-shadow: none; }
 .site-header .brand-copy strong { color: var(--reader-ink); }
-.site-header .brand-school-identity { color: #445e66; background: transparent; border-color: transparent; }
+.site-header .brand-school-identity { color: #445066; background: transparent; border-color: transparent; }
 .header-feature-image-slot { box-shadow: var(--reader-shadow); }
-.site-header .header-chat-shortcut { background: var(--reader-teal); border-color: var(--reader-teal); box-shadow: 0 3px 10px rgb(17 107 104 / 14%); }
+.site-header .header-chat-shortcut { background: var(--reader-teal); border-color: var(--reader-teal); box-shadow: 0 3px 10px rgb(17 50 107 / 14%); }
 .site-header .header-chat-shortcut:hover { background: var(--reader-teal-dark); }
-.site-header .header-development-notice { background: #faf6e9; border-color: #e5dab4; color: #65552e; box-shadow: none; }
-.site-header .president-banner { border-color: #bfd8d7; background: #edf5f4; box-shadow: none; }
-.site-header .president-banner figcaption { background: #edf5f4; }
+.site-header .header-development-notice { background: #e9effa; border-color: #b4c6e5; color: #2e4265; box-shadow: none; }
+.site-header .president-banner { border-color: #bfc8d8; background: #eaf3ff; box-shadow: none; }
+.site-header .president-banner figcaption { background: #eaf3ff; }
 .site-header .president-banner-name { color: var(--reader-ink); }
-.site-header .president-banner-site-note { background: #faf6e9; border-color: #e5dab4; }
-.book-updates-ticker { background: #e0efee; border-color: #bdd7d4; border-inline-start-color: #116b68; box-shadow: none; }
-.book-updates-ticker-title { background: #185f60; }
+.site-header .president-banner-site-note { background: #e9effa; border-color: #b4c6e5; }
+.book-updates-ticker { background: #e0e6ef; border-color: #bdc7d7; border-inline-start-color: #11326b; box-shadow: none; }
+.book-updates-ticker-title { background: #183260; }
 .site-tabs { border-bottom-color: var(--reader-line); }
 .site-tabs .view-tab { color: #455d68; border-radius: 9px 9px 0 0; transition: background-color .16s ease, color .16s ease; }
-.site-tabs .view-tab:hover { color: var(--reader-teal-dark); background: #e6efef; }
-#visitorTabs .view-tab.active { color: #fff; background: #185f60; font-weight: 700; }
-#visitorTabs .view-tab.active::after { background: #83b6ad; }
+.site-tabs .view-tab:hover { color: var(--reader-teal-dark); background: #e9f1ff; }
+#visitorTabs .view-tab.active { color: #fff; background: #183260; font-weight: 700; }
+#visitorTabs .view-tab.active::after { background: #8396b6; }
 #visitorTabs .view-tab.active .view-tab-icon { color: currentColor; }
-.site-tabs .staff-nav-button { color: #39516a; background: #fff; border-color: #cddadd; box-shadow: none; }
+.site-tabs .staff-nav-button { color: #39516a; background: #fff; border-color: #cdd3dd; box-shadow: none; }
 .page-view { color: var(--reader-ink); }
 .page-view .eyebrow { color: var(--reader-teal); }
 .page-home > .portal-hero {
-  background: linear-gradient(110deg, #e4f0ee 0%, #f2f7f5 48%, #fff 100%);
-  border-color: #c9dddb;
+  background: linear-gradient(110deg, #e4e8f0 0%, #f2f7ff 48%, #fff 100%);
+  border-color: #c9d0dd;
   box-shadow: none;
 }
 .page-home > .portal-hero::before { background: none; }
 .page-home .portal-main h1 { color: #183b49; letter-spacing: -.7px; }
-.page-home .portal-title-accent { color: #116b68; }
-.page-home .portal-kicker { color: #315e63; }
-.page-home .portal-kicker-mark { color: #fff; background: #116b68; }
+.page-home .portal-title-accent { color: #11326b; }
+.page-home .portal-kicker { color: #314363; }
+.page-home .portal-kicker-mark { color: #fff; background: #11326b; }
 .page-home .portal-lede { color: #4c636b; }
-.page-home .portal-search-panel { background: #fff; border-color: #cbdcdd; box-shadow: var(--reader-shadow); }
+.page-home .portal-search-panel { background: #fff; border-color: #cbd2dd; box-shadow: var(--reader-shadow); }
 .page-home .portal-search-heading strong { color: var(--reader-ink); }
 .page-home .portal-search-description { color: #526771; }
-.page-home .portal-search-row { border-color: #bdced1; background: #fcfdfd; box-shadow: none; }
-.page-home .portal-search-row:focus-within { border-color: #116b68; box-shadow: 0 0 0 3px rgb(17 107 104 / 12%); }
+.page-home .portal-search-row { border-color: #bdc4d1; background: #fcfdfd; box-shadow: none; }
+.page-home .portal-search-row:focus-within { border-color: #11326b; box-shadow: 0 0 0 3px rgb(17 50 107 / 12%); }
 .page-home .portal-search-row input::placeholder { color: #657881; opacity: 1; }
 .page-home .portal-search-submit { color: #fff; background: var(--reader-teal); box-shadow: none; }
 .page-home .portal-search-submit:hover { background: var(--reader-teal-dark); }
-.page-home .portal-scope label span { border-color: #d5e2e3; color: #49636b; }
-.page-home .portal-scope input:checked + span { background: #e0f0ed; color: #185b55; border-color: #9bc5bd; }
-.page-home .portal-side { background: #fff; border-color: #d6e3e4; box-shadow: none; }
+.page-home .portal-scope label span { border-color: #d5dae3; color: #49556b; }
+.page-home .portal-scope input:checked + span { background: #e0e6f0; color: #18315b; border-color: #9baac5; }
+.page-home .portal-side { background: #fff; border-color: #d6dbe4; box-shadow: none; }
 .page-home .portal-side-heading > strong { color: var(--reader-ink); }
-.page-home .portal-side-link { border-color: #e0e9ea; }
-.page-home .portal-side-copy strong { color: #294b56; }
+.page-home .portal-side-link { border-color: #d8e7fb; }
+.page-home .portal-side-copy strong { color: #293a56; }
 .page-home .portal-side-copy small { color: #596d76; }
-.page-home .portal-side-library .portal-side-icon { color: #21645b; background: #e5f2ec; }
-.page-home .portal-side-assistant .portal-side-icon { color: #58518c; background: #eeebf7; }
-.page-home .portal-side-news .portal-side-icon { color: #8a6425; background: #f8efd8; }
+.page-home .portal-side-library .portal-side-icon { color: #213a64; background: #e5eaf2; }
+.page-home .portal-side-assistant .portal-side-icon { color: #51678c; background: #ebeff7; }
+.page-home .portal-side-news .portal-side-icon { color: #254a8a; background: #d8e4f8; }
 .page-home .portal-side-reading .portal-side-icon { color: #28617f; background: #e7f1f7; }
-.page-home > .compact-pathways { background: #edf4f2; border-color: #d0e1dc; }
+.page-home > .compact-pathways { background: #edf4ff; border-color: #d0d6e1; }
 .assistant-shortcut { box-shadow: none; }
-.assistant-shortcut-ai { background: #116b68; border-color: #116b68; }
-.assistant-shortcut-librarian { background: #f0edf8; color: #534980; border-color: #d3cde5; }
+.assistant-shortcut-ai { background: #11326b; border-color: #11326b; }
+.assistant-shortcut-librarian { background: #edf1f8; color: #495d80; border-color: #cdd6e5; }
 .assistant-shortcut-telegram { background: #eaf3f8; color: #245d77; border-color: #c8dfe9; }
 .page-home > #homeNews { background: #edf2f8; border-color: #d1dce8; }
 #homeNews .home-news-heading h2 { color: #213f60; }
 #homeNews .home-news-heading .eyebrow { color: #496883; }
 #homeNews .home-news-intro, #homeNews .news-updated { color: #526579; }
-.page-home #homeNews .home-news-grid > .live-news-card { border-color: #d4e0e8; border-top-color: #24887d; box-shadow: 0 3px 10px rgb(31 63 87 / 4%); }
+.page-home #homeNews .home-news-grid > .live-news-card { border-color: #d4e0e8; border-top-color: #244988; box-shadow: 0 3px 10px rgb(31 63 87 / 4%); }
 .page-home #homeNews .live-news-card:nth-child(2) { border-top-color: #647fa9; }
-.page-home #homeNews .live-news-card:nth-child(3) { border-top-color: #b39551; }
+.page-home #homeNews .live-news-card:nth-child(3) { border-top-color: #5175b3; }
 .page-home #homeNews .home-news-grid .news-card-title { color: #234552; }
 .page-home #homeNews .home-news-grid .news-source-name { color: #3e647d; font-weight: 600; }
 .page-home #homeNews .home-news-grid .news-source-link { color: #285777; background: #edf3f8; border-color: #d3e0eb; border-radius: 9px; }
@@ -82,17 +82,17 @@ body { background: #f5f8f8; }
 .page-home .leadership-banner .leadership-person { background: #f8fafb; border-color: #dde5e8; box-shadow: none; }
 .page-home .leadership-banner-heading { color: var(--reader-ink); }
 /* Distinct, quiet section families: catalogue/mint, schools/sand, reading/sea, research/blue. */
-#discoverView { --reader-section: #edf5f1; --reader-accent: #236957; }
-#branchesView { --reader-section: #f8f4ea; --reader-accent: #826429; }
-#announcementsView { --reader-section: #f8f3e9; --reader-accent: #856327; }
-#aboutView { --reader-section: #f2eff7; --reader-accent: #655586; }
-#globalReadingView { --reader-section: #edf5f6; --reader-accent: #256c75; }
+#discoverView { --reader-section: #edf5ff; --reader-accent: #233d69; }
+#branchesView { --reader-section: #eaeff8; --reader-accent: #294a82; }
+#announcementsView { --reader-section: #e9eef8; --reader-accent: #274985; }
+#aboutView { --reader-section: #eef3ff; --reader-accent: #556786; }
+#globalReadingView { --reader-section: #edf5ff; --reader-accent: #254275; }
 #educationResearchView { --reader-section: #eef2f8; --reader-accent: #3a5f91; }
 .page-view .search-section,
 .page-view .global-reading-section,
 .page-view .education-research-section,
 .page-view .openbooks-section,
-.page-view .external-reading-section { background: var(--reader-section, #f2f6f6); border-color: #d5e1e3; box-shadow: none; }
+.page-view .external-reading-section { background: var(--reader-section, #f2f7ff); border-color: #d5dae3; box-shadow: none; }
 .page-view .section-heading h2,
 .page-view .global-reading-heading h2,
 .page-view .openbooks-heading h2,
@@ -106,29 +106,29 @@ body { background: #f5f8f8; }
 .page-view .external-reading-card,
 .page-view .education-work-card,
 .page-view .education-news-card {
-  border-color: #d7e2e5;
+  border-color: #d7dce5;
   border-radius: 15px;
   background: #fff;
   box-shadow: var(--reader-shadow);
 }
-#branchesView .school-profile-card { border-top: 3px solid #b59a5d; background: #fffdf8; }
-#branchesView .school-profile-card:nth-child(2n) { border-top-color: #6b9d91; background: #f9fcfb; }
-#announcementsView .public-notice { background: #fcf8ee; border-color: #e8ddc4; }
+#branchesView .school-profile-card { border-top: 3px solid #5d7db5; background: #f8fbff; }
+#branchesView .school-profile-card:nth-child(2n) { border-top-color: #6b7d9d; background: #f9fcfb; }
+#announcementsView .public-notice { background: #eef3fc; border-color: #c4d1e8; }
 #aboutView .feature-blue { background: #eaf2f5; }
-#aboutView .feature-red { background: #f0edf7; }
-#aboutView .feature-yellow { background: #f8f0df; }
+#aboutView .feature-red { background: #eff4ff; }
+#aboutView .feature-yellow { background: #dfe8f8; }
 .page-view .button-primary { background: var(--reader-accent, var(--reader-teal)); box-shadow: 0 3px 9px rgb(24 59 73 / 10%); }
-.page-view .button-outline { border-color: #c9d9dd; color: #2e5664; background: #fff; }
-.page-view .button-soft { background: #e7f0f0; color: #205b60; }
-.page-view .search-box { border-color: #c8d9dc; box-shadow: none; }
+.page-view .button-outline { border-color: #c9d0dd; color: #2e5664; background: #fff; }
+.page-view .button-soft { background: #eaf2ff; color: #203760; }
+.page-view .search-box { border-color: #c8cfdc; box-shadow: none; }
 .page-view .search-box:focus-within { border-color: var(--reader-teal); }
 .page-view :is(.openbooks-search-button, .external-reading-submit, .education-research-submit) { color: #fff; background: var(--reader-accent, var(--reader-teal)); border-color: var(--reader-accent, var(--reader-teal)); box-shadow: none; }
 .page-view :is(.openbooks-action, .global-reading-link, .external-reading-link, .education-research-link) { border-radius: 9px; }
-.page-view .openbooks-action { color: #315d69; border-color: #cbdcde; }
-.page-view .openbooks-action-primary { color: #fff; background: #256c75; border-color: #256c75; }
-.site-footer { border-top-color: #d8e4e4; background: transparent; }
+.page-view .openbooks-action { color: #314669; border-color: #cbd2de; }
+.page-view .openbooks-action-primary { color: #fff; background: #254275; border-color: #254275; }
+.site-footer { border-top-color: #d8dce4; background: transparent; }
 .site-footer .footer-card { background: #fff; border-color: var(--reader-line); box-shadow: var(--reader-shadow); }
-.site-footer .footer-note { background: #edf4f2; color: #415e62; }
+.site-footer .footer-note { background: #edf4ff; color: #414d62; }
 .site-footer .footer-brand strong { color: var(--reader-ink); }
 /* Color and elevation only: keep all existing grids, reading order and mobile density. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -141,16 +141,16 @@ body { background: #f5f8f8; }
   .page-view .openbooks-card:hover,
   .page-view .global-book-card:hover,
   .page-view .education-work-card:hover,
-  .page-view .education-news-card:hover { border-color: #9dbbbf; box-shadow: 0 7px 18px rgb(24 59 73 / 9%); transform: translateY(-2px); }
+  .page-view .education-news-card:hover { border-color: #9da9bf; box-shadow: 0 7px 18px rgb(24 59 73 / 9%); transform: translateY(-2px); }
 }
 :is(.site-header, .site-tabs, .page-view, .site-footer) :is(a, button, input, select, summary):focus-visible {
-  outline: 3px solid #116b68;
+  outline: 3px solid #11326b;
   outline-offset: 3px;
 }
 @media (max-width: 700px) {
   .site-header .brand { background: transparent; }
   .site-tabs .view-tab { border-radius: 9px; }
-  .page-home > .portal-hero { background: linear-gradient(150deg, #e6f1ee, #fff 85%); }
+  .page-home > .portal-hero { background: linear-gradient(150deg, #e6eaf1, #fff 85%); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -162,165 +162,336 @@ body { background: #f5f8f8; }
 }
 
 /* Visible palette revision: stronger color surfaces, unchanged content and geometry. */
-body { background: #f6f4ee; }
-.announcement { color: #fff; background: #123f47; }
-.site-header { background: linear-gradient(120deg, #fffdf8 35%, #e2f0eb 100%); border-color: #a9cbc3; }
-.site-header .brand { background: #123f47; border-color: #123f47; box-shadow: 0 5px 16px rgb(18 63 71 / 12%); }
+body { background: #f2f7ff; }
+.announcement { color: #fff; background: #122547; }
+.site-header { background: linear-gradient(120deg, #f8fbff 35%, #e2e7f0 100%); border-color: #a9b5cb; }
+.site-header .brand { background: #122547; border-color: #122547; box-shadow: 0 5px 16px rgb(18 37 71 / 12%); }
 .site-header .brand-copy strong { color: #fff; }
 .site-header .brand-school-identities,
 .site-header .brand-school-identity,
-.site-header .brand-school-name { color: #e3f3ef; }
+.site-header .brand-school-name { color: #e3e9f3; }
 .site-header .brand-school-identity { background: transparent; }
-.site-header .header-chat-shortcut { background: #0c5351; border-color: #0c5351; }
-.site-header .president-banner figcaption { background: #dcece5; }
-.book-updates-ticker { background: #d3e9e4; border-color: #94beb4; border-inline-start-color: #0c5351; }
-.book-updates-ticker-title { background: #123f47; }
-#visitorTabs { background: #e4ede9; border-color: #b2ccc4; border-radius: 13px; }
-#visitorTabs .view-tab { color: #264e53; }
-#visitorTabs .view-tab.active { background: #123f47; color: #fff; }
-#homeView { background: #f6f4ee; }
+.site-header .header-chat-shortcut { background: #0c2653; border-color: #0c2653; }
+.site-header .president-banner figcaption { background: #dce2ec; }
+.book-updates-ticker { background: #d3dbe9; border-color: #94a3be; border-inline-start-color: #0c2653; }
+.book-updates-ticker-title { background: #122547; }
+#visitorTabs { background: #e8f1ff; border-color: #b2bccc; border-radius: 13px; }
+#visitorTabs .view-tab { color: #263653; }
+#visitorTabs .view-tab.active { background: #122547; color: #fff; }
+#homeView { background: #f2f7ff; }
 .page-home > .portal-hero {
-  background: linear-gradient(115deg, #cce6dd 0%, #e1efe4 50%, #f8f3df 100%);
-  border-color: #98bdb0;
-  box-shadow: 0 6px 22px rgb(18 63 71 / 7%);
+  background: linear-gradient(115deg, #ccd6e6 0%, #e1e6ef 50%, #dfe8f8 100%);
+  border-color: #98a6bd;
+  box-shadow: 0 6px 22px rgb(18 37 71 / 7%);
 }
-.page-home .portal-main h1 { color: #123f47; }
-.page-home .portal-title-accent { color: #0c6657; }
-.page-home .portal-lede { color: #354f4b; }
-.page-home .portal-search-panel { background: #fffefa; border-color: #9ebfb4; }
-.page-home .portal-search-submit { background: #0c5351; }
-.page-home .portal-side { background: #fffdf8; border-color: #aecbc0; }
-.page-home .portal-side-link { border-radius: 10px; border-color: #bcd5ca; }
-.page-home .portal-side-library { background: #dceee4; }
-.page-home .portal-side-assistant { background: #e9e3f5; border-color: #cdc1e2; }
-.page-home .portal-side-news { background: #f5e9c8; border-color: #decb95; }
+.page-home .portal-main h1 { color: #122547; }
+.page-home .portal-title-accent { color: #0c2d66; }
+.page-home .portal-lede { color: #353f4f; }
+.page-home .portal-search-panel { background: #fbfdff; border-color: #9eaabf; }
+.page-home .portal-search-submit { background: #0c2653; }
+.page-home .portal-side { background: #f8fbff; border-color: #aeb9cb; }
+.page-home .portal-side-link { border-radius: 10px; border-color: #bcc5d5; }
+.page-home .portal-side-library { background: #dce3ee; }
+.page-home .portal-side-assistant { background: #e3eaf5; border-color: #c1cde2; }
+.page-home .portal-side-news { background: #c8d8f5; border-color: #95b0de; }
 .page-home .portal-side-books,
 .page-home .portal-side-reading { background: #dcecf5; border-color: #b3cfdf; }
-.page-home .portal-side-copy strong { color: #23454b; }
-.page-home .portal-side-copy small { color: #485e64; }
-.page-home .portal-side-arrow { color: #3b5b61; }
+.page-home .portal-side-copy strong { color: #23324b; }
+.page-home .portal-side-copy small { color: #485264; }
+.page-home .portal-side-arrow { color: #3b4961; }
 .page-home .portal-side-books .portal-side-icon { background: #c5dfec; color: #20516b; }
-.page-home > .compact-pathways { background: #dcece5; border-color: #a9cbbd; }
+.page-home > .compact-pathways { background: #dce2ec; border-color: #a9b5cb; }
 .page-home > #homeNews { background: #dde8f1; border-color: #adc4d7; }
-.page-home #homeNews .home-news-grid > .live-news-card { background: #fbfefa; border-color: #bad3cb; border-top-color: #137766; }
+.page-home #homeNews .home-news-grid > .live-news-card { background: #f8fbff; border-color: #bac3d3; border-top-color: #133877; }
 .page-home #homeNews .home-news-grid > .live-news-card:nth-child(2) { background: #f5f8ff; border-color: #c4cfe5; border-top-color: #536ea0; }
-.page-home #homeNews .home-news-grid > .live-news-card:nth-child(3) { background: #fffaf0; border-color: #dfcfa8; border-top-color: #9d7730; }
-#discoverView { --reader-section: #dceee4; }
-#branchesView { --reader-section: #f3e8cd; }
-#announcementsView { --reader-section: #f4e8cc; }
-#aboutView { --reader-section: #e9e1f2; }
-#globalReadingView { --reader-section: #d9edf0; }
+.page-home #homeNews .home-news-grid > .live-news-card:nth-child(3) { background: #f0f6ff; border-color: #a8bcdf; border-top-color: #30589d; }
+#discoverView { --reader-section: #dce3ee; }
+#branchesView { --reader-section: #cddbf3; }
+#announcementsView { --reader-section: #ccdbf4; }
+#aboutView { --reader-section: #e1e7f2; }
+#globalReadingView { --reader-section: #d9e1f0; }
 #educationResearchView { --reader-section: #dfe7f3; }
-#branchesView .school-profile-card { background: #fff8e8; border-color: #d3b970; }
-#branchesView .school-profile-card:nth-child(2n) { background: #e9f4ed; border-color: #98bcaa; }
+#branchesView .school-profile-card { background: #e8f0ff; border-color: #7094d3; }
+#branchesView .school-profile-card:nth-child(2n) { background: #e9edf4; border-color: #98a5bc; }
 .page-view .book-card,
 .page-view .global-book-card,
 .page-view .openbooks-card,
-.page-view .external-reading-card { border-color: #a9c7c6; background: #fffef9; }
+.page-view .external-reading-card { border-color: #a9b4c7; background: #f8fbff; }
 #aboutView .feature-blue { background: #d9eaf2; }
-#aboutView .feature-red { background: #e6ddf3; }
-#aboutView .feature-yellow { background: #f3e4ba; }
-.site-footer .footer-card { background: #fffdf6; border-color: #b5cec4; }
-.site-footer .footer-note { background: #dcece5; color: #234e4b; }
+#aboutView .feature-red { background: #dde5f3; }
+#aboutView .feature-yellow { background: #bacff3; }
+.site-footer .footer-card { background: #f8fbff; border-color: #b5bece; }
+.site-footer .footer-note { background: #dce2ec; color: #23334e; }
 @media (max-width: 700px) {
-  .site-header .brand { background: #123f47; }
-  .page-home > .portal-hero { background: linear-gradient(150deg, #cce6dd, #f8f3df); }
+  .site-header .brand { background: #122547; }
+  .page-home > .portal-hero { background: linear-gradient(150deg, #ccd6e6, #dfe8f8); }
 }
 
 
 /* Port Said home refresh: harbor ink, sea-glass surfaces, and a restrained sand accent. */
 .page-home {
-  --home-ink: #153b45;
-  --home-muted: #4d6268;
-  --home-harbor: #0f625e;
-  --home-harbor-deep: #10474f;
-  --home-mist: #edf5f2;
-  --home-sand: #f5e9c8;
-  --home-line: #c7dbd7;
+  --home-ink: #152745;
+  --home-muted: #4d5768;
+  --home-harbor: #0f2d62;
+  --home-harbor-deep: #10274f;
+  --home-mist: #eef5ff;
+  --home-sand: #c8d8f5;
+  --home-line: #c7cedb;
   color: var(--home-ink);
 }
 body { background: #f8faf9; }
 #homeView { background: #f8faf9; }
 .page-home > .portal-hero {
-  border-color: #a9c8c1;
+  border-color: #a9b4c8;
   border-radius: 24px;
-  background: radial-gradient(circle at 8% 8%, rgb(236 190 97 / 17%), transparent 22rem),
-    linear-gradient(125deg, #e9f3ef 0%, #f8fbfa 58%, #fcf7e9 100%);
-  box-shadow: 0 12px 28px rgb(21 59 69 / 7%);
+  background: radial-gradient(circle at 8% 8%, rgb(97 148 236 / 17%), transparent 22rem),
+    linear-gradient(125deg, #eaf2ff 0%, #f8fbfa 58%, #e9f0fc 100%);
+  box-shadow: 0 12px 28px rgb(21 39 69 / 7%);
 }
 .page-home .portal-main h1 { color: var(--home-ink); letter-spacing: -.045em; }
 .page-home .portal-title-accent { color: var(--home-harbor); }
-.page-home .portal-kicker { color: #315e63; }
+.page-home .portal-kicker { color: #314363; }
 .page-home .portal-kicker-mark {
   color: #fff;
   background: var(--home-harbor);
-  box-shadow: 0 0 0 4px rgb(15 98 94 / 10%);
+  box-shadow: 0 0 0 4px rgb(15 45 98 / 10%);
 }
-.page-home .portal-lede { color: #405b62; }
+.page-home .portal-lede { color: #404c62; }
 .page-home .portal-search-panel {
-  border-color: #bdd3ce;
+  border-color: #bdc5d3;
   border-radius: 18px;
   background: #fff;
-  box-shadow: 0 8px 22px rgb(21 59 69 / 6%);
+  box-shadow: 0 8px 22px rgb(21 39 69 / 6%);
 }
 .page-home .portal-search-heading strong { color: var(--home-ink); }
 .page-home .portal-search-description { color: var(--home-muted); }
 .page-home .portal-search-row {
-  border-color: #aec7c4;
+  border-color: #aeb7c7;
   border-radius: 13px;
   background: #fff;
-  box-shadow: inset 0 1px 2px rgb(21 59 69 / 4%);
+  box-shadow: inset 0 1px 2px rgb(21 39 69 / 4%);
 }
 .page-home .portal-search-row:focus-within {
   border-color: var(--home-harbor);
-  box-shadow: 0 0 0 3px rgb(15 98 94 / 13%);
+  box-shadow: 0 0 0 3px rgb(15 45 98 / 13%);
 }
-.page-home .portal-search-row input::placeholder { color: #65777b; opacity: 1; }
+.page-home .portal-search-row input::placeholder { color: #656d7b; opacity: 1; }
 .page-home .portal-search-submit { color: #fff; background: var(--home-harbor); box-shadow: none; }
 .page-home .portal-search-submit:hover { background: var(--home-harbor-deep); }
-.page-home .portal-scope label span { border-color: #d1dfdc; color: #405b62; }
+.page-home .portal-scope label span { border-color: #d1d6df; color: #404c62; }
 .page-home .portal-scope input:checked + span {
-  border-color: #97beb5;
-  color: #164d4b;
-  background: #e7f2ee;
+  border-color: #97a5be;
+  color: #162a4d;
+  background: #e7ebf2;
 }
 .page-home .portal-side {
-  border-color: #c7dbd7;
+  border-color: #c7cedb;
   border-radius: 18px;
   background: rgb(255 255 255 / 92%);
-  box-shadow: 0 8px 22px rgb(21 59 69 / 5%);
+  box-shadow: 0 8px 22px rgb(21 39 69 / 5%);
 }
 .page-home .portal-side-heading > strong { color: var(--home-ink); }
 .page-home .portal-side-link {
   border-radius: 12px;
-  border-color: #d7e4e1;
+  border-color: #d7dce4;
   transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
 }
-.page-home .portal-side-library { background: #eff6f2; border-color: #d3e4dc; }
-.page-home .portal-side-assistant { background: #f2eff8; border-color: #ded8eb; }
-.page-home .portal-side-news { background: #faf5e8; border-color: #e9dfc3; }
+.page-home .portal-side-library { background: #eaf3ff; border-color: #d3d9e4; }
+.page-home .portal-side-assistant { background: #edf4ff; border-color: #d8dfeb; }
+.page-home .portal-side-news { background: #e8effa; border-color: #c3d1e9; }
 .page-home .portal-side-books,
 .page-home .portal-side-reading { background: #edf4f7; border-color: #d2e0e7; }
-.page-home .portal-side-copy strong { color: #234650; }
+.page-home .portal-side-copy strong { color: #233450; }
 .page-home .portal-side-copy small { color: #4e646c; }
-.page-home .portal-side-arrow { color: #315e63; }
+.page-home .portal-side-arrow { color: #314363; }
 .page-home .portal-side-link:focus-visible { outline: 3px solid var(--home-harbor); outline-offset: 3px; }
-.page-home > .compact-pathways { border-color: #c8dcd6; background: #eef5f2; }
-.page-home > #homeNews { border-color: #d2dee5; background: linear-gradient(120deg, #eef3f7 0%, #f8fafb 70%, #fbf8ef 100%); }
-.page-home > .leadership-banner { border-color: #d6e1e2; }
+.page-home > .compact-pathways { border-color: #c8cfdc; background: #edf4ff; }
+.page-home > #homeNews { border-color: #d2dee5; background: linear-gradient(120deg, #eef3f7 0%, #f8fafb 70%, #eff3fb 100%); }
+.page-home > .leadership-banner { border-color: #d6dae2; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .page-home .portal-side-link:hover {
-    border-color: #9dbdb5;
-    box-shadow: 0 5px 14px rgb(21 59 69 / 8%);
+    border-color: #9da9bd;
+    box-shadow: 0 5px 14px rgb(21 39 69 / 8%);
     transform: translateY(-1px);
   }
 }
 @media (max-width: 700px) {
   .page-home > .portal-hero {
     border-radius: 18px;
-    background: linear-gradient(150deg, #e8f2ee 0%, #fbfcfb 76%, #faf5e7 100%);
+    background: linear-gradient(150deg, #e8f1ff 0%, #fbfcfb 76%, #e7eefa 100%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .page-home .portal-side-link { transition: none; transform: none; }
 }
+
+
+/* Port Said library refresh: blue/white palette and soft relief only. */
+:root {
+  --library-canvas: #f2f7ff;
+  --library-surface: #ffffff;
+  --library-ink: #183b61;
+  --library-muted: #526b86;
+  --library-accent: #1b5fa8;
+  --library-blue-100: #e8f1ff;
+  --library-blue-200: #d8e7fb;
+  --home-blue: #1b5fa8;
+  --reader-shadow: 0 8px 22px rgb(31 77 128 / 7%), 0 2px 5px rgb(31 77 128 / 4%), inset 0 1px 0 rgb(255 255 255 / 92%);
+  --reader-shadow-raised: 0 12px 28px rgb(31 77 128 / 8%), 0 3px 8px rgb(31 77 128 / 5%), inset 0 1px 0 rgb(255 255 255 / 92%);
+  --reader-shadow-control: 0 4px 11px rgb(31 77 128 / 10%), 0 1px 3px rgb(31 77 128 / 6%), inset 0 1px 0 rgb(255 255 255 / 92%);
+}
+
+body, #homeView { background-color: var(--library-canvas); }
+.site-header .brand-copy strong { color: var(--library-ink); }
+.page-home > .portal-hero { box-shadow: var(--reader-shadow-raised); }
+.page-home .portal-search-panel { background-color: var(--library-surface); box-shadow: var(--reader-shadow); }
+.page-home .portal-side { box-shadow: var(--reader-shadow); }
+.page-home .portal-side-link { box-shadow: var(--reader-shadow-control); }
+.page-home .portal-side-icon { box-shadow: var(--reader-shadow-control); }
+.page-home .portal-search-submit { color: #fff; background: var(--home-blue); box-shadow: var(--reader-shadow-control); }
+.page-home .portal-scope label span { box-shadow: var(--reader-shadow-control); }
+.assistant-shortcut { box-shadow: var(--reader-shadow-control); }
+#visitorTabs .view-tab.active,
+.site-tabs .staff-nav-button { box-shadow: var(--reader-shadow-control); }
+.page-home > .compact-pathways,
+.page-home > #homeNews,
+.page-home > .leadership-banner { box-shadow: var(--reader-shadow-raised); }
+.page-home #homeNews .home-news-grid > .live-news-card,
+.page-home .leadership-banner .leadership-person { box-shadow: var(--reader-shadow); }
+.site-footer .footer-card { box-shadow: var(--reader-shadow-raised); }
+.page-view .button-primary,
+.page-view .button-outline,
+.page-view .button-soft,
+.page-view :is(.openbooks-search-button, .external-reading-submit, .education-research-submit),
+.page-view :is(.openbooks-action, .global-reading-link, .external-reading-link, .education-research-link),
+.site-header .header-chat-shortcut { box-shadow: var(--reader-shadow-control); }
+:is(.site-header, .site-tabs, .page-view, .site-footer) :is(a, button, input, select, summary):focus-visible {
+  outline-color: var(--library-accent);
+}
+
+/* Existing warm accents: change color values only. */
+.announcement-dot { background-color: var(--library-accent); box-shadow: 0 0 0 4px rgb(27 95 168 / 14%); }
+.header-feature-image-slot::before {
+  border-color: rgb(31 77 128 / 42%);
+  background-image: linear-gradient(135deg, rgb(232 241 255 / 94%), rgb(244 247 255 / 88%) 72%, rgb(238 244 255 / 90%));
+}
+.header-feature-image-slot::after {
+  background-image: linear-gradient(90deg, #1b5fa8, #b3d1f7);
+  box-shadow: 0 2px 5px rgb(31 77 128 / 15%);
+}
+.president-banner figcaption { border-top-color: var(--library-blue-200); }
+.president-banner-title, #presidentBannerTitle { color: var(--library-ink); }
+#headerReadingSummary {
+  background-color: var(--library-blue-100);
+  border-color: var(--library-blue-200);
+  color: var(--library-ink);
+}
+#headerReadingSummary .header-reading-counts strong { color: var(--library-accent); }
+#headerReadingSummary > .header-reading-overview::after { color: var(--library-muted); }
+#headerReadingSummary[open] > .header-reading-overview { border-bottom-color: var(--library-blue-200); }
+#headerReadingSummary > .header-reading-overview:focus-visible { outline-color: var(--library-accent); }
+.header-feature-stack .header-photo-control:focus-visible,
+.header-feature-stack .header-photo-attribution a:focus-visible,
+.header-feature-stack .header-chat-shortcut:focus-visible { outline-color: var(--library-accent); }
+.portal-search-heading > span { color: var(--library-muted); }
+.portal-search-heading i {
+  background-color: var(--library-accent);
+  box-shadow: 0 0 0 4px rgb(27 95 168 / 12%);
+}
+.page-home .portal-scope label span::before { border-color: var(--library-blue-200); }
+.page-home .portal-scope input:checked + span { box-shadow: inset 0 0 0 1px var(--library-blue-200); }
+.page-home .portal-scope input:checked + span::before {
+  border-color: var(--library-accent);
+  background-color: var(--library-accent);
+  box-shadow: 0 0 0 2px var(--library-blue-200);
+}
+.page-home .home-news-grid > .live-news-card .news-category,
+.page-view .news-category,
+.page-view .news-language-tag,
+.live-pill {
+  background-color: var(--library-blue-100);
+  color: var(--library-ink);
+}
+.live-pill i { background-color: var(--library-accent); }
+.book-updates-ticker {
+  --ticker-ink: var(--library-ink);
+  --ticker-muted: var(--library-muted);
+  --ticker-line: var(--library-blue-200);
+  --ticker-accent: var(--library-accent);
+  background-image: linear-gradient(110deg, var(--library-blue-100) 0%, #d7eaff 100%);
+  border-inline-start-color: var(--library-accent);
+  box-shadow: var(--reader-shadow);
+}
+.book-updates-ticker-title { background-color: var(--library-accent); }
+.book-updates-ticker-title::before { background-color: var(--library-blue-200); }
+.book-updates-ticker-status { color: var(--library-muted); }
+.book-updates-ticker-control {
+  color: var(--library-ink);
+  background-color: var(--library-surface);
+  border-color: var(--library-blue-200);
+  box-shadow: var(--reader-shadow-control);
+}
+.book-updates-ticker-toggle { color: #fff; background-color: var(--library-accent); border-color: var(--library-accent); }
+.book-updates-ticker-control:hover:not(:disabled) { background-color: var(--library-blue-100); border-color: var(--library-accent); }
+.book-updates-ticker-toggle:hover:not(:disabled) { color: #fff; background-color: var(--library-ink); }
+.book-updates-ticker-control:disabled { color: var(--library-muted); background-color: var(--library-blue-100); border-color: var(--library-blue-200); }
+
+.portal-search-icon { color: var(--library-accent); }
+.portal-search-icon::before { border-color: var(--library-blue-200); }
+.portal-search-icon svg { color: var(--library-accent); stroke: var(--library-accent); }
+#visitorPathwaysTitle { color: var(--library-ink); }
+.page-home #homeNews .news-date { color: var(--library-muted); }
+.visitor-pathways {
+  color: var(--library-ink);
+  border-color: var(--library-blue-200);
+  background-image: linear-gradient(145deg, #f2f7ff, #eaf2ff 58%, #f8fbff);
+  box-shadow: var(--reader-shadow-raised);
+}
+.visitor-pathway-grid,
+.visitor-pathway-card,
+.assistant-pathway-details,
+.assistant-pathway-details summary { color: var(--library-ink); }
+.visitor-pathway-card { background-color: var(--library-surface); border-color: var(--library-blue-200); }
+.visitor-pathway-icon,
+.visitor-pathway-librarian .visitor-pathway-icon,
+.visitor-pathway-telegram .visitor-pathway-icon {
+  color: var(--library-accent);
+  background-color: var(--library-blue-100);
+  box-shadow: var(--reader-shadow-control);
+}
+.visitor-pathway-action {
+  color: var(--library-accent);
+  background-color: var(--library-surface);
+  border-color: var(--library-blue-200);
+  box-shadow: var(--reader-shadow-control);
+}
+.visitor-pathway-action:hover { background-color: var(--library-blue-100); border-color: var(--library-accent); }
+.visitor-pathway-action:focus-visible { outline-color: var(--library-accent); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .page-home .portal-side-link:hover,
+  .page-view .book-card:hover,
+  .page-view .openbooks-card:hover,
+  .page-view .global-book-card:hover,
+  .page-view .education-work-card:hover,
+  .page-view .education-news-card:hover { box-shadow: var(--reader-shadow-raised); }
+}
+#publicPageViewStats {
+  color: var(--library-ink);
+  background-color: var(--library-blue-100);
+  border-color: var(--library-blue-200);
+}
+#publicPageViewStatsTitle { color: var(--library-ink); }
+#publicPageViewStats .public-page-view-stats-grid > div {
+  background-color: var(--library-surface);
+  border-color: var(--library-blue-200);
+}
+#publicPageViewStats .public-page-view-stats-grid span { color: var(--library-muted); }
+#publicPageViewStats .public-page-view-stats-grid strong { color: var(--library-accent); }
+#publicPageViewStats .public-page-view-stats-note { color: var(--library-muted); }
+#footerDescription { border-right-color: var(--library-blue-200); }
+
+/* Soft relief is limited to existing cards and controls. */
+
+/* Soft relief applies only to existing cards and controls. */
+/* Content, layout, dimensions, spacing and order remain unchanged. */
+/* Existing transitions and hover motion remain unchanged. */

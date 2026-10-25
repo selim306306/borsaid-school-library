@@ -42,7 +42,7 @@
 .education-research-suggestions-label{font-size:calc((11px) + var(--site-font-step, 2px));color:#71809a}
 .education-research-suggestion{border:1px solid #e0e5ef;border-radius:999px;padding:6px 11px;background:#fff;color:#475773;font-size:calc((11px) + var(--site-font-step, 2px));cursor:pointer}
 .education-research-suggestion:hover{background:#edf2ff;border-color:#cbd7f6}
-.education-research-privacy{margin:13px 0 0;padding:10px 12px;border-inline-start:3px solid #f0c44b;background:#fffdf6;border-radius:5px 10px 10px 5px;color:#65718a;font-size:calc((11px) + var(--site-font-step, 2px))}
+.education-research-privacy{margin:13px 0 0;padding:10px 12px;border-inline-start:3px solid #1b5fa8;background:#f8fbff;border-radius:5px 10px 10px 5px;color:#65718a;font-size:calc((11px) + var(--site-font-step, 2px))}
 .education-research-status{min-height:25px;margin:15px 0 10px;color:#4d5c77;font-size:calc((12px) + var(--site-font-step, 2px))}
 .education-research-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
 .education-work-card{display:flex;flex-direction:column;min-width:0;padding:18px;border:1px solid #e3e8f1;border-radius:16px;background:#fff;box-shadow:0 5px 18px rgba(32,50,88,.035)}
@@ -58,7 +58,7 @@
 .education-research-message{grid-column:1/-1;padding:18px;border:1px dashed #d8dfec;border-radius:15px;background:#fff;color:#495873}
 .education-research-message strong{display:block;color:var(--ink);margin-bottom:4px}
 .education-research-message p{font-size:calc((12px) + var(--site-font-step, 2px));margin:0 0 12px;color:#68758d}
-.education-research-retry{background:#fff8e8;color:#765313;border-color:#efd699;cursor:pointer}
+.education-research-retry{background:#f3f7ff;color:#765313;border-color:#efd699;cursor:pointer}
 .education-research-index-note{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:19px;padding:14px 16px;border:1px solid #dfe8ed;border-radius:14px;background:#f5fafc}
 .education-research-index-note strong{font-size:calc((13px) + var(--site-font-step, 2px))}
 .education-research-index-note p{font-size:calc((11px) + var(--site-font-step, 2px));color:#617286;margin:3px 0 0}
@@ -87,7 +87,7 @@
 .education-work-card:nth-child(3n+2){border-top:3px solid #d85c68}
 .education-work-card:nth-child(3n){border-top:3px solid #dcb237}
 .education-research-index-note{border-color:#d7e9df;background:linear-gradient(110deg,#eef8f1,#f7fbff)}
-.education-local-news{border-color:#e8c968;border-inline-start:4px solid #d2a32a;background:linear-gradient(110deg,#fff5da 0%,#fff 72%)}
+.education-local-news{border-color:#e8c968;border-inline-start:4px solid #1b5fa8;background:linear-gradient(110deg,#fff5da 0%,#fff 72%)}
 .education-local-news-label{color:#805f16}
 
 /* Keep small research notes readable and expose keyboard focus on pagination. */
@@ -100,12 +100,12 @@
 
 
 /* Arabic editorial feed: show useful summaries first and the source second. */
-.home-news-section{margin-top:8px;margin-bottom:30px;padding:26px 25px 24px;border:1px solid #e2e8f4;border-radius:24px;background:linear-gradient(128deg,#eef4ff 0%,#fff 52%,#fff8e8 100%)}
+.home-news-section{margin-top:8px;margin-bottom:30px;padding:26px 25px 24px;border:1px solid #e2e8f4;border-radius:24px;background:linear-gradient(128deg,#eef4ff 0%,#fff 52%,#f3f7ff 100%)}
 .home-news-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:6px}
 .home-news-heading h2{margin:5px 0 4px;font-size:calc((25px) + var(--site-font-step, 2px));line-height:1.4}
 .home-news-heading p{max-width:720px;margin:0;color:#596579;font-size:calc((12px) + var(--site-font-step, 2px))}
 .news-updated{margin:0;color:#596579;font-size:calc((10px) + var(--site-font-step, 2px));font-weight:600;white-space:nowrap}
-.news-ai-note{margin:12px 0;padding:9px 12px;border-inline-start:3px solid #d2a32a;border-radius:5px 10px 10px 5px;background:#fffdf6;color:#596579;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.7}
+.news-ai-note{margin:12px 0;padding:9px 12px;border-inline-start:3px solid #1b5fa8;border-radius:5px 10px 10px 5px;background:#f8fbff;color:#596579;font-size:calc((10px) + var(--site-font-step, 2px));line-height:1.7}
 .live-news-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}
 .live-news-card{min-height:245px;border-top:3px solid #5676d3}
 .live-news-card:nth-child(3n+2){border-top-color:#d85c68}

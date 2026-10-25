@@ -16,7 +16,7 @@
     padding:10px 12px;
     border:1px solid #edf0f4;
     border-radius:20px;
-    background:linear-gradient(105deg,#fbfcff 0%,#fff 62%,#fffdf6 100%);
+    background:linear-gradient(105deg,#fbfcff 0%,#fff 62%,#f8fbff 100%);
   }
   .header-feature-image-slot{
     width:100%;
@@ -190,10 +190,10 @@
   align-items:center;
   min-height:32px;
   padding:5px 10px;
-  border:1px solid #dfe9e5;
+  border:1px solid #d8e7fb;
   border-radius:999px;
-  background:#f2f8f5;
-  color:#214b43;
+  background:#e8f1ff;
+  color:#1b5fa8;
   font-weight:800;
   line-height:1.35;
 }

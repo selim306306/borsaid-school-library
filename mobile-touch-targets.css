@@ -1,0 +1,36 @@
+/* Mobile-only touch target sizing. No content, color, data or behavior changes. */
+@media (max-width: 760px) {
+  #homeView #homeDiscoveryInput,
+  #homeView .visitor-pathway-action,
+  #discoverView #publicSearchForm #searchInput,
+  #discoverView #publicSearchForm #branchFilter,
+  #discoverView #publicSearchForm .availability-toggle,
+  #discoverView #publicSearchForm .search-submit,
+  #discoverView #clearSearch,
+  #globalReadingView .livealert-refresh,
+  #globalReadingView .openbooks-reader-toggle,
+  #globalReadingView .openbooks-action,
+  #globalReadingView .external-reading-link,
+  #globalReadingView .global-reading-suggestion,
+  #globalReadingView .global-reading-link,
+  #educationResearchView .news-page-button,
+  #educationResearchView .education-research-suggestion,
+  #educationResearchView .education-research-link {
+    min-height: 44px;
+  }
+
+  #discoverView #publicSearchForm #branchFilter {
+    height: 44px;
+  }
+
+  #discoverView #emptyState .empty-guide-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 8px;
+  }
+
+  #educationResearchView .news-source-link {
+    min-height: 44px !important;
+  }
+}

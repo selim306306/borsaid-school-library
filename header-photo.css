@@ -74,7 +74,7 @@
   padding:0;
   border:0;
   border-radius:inherit;
-  background:linear-gradient(145deg,#fff 0%,#fbfaf6 100%);
+  background:linear-gradient(145deg,#fff 0%,#f2f7ff 100%);
   box-shadow:0 13px 30px rgba(35,52,86,.13),0 2px 8px rgba(35,52,86,.06);
   opacity:0;
   pointer-events:none;
