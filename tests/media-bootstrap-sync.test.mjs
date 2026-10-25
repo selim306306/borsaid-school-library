@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { mkdtempSync } from 'node:fs';
-import { syncMediaBootstrap, validateSignedUrl, validateStoragePath } from '../scripts/sync-media-bootstrap.mjs';
+import { syncMediaBootstrap, updateIndex, validateSignedUrl, validateStoragePath } from '../scripts/sync-media-bootstrap.mjs';
 
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64');
 const ids = { header: '54f7ade2-cde8-4575-b38e-ad5561e79b4c', newer: '64f7ade2-cde8-4575-b38e-ad5561e79b4c', logo: 'db7748cc-05f3-4ee3-b280-ce8ada32135d' };
@@ -39,6 +39,24 @@ test('validates exact paths and rejects prefix, suffix, fragment, and extra quer
   assert.throws(() => validateSignedUrl(`http://eahptkwvjcnixlzlyznh.supabase.co/storage/v1/object/sign/site-media/${path}?token=x`, path));
 });
 
+test('generated page keeps a neutral site mark while a replaced image is fetched', () => {
+  const root = rootFixture();
+  try {
+    updateIndex(root, {}, {
+      'site-mark': { src: 'assets/site-mark-initial-deadbeefdeadbeef.webp', path: 'media/site-mark/db7748cc-05f3-4ee3-b280-ce8ada32135d.png', alt: 'old flag' },
+      'header-feature-image': { src: 'assets/header-feature-image-initial-1111111111111111.webp', path: 'media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg', alt: 'current banner' },
+    });
+    const html = readFileSync(join(root, 'index.html'), 'utf8');
+    const logo = html.match(/<img\b[^>]*\bid="brandDefaultLogo"[^>]*>/i)?.[0];
+    assert.ok(logo, 'primary site mark remains in the page');
+    assert.match(logo, /\bsrc="assets\/mark\.svg"/);
+    assert.match(logo, /\balt=""/);
+    assert.doesNotMatch(logo, /data-site-media-bootstrap-(?:src|path)/);
+    assert.doesNotMatch(html, /<link\b[^>]*\bhref="assets\/site-mark-initial-[^"]+"/i);
+    assert.match(html, /<link\b[^>]*\bhref="assets\/header-feature-image-initial-1111111111111111\.webp"/i);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
 test('stable state converts real PNG with requested dimensions/quality and hashes output bytes', async () => {
   const root = rootFixture();
   try {
@@ -47,7 +65,8 @@ test('stable state converts real PNG with requested dimensions/quality and hashe
     assert.equal(result.attempt, 1);
     const html = readFileSync(join(root, 'index.html'), 'utf8');
     assert.match(html, /href="assets\/header-feature-image-initial-[0-9a-f]{16}\.webp"/);
-    assert.match(html, /href="assets\/site-mark-initial-[0-9a-f]{16}\.webp"/);
+    assert.doesNotMatch(html, /href="assets\/site-mark-initial-[^"]+"/);
+    assert.match(html, /<img id="brandDefaultLogo" src="assets\/mark\.svg" alt="">/);
     assert.match(html, /data-site-media-key="header-feature-image"[^>]*data-site-media-bootstrap-path="media\/header/);
     assert.equal(existsSync(old), true);
     for (const key of ['header-feature-image', 'site-mark']) {

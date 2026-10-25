@@ -85,9 +85,11 @@ export function convertToWebp(data, target, width, height, quality = 80, spawnIm
   try { runPillow(input, target, width, height, quality, spawnImpl); } finally { rmSync(input, { force: true }); }
 }
 function esc(value) { return String(value ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-function replaceImage(html, selector, output, fallback) {
+function replaceImage(html, selector, output, fallback, { bootstrap = true } = {}) {
   const re = new RegExp(`(<img\\b[^>]*${selector}[^>]*>)`, 'i');
-  return html.replace(re, tag => tag.replace(/\s(?:src|data-site-media-bootstrap-src|data-site-media-bootstrap-path|alt)="[^"]*"/gi, '').replace(/>$/, ` src="${esc(output?.src || fallback.src)}" data-site-media-bootstrap-src="${esc(output?.src || fallback.src)}"${output?.path ? ` data-site-media-bootstrap-path="${esc(output.path)}"` : ''} alt="${esc(output?.alt || fallback.alt)}">`));
+  return html.replace(re, tag => tag.replace(/\s(?:src|data-site-media-bootstrap-src|data-site-media-bootstrap-path|alt)="[^"]*"/gi, '').replace(/>$/, bootstrap
+    ? ` src="${esc(output?.src || fallback.src)}" data-site-media-bootstrap-src="${esc(output?.src || fallback.src)}"${output?.path ? ` data-site-media-bootstrap-path="${esc(output.path)}"` : ''} alt="${esc(output?.alt || fallback.alt)}">`
+    : ` src="${esc(fallback.src)}" alt="">`));
 }
 export function updateIndex(root, state, outputs) {
   const file = join(root, 'index.html'); let html = readFileSync(file, 'utf8');
@@ -96,9 +98,14 @@ export function updateIndex(root, state, outputs) {
     const image = html.match(new RegExp(`<img\\b[^>]*${selector}[^>]*>`, 'i'))?.[0];
     oldPreloads[key] = image?.match(/data-site-media-bootstrap-src="([^"]+)"/i)?.[1] || image?.match(/\ssrc="([^"]+)"/i)?.[1];
   }
-  html = replaceImage(html, `id=["']brandDefaultLogo["']`, outputs['site-mark'], DEFAULTS['site-mark']);
+  html = replaceImage(html, `id=["']brandDefaultLogo["']`, null, DEFAULTS['site-mark'], { bootstrap: false });
   html = replaceImage(html, `data-site-media-key=["']header-feature-image["']`, outputs['header-feature-image'], DEFAULTS['header-feature-image']);
-  for (const key of MEDIA_KEYS) {
+  const oldMarkPreload = oldPreloads['site-mark'];
+  if (oldMarkPreload) {
+    const escaped = String(oldMarkPreload).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    html = html.replace(new RegExp(`<link\\b[^>]*href=["']${escaped}["'][^>]*>\\s*`, 'i'), '');
+  }
+  for (const key of ['header-feature-image']) {
     const next = outputs[key]?.src || DEFAULTS[key].src; const old = oldPreloads[key]; if (!old) continue;
     const escaped = String(old).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const re = new RegExp(`(<link\\b[^>]*rel=["']preload["'][^>]*as=["']image["'][^>]*href=["'])${escaped}(["'][^>]*>)`, 'i');
