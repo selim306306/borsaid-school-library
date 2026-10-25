@@ -1120,7 +1120,8 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
 .desktop-nav{display:none!important}
 .brand-logo-group{flex-direction:column;align-items:center;gap:6px}
 .brand-flag-photo-stack{display:flex;flex:0 0 auto;align-items:center;justify-content:center}
-.brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:72px;height:72px;object-fit:cover;border-radius:50%}
+.brand-logo-group .brand-flag-photo-stack #brandDefaultLogo{width:72px;height:72px;object-fit:cover;object-position:50% 50%;border-radius:50%}
+#siteBrandTitle{color:#fff}
 .brand-logo-group .brand-logo-extra{width:64px;height:64px;flex:0 0 auto;object-fit:contain;padding:3px;border-radius:14px}
 .site-view-tabs{display:flex;align-items:stretch;gap:6px;flex:0 0 auto;min-width:0}
 #visitorTabs .staff-nav-button{flex:0 0 auto;align-self:center;min-height:38px;margin:0;padding-inline:11px;font-size:calc((10px) + var(--site-font-step, 2px));white-space:nowrap}
