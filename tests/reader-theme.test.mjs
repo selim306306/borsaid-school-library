@@ -16,17 +16,17 @@ test('reader theme does not reorder, hide, crop, enlarge or replace content and 
   assert.doesNotMatch(css, /url\(|line-clamp|\[hidden\]|staff-workspace|\.workspace\b/);
 });
 test('reader theme provides keyboard focus and reduced motion safeguards', () => {
-  assert.match(css, /:focus-visible\s*\{\s*outline:\s*3px solid #116b68/);
+  assert.match(css, /:focus-visible\s*\{[^}]*outline-color:\s*var\(--library-accent\)/);
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /scroll-behavior: auto/);
   assert.match(css, /transition: none !important/);
   assert.match(css, /hover: hover/);
 });
-test('visible palette uses full color surfaces and readable text without changing geometry', () => {
-  assert.match(css, /\.site-header \.brand \{ background: #123f47;/);
-  assert.match(css, /\.site-header \.brand-copy strong \{ color: #fff;/);
-  assert.match(css, /\.page-home \.portal-side-library \{ background: #dceee4;/);
-  assert.match(css, /\.page-home \.portal-side-assistant \{ background: #e9e3f5;/);
-  assert.match(css, /\.page-home \.portal-side-news \{ background: #f5e9c8;/);
-  assert.match(css, /linear-gradient\(150deg, #cce6dd, #f8f3df\)/);
+test('visible palette uses white and blue semantic surfaces', () => {
+  assert.match(css, /--library-canvas:\s*#f2f7ff/);
+  assert.match(css, /--library-surface:\s*#ffffff/);
+  assert.match(css, /--library-accent:\s*#1b5fa8/);
+  assert.match(css, /\.site-header \.brand-copy strong \{ color: var\(--library-ink\); \}/);
+  assert.match(css, /\.page-home > \.portal-hero\s*\{[^}]*background:\s*linear-gradient\(/s);
+  assert.match(css, /\.page-home \.portal-search-submit \{ color: #fff; background: var\(--home-blue\);/);
 });
