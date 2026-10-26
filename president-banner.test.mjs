@@ -3,15 +3,29 @@ import assert from 'node:assert/strict';
 import { readFileSync, statSync } from 'node:fs';
 const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
 const css=readFileSync(new URL('./president-banner.css',import.meta.url),'utf8');
-test('presidential portrait is shared outside SPA panels and keeps the requested caption',()=>{
- const header=html.match(/<header class="site-header">[\s\S]*?<\/header>/)?.[0];
- assert.ok(header);
- assert.match(header,/<figure class="president-banner"/);
- assert.match(header,/السيد الرئيس عبد الفتاح السيسي/);
- assert.match(header,/مؤسس مصر الحديثة/);
- assert.match(header,/alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية"/);
- assert.match(header,/width="480" height="360" loading="eager"/);
- assert.match(header,/srcset="president-240.webp 240w, president-480.webp 480w"/);
+function sectionEnd(source,start){
+ const open=source.indexOf('<section',start);
+ let depth=0;
+ for(const match of source.slice(open).matchAll(/<\/?section\b[^>]*>/g)){
+  depth+=match[0].startsWith('</')?-1:1;
+  if(depth===0)return open+match.index+match[0].length;
+ }
+ throw new Error('section closing tag not found');
+}
+test('presidential portrait is shared after SPA panels and keeps the requested caption',()=>{
+ const start=html.indexOf('<section class="home-feature-strip');
+ const feature=html.match(/<section class="home-feature-strip[^>]*>[\s\S]*?<\/section>/)?.[0];
+ assert.ok(feature);
+ const lastPanel=html.indexOf('<section class="page-view" id="aboutView"');
+ assert.ok(start>sectionEnd(html,lastPanel),'shared feature follows every tab panel');
+ assert.ok(start<html.indexOf('</main>',start),'shared feature remains in the main content');
+ assert.ok(html.indexOf('id="homeDiscoveryForm"')<start,'search remains above the shared feature');
+ assert.match(feature,/<figure class="president-banner"/);
+ assert.match(feature,/السيد الرئيس عبد الفتاح السيسي/);
+ assert.match(feature,/مؤسس مصر الحديثة/);
+ assert.match(feature,/alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية"/);
+ assert.match(feature,/width="480" height="360" loading="eager"/);
+ assert.match(feature,/srcset="president-240.webp 240w, president-480.webp 480w"/);
  const sources=JSON.parse(readFileSync(new URL('./scripts/stylesheets.json',import.meta.url),'utf8'));
  assert.ok(sources.indexOf('president-banner.css')>sources.indexOf('visual-polish.css'));
  assert.ok(readFileSync(new URL('./site-bundle.css',import.meta.url),'utf8').includes(css));

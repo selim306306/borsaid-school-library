@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://esm.sh">
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site-bundle.css?v=b49ccb2b2d94c844">
+  <link rel="stylesheet" href="site-bundle.css?v=c0c8c943d9cf4547">
   <script type="module" src="school-branding-bootstrap.mjs?v=aa669c7d4430fade"></script>
   <script type="module" src="site-media-public.js?v=32e20cc432e340e7"></script>
   <script type="module" src="header-photo-carousel.js?v=7c4d773d0678a0be"></script>
@@ -42,7 +42,7 @@
   <script type="module" src="site-news.js?v=85e2eaef806667c1"></script>
   <script type="module" src="open-books-live.js?v=6ca36f074c417c7b"></script>
   <script type="module" src="external-reading.js?v=1c8fe81757ac251f"></script>
-  <script type="module" src="book-updates-ticker.js?v=2640217f5dd431d8"></script>
+  <script type="module" src="book-updates-ticker.js?v=d94157cef2a15999"></script>
   <script type="module" src="visitor-questions.js?v=a3613ce125bd7cdb"></script>
   <script defer src="image-viewer.js?v=5ee695f637142162"></script>
   <script type="module" src="header-reading-summary.js?v=45c758023b30165b"></script>
@@ -67,44 +67,7 @@
       <a href="#features">ماذا يقدّم الموقع؟</a>
       <a href="#visitorQuestions">اسأل أمين المكتبة</a>
     </nav>
-    <div class="header-feature-stack">
-    <div class="header-feature-image-slot" role="region" aria-roledescription="carousel" aria-label="صور المكتبات والقراءة">
-      <img class="brand-header-photo is-active" id="brandHeaderPhoto" data-site-media-key="header-feature-image" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false" src="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" data-site-media-bootstrap-src="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="تفعيل حصة المهارات المكتبية الصف الاول الاعدادي">
-      <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" data-site-media-key="header-feature-image-2" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <img class="brand-header-photo" id="brandHeaderPhotoThree" data-site-media-key="header-feature-image-3" src="assets/header-gallery/library-bookshelf.webp" data-site-media-credit-text="Mshuang2 · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Library_bookshelf.jpg" alt="رفوف كتب متنوعة داخل مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <img class="brand-header-photo" id="brandHeaderPhotoFour" data-site-media-key="header-feature-image-4" src="assets/header-gallery/books-on-a-shelf.webp" data-site-media-credit-text="MarkBuckawicki · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Books_on_a_Shelf.JPG" alt="مجموعة كتب مرتبة على رفوف" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <img class="brand-header-photo" id="brandHeaderPhotoFive" data-site-media-key="header-feature-image-5" src="assets/header-gallery/reading-area.webp" data-site-media-credit-text="Liudmila · ملك عام" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:American_Library_reading_area.jpg" alt="منطقة قراءة هادئة في مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
-      <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
-        <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
-        <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
-        <button class="header-photo-control" id="headerPhotoNext" type="button" aria-label="الصورة التالية">›</button>
-      </div>
-      <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
-    </div>
-    <div class="header-photo-attribution is-empty" id="headerPhotoAttribution" role="note" aria-label="مصدر الصورة" aria-hidden="true"></div>
-    <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح مساعد أمين المكتبة المدعوم بـGemini" aria-haspopup="dialog" aria-controls="visitorChatDialog">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
-      <span>مساعد أمين المكتبة</span>
-    </button>
-    <aside class="header-development-notice" aria-label="تنويه تطوير الموقع">
-      <p>الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع. يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.</p>
-    </aside>
-    </div>
-    <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
-      <img src="president-480.webp" srcset="president-240.webp 240w, president-480.webp 480w" sizes="(max-width: 700px) 40vw, (max-width: 1040px) 280px, 250px" alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية" width="480" height="360" loading="eager" decoding="async">
-      <figcaption>
-        <strong class="president-banner-name" id="presidentBannerName">السيد الرئيس عبد الفتاح السيسي</strong>
-        <span class="president-banner-title" id="presidentBannerTitle">مؤسس مصر الحديثة</span>
-        <details class="president-banner-site-note" id="headerReadingSummary" aria-label="إحصاءات الفهرسة والقراءة">
-          <summary class="header-reading-overview"><span>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٢١٢</strong></span><span>عناوين القراءة: <strong data-reading-count="total">٢٬٥٣٢</strong></span></summary>
-          <p>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٢١٢</strong><br>كتب ومجلدات كاملة: <strong data-reading-count="completeBooks">١٬٣٤٩</strong><br>دوريات: <strong data-reading-count="periodicals">٥٢٩</strong><br>سجلات فهرسة فقط: <strong data-reading-count="catalogOnly">٦٨٠</strong></p>
-          <p class="header-reading-counts" aria-live="polite" aria-atomic="true">عناوين القراءة: <strong data-reading-count="total">٢٬٥٣٢</strong><br>عناوين لها رابط قراءة: <strong data-reading-count="online">٢٬٥٣٢</strong><br>عناوين لها رابط <bdi>PDF</bdi>: <strong data-reading-count="pdf">٢٬٤٠٦</strong> (ضمن الإجمالي).<br>منها عناوين بروابط <bdi>PDF</bdi> خارجية: <strong data-reading-count="externalPdf">٢٬٤٠٣</strong><br>ملفات <bdi>PDF</bdi> مستضافة محليًا: <strong data-reading-count="localPdfFiles">٣</strong></p>
-          <p>رابط PDF لا يعني ملفًا مستضافًا هنا؛ تفتح الروابط الخارجية لدى المصدر وتخضع لإتاحته وشروطه. الروابط ليست ضمانًا لاستمرار التحميل.</p>
-          <p>ستضاف كتب أخرى تباعًا.</p>
-          <p class="header-reading-status" data-reading-status hidden></p>
-        </details>
-      </figcaption>
-    </figure>
+
   </header>
   <nav class="mobile-nav section-wrap" aria-label="تنقل سريع">
     <a href="#discover">اكتشف الكتب</a>
@@ -152,16 +115,17 @@
               <p class="portal-search-description" id="homeSearchDescription">اختر نطاق البحث؛ المصادر الخارجية تشمل فهرس الإسكندرية ومكتبة الكونجرس.</p>
             </div>
           </div>
-          <aside class="portal-side" aria-label="مسارات سريعة في الموقع">
-            <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
-            <nav class="portal-side-links">
-              <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-              <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد سريع بالاستناد إلى Gemini</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-              <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات في مصر والعالم</strong><small>موجز عربي ومصادر موثوقة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-            </nav>
-          </aside>
+
         </div>
       </section>
+      <aside class="portal-side home-quick-links" aria-label="مسارات سريعة في الموقع">
+        <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
+        <nav class="portal-side-links">
+          <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+          <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد سريع بالاستناد إلى Gemini</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+          <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات في مصر والعالم</strong><small>موجز عربي ومصادر موثوقة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+        </nav>
+      </aside>
       <section class="visitor-pathways section-wrap compact-pathways" aria-labelledby="visitorPathwaysTitle">
         <div class="compact-pathways-bar">
           <h2 id="visitorPathwaysTitle">مساعدة سريعة</h2>
@@ -195,15 +159,7 @@
         </div>
         </details>
       </section>
-      <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
-        <header class="home-news-heading">
-          <div><span class="eyebrow">أخبار مختارة · مصادر موثقة</span><h2 id="homeNewsTitle">أخبار المكتبات في مصر والعالم</h2></div>
-          <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">جارٍ تحميل آخر الأخبار…</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
-        </header>
-        <p class="home-news-intro">أخبار متحققة عن المكتبات بمختلف أنواعها في مصر والعالم، ومبادراتها ومسابقاتها وأبحاثها وتطوراتها؛ وتشمل برامج القراءة المرتبطة بالمكتبات بوضوح. يظهر المصدر الأصلي، ولا تُستخدم الصور إلا بحقوق واضحة.</p>
-        <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
-        <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
-      </section>
+
       <section class="leadership-banner section-wrap" aria-labelledby="leadershipBannerTitle">
         <div class="leadership-banner-head">
           <div><span class="eyebrow">منظومة التعليم · بورسعيد ومصر</span><h2 class="leadership-banner-heading" id="leadershipBannerTitle">قيادات التعليم والمكتبات</h2><p class="leadership-banner-subtitle">تعريف مختصر بالقيادات ومناصبها.</p></div>
@@ -328,6 +284,16 @@
         <p>هذه مصادر خارجية مستقلة؛ لا ننسخ الكتب أو نخلط نتائجها بمقتنيات بورسعيد. فهرس الإسكندرية يعرض سجلات ببليوجرافية ولا يضمن قراءة رقمية. واجهة البحث العامة لمكتبة الكونجرس لا تحتاج اشتراكاً سنوياً، لكن وجود صيغة إلكترونية لا يعني دائماً نصاً كاملاً أو قراءة مجانية. بنك المعرفة يتبع شروط تسجيل وإتاحة خاصة به. لا نستضيف نصاً إلا بترخيص يسمح بذلك. <a class="reading-rights-reference" href="https://www.loc.gov/apis/" target="_blank" rel="noopener noreferrer">توثيق واجهات مكتبة الكونجرس <span aria-hidden="true">↗</span><span class="sr-only">يفتح في موقع خارجي</span></a>.</p>
       </aside>
     </section>
+      <section class="home-news-section section-wrap" id="homeNews" aria-labelledby="homeNewsTitle">
+              <header class="home-news-heading">
+                <div><span class="eyebrow">أخبار مختارة · مصادر موثقة</span><h2 id="homeNewsTitle">أخبار المكتبات في مصر والعالم</h2></div>
+                <div class="home-news-meta"><span class="news-updated" id="homeNewsUpdated">جارٍ تحميل آخر الأخبار…</span><a href="#educationResearch">كل الأخبار والأبحاث <span aria-hidden="true">←</span></a></div>
+              </header>
+              <p class="home-news-intro">أخبار متحققة عن المكتبات بمختلف أنواعها في مصر والعالم، ومبادراتها ومسابقاتها وأبحاثها وتطوراتها؛ وتشمل برامج القراءة المرتبطة بالمكتبات بوضوح. يظهر المصدر الأصلي، ولا تُستخدم الصور إلا بحقوق واضحة.</p>
+              <p class="home-news-status" id="homeNewsStatus" role="status" aria-live="polite"></p>
+              <div class="education-news-grid home-news-grid live-news-grid" id="homeNewsGrid" aria-live="polite" aria-busy="true"></div>
+            </section>
+
     </section>
     <section class="page-view global-reading-view" id="globalReadingView" data-view-panel="reading" role="tabpanel" aria-labelledby="globalReadingTab" tabindex="0" hidden>
       <section class="global-reading-section section-wrap" id="globalReading" aria-labelledby="globalReadingTitle">
@@ -515,6 +481,47 @@
         </div>
       </section>
     </dialog>
+    <section class="home-feature-strip section-wrap" aria-label="صور ومعلومات عن الموقع">
+          <div class="header-feature-stack">
+          <div class="header-feature-image-slot" role="region" aria-roledescription="carousel" aria-label="صور المكتبات والقراءة">
+            <img class="brand-header-photo is-active" id="brandHeaderPhoto" data-site-media-key="header-feature-image" width="960" height="720" loading="eager" fetchpriority="high" decoding="async" aria-hidden="false" src="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" data-site-media-bootstrap-src="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" data-site-media-bootstrap-path="media/header-feature-image/54f7ade2-cde8-4575-b38e-ad5561e79b4c.jpg" alt="تفعيل حصة المهارات المكتبية الصف الاول الاعدادي">
+            <img class="brand-header-photo brand-header-photo-secondary" id="brandHeaderPhotoTwo" data-site-media-key="header-feature-image-2" src="assets/reading-room-illustrative.webp" data-site-media-credit-text="صورة توضيحية · صامويل زيلر / CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Reading_room_(Unsplash).jpg" alt="صورة توضيحية لقاعة قراءة عامة في جنيف، سويسرا" width="960" height="640" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+            <img class="brand-header-photo" id="brandHeaderPhotoThree" data-site-media-key="header-feature-image-3" src="assets/header-gallery/library-bookshelf.webp" data-site-media-credit-text="Mshuang2 · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Library_bookshelf.jpg" alt="رفوف كتب متنوعة داخل مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+            <img class="brand-header-photo" id="brandHeaderPhotoFour" data-site-media-key="header-feature-image-4" src="assets/header-gallery/books-on-a-shelf.webp" data-site-media-credit-text="MarkBuckawicki · CC0" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:Books_on_a_Shelf.JPG" alt="مجموعة كتب مرتبة على رفوف" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+            <img class="brand-header-photo" id="brandHeaderPhotoFive" data-site-media-key="header-feature-image-5" src="assets/header-gallery/reading-area.webp" data-site-media-credit-text="Liudmila · ملك عام" data-site-media-credit-href="https://commons.wikimedia.org/wiki/File:American_Library_reading_area.jpg" alt="منطقة قراءة هادئة في مكتبة عامة" width="960" height="720" loading="lazy" fetchpriority="low" decoding="async" aria-hidden="true">
+            <div class="header-photo-controls" role="group" aria-label="التحكم في صور البنر">
+              <button class="header-photo-control" id="headerPhotoPrevious" type="button" aria-label="الصورة السابقة">‹</button>
+              <button class="header-photo-control" id="headerPhotoAutoplay" type="button" aria-label="إيقاف التبديل التلقائي" aria-pressed="true">Ⅱ</button>
+              <button class="header-photo-control" id="headerPhotoNext" type="button" aria-label="الصورة التالية">›</button>
+            </div>
+            <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
+          </div>
+          <div class="header-photo-attribution is-empty" id="headerPhotoAttribution" role="note" aria-label="مصدر الصورة" aria-hidden="true"></div>
+          <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح مساعد أمين المكتبة المدعوم بـGemini" aria-haspopup="dialog" aria-controls="visitorChatDialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
+            <span>مساعد أمين المكتبة</span>
+          </button>
+          <aside class="header-development-notice" aria-label="تنويه تطوير الموقع">
+            <p>الموقع قيد التطوير بمساندة وكيل الذكاء الاصطناعي، وتحت إشراف إدارة الموقع. يُرجى زيارة الموقع باستمرار للاطلاع على آخر التحديثات.</p>
+          </aside>
+          </div>
+
+          <figure class="president-banner" aria-labelledby="presidentBannerName" aria-describedby="presidentBannerTitle">
+            <img src="president-480.webp" srcset="president-240.webp 240w, president-480.webp 480w" sizes="(max-width: 700px) 40vw, (max-width: 1040px) 280px, 250px" alt="السيد الرئيس عبد الفتاح السيسي، رئيس جمهورية مصر العربية" width="480" height="360" loading="eager" decoding="async">
+            <figcaption>
+              <strong class="president-banner-name" id="presidentBannerName">السيد الرئيس عبد الفتاح السيسي</strong>
+              <span class="president-banner-title" id="presidentBannerTitle">مؤسس مصر الحديثة</span>
+              <details class="president-banner-site-note" id="headerReadingSummary" aria-label="إحصاءات الفهرسة والقراءة">
+                <summary class="header-reading-overview"><span>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٢١٢</strong></span><span>عناوين القراءة: <strong data-reading-count="total">٢٬٥٣٢</strong></span></summary>
+                <p>المواد المفهرسة: <strong data-reading-count="indexedRecords">٣٬٢١٢</strong><br>كتب ومجلدات كاملة: <strong data-reading-count="completeBooks">١٬٣٤٩</strong><br>دوريات: <strong data-reading-count="periodicals">٥٢٩</strong><br>سجلات فهرسة فقط: <strong data-reading-count="catalogOnly">٦٨٠</strong></p>
+                <p class="header-reading-counts" aria-live="polite" aria-atomic="true">عناوين القراءة: <strong data-reading-count="total">٢٬٥٣٢</strong><br>عناوين لها رابط قراءة: <strong data-reading-count="online">٢٬٥٣٢</strong><br>عناوين لها رابط <bdi>PDF</bdi>: <strong data-reading-count="pdf">٢٬٤٠٦</strong> (ضمن الإجمالي).<br>منها عناوين بروابط <bdi>PDF</bdi> خارجية: <strong data-reading-count="externalPdf">٢٬٤٠٣</strong><br>ملفات <bdi>PDF</bdi> مستضافة محليًا: <strong data-reading-count="localPdfFiles">٣</strong></p>
+                <p>رابط PDF لا يعني ملفًا مستضافًا هنا؛ تفتح الروابط الخارجية لدى المصدر وتخضع لإتاحته وشروطه. الروابط ليست ضمانًا لاستمرار التحميل.</p>
+                <p>ستضاف كتب أخرى تباعًا.</p>
+                <p class="header-reading-status" data-reading-status hidden></p>
+              </details>
+            </figcaption>
+          </figure>
+          </section>
   </main>
 
   <footer class="site-footer section-wrap">

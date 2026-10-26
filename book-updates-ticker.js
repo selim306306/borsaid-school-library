@@ -43,9 +43,8 @@ function makeElement(documentRef, tag, className, text) {
 
 export function mountBookUpdatesTicker({ documentRef = globalThis.document, fetchImpl = globalThis.fetch } = {}) {
   if (!documentRef) return null;
-  const header = documentRef.querySelector('.site-header');
-  const mobileNav = documentRef.querySelector('.mobile-nav');
-  if (!header || !mobileNav || documentRef.querySelector('#bookUpdatesTicker')) return null;
+  const homeNews = documentRef.querySelector('#homeNews');
+  if (!homeNews?.parentNode || documentRef.querySelector('#bookUpdatesTicker')) return null;
 
   const ticker = makeElement(documentRef, 'section', 'book-updates-ticker');
   ticker.id = 'bookUpdatesTicker';
@@ -72,7 +71,7 @@ export function mountBookUpdatesTicker({ documentRef = globalThis.document, fetc
   next.setAttribute('aria-label', 'عنوان الكتاب التالي');
   controls.append(previous, toggle, next);
   ticker.append(heading, viewport, status, controls);
-  mobileNav.parentNode.insertBefore(ticker, mobileNav);
+  homeNews.parentNode.insertBefore(ticker, homeNews.nextSibling);
 
   let items = buildTickerItems();
   let index = 0;

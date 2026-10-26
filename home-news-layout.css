@@ -236,3 +236,168 @@
   }
   .page-home .portal-side-icon { width: 32px; height: 32px; flex-basis: 32px; }
 }
+
+
+/* Search-first homepage: keep identity compact and lower secondary content. */
+.page-home {
+  --home-section-gap: clamp(18px, 2.4vw, 28px);
+  --home-card-radius: 14px;
+}
+.announcement { padding-block: 5px; }
+.site-header {
+  width: min(1180px, calc(100% - 48px));
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-block: 8px;
+}
+.page-home > .portal-hero {
+  margin-block: 10px var(--home-section-gap);
+  padding: clamp(20px, 3vw, 34px);
+  border-radius: 22px;
+}
+.page-home .portal-layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.page-home .portal-main { width: 100%; max-width: 960px; margin-inline: auto; }
+.page-home .portal-main h1 {
+  max-width: none;
+  margin-block: 0 8px;
+  font-size: calc(clamp(2rem, 4vw, 3.15rem) + var(--site-font-step, 2px));
+  line-height: 1.24;
+}
+.page-home .portal-lede { max-width: 68ch; margin-block: 0 18px; }
+.page-home .portal-search-panel {
+  max-width: 960px;
+  margin-inline: auto;
+  padding: clamp(14px, 2vw, 22px);
+  border-radius: 16px;
+}
+.page-home .portal-search-heading { margin-bottom: 12px; }
+.page-home .portal-search-row { min-height: 58px; }
+.page-home .portal-search-row input { min-height: 48px; }
+.page-home .portal-search-submit { min-height: 50px; }
+.page-home .portal-search-description { max-width: 72ch; margin-block: 10px 0; font-size: 13px; line-height: 1.7; }
+.page-home > .home-quick-links {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto var(--home-section-gap);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.page-home .home-quick-links .portal-side-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-block: 0 8px;
+}
+.page-home .home-quick-links .portal-side-heading > strong { font-size: 16px; }
+.page-home .home-quick-links .portal-side-links {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.page-home .home-quick-links .portal-side-link {
+  min-height: 52px;
+  padding: 8px 12px;
+  border-radius: var(--home-card-radius);
+  border-color: var(--home-line);
+  background: #fff;
+  box-shadow: none;
+}
+.page-home .home-quick-links .portal-side-copy strong { font-size: 14px; }
+.page-home .home-quick-links .portal-side-copy small { font-size: 13px; line-height: 1.5; }
+.page-home > :is(.compact-pathways, #homeNews, .leadership-banner, .home-guide, .home-reading) {
+  margin-block: var(--home-section-gap);
+}
+.page-home > .compact-pathways,
+.page-home > #homeNews,
+.page-home > .leadership-banner,
+.page-home > .home-guide,
+.page-home > .home-reading {
+  border-radius: var(--home-card-radius);
+}
+.page-home #homeNews .home-news-intro { max-width: 74ch; font-size: 14px; line-height: 1.75; }
+.page-home #homeNews .home-news-grid > .live-news-card {
+  min-height: 220px;
+  padding: 14px;
+  border-radius: var(--home-card-radius);
+}
+.page-home > #bookUpdatesTicker {
+  margin-block: var(--home-section-gap);
+  border-radius: var(--home-card-radius);
+  box-shadow: none;
+}
+.home-feature-strip {
+  --home-ink: #152745;
+  --home-harbor: #0f2d62;
+  --home-section-gap: clamp(18px, 2.4vw, 28px);
+  --home-card-radius: 14px;
+  width: min(1180px, calc(100% - 48px));
+  margin: var(--home-section-gap) auto;
+  color: var(--home-ink);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 240px);
+  align-items: start;
+  gap: 16px;
+}
+.home-feature-strip .header-feature-stack {
+  grid-area: auto;
+  width: min(100%, 460px);
+  max-width: 100%;
+  justify-self: center;
+  align-self: start;
+}
+.home-feature-strip .president-banner {
+  grid-area: auto;
+  width: min(100%, 240px);
+  margin: 0 auto;
+  border-color: #d3dae6;
+  border-radius: var(--home-card-radius);
+  background: #edf4ff;
+  box-shadow: none;
+}
+.home-feature-strip .president-banner figcaption { background: #edf4ff; }
+.home-feature-strip .president-banner-name { color: var(--home-ink); }
+.home-feature-strip .president-banner-title { color: #3e506d; }
+.home-feature-strip .president-banner-site-note { border-color: #c8d3e4; background: #f7faff; }
+.home-feature-strip .header-chat-shortcut {
+  color: #fff;
+  background: var(--home-harbor);
+  border-color: #fff;
+  box-shadow: none;
+}
+.home-feature-strip :is(.header-photo-control, .header-chat-shortcut, .header-photo-attribution a):focus-visible {
+  outline: 3px solid var(--home-harbor);
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .site-header { width: calc(100% - 32px); padding-block: 6px; }
+  .page-home > .portal-hero { margin-block: 8px 18px; padding: 18px 14px; border-radius: 18px; }
+  .page-home .portal-main h1 {
+    max-width: 18ch;
+    font-size: calc(clamp(1.85rem, 7.2vw, 2.45rem) + var(--site-font-step, 2px));
+    line-height: 1.3;
+  }
+  .page-home .portal-lede { margin-bottom: 14px; font-size: calc(15px + var(--site-font-step, 2px)); }
+  .page-home .portal-search-panel { padding: 12px; }
+  .page-home .portal-search-row { min-height: 54px; gap: 6px; }
+  .page-home .portal-search-submit { min-height: 48px; padding-inline: 12px; }
+  .page-home .portal-search-description { font-size: 12px; }
+  .page-home > .home-quick-links { width: calc(100% - 32px); }
+  .page-home .home-quick-links .portal-side-links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .page-home .home-quick-links .portal-side-link { min-height: 60px; padding: 8px 9px; }
+  .page-home .home-quick-links .portal-side-copy strong { font-size: 13px; }
+  .page-home .home-quick-links .portal-side-copy small { font-size: 12px; }
+  .page-home #homeNews .home-news-grid > .live-news-card { min-height: 0; }
+  .home-feature-strip { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .home-feature-strip .header-feature-stack { width: min(100%, 420px); }
+  .home-feature-strip .president-banner { width: min(100%, 230px); }
+}
+@media (max-width: 360px) {
+  .page-home .home-quick-links .portal-side-links { grid-template-columns: minmax(0, 1fr); }
+  .page-home .home-quick-links .portal-side-link { min-height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-feature-strip :is(.header-feature-image-slot, .brand-header-photo) { animation: none; transition: none; }
+}
