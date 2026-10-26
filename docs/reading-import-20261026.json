@@ -1,0 +1,313 @@
+{
+  "date": "2026-10-26",
+  "baseCommit": "cdec4d8181bcd19e21616417cfcbbeb2559013d5",
+  "addedIds": [
+    "otl-2019-francais-interactif",
+    "openedition-ledizioni-2012-creative-commons-guia",
+    "openedition-oep-2016-escravidao-subjetividades",
+    "scielo-paper-ric-2025-e502050",
+    "doaj-periodical-2959-314x",
+    "doaj-periodical-1518-2924",
+    "ijatl-paper-2026-15184",
+    "pmc-paper-pmc9874500"
+  ],
+  "readingAddedIds": [
+    "otl-2019-francais-interactif",
+    "openedition-ledizioni-2012-creative-commons-guia",
+    "openedition-oep-2016-escravidao-subjetividades",
+    "scielo-paper-ric-2025-e502050"
+  ],
+  "catalogAddedIds": [
+    "doaj-periodical-2959-314x",
+    "doaj-periodical-1518-2924",
+    "ijatl-paper-2026-15184",
+    "pmc-paper-pmc9874500"
+  ],
+  "before": {
+    "indexedRecords": 3204,
+    "readingTitles": 2528,
+    "completeBooks": 1346,
+    "periodicals": 527,
+    "catalogOnly": 676,
+    "total": 2528,
+    "online": 2528,
+    "pdf": 2404
+  },
+  "after": {
+    "indexedRecords": 3212,
+    "readingTitles": 2532,
+    "completeBooks": 1349,
+    "periodicals": 529,
+    "catalogOnly": 680,
+    "total": 2532,
+    "online": 2532,
+    "pdf": 2406
+  },
+  "pdfLocations": {
+    "localPdfFiles": 3,
+    "externalPdf": 2403
+  },
+  "hostedFilesAdded": 0,
+  "databaseChanges": false,
+  "apkChanges": false,
+  "languageCounts": [
+    {
+      "language": "العربية",
+      "count": 1577
+    },
+    {
+      "language": "الإنجليزية",
+      "count": 1258
+    },
+    {
+      "language": "الألمانية",
+      "count": 179
+    },
+    {
+      "language": "الروسية",
+      "count": 167
+    },
+    {
+      "language": "البرتغالية",
+      "count": 72
+    },
+    {
+      "language": "المجرية",
+      "count": 67
+    },
+    {
+      "language": "الإيطالية",
+      "count": 32
+    },
+    {
+      "language": "الإسبانية",
+      "count": 29
+    },
+    {
+      "language": "الفرنسية",
+      "count": 25
+    },
+    {
+      "language": "الفارسية",
+      "count": 12
+    },
+    {
+      "language": "Ottoman Turkish (1500-1928)",
+      "count": 10
+    },
+    {
+      "language": "اليونانية القديمة",
+      "count": 7
+    },
+    {
+      "language": "اللاتينية",
+      "count": 5
+    },
+    {
+      "language": "السلوفينية",
+      "count": 4
+    },
+    {
+      "language": "العبرية",
+      "count": 4
+    },
+    {
+      "language": "الليتوانية",
+      "count": 4
+    },
+    {
+      "language": "الأفريكانية",
+      "count": 3
+    },
+    {
+      "language": "السنسكريتية",
+      "count": 3
+    },
+    {
+      "language": "الصينية",
+      "count": 3
+    },
+    {
+      "language": "الهولندية",
+      "count": 3
+    },
+    {
+      "language": "التركية",
+      "count": 2
+    },
+    {
+      "language": "الكورية",
+      "count": 2
+    },
+    {
+      "language": "البولندية",
+      "count": 1
+    },
+    {
+      "language": "التشيكية",
+      "count": 1
+    },
+    {
+      "language": "السويدية",
+      "count": 1
+    },
+    {
+      "language": "الصربية",
+      "count": 1
+    },
+    {
+      "language": "الفنلندية",
+      "count": 1
+    },
+    {
+      "language": "اليابانية",
+      "count": 1
+    },
+    {
+      "language": "غير معروفة",
+      "count": 1
+    },
+    {
+      "language": "Estonian",
+      "count": 1
+    },
+    {
+      "language": "Hittite",
+      "count": 1
+    }
+  ],
+  "languageIncrements": [
+    {
+      "language": "الإنجليزية",
+      "count": 6
+    },
+    {
+      "language": "الإسبانية",
+      "count": 3
+    },
+    {
+      "language": "البرتغالية",
+      "count": 2
+    },
+    {
+      "language": "العربية",
+      "count": 2
+    },
+    {
+      "language": "الفرنسية",
+      "count": 2
+    }
+  ],
+  "evidence": [
+    {
+      "id": "otl-2019-francais-interactif",
+      "title": "Français interactif",
+      "recordType": "book",
+      "source": "https://open.umn.edu/opentextbooks/textbooks/francais-interactif",
+      "reader": "https://laits.utexas.edu/fi/toc/00/",
+      "pdf": "https://laits.utexas.edu/fi/FrancaisInteractif-textbook.pdf",
+      "rights": "Creative Commons Attribution 3.0 (CC BY 3.0) وفق تذييل المصدر الجامعي الأصلي؛ تصفه Open Textbook Library بأنه CC BY. رابط قراءة وPDF خارجيان رسميان، دون إعادة استضافة.",
+      "rightsUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "completionStatus": "كتاب كامل بقراءة HTML جامعية وملف PDF رسمي من 345 صفحة؛ النسخة المفهرسة هي طبعة 2019. يحتوي الفرنسية مع تعليمات وشروح إنجليزية، وليس نصًا فرنسيًا أحادي اللغة."
+    },
+    {
+      "id": "openedition-ledizioni-2012-creative-commons-guia",
+      "title": "Creative Commons: guía de usuario",
+      "recordType": "book",
+      "source": "https://books.openedition.org/ledizioni/185",
+      "reader": "https://books.openedition.org/ledizioni/185?format=embed",
+      "pdf": "",
+      "rights": "النص مرخص CC BY-SA 4.0 وفق صفحة OpenEdition؛ قد تبقى حقوق الصور والعناصر الأخرى محفوظة ما لم يذكر خلاف ذلك. قراءة HTML خارجية فقط، دون نسخ أو استضافة.",
+      "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "completionStatus": "الكتاب الكامل متاح للقراءة HTML عبر المصدر الرسمي؛ 110 صفحات. صيغة OpenEdition المفتوحة freemium لا تعني توفر PDF/ePub مجانيين؛ لم يُضف رابط PDF."
+    },
+    {
+      "id": "openedition-oep-2016-escravidao-subjetividades",
+      "title": "Escravidão e subjetividades no Atlântico luso-brasileiro e francês (Séculos XVII–XX)",
+      "recordType": "book",
+      "source": "https://books.openedition.org/oep/778",
+      "reader": "https://books.openedition.org/oep/778?format=embed",
+      "pdf": "",
+      "rights": "النص مرخص CC BY-NC-ND 4.0 وفق صفحة OpenEdition؛ قد تبقى حقوق الصور والعناصر الأخرى محفوظة ما لم يذكر خلاف ذلك. رابط قراءة HTML رسمي فقط؛ لا استضافة ولا إعادة تحرير للنص.",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "completionStatus": "كتاب أكاديمي كامل من 302 صفحة؛ القراءة HTML متاحة قانونيًا لدى OpenEdition. PDF/ePub في نظام freemium مقيدان للمكتبات المقتنية، لذلك لا يوجد رابط PDF في هذا السجل."
+    },
+    {
+      "id": "scielo-paper-ric-2025-e502050",
+      "title": "Transforming university teaching with the use of artificial intelligence: opportunities and challenges",
+      "recordType": "paper",
+      "source": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632025000202050&lng=es",
+      "reader": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632025000202050&lng=es",
+      "pdf": "https://ve.scielo.org/pdf/ric/v5n2/2739-0063-ric-5-02-e502050.pdf",
+      "rights": "CC BY 4.0 حسب صفحة المقال وصفحة الدورية الرسمية في SciELO. القارئ وPDF من المصدر الخارجي الرسمي فقط، دون نسخ أو إعادة استضافة.",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+      "completionStatus": "مقال كامل رسمي في HTML وPDF بالإنجليزية؛ يتضمن العنوان والملخص بالإسبانية أيضًا. هذه ورقة علمية وليست كتابًا، ولا يوجد ملف مستضاف محليًا."
+    },
+    {
+      "id": "doaj-periodical-2959-314x",
+      "title": "مجلة جامعة العلوم والتكنولوجيا للعلوم الإدارية والإنسانية",
+      "recordType": "periodical",
+      "source": "https://doaj.org/toc/2959-314X",
+      "reader": "",
+      "pdf": "",
+      "rights": "فهرسة ببليوغرافية ورابط فقط، لا نصوص أعداد أو مقالات مستضافة. يذكر DOAJ أن الدورية تستخدم CC BY 4.0؛ يجب مراجعة حقوق كل مقال عند الناشر قبل إعادة استخدامه.",
+      "rightsUrl": "https://doaj.org/toc/2959-314X",
+      "completionStatus": "سجل دورية متحقق من DOAJ؛ ليس عددًا محددًا ولا كتابًا كاملًا. العربية والإنجليزية هما لغتا استقبال المخطوطات بحسب DOAJ، وليس ادعاء أن كل عدد ثنائي اللغة. لا قارئ أو PDF في هذا السجل."
+    },
+    {
+      "id": "doaj-periodical-1518-2924",
+      "title": "Encontros Bibli",
+      "recordType": "periodical",
+      "source": "https://doaj.org/toc/1518-2924",
+      "reader": "",
+      "pdf": "",
+      "rights": "فهرسة ببليوغرافية ورابط فقط، دون نسخ مقالات الدورية أو أعدادها. يسجل DOAJ سياسة CC BY 4.0 للدورية؛ يجب التحقق من حقوق كل مادة عند الناشر قبل إعادة استخدامها.",
+      "rightsUrl": "https://doaj.org/toc/1518-2924",
+      "completionStatus": "سجل دورية متحقق من DOAJ، وليس عددًا بعينه أو كتابًا كاملًا. اللغات المذكورة هي لغات المخطوطات المقبولة لدى الدورية حسب DOAJ؛ لا يثبت هذا توفر كل مقال بكل لغة. لا قارئ أو PDF هنا."
+    },
+    {
+      "id": "ijatl-paper-2026-15184",
+      "title": "The Relationship Between Qawa’id al-Lughah Mastery and the Ability to Construct Mufidah Sentences Among Ninth-Grade Female Students",
+      "recordType": "paper",
+      "source": "https://ejournal.unuja.ac.id/index.php/ij-atl/article/view/15184",
+      "reader": "",
+      "pdf": "",
+      "rights": "صفحة المقال تعلن CC BY-SA 4.0، بينما تذييل عارض PDF يذكر CC BY-NC-SA 4.0. بسبب تعارض بيانَي الرخصة أُبقي السجل فهرسة فقط، دون اعتماد قارئ أو PDF أو إعادة استضافة؛ يُراجع الناشر لحسم إعادة الاستخدام.",
+      "rightsUrl": "https://ejournal.unuja.ac.id/index.php/ij-atl/article/view/15184",
+      "completionStatus": "العنوان والمؤلفون وDOI والمجلد والعدد والصفحات متحققة. يسمي الناشر الملف عربيًا ويعرض ملخصًا إنجليزيًا، لكن تعارض بيانَي الرخصة منع اعتماد رابط قراءة/PDF في الفهرس؛ ليست كتابًا كاملًا."
+    },
+    {
+      "id": "pmc-paper-pmc9874500",
+      "title": "Analysis of shared research data in Spanish scientific papers about COVID‐19: A first approach",
+      "recordType": "paper",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874500/",
+      "reader": "",
+      "pdf": "",
+      "rights": "فهرسة ببليوغرافية فقط من صفحة NLM/PMC الرسمية. وجود المقال في PMC لا يثبت وحده رخصة إعادة نشر مفتوحة؛ لم تُوثق رخصة مفتوحة للمقال في هذه الجولة، لذلك لم يُعتمد قارئ أو PDF ولم يُنسخ النص.",
+      "rightsUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874500/",
+      "completionStatus": "سجل متحقق جزئيًا: المؤلفون والعنوان وDOI وPMCID وسنة النشر الإلكتروني. الصفحة تصفه Online ahead of print دون بيانات مجلد/عدد/صفحات؛ لم يُعتمد رابط قراءة أو PDF، ولا يُعد كتابًا كاملًا."
+    }
+  ],
+  "verifiedPdfRecords": [
+    {
+      "id": "otl-2019-francais-interactif",
+      "status": 206,
+      "signature": "%PDF-1.7",
+      "url": "https://laits.utexas.edu/fi/FrancaisInteractif-textbook.pdf",
+      "discoveredVia": "https://open.umn.edu/opentextbooks/formats/442"
+    },
+    {
+      "id": "scielo-paper-ric-2025-e502050",
+      "status": 206,
+      "signature": "%PDF-1.4",
+      "url": "https://ve.scielo.org/pdf/ric/v5n2/2739-0063-ric-5-02-e502050.pdf"
+    }
+  ],
+  "notes": [
+    "Readable papers belong in the reading file but retain recordType=paper; they are not counted as complete books.",
+    "Periodical languages are accepted manuscript languages documented by DOAJ, not proof that every article exists in every language.",
+    "The IJ-ATL article remains catalog-only because its article-level and viewer-footer licenses conflict; the electronic ISSN alone is used because the print ISSN was inconsistent.",
+    "The PMC record remains partial, catalog-only; English is the text language despite Spanish in its research topic.",
+    "OpenEdition HTML is full reading; no restricted freemium PDF/ePub link is advertised."
+  ]
+}
