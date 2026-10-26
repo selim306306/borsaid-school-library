@@ -18,6 +18,13 @@ const ALLOWED_HOSTS = new Set([
   'standardebooks.org',
   'oreilly.com',
   'creativecommons.org',
+  'open.umn.edu',
+  'laits.utexas.edu',
+  'books.openedition.org',
+  'doaj.org',
+  've.scielo.org',
+  'ejournal.unuja.ac.id',
+  'pmc.ncbi.nlm.nih.gov',
 ]);
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
@@ -122,7 +129,7 @@ export function normalizeLanguageMetadata(raw = {}) {
 export function sanitizeBook(raw, options = {}) {
   if (!raw || typeof raw !== 'object') return null;
   const book = {};
-  for (const key of ['id', 'title', 'author', 'subject', 'category', 'kind', 'sourceName', 'rights', 'publicationPlace', 'publicationYear', 'availability', 'completionStatus', 'recordType', 'seriesId', 'seriesTitle', 'publisher', 'isbn', 'pages']) book[key] = typeof raw[key] === 'string' ? raw[key].trim() : raw[key] == null ? '' : String(raw[key]).trim();
+  for (const key of ['id', 'title', 'author', 'subject', 'category', 'kind', 'sourceName', 'rights', 'publicationPlace', 'publicationYear', 'availability', 'completionStatus', 'recordType', 'seriesId', 'seriesTitle', 'publisher', 'isbn', 'issn', 'doi', 'volume', 'issue', 'pages']) book[key] = typeof raw[key] === 'string' ? raw[key].trim() : raw[key] == null ? '' : String(raw[key]).trim();
   if (Number.isInteger(raw.seriesOrder) && raw.seriesOrder > 0) book.seriesOrder = raw.seriesOrder;
   Object.assign(book, normalizeLanguageMetadata(raw));
   book.source = isAllowedExternalUrl(raw.source, options) ? raw.source.trim() : '';
@@ -146,6 +153,22 @@ export function sanitizeBook(raw, options = {}) {
 }
 
 export function sanitizeBooks(data, options = {}) { return Array.isArray(data) ? data.map(item => sanitizeBook(item, options)).filter(Boolean) : []; }
+
+export function bibliographicMetadataLines(book = {}) {
+  const text = key => String(book?.[key] || '').trim();
+  const lines = [];
+  for (const [key, label] of [['isbn', 'ISBN'], ['issn', 'ISSN'], ['doi', 'DOI']]) if (text(key)) lines.push(`${label}: ${text(key)}`);
+  if (text('volume') || text('issue')) lines.push([text('volume') ? `المجلد: ${text('volume')}` : '', text('issue') ? `العدد: ${text('issue')}` : ''].filter(Boolean).join(' · '));
+  if (text('pages')) lines.push(`الصفحات: ${text('pages')}`);
+  return lines;
+}
+
+export function recordCompletionStatus(book = {}) {
+  const supplied = String(book?.completionStatus || '').trim();
+  if (supplied) return supplied;
+  if (book?.availability === 'catalog-only') return 'هذا سجل فهرسة رسمي؛ لم تتحقق قراءة كاملة أو PDF.';
+  return book?.searchable ? 'نص رقمي؛ يدعم بحث المتصفح في صفحة المصدر.' : 'البحث هنا في بيانات العنوان؛ لم تُتحقق قابلية البحث داخل الملف.';
+}
 
 export function filterBooks(books, { query = '', subject = '', source = '', language = '', kind = '', availability = '' } = {}) {
   const words = normalizeArabic(query).split(/\s+/).filter(Boolean);

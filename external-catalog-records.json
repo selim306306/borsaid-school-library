@@ -1,5 +1,135 @@
 [
   {
+    "id": "doaj-periodical-2959-314x",
+    "title": "مجلة جامعة العلوم والتكنولوجيا للعلوم الإدارية والإنسانية",
+    "author": "",
+    "subject": "الإدارة والاقتصاد والتربية والعلوم الإنسانية والاجتماعية؛ دورية علمية محكمة",
+    "category": "الدوريات والعلوم الاجتماعية",
+    "language": "العربية، الإنجليزية",
+    "languages": [
+      "العربية",
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "ara",
+      "eng"
+    ],
+    "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+    "recordType": "periodical",
+    "sourceName": "DOAJ — دليل دوريات الوصول المفتوح",
+    "publisher": "University of Science and Technology, Sana'a, Yemen",
+    "source": "https://doaj.org/toc/2959-314X",
+    "reader": "",
+    "pdf": "",
+    "rights": "فهرسة ببليوغرافية ورابط فقط، لا نصوص أعداد أو مقالات مستضافة. يذكر DOAJ أن الدورية تستخدم CC BY 4.0؛ يجب مراجعة حقوق كل مقال عند الناشر قبل إعادة استخدامه.",
+    "rightsUrl": "https://doaj.org/toc/2959-314X",
+    "availability": "catalog-only",
+    "completionStatus": "سجل دورية متحقق من DOAJ؛ ليس عددًا محددًا ولا كتابًا كاملًا. العربية والإنجليزية هما لغتا استقبال المخطوطات بحسب DOAJ، وليس ادعاء أن كل عدد ثنائي اللغة. لا قارئ أو PDF في هذا السجل.",
+    "searchable": false,
+    "issn": "2959-314X",
+    "publicationYear": "",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "doaj-periodical-1518-2924",
+    "title": "Encontros Bibli",
+    "author": "",
+    "subject": "علم المكتبات والمعلومات والموارد المعلوماتية والتوثيق؛ دورية علمية محكمة مفتوحة الوصول",
+    "category": "الدوريات وعلم المكتبات",
+    "language": "البرتغالية، الفرنسية، الإنجليزية، الإسبانية",
+    "languages": [
+      "البرتغالية",
+      "الفرنسية",
+      "الإنجليزية",
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "por",
+      "fra",
+      "eng",
+      "spa"
+    ],
+    "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+    "recordType": "periodical",
+    "sourceName": "DOAJ — دليل دوريات الوصول المفتوح",
+    "publisher": "Universidade Federal de Santa Catarina — Programa de Pós Graduação em Ciência da Informação",
+    "source": "https://doaj.org/toc/1518-2924",
+    "reader": "",
+    "pdf": "",
+    "rights": "فهرسة ببليوغرافية ورابط فقط، دون نسخ مقالات الدورية أو أعدادها. يسجل DOAJ سياسة CC BY 4.0 للدورية؛ يجب التحقق من حقوق كل مادة عند الناشر قبل إعادة استخدامها.",
+    "rightsUrl": "https://doaj.org/toc/1518-2924",
+    "availability": "catalog-only",
+    "completionStatus": "سجل دورية متحقق من DOAJ، وليس عددًا بعينه أو كتابًا كاملًا. اللغات المذكورة هي لغات المخطوطات المقبولة لدى الدورية حسب DOAJ؛ لا يثبت هذا توفر كل مقال بكل لغة. لا قارئ أو PDF هنا.",
+    "searchable": false,
+    "issn": "1518-2924",
+    "publicationYear": "",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "ijatl-paper-2026-15184",
+    "title": "The Relationship Between Qawa’id al-Lughah Mastery and the Ability to Construct Mufidah Sentences Among Ninth-Grade Female Students",
+    "author": "Putri Nabila Ramadani؛ Nelly Mujahidah؛ Besse Wahida؛ Mamun Ahmed",
+    "subject": "تعليم العربية، إتقان النحو والصرف، بناء الجملة المفيدة لدى طالبات الصف التاسع؛ دراسة ارتباطية كمية",
+    "category": "أبحاث تعليم اللغة العربية",
+    "language": "العربية، الإنجليزية",
+    "languages": [
+      "العربية",
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "ara",
+      "eng"
+    ],
+    "kind": "ورقة بحثية — سجل فهرسة موثق جزئيًا",
+    "recordType": "paper",
+    "sourceName": "IJ-ATL — صفحة الناشر الرسمية؛ الدورية مدرجة في DOAJ",
+    "publisher": "Nurul Jadid University — IJ-ATL (International Journal of Arabic Teaching and Learning)",
+    "source": "https://ejournal.unuja.ac.id/index.php/ij-atl/article/view/15184",
+    "reader": "",
+    "pdf": "",
+    "rights": "صفحة المقال تعلن CC BY-SA 4.0، بينما تذييل عارض PDF يذكر CC BY-NC-SA 4.0. بسبب تعارض بيانَي الرخصة أُبقي السجل فهرسة فقط، دون اعتماد قارئ أو PDF أو إعادة استضافة؛ يُراجع الناشر لحسم إعادة الاستخدام.",
+    "rightsUrl": "https://ejournal.unuja.ac.id/index.php/ij-atl/article/view/15184",
+    "availability": "catalog-only",
+    "completionStatus": "العنوان والمؤلفون وDOI والمجلد والعدد والصفحات متحققة. يسمي الناشر الملف عربيًا ويعرض ملخصًا إنجليزيًا، لكن تعارض بيانَي الرخصة منع اعتماد رابط قراءة/PDF في الفهرس؛ ليست كتابًا كاملًا.",
+    "searchable": false,
+    "doi": "10.33650/ijatl.v10i1.15184",
+    "issn": "2549-368X",
+    "volume": "10",
+    "issue": "1",
+    "pages": "96–104",
+    "publicationYear": "2026",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "pmc-paper-pmc9874500",
+    "title": "Analysis of shared research data in Spanish scientific papers about COVID‐19: A first approach",
+    "author": "Roxana Cerda‐Cosme؛ Eva Méndez",
+    "subject": "العلم المفتوح ومشاركة البيانات البحثية وعلم المعلومات؛ دراسة عن بحوث إسبانية، لكن لغة هذا المقال هي الإنجليزية",
+    "category": "أبحاث علم المعلومات",
+    "language": "الإنجليزية",
+    "languages": [
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "eng"
+    ],
+    "kind": "ورقة علمية — سجل فهرسة جزئي",
+    "recordType": "paper",
+    "sourceName": "PubMed Central — National Library of Medicine",
+    "publisher": "Wiley — Journal of the Association for Information Science and Technology",
+    "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874500/",
+    "reader": "",
+    "pdf": "",
+    "rights": "فهرسة ببليوغرافية فقط من صفحة NLM/PMC الرسمية. وجود المقال في PMC لا يثبت وحده رخصة إعادة نشر مفتوحة؛ لم تُوثق رخصة مفتوحة للمقال في هذه الجولة، لذلك لم يُعتمد قارئ أو PDF ولم يُنسخ النص.",
+    "rightsUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874500/",
+    "availability": "catalog-only",
+    "completionStatus": "سجل متحقق جزئيًا: المؤلفون والعنوان وDOI وPMCID وسنة النشر الإلكتروني. الصفحة تصفه Online ahead of print دون بيانات مجلد/عدد/صفحات؛ لم يُعتمد رابط قراءة أو PDF، ولا يُعد كتابًا كاملًا.",
+    "searchable": false,
+    "doi": "10.1002/asi.24716",
+    "publicationYear": "2022",
+    "verifiedAt": "2026-10-26"
+  },
+  {
     "id": "loc-2021031588",
     "title": "Wikipedia and the representation of reality",
     "author": "McDowell, Zachary J., author؛ Vetter, Matthew A., author",

@@ -1,5 +1,129 @@
 [
   {
+    "id": "otl-2019-francais-interactif",
+    "title": "Français interactif",
+    "author": "Karen Kelton؛ Nancy Guilloteau؛ Carl Blyth",
+    "subject": "تعلم اللغة الفرنسية والثقافة الناطقة بالفرنسية؛ الفرنسية مع تعليمات وشروح بالإنجليزية؛ كتاب جامعي تمهيدي",
+    "category": "اللغات",
+    "language": "الفرنسية، الإنجليزية",
+    "languages": [
+      "الفرنسية",
+      "الإنجليزية"
+    ],
+    "languageCodes": [
+      "fra",
+      "eng"
+    ],
+    "kind": "كتاب تعليمي كامل مفتوح — طبعة 2019",
+    "recordType": "book",
+    "sourceName": "Open Textbook Library — University of Minnesota",
+    "publisher": "COERLL — University of Texas at Austin",
+    "source": "https://open.umn.edu/opentextbooks/textbooks/francais-interactif",
+    "reader": "https://laits.utexas.edu/fi/toc/00/",
+    "pdf": "https://laits.utexas.edu/fi/FrancaisInteractif-textbook.pdf",
+    "rights": "Creative Commons Attribution 3.0 (CC BY 3.0) وفق تذييل المصدر الجامعي الأصلي؛ تصفه Open Textbook Library بأنه CC BY. رابط قراءة وPDF خارجيان رسميان، دون إعادة استضافة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "availability": "external-reading",
+    "completionStatus": "كتاب كامل بقراءة HTML جامعية وملف PDF رسمي من 345 صفحة؛ النسخة المفهرسة هي طبعة 2019. يحتوي الفرنسية مع تعليمات وشروح إنجليزية، وليس نصًا فرنسيًا أحادي اللغة.",
+    "searchable": false,
+    "isbn": "9781937963040",
+    "pages": "345",
+    "publicationYear": "2019",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "openedition-ledizioni-2012-creative-commons-guia",
+    "title": "Creative Commons: guía de usuario",
+    "author": "Simone Aliprandi",
+    "subject": "دليل للمبتدئين في رخص المشاع الإبداعي وحقوق النشر الرقمي والملكية الفكرية؛ النص بالإسبانية",
+    "category": "التقنية والحقوق الرقمية",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "spa"
+    ],
+    "kind": "كتاب إرشادي كامل — حقوق النشر الرقمي",
+    "recordType": "book",
+    "sourceName": "OpenEdition Books — Ledizioni",
+    "publisher": "Ledizioni",
+    "source": "https://books.openedition.org/ledizioni/185",
+    "reader": "https://books.openedition.org/ledizioni/185?format=embed",
+    "pdf": "",
+    "rights": "النص مرخص CC BY-SA 4.0 وفق صفحة OpenEdition؛ قد تبقى حقوق الصور والعناصر الأخرى محفوظة ما لم يذكر خلاف ذلك. قراءة HTML خارجية فقط، دون نسخ أو استضافة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "availability": "external-reading",
+    "completionStatus": "الكتاب الكامل متاح للقراءة HTML عبر المصدر الرسمي؛ 110 صفحات. صيغة OpenEdition المفتوحة freemium لا تعني توفر PDF/ePub مجانيين؛ لم يُضف رابط PDF.",
+    "searchable": false,
+    "pages": "110",
+    "publicationYear": "2012",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "openedition-oep-2016-escravidao-subjetividades",
+    "title": "Escravidão e subjetividades no Atlântico luso-brasileiro e francês (Séculos XVII–XX)",
+    "author": "Myriam Cottias؛ Hebe Mattos (تحرير)",
+    "subject": "تاريخ العبودية وما بعد العبودية والمواطنة والذاتية في الأطلسي البرتغالي-البرازيلي والفرنسي؛ مادة أكاديمية متقدمة بالبرتغالية",
+    "category": "التاريخ",
+    "language": "البرتغالية",
+    "languages": [
+      "البرتغالية"
+    ],
+    "languageCodes": [
+      "por"
+    ],
+    "kind": "كتاب أكاديمي كامل — تاريخ متقدم",
+    "recordType": "book",
+    "sourceName": "OpenEdition Books — OpenEdition Press",
+    "publisher": "OpenEdition Press",
+    "source": "https://books.openedition.org/oep/778",
+    "reader": "https://books.openedition.org/oep/778?format=embed",
+    "pdf": "",
+    "rights": "النص مرخص CC BY-NC-ND 4.0 وفق صفحة OpenEdition؛ قد تبقى حقوق الصور والعناصر الأخرى محفوظة ما لم يذكر خلاف ذلك. رابط قراءة HTML رسمي فقط؛ لا استضافة ولا إعادة تحرير للنص.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "availability": "external-reading",
+    "completionStatus": "كتاب أكاديمي كامل من 302 صفحة؛ القراءة HTML متاحة قانونيًا لدى OpenEdition. PDF/ePub في نظام freemium مقيدان للمكتبات المقتنية، لذلك لا يوجد رابط PDF في هذا السجل.",
+    "searchable": false,
+    "pages": "302",
+    "publicationYear": "2016",
+    "verifiedAt": "2026-10-26"
+  },
+  {
+    "id": "scielo-paper-ric-2025-e502050",
+    "title": "Transforming university teaching with the use of artificial intelligence: opportunities and challenges",
+    "author": "Luis Enrique Zegarra Ramírez؛ Karim Cáceres-Nakiche؛ Wilfredo Humberto Carcausto-Calla",
+    "subject": "Transformando la docencia universitaria con el uso de la inteligencia artificial: oportunidades y retos؛ الذكاء الاصطناعي والتعليم العالي ومراجعة منهجية؛ مرجع للمعلمين والباحثين",
+    "category": "أبحاث التعليم والتقنية",
+    "language": "الإنجليزية، الإسبانية",
+    "languages": [
+      "الإنجليزية",
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "eng",
+      "spa"
+    ],
+    "kind": "ورقة علمية — مراجعة منهجية بنص خارجي كامل",
+    "recordType": "paper",
+    "sourceName": "SciELO Venezuela — Revista InveCom",
+    "publisher": "Asociación Investigadores Venezolanos de la Comunicación",
+    "source": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632025000202050&lng=es",
+    "reader": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632025000202050&lng=es",
+    "pdf": "https://ve.scielo.org/pdf/ric/v5n2/2739-0063-ric-5-02-e502050.pdf",
+    "rights": "CC BY 4.0 حسب صفحة المقال وصفحة الدورية الرسمية في SciELO. القارئ وPDF من المصدر الخارجي الرسمي فقط، دون نسخ أو إعادة استضافة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+    "availability": "external-reading",
+    "completionStatus": "مقال كامل رسمي في HTML وPDF بالإنجليزية؛ يتضمن العنوان والملخص بالإسبانية أيضًا. هذه ورقة علمية وليست كتابًا، ولا يوجد ملف مستضاف محليًا.",
+    "searchable": false,
+    "doi": "10.5281/zenodo.13386114",
+    "issn": "2739-0063",
+    "volume": "5",
+    "issue": "2",
+    "publicationYear": "2025",
+    "verifiedAt": "2026-10-26"
+  },
+  {
     "id": "openstax-verified-20261020-biology-2e",
     "title": "Biology 2e",
     "author": "Mary Ann Clark, Matthew Douglas, Jung Choi",

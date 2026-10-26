@@ -1,4 +1,4 @@
-import { filterBooks, languageDistribution, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=897016c435810902';
+import { bibliographicMetadataLines, filterBooks, languageDistribution, recordCompletionStatus, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=54cad010266d566f';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 const PAGE_SIZE = 12;
 const DATA_URLS = ['external-reading-books.json', 'external-catalog-records.json'];
@@ -25,9 +25,9 @@ function mount() {
     details.append(el('h3', '', book.title), el('p', 'external-reading-author', `المؤلف: ${book.author || 'غير مذكور'}`), el('p', 'external-reading-meta', `الموضوع: ${book.subject || 'غير مصنف'} · اللغة: ${book.language}`));
     if (book.seriesTitle && book.seriesOrder) details.append(el('p', 'external-reading-series', `السلسلة: ${book.seriesTitle} · الجزء ${new Intl.NumberFormat('ar-EG').format(book.seriesOrder)} من ٣`));
     if (book.publisher) details.append(el('p', 'external-reading-meta', `الناشر: ${book.publisher}`));
-    if (book.isbn) details.append(el('p', 'external-reading-meta', `ISBN: ${book.isbn}`));
+    bibliographicMetadataLines(book).forEach(line => details.append(el('p', 'external-reading-meta', line)));
     if (book.publicationPlace || book.publicationYear) details.append(el('p', 'external-reading-meta', `النشر: ${[book.publicationPlace, book.publicationYear].filter(Boolean).join('، ')}`));
-    details.append(el('p', 'external-reading-meta', book.seriesId === 'ard-zikola' ? 'كتاب مطبوع؛ لا يتوفر النص أو PDF هنا. القراءة أو الشراء عبر الناشر الرسمي.' : book.availability === 'catalog-only' ? 'هذا سجل فهرسة رسمي؛ لم تتحقق قراءة كاملة أو PDF.' : book.availability === 'external-reading' ? book.completionStatus : (book.searchable ? 'نص رقمي؛ يدعم بحث المتصفح في صفحة المصدر.' : 'البحث هنا في بيانات العنوان؛ لم تُتحقق قابلية البحث داخل الملف.')), el('p', 'external-reading-rights', `الحقوق: ${book.rights}`));
+    details.append(el('p', 'external-reading-meta', book.seriesId === 'ard-zikola' ? 'كتاب مطبوع؛ لا يتوفر النص أو PDF هنا. القراءة أو الشراء عبر الناشر الرسمي.' : recordCompletionStatus(book)), el('p', 'external-reading-rights', `الحقوق: ${book.rights}`));
     const actions = el('div', 'external-reading-actions'); if (book.availability === 'catalog-only') actions.append(externalLink(book.seriesId === 'ard-zikola' ? 'الكتاب لدى الناشر الرسمي ↗' : 'افتح السجل الرسمي ↗', book.source, true)); else { actions.append(externalLink(book.availability === 'external-reading' ? 'اقرأ لدى المصدر الرسمي ↗' : 'افتح القارئ الكامل ↗', book.reader, true)); if (book.pdf) actions.append(externalLink('PDF من المصدر', book.pdf)); } if (book.rightsUrl && book.availability !== 'catalog-only') actions.append(externalLink('تفاصيل الحقوق', book.rightsUrl)); body.append(details); card.append(top, body, actions); return card;
   }
   function renderStats() { stats.replaceChildren(); const heading = el('strong', '', 'توزيع اللغات'); stats.append(heading); const list = el('span', 'external-reading-language-list'); languageDistribution(books, { deduplicateBy: 'id' }).forEach(({ language, count }) => list.append(el('span', 'external-reading-language-chip', `${language}: ${new Intl.NumberFormat('ar-EG').format(count)}`))); stats.append(list, el('small', '', ' الأعداد غير قابلة للجمع لأن السجل متعدد اللغات يظهر في كل لغة؛ الإجمالي سجلات فريدة بالمعرّف.')); }

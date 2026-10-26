@@ -1,6 +1,6 @@
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
-import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=897016c435810902';
+import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=54cad010266d566f';
 
 function readable(book) { return book?.availability !== 'catalog-only' && Boolean(book?.reader || book?.pdf); }
 export function countReadingTitles(localBooks = [], externalBooks = []) {
