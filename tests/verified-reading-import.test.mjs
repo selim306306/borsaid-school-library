@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { normalizeArabic, sanitizeBooks, isAllowedExternalUrl } from '../external-reading-model.mjs';
 import { countReadingTitles } from '../header-reading-summary.js';
@@ -8,7 +8,9 @@ import { PUBLIC_READABLE_BOOKS } from '../public-reading-books.js';
 const data=JSON.parse(readFileSync(new URL('../external-reading-books.json',import.meta.url)));
 const audit=JSON.parse(readFileSync(new URL('../docs/reading-import-20261020.json',import.meta.url)));
 const addedIds=new Set(audit.addedIds);
-const before=data.filter(b=>!addedIds.has(b.id));
+const laterAddedIds=new Set(readdirSync(new URL('../docs/',import.meta.url)).filter(name=>/^reading-import-\d{8}\.json$/.test(name)&&name>'reading-import-20261020.json').flatMap(name=>JSON.parse(readFileSync(new URL('../docs/'+name,import.meta.url))).addedIds||[]));
+const historicalData=data.filter(b=>!laterAddedIds.has(b.id));
+const before=historicalData.filter(b=>!addedIds.has(b.id));
 const oldIds=new Set(before.map(b=>b.id));
 const additions=data.filter(b=>addedIds.has(b.id));
 test('verified metadata adds unique external reading titles without changing prior records',()=>{
@@ -22,8 +24,8 @@ test('verified metadata adds unique external reading titles without changing pri
   const keys=new Set(before.map(b=>normalizeArabic(b.title)));
   const ids=new Set(oldIds);
   for(const b of additions){assert.ok(!keys.has(normalizeArabic(b.title)));keys.add(normalizeArabic(b.title));assert.ok(!ids.has(b.id));ids.add(b.id);assert.equal(b.availability,'external-reading');assert.equal(b.pdf,'');for(const key of ['title','author','language','publisher','source','reader','rights','rightsUrl','completionStatus'])assert.ok(b[key],b.id+' '+key);}
-  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS,data).total,countReadingTitles(PUBLIC_READABLE_BOOKS,before).total+additions.length);
-  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS,data).pdf,countReadingTitles(PUBLIC_READABLE_BOOKS,before).pdf);
+  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS,historicalData).total,countReadingTitles(PUBLIC_READABLE_BOOKS,before).total+additions.length);
+  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS,historicalData).pdf,countReadingTitles(PUBLIC_READABLE_BOOKS,before).pdf);
   assert.ok(additions.some(b=>b.languageCodes.some(code=>code==='ar'||code==='ara')));
 });
 test('source audit includes all forty sites and no invented missing rows',()=>{

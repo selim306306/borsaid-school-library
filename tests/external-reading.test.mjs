@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { filterBooks, isAllowedExternalUrl, languageDistribution, normalizeArabic, normalizeLanguageMetadata, sanitizeBooks } from '../external-reading-model.mjs';
+import { countIndexedMaterials, filterBooks, isAllowedExternalUrl, languageDistribution, normalizeArabic, normalizeLanguageMetadata, sanitizeBooks } from '../external-reading-model.mjs';
+import * as readingModel from '../external-reading-model.mjs';
 
 const books = sanitizeBooks([
   { id: '1', title: 'إحياء علوم الدين', author: 'أبو حامد الغزالي', subject: 'تصوف', category: 'تراث', sourceName: 'هنداوي', source: 'https://www.hindawi.org/books/1/', reader: 'https://www.hindawi.org/books/1/read/', rights: 'متاح للقراءة', searchable: true },
@@ -110,4 +111,84 @@ test('deduplicates normalized titles independently within each language', () => 
     { language: 'العربية', count: 2 },
     { language: 'الإنجليزية', count: 2 },
   ].sort((a, b) => a.language.localeCompare(b.language, 'ar')));
+});
+
+test('recognizes only the official multilingual publication hosts added for this batch', () => {
+  for (const url of [
+    'https://open.umn.edu/opentextbooks/textbooks/francais-interactif',
+    'https://laits.utexas.edu/fi/toc/00/',
+    'https://books.openedition.org/ledizioni/185',
+    'https://doaj.org/toc/2959-314X',
+    'https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632025000202050',
+    'https://ejournal.unuja.ac.id/index.php/ij-atl/article/view/15184',
+    'https://pmc.ncbi.nlm.nih.gov/articles/PMC9874500/',
+  ]) assert.equal(isAllowedExternalUrl(url), true, url);
+  for (const url of [
+    'https://books.openedition.org.evil.example/ledizioni/185',
+    'https://doaj.org.evil.example/toc/2959-314X',
+    'https://pmc.ncbi.nlm.nih.gov.evil.example/articles/PMC9874500/',
+  ]) assert.equal(isAllowedExternalUrl(url), false, url);
+});
+
+test('preserves ISSN and DOI as bibliographic identifiers', () => {
+  const [record] = sanitizeBooks([{
+    id: 'bibliographic-identifiers', title: 'ورقة تجريبية', kind: 'ورقة علمية',
+    sourceName: 'ناشر رسمي', source: 'https://www.loc.gov/item/1/',
+    rights: 'بيانات فهرسة فقط', availability: 'catalog-only',
+    issn: '2549-368X', doi: '10.33650/ijatl.v10i1.15184',
+  }]);
+  assert.equal(record.issn, '2549-368X');
+  assert.equal(record.doi, '10.33650/ijatl.v10i1.15184');
+});
+
+test('provides citation details and the specific incomplete-record status for display', () => {
+  assert.equal(typeof readingModel.bibliographicMetadataLines, 'function');
+  assert.deepEqual(readingModel.bibliographicMetadataLines({
+    isbn: '9781937963040', issn: '2549-368X', doi: '10.33650/ijatl.v10i1.15184',
+    volume: '10', issue: '1', pages: '96–104',
+  }), ['ISBN: 9781937963040', 'ISSN: 2549-368X', 'DOI: 10.33650/ijatl.v10i1.15184', 'المجلد: 10 · العدد: 1', 'الصفحات: 96–104']);
+  assert.equal(typeof readingModel.recordCompletionStatus, 'function');
+  assert.equal(readingModel.recordCompletionStatus({ availability: 'catalog-only', completionStatus: 'سجل متحقق جزئيًا؛ لم يُعتمد PDF بسبب تعارض بيان الرخصة.' }), 'سجل متحقق جزئيًا؛ لم يُعتمد PDF بسبب تعارض بيان الرخصة.');
+  assert.match(readingModel.recordCompletionStatus({ availability: 'catalog-only' }), /سجل فهرسة/);
+});
+
+test('adds the verified multilingual books, papers and periodicals with distinct counts', () => {
+  const readingRaw = JSON.parse(readFileSync(new URL('../external-reading-books.json', import.meta.url), 'utf8'));
+  const catalogRaw = JSON.parse(readFileSync(new URL('../external-catalog-records.json', import.meta.url), 'utf8'));
+  const readingIds = new Set([
+    'otl-2019-francais-interactif',
+    'openedition-ledizioni-2012-creative-commons-guia',
+    'openedition-oep-2016-escravidao-subjetividades',
+    'scielo-paper-ric-2025-e502050',
+  ]);
+  const catalogIds = new Set([
+    'doaj-periodical-2959-314x',
+    'doaj-periodical-1518-2924',
+    'ijatl-paper-2026-15184',
+    'pmc-paper-pmc9874500',
+  ]);
+  const newReading = sanitizeBooks(readingRaw.filter(record => readingIds.has(record.id)));
+  const newCatalog = sanitizeBooks(catalogRaw.filter(record => catalogIds.has(record.id)));
+  assert.equal(newReading.length, 4);
+  assert.equal(newCatalog.length, 4);
+  assert.equal(new Set([...newReading, ...newCatalog].map(record => normalizeArabic(record.title))).size, 8);
+  assert.ok(newReading.every(record => record.availability !== 'catalog-only' && record.reader));
+  assert.ok(newCatalog.every(record => record.reader || record.availability === 'catalog-only'));
+  assert.equal(newCatalog.find(record => record.id === 'doaj-periodical-2959-314x').recordType, 'periodical');
+  assert.equal(newCatalog.find(record => record.id === 'doaj-periodical-1518-2924').recordType, 'periodical');
+  assert.equal(newCatalog.find(record => record.id === 'pmc-paper-pmc9874500').availability, 'catalog-only');
+  assert.equal(newCatalog.find(record => record.id === 'pmc-paper-pmc9874500').reader, '');
+  assert.equal(newCatalog.find(record => record.id === 'ijatl-paper-2026-15184').availability, 'catalog-only');
+  assert.equal(newCatalog.find(record => record.id === 'ijatl-paper-2026-15184').pdf, '');
+  const metrics = countIndexedMaterials([], newReading, newCatalog);
+  assert.deepEqual(metrics, {
+    indexedRecords: 8, readingTitles: 4, completeBooks: 3, periodicals: 2,
+    catalogOnly: 4, total: 4, online: 4, pdf: 2,
+  });
+  assert.deepEqual(Object.fromEntries(languageDistribution([...newReading, ...newCatalog], { deduplicateBy: 'id' }).map(({ language, count }) => [language, count])), {
+    'الإنجليزية': 6, 'الإسبانية': 3, 'الفرنسية': 2, 'العربية': 2, 'البرتغالية': 2,
+  });
+  assert.equal(newReading.find(record => record.id === 'otl-2019-francais-interactif').isbn, '9781937963040');
+  assert.equal(newCatalog.find(record => record.id === 'ijatl-paper-2026-15184').doi, '10.33650/ijatl.v10i1.15184');
+  assert.equal(newReading.find(record => record.id === 'scielo-paper-ric-2025-e502050').issn, '2739-0063');
 });

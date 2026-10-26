@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {sanitizeBooks, normalizeArabic, isAllowedExternalUrl, countIndexedMaterials, filterBooks} from '../external-reading-model.mjs';
+import {sanitizeBooks, normalizeArabic, isAllowedExternalUrl, countIndexedMaterials, filterBooks, recordCompletionStatus} from '../external-reading-model.mjs';
 import {PUBLIC_READABLE_BOOKS} from '../public-reading-books.js';
 const read = p => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const raw = read('../external-reading-books.json');
@@ -54,5 +54,6 @@ test('mixed and unspecified reuse terms remain explicit rather than promising un
   for(const slug of ['invent-games','pygame','small-python-projects'])assert.match(batch.find(b=>b.id.endsWith('-'+slug)).rights,/لم يوثّق هنا/);
   const ui=readFileSync(new URL('../external-reading.js',import.meta.url),'utf8');
   assert.ok(ui.includes('اقرأ لدى المصدر الرسمي ↗'));
-  assert.ok(ui.includes("book.availability === 'external-reading' ? book.completionStatus"));
+  assert.ok(ui.includes('recordCompletionStatus(book)'));
+  for (const book of batch) assert.equal(recordCompletionStatus(book), book.completionStatus);
 });
