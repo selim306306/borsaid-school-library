@@ -3115,7 +3115,7 @@ body.auth-page{min-height:100vh;background:#f6f8fc}
     font-size:calc(10.5px + var(--site-font-step, 2px));
   }
   .site-header .brand-school-identities{
-    font-size:calc(8.5px + var(--site-font-step, 2px));
+    font-size:calc(10px + var(--site-font-step, 2px));
   }
   .page-home .leadership-banner .leadership-person{
     grid-template-columns:30px minmax(0,1fr);
