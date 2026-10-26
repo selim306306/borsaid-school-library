@@ -30,9 +30,11 @@ test('ينظف JSON عبر sanitizeBooks ويرفض السجلات غير الص
   assert.deepEqual(books.map((book) => book.id), ['valid']);
 });
 
-test('يحتوي الملف على نقطة إدراج بعد site-header، توقف/تشغيل، reduced motion، وروابط آمنة', async () => {
+test('يحتوي الملف على نقطة إدراج بعد موجز الأخبار، توقف/تشغيل، reduced motion، وروابط آمنة', async () => {
   const source = await fs.readFile(new URL('book-updates-ticker.js', root), 'utf8');
-  assert.match(source, /insertBefore\(ticker, mobileNav\)/);
+  assert.match(source, /querySelector\('#homeNews'\)/);
+  assert.match(source, /insertBefore\(ticker,\s*homeNews\.nextSibling\)/);
+  assert.doesNotMatch(source, /insertBefore\(ticker,\s*mobileNav\)/);
   assert.match(source, /aria-pressed/);
   assert.match(source, /prefers-reduced-motion/);
   assert.match(source, /noopener noreferrer/);

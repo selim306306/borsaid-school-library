@@ -33,9 +33,12 @@ test('شريط المساعدة يحافظ على الروابط الثلاثة 
   assert.match(pathways, /لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا/);
 });
 
-test('الأخبار المنزلية تسبق القيادة وتحافظ على المعرفات وحالات التحميل', () => {
-  assert.ok(html.indexOf('id="homeNews"') < html.indexOf('leadership-banner'));
-  const home = sectionBetween('<section class="home-news-section', '<section class="leadership-banner');
+test('الأخبار المنزلية تأتي بعد مصادر القراءة وتحافظ على المعرفات وحالات التحميل', () => {
+  const homeStart = html.indexOf('<section class="home-news-section');
+  const homeEnd = html.indexOf('</section>', homeStart);
+  const home = html.slice(homeStart, homeEnd);
+  assert.ok(html.indexOf('class="leadership-banner') < html.indexOf('id="homeNews"'));
+  assert.ok(html.indexOf('id="readingSources"') < html.indexOf('id="homeNews"'));
   assert.match(home, /id="homeNews"/);
   assert.match(home, /أخبار المكتبات في مصر والعالم/);
   assert.match(home, /id="homeNewsGrid"[^>]*aria-live="polite"[^>]*aria-busy="true"/);

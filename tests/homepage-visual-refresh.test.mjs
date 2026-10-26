@@ -132,11 +132,11 @@ test('كل ألوان الثيم ودرجات الظلال تقع ضمن الأ�
 });
 
 test('المسارات في الهاتف المعتاد عمودان، والشاشات الأضيق عمود واحد مع أهداف لمس كبيرة', () => {
-  assert.match(regularPhoneCss, /\.page-home\s+\.portal-side-links\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
-  assert.match(regularPhoneCss, /\.page-home\s+\.portal-side-link\s*\{[^}]*min-height:\s*94px;/s);
+  assert.match(regularPhoneCss, /\.page-home\s+\.home-quick-links\s+\.portal-side-links\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
+  assert.match(regularPhoneCss, /\.page-home\s+\.home-quick-links\s+\.portal-side-link\s*\{[^}]*min-height:\s*60px;/s);
   assert.match(layoutCss, /\.page-home\s+\.portal-search-row\s*\{\s*min-height:\s*52px;/s);
-  assert.match(narrowPhoneCss, /\.page-home\s+\.portal-side-links\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s);
-  assert.match(narrowPhoneCss, /\.page-home\s+\.portal-side-link\s*\{[^}]*min-height:\s*52px;/s);
+  assert.match(narrowPhoneCss, /\.page-home\s+\.home-quick-links\s+\.portal-side-links\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s);
+  assert.match(narrowPhoneCss, /\.page-home\s+\.home-quick-links\s+\.portal-side-link\s*\{[^}]*min-height:\s*52px;/s);
 });
 
 test('روابط البوابة تحافظ على مؤشر تركيز واضح وتحترم تفضيل تقليل الحركة', () => {
