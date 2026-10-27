@@ -14,6 +14,8 @@ import { renderPublicProfilesAsSoonAsAvailable, shouldShowSchoolNameOnHomepage, 
 import { loadPublicPageViewStats } from './public-site-stats.js?v=932b31f228286105';
 import { initializeAdminAgent } from './admin-agent-controller.mjs?v=bf48e712847efa2f';
 import { takeInitialPublicProfilesRequest, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, PUBLIC_PROFILE_COLUMNS } from './school-branding-bootstrap.mjs?v=aa669c7d4430fade';
+import { canUseStaffLibraryExperiment, initializeStaffLibraryExperiment, isStaffLibraryExperimentRequested } from './staff-library-experiment.mjs?v=5fa0f3b54a4ae05e';
+import { createStaffLibraryRepository } from './staff-library-repository.mjs?v=3e6a643ce6d0f5ae';
 const PAGE_SIZE = 100;
 const CACHE_KEY = 'borsaid-library-public-cache-v1';
 const INVITATIONS_ENABLED = true;
@@ -160,6 +162,13 @@ let currentLibraryIsPublished = null;
 let staffMetrics = {};
 let currentRole = null;
 let currentUserId = null;
+const staffLibraryExperimentRequested = isStaffLibraryExperimentRequested(window.location.search);
+const staffLibraryRepository = createStaffLibraryRepository({
+  getSupabase: () => supabase,
+  getLibraryId: () => currentLibraryId,
+  fetchAllPages,
+});
+let staffLibraryExperimentController = null;
 let inventoryTitles = [];
 let inventoryHoldings = [];
 let reservationRows = [];
@@ -660,6 +669,29 @@ function setWorkspaceMode(isSignedIn) {
   $('#workspacePane').hidden = !isSignedIn;
   $('#staffDialogTitle').textContent = isSignedIn ? 'لوحة عمل المكتبة' : 'مساحة الموظفين';
 }
+function syncStaffLibraryExperiment(role) {
+  const enabled = canUseStaffLibraryExperiment({ requested: staffLibraryExperimentRequested, userId: currentUserId, role });
+  const tab = $('#staffLibraryExperimentTab');
+  if (tab) tab.hidden = !enabled;
+  if (!enabled) {
+    staffLibraryExperimentController?.destroy();
+    staffLibraryExperimentController = null;
+    return;
+  }
+  const root = $('#staffLibraryExperimentRoot');
+  if (!root) return;
+  if (!staffLibraryExperimentController) {
+    staffLibraryExperimentController = initializeStaffLibraryExperiment({
+      root,
+      getRole: () => currentRole,
+      openExistingPanel: panelId => {
+        const target = $$('.staff-tab').find(button => button.dataset.panel === panelId && !button.hidden);
+        if (target) activatePanel(panelId);
+      },
+    });
+  }
+  staffLibraryExperimentController.setRepository(staffLibraryRepository);
+}
 function activatePanel(panelId) {
   const tabs = $$('.staff-tab');
   const selectedTab = tabs.find(button => button.dataset.panel === panelId && !button.hidden);
@@ -682,6 +714,7 @@ function activatePanel(panelId) {
     panel.classList.toggle('active', active);
     panel.hidden = !active;
   });
+  if (panelId === 'staffLibraryExperimentPanel') void staffLibraryExperimentController?.refresh();
 }
 function configureRole(role) {
   const manager = ['owner', 'admin', 'librarian'].includes(role);
@@ -694,6 +727,7 @@ function configureRole(role) {
   $('#ownerReportDialog').close();
   const circulation = manager || role === 'circulation';
   const allowed = new Set(['catalogPanel', 'reportsPanel']);
+  if (canUseStaffLibraryExperiment({ requested: staffLibraryExperimentRequested, userId: currentUserId, role })) allowed.add('staffLibraryExperimentPanel');
   if (manager) ['branchesPanel', 'requestsPanel'].forEach(id => allowed.add(id));
   if (owner) allowed.add('schoolProfilePanel');
   if (owner && hasSiteFooterOwnership()) allowed.add('visitorQuestionsPanel');
@@ -752,6 +786,7 @@ function configureRole(role) {
     $('#ownerVisitorQuestionsList').replaceChildren();
     $('#visitorQuestionsStatus').textContent = '';
   }
+  syncStaffLibraryExperiment(role);
   const active = $('.staff-tab.active');
   activatePanel(active && !active.hidden ? active.dataset.panel : 'catalogPanel');
 }
@@ -1120,10 +1155,15 @@ async function refreshStaffStats() {
   renderAutomationTasks();
 }
 async function loadStaffBranches() {
-  const { data, error } = await supabase.from('branches').select('id,name,governorate,city,public_address,public_phone,public_email,is_published').eq('library_id', currentLibraryId).order('name');
-  if (error) { branchLoadFailed = true; staffBranches = []; renderAutomationTasks(); return; }
+  try {
+    staffBranches = await staffLibraryRepository.listBranches();
+  } catch {
+    branchLoadFailed = true;
+    staffBranches = [];
+    renderAutomationTasks();
+    return;
+  }
   branchLoadFailed = false;
-  staffBranches = data || [];
   const options = '<option value="">اختر الفرع</option>' + staffBranches.map(branch => `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.name)}</option>`).join('');
   $$('[data-branch-select]').forEach(select => { const old = select.value; select.innerHTML = options; if (staffBranches.some(branch => branch.id === old)) select.value = old; });
   const branchEditSelect = $('#branchEditSelect');
@@ -2250,11 +2290,8 @@ $('#confirmDeleteOwnedSchool').addEventListener('click', async () => {
 async function loadInventory() {
   const tbody = $('#inventoryRows');
   try {
-    inventoryTitles = await fetchAllPages(() => supabase.from('catalog_titles')
-      .select('id,general_number,title,author,classification,isbn,series_name,is_published').eq('library_id', currentLibraryId).order('title'));
-    inventoryHoldings = await fetchAllPages(() => supabase.from('holdings')
-      .select('id,title_id,branch_id,inventory_tag,cabinet_code,shelf_code,public_shelf_label,status,created_at')
-      .eq('library_id', currentLibraryId).order('created_at'));
+    inventoryTitles = await staffLibraryRepository.listCatalogTitles();
+    inventoryHoldings = await staffLibraryRepository.listHoldings();
   } catch (error) {
     inventoryLoadFailed = true;
     tbody.innerHTML = '<tr><td colspan="5" class="table-empty">تعذّر تحميل الفهرس أو النسخ؛ تحقق من الصلاحية والاتصال.</td></tr>';
