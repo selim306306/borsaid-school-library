@@ -31,11 +31,11 @@
   <link rel="preconnect" href="https://esm.sh">
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site-bundle.css?v=c0c8c943d9cf4547">
+  <link rel="stylesheet" href="site-bundle.css?v=d3f1e8e728f307d3">
   <script type="module" src="school-branding-bootstrap.mjs?v=aa669c7d4430fade"></script>
   <script type="module" src="site-media-public.js?v=32e20cc432e340e7"></script>
   <script type="module" src="header-photo-carousel.js?v=7c4d773d0678a0be"></script>
-  <script type="module" src="app.js?v=aafde08d32177075"></script>
+  <script type="module" src="app.js?v=ed9107359912ceea"></script>
   <script type="module" src="book-catalog-assistant.js?v=da14aa037db0a967"></script>
   <script type="module" src="global-reading.js?v=5d64ca08e2de5f20"></script>
   <script type="module" src="education-research.js?v=e1dbe97e4e150c92"></script>
@@ -582,7 +582,11 @@
           <button class="staff-tab" data-panel="automationPanel" type="button">مركز الفحص الآلي</button>
           <button class="staff-tab" data-panel="membersPanel" type="button">المستخدمون والصلاحيات</button>
           <button class="staff-tab" data-panel="assistantPanel" type="button">وكيل الإدارة وGemini</button>
+          <button class="staff-tab" id="staffLibraryExperimentTab" data-panel="staffLibraryExperimentPanel" type="button" hidden>تجربة المكتبة</button>
         </nav>
+        <section class="staff-panel" id="staffLibraryExperimentPanel" aria-labelledby="staffLibraryExperimentTab" hidden>
+          <div id="staffLibraryExperimentRoot"></div>
+        </section>
         <section class="staff-panel active" id="catalogPanel">
           <div class="panel-heading"><div><h3>تسجيل عنوان ونسخة</h3><p>يبدأ السجل مخفياً عن البحث العام حتى تختار نشره.</p></div></div>
           <form id="titleForm" class="staff-form-grid">
