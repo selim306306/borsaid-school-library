@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T05:06:54.380Z",
+  "updated_at": "2026-10-28T10:36:54.788Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -304,6 +304,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46369",
       "published_at": "2026-10-22",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-38985f2d9e9b9d00aa974ab13cca80d978589c47652730f85a856dd22bb39a62",
+      "title_ar": "نتائج مشروعات تعزيز المجلات العلمية ذات الوصول الحر غير الرسومي في إفريقيا",
+      "summary_ar": "نشرت تقارير عن نتائج مشروعين لدعم جودة واستدامة النشر العلمي ذي الوصول الحر غير الرسومي في إفريقيا. تلقى مركز 'أكورد' في جنوب إفريقيا منحة لتطوير سياسات كشف السرقة الأدبية والذكاء الاصطناعي لمجلة النزاع، وتعزيز ظهورها عبر منصة أكاديمية العلوم. كما تلقت جامعة زامبيا منحة لتحسين سياسات وعمليات مجلة العلوم الزراعية والطبية وتحديث منصتها الرقمية.",
+      "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
+      "source_url": "https://www.eifl.net/news/results-projects-advancing-no-fee-oa-journals-africa-0",
+      "published_at": "2026-10-27",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
