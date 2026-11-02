@@ -25,6 +25,7 @@ const ALLOWED_HOSTS = new Set([
   've.scielo.org',
   'ejournal.unuja.ac.id',
   'pmc.ncbi.nlm.nih.gov',
+  'frontiersin.org',
 ]);
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';

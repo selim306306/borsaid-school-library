@@ -1,4 +1,4 @@
-import { bibliographicMetadataLines, filterBooks, languageDistribution, recordCompletionStatus, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=54cad010266d566f';
+import { bibliographicMetadataLines, filterBooks, languageDistribution, recordCompletionStatus, sanitizeBooks, uniqueValues } from './external-reading-model.mjs?v=75810fc8b08d9363';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 const PAGE_SIZE = 12;
 const DATA_URLS = ['external-reading-books.json', 'external-catalog-records.json'];

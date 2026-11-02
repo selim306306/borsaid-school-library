@@ -22056,5 +22056,87 @@
       "book",
       "print"
     ]
+  },
+  {
+    "id": "arabi-journal-arabic-studies-2548-6624",
+    "title": "Arabi: Journal of Arabic Studies",
+    "author": "",
+    "subject": "اللغة والأدب العربي؛ تعليم اللغة العربية؛ اللسانيات العربية",
+    "category": "دراسات عربية",
+    "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+    "sourceName": "DOAJ — Arabi: Journal of Arabic Studies",
+    "rights": "سجل DOAJ يصف الدورية بأنها مفتوحة الوصول ويذكر ترخيص CC BY-SA 4.0 واحتفاظ المؤلف بحقوق النشر. هذا سجل فهرسة للدورية؛ لا يضيف أعدادًا أو مقالات ولا يقرر ترخيص كل مقالة منفردة.",
+    "publicationPlace": "إندونيسيا",
+    "publicationYear": "",
+    "availability": "catalog-only",
+    "completionStatus": "سجل دورية متحقق من DOAJ؛ اللغات المذكورة هي لغات المخطوطات المقبولة (العربية والإنجليزية والإندونيسية)، وليست ضمانًا لوجود كل لغة في كل عدد. لم تُتحقق سنة التأسيس؛ ليس كتابًا كاملًا ولا يتضمن قارئًا أو PDF.",
+    "recordType": "periodical",
+    "seriesId": "",
+    "seriesTitle": "",
+    "publisher": "IMLA (Arabic Teacher and Lecturer Association of Indonesia)",
+    "isbn": "",
+    "issn": "2548-6624",
+    "doi": "",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "languageCodes": [
+      "ar",
+      "en",
+      "id"
+    ],
+    "languages": [
+      "العربية",
+      "الإنجليزية",
+      "الإندونيسية"
+    ],
+    "language": "العربية، الإنجليزية، الإندونيسية",
+    "languageUnknown": false,
+    "source": "https://doaj.org/toc/2548-6624",
+    "reader": "",
+    "pdf": "",
+    "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "searchable": false
+  },
+  {
+    "id": "periodical-lisan-al-arab-2252-6269",
+    "title": "Lisan Al-Arab: Journal of Arabic Language and Arabic",
+    "author": "",
+    "subject": "الثقافة الإسلامية؛ الأدب العربي؛ تعليم العربية",
+    "category": "تعليم اللغة العربية",
+    "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+    "sourceName": "DOAJ — Lisan Al-Arab: Journal of Arabic Language and Arabic",
+    "rights": "سجل DOAJ يصف الدورية بأنها مفتوحة الوصول ويذكر ترخيص CC BY 4.0. هذا إدراج للدورية لا إعادة نشر لمقال أو عدد؛ يجب الرجوع إلى شروط كل مادة عند استخدامها.",
+    "publicationPlace": "إندونيسيا",
+    "publicationYear": "",
+    "availability": "catalog-only",
+    "completionStatus": "سجل دورية متحقق من DOAJ؛ اللغات المذكورة هي لغات المخطوطات المقبولة (الإندونيسية والإنجليزية والعربية)، وليست ضمانًا لوجود كل لغة في كل عدد. لم تُتحقق سنة التأسيس؛ ليس كتابًا كاملًا ولا يتضمن قارئًا أو PDF.",
+    "recordType": "periodical",
+    "seriesId": "",
+    "seriesTitle": "",
+    "publisher": "Universitas Negeri Semarang",
+    "isbn": "",
+    "issn": "2252-6269",
+    "doi": "",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "languageCodes": [
+      "id",
+      "en",
+      "ar"
+    ],
+    "languages": [
+      "الإندونيسية",
+      "الإنجليزية",
+      "العربية"
+    ],
+    "language": "الإندونيسية، الإنجليزية، العربية",
+    "languageUnknown": false,
+    "source": "https://doaj.org/toc/2252-6269",
+    "reader": "",
+    "pdf": "",
+    "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "searchable": false
   }
 ]
