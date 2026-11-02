@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { PUBLIC_READABLE_BOOKS } from '../public-reading-books.js';
-import { countIndexedMaterials, isAllowedExternalUrl, languageDistribution, normalizeArabic, sanitizeBooks } from '../external-reading-model.mjs';
+import { bibliographicMetadataLines, countIndexedMaterials, isAllowedExternalUrl, languageDistribution, normalizeArabic, recordCompletionStatus, sanitizeBooks } from '../external-reading-model.mjs';
 import { countPdfLocations, countReadingTitles } from '../header-reading-summary.js';
 
 const reading = JSON.parse(readFileSync(new URL('../external-reading-books.json', import.meta.url), 'utf8'));
@@ -23,6 +23,12 @@ test('accepts the verified official Frontiers PDF without allowing lookalike hos
   assert.equal(isAllowedExternalUrl(pdf), true);
   assert.equal(isAllowedExternalUrl(pdf.replace('www.frontiersin.org', 'frontiersin.org.example.net')), false);
   assert.equal(isAllowedExternalUrl(pdf.replace('https:', 'http:')), false);
+});
+
+test('does not present the Frontiers article identifier as a page count', () => {
+  const [paper] = sanitizeBooks(reading.filter(record => record.id === 'paper-frontiers-10-3389-fdgth-2021-615366'));
+  assert.equal(bibliographicMetadataLines(paper).some(line => line.startsWith('الصفحات:')), false);
+  assert.match(recordCompletionStatus(paper), /رقم المقال 615366/);
 });
 
 test('adds only unique weekly records and keeps full books, research papers and journals distinct', () => {
