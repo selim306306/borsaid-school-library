@@ -1,3 +1,4 @@
+import './portal-upgrade.js?v=20261102';
 import { PUBLIC_READABLE_BOOKS } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { fetchSharedPublicReadingJson } from './shared-public-reading-data.mjs?v=c0a874b3218d5558';
 import { countIndexedMaterials, languageDistribution, normalizeArabic, sanitizeBooks } from './external-reading-model.mjs?v=75810fc8b08d9363';
