@@ -74233,14 +74233,12 @@
     "issue": "1",
     "pages": "",
     "languageCodes": [
-      "es",
-      "en"
+      "es"
     ],
     "languages": [
-      "الإسبانية",
-      "الإنجليزية"
+      "الإسبانية"
     ],
-    "language": "الإسبانية، الإنجليزية",
+    "language": "الإسبانية",
     "languageUnknown": false,
     "source": "https://ve.scielo.org/scielo.php?pid=S2665-01692026000100516&script=sci_arttext",
     "reader": "https://ve.scielo.org/scielo.php?pid=S2665-01692026000100516&script=sci_arttext",
