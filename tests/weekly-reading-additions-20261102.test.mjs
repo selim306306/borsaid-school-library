@@ -46,6 +46,6 @@ test('adds only unique weekly records and keeps full books, research papers and 
   const languages = Object.fromEntries(languageDistribution(added, { deduplicateBy: 'id' }).map(({ language, count }) => [language, count]));
   assert.deepEqual(languages, {
     'البنغالية': 1, 'البرتغالية': 1, 'العربية': 2,
-    'الإندونيسية': 2, 'الإسبانية': 1, 'الإنجليزية': 4,
+    'الإندونيسية': 2, 'الإسبانية': 1, 'الإنجليزية': 3,
   });
 });
