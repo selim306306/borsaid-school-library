@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-28T10:36:54.788Z",
+  "updated_at": "2026-11-02T12:28:34.838Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -315,6 +315,17 @@
       "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
       "source_url": "https://www.eifl.net/news/results-projects-advancing-no-fee-oa-journals-africa-0",
       "published_at": "2026-10-27",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-d1824bab6267865456965cb698c9f0d9693bab9160dbbb103857e8eef4c772eb",
+      "title_ar": "توقيع اتفاقية لإنشاء بيت الابتكار والمعرفة التابع لمكتبة الإسكندرية في برج العرب الجديدة",
+      "summary_ar": "وقعت مكتبة الإسكندرية وجهاز مدينة برج العرب الجديدة عقداً لتخصيص قطعة أرض مساحتها خمسة وعشرون فداناً لإنشاء بيت الابتكار والمعرفة. وسيكون هذا الكيان الجديد مركزاً للبحث العلمي والمعرفة والإبداع لخدمة سكان المدينة ومنطقة غرب الإسكندرية.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46379",
+      "published_at": "2026-11-01",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
