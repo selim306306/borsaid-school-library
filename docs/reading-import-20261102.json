@@ -1,0 +1,472 @@
+{
+  "date": "2026-11-02",
+  "baseCommit": "cae84069d66b9ee6df8914fa3e3db53c1876bc7f",
+  "records": [
+    {
+      "id": "storyweaver-61355-mahapran",
+      "title": "মহাপ্রাণ",
+      "author": "Amritabha Mondal",
+      "subject": "أدب أطفال مصوّر",
+      "category": "قصص أطفال",
+      "kind": "كتاب قصص مصوّر للأطفال — قصة كاملة مفتوحة",
+      "sourceName": "StoryWeaver — Pratham Books digital repository",
+      "rights": "تذكر صفحة StoryWeaver الرسمية أن كتب المنصة مرخصة بموجب Creative Commons Attribution 4.0 (CC BY 4.0)؛ يلزم الإسناد عند إعادة الاستخدام. لم يُنسخ المحتوى أو يُستضف.",
+      "publicationPlace": "",
+      "publicationYear": "",
+      "availability": "external-reading",
+      "completionStatus": "القصة كاملة قابلة للقراءة والتنزيل رسميًا. صفحة المصدر لا تذكر سنة نشر أو عدد صفحات، لذلك السجل الببليوغرافي جزئي.",
+      "recordType": "book",
+      "publisher": "StoryWeaver Community",
+      "isbn": "",
+      "issn": "",
+      "doi": "",
+      "volume": "",
+      "issue": "",
+      "pages": "",
+      "source": "https://globaldream.storyweaver.org.in/en/stories/61355-mahapran",
+      "reader": "https://globaldream.storyweaver.org.in/en/stories/61355-mahapran",
+      "pdf": "",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "searchable": false,
+      "languages": [
+        "البنغالية"
+      ],
+      "languageCodes": [
+        "bn"
+      ]
+    },
+    {
+      "id": "openedition-etnograficapress-3996-o-povo-portugues-ii",
+      "title": "O povo português II",
+      "author": "Teófilo Braga",
+      "subject": "الإثنوغرافيا البرتغالية؛ المعتقدات والتقاليد الشعبية",
+      "category": "إثنوغرافيا؛ أنثروبولوجيا",
+      "kind": "كتاب كامل متاح للقراءة الإلكترونية",
+      "sourceName": "OpenEdition Books — Etnográfica Press",
+      "rights": "Open Access Freemium: يتيح الناشر قراءة النص الكامل عبر الإنترنت؛ أما PDF وePub فمتاحان للمكتبات التي اقتنت الكتاب فقط. هذا فهرسة ورابط قراءة رسمي، لا إعادة استضافة ولا ادعاء بترخيص إعادة نشر مفتوح.",
+      "publicationPlace": "Lisboa",
+      "publicationYear": "1986",
+      "availability": "external-reading",
+      "completionStatus": "النص الكامل قابل للقراءة قانونيًا عبر الموقع الرسمي. سجل الكتاب موثق بعنوان ومؤلف وناشر وسنة ومكان وDOI وISBN وعدد الصفحات؛ لا يتوفر PDF عام مباشر.",
+      "recordType": "book",
+      "publisher": "Etnográfica Press",
+      "isbn": "979-10-365-4459-0",
+      "issn": "",
+      "doi": "10.4000/books.etnograficapress.3996",
+      "volume": "",
+      "issue": "",
+      "pages": "361",
+      "source": "https://books.openedition.org/etnograficapress/3996",
+      "reader": "https://books.openedition.org/etnograficapress/3996",
+      "pdf": "",
+      "rightsUrl": "https://books.openedition.org/etnograficapress/3996",
+      "searchable": true,
+      "languages": [
+        "البرتغالية"
+      ],
+      "languageCodes": [
+        "pt"
+      ]
+    },
+    {
+      "id": "arabi-journal-arabic-studies-2548-6624",
+      "title": "Arabi: Journal of Arabic Studies",
+      "author": "",
+      "subject": "اللغة والأدب العربي؛ تعليم اللغة العربية؛ اللسانيات العربية",
+      "category": "دراسات عربية",
+      "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+      "sourceName": "DOAJ — Arabi: Journal of Arabic Studies",
+      "rights": "سجل DOAJ يصف الدورية بأنها مفتوحة الوصول ويذكر ترخيص CC BY-SA 4.0 واحتفاظ المؤلف بحقوق النشر. هذا سجل فهرسة للدورية؛ لا يضيف أعدادًا أو مقالات ولا يقرر ترخيص كل مقالة منفردة.",
+      "publicationPlace": "إندونيسيا",
+      "publicationYear": "",
+      "availability": "catalog-only",
+      "completionStatus": "سجل دورية متحقق من DOAJ؛ اللغات المذكورة هي لغات المخطوطات المقبولة (العربية والإنجليزية والإندونيسية)، وليست ضمانًا لوجود كل لغة في كل عدد. لم تُتحقق سنة التأسيس؛ ليس كتابًا كاملًا ولا يتضمن قارئًا أو PDF.",
+      "recordType": "periodical",
+      "publisher": "IMLA (Arabic Teacher and Lecturer Association of Indonesia)",
+      "isbn": "",
+      "issn": "2548-6624",
+      "doi": "",
+      "volume": "",
+      "issue": "",
+      "pages": "",
+      "source": "https://doaj.org/toc/2548-6624",
+      "reader": "",
+      "pdf": "",
+      "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "searchable": false,
+      "languages": [
+        "العربية",
+        "الإنجليزية",
+        "الإندونيسية"
+      ],
+      "languageCodes": [
+        "ar",
+        "en",
+        "id"
+      ]
+    },
+    {
+      "id": "periodical-lisan-al-arab-2252-6269",
+      "title": "Lisan Al-Arab: Journal of Arabic Language and Arabic",
+      "author": "",
+      "subject": "الثقافة الإسلامية؛ الأدب العربي؛ تعليم العربية",
+      "category": "تعليم اللغة العربية",
+      "kind": "دورية علمية محكّمة — سجل فهرسة فقط",
+      "sourceName": "DOAJ — Lisan Al-Arab: Journal of Arabic Language and Arabic",
+      "rights": "سجل DOAJ يصف الدورية بأنها مفتوحة الوصول ويذكر ترخيص CC BY 4.0. هذا إدراج للدورية لا إعادة نشر لمقال أو عدد؛ يجب الرجوع إلى شروط كل مادة عند استخدامها.",
+      "publicationPlace": "إندونيسيا",
+      "publicationYear": "",
+      "availability": "catalog-only",
+      "completionStatus": "سجل دورية متحقق من DOAJ؛ اللغات المذكورة هي لغات المخطوطات المقبولة (الإندونيسية والإنجليزية والعربية)، وليست ضمانًا لوجود كل لغة في كل عدد. لم تُتحقق سنة التأسيس؛ ليس كتابًا كاملًا ولا يتضمن قارئًا أو PDF.",
+      "recordType": "periodical",
+      "publisher": "Universitas Negeri Semarang",
+      "isbn": "",
+      "issn": "2252-6269",
+      "doi": "",
+      "volume": "",
+      "issue": "",
+      "pages": "",
+      "source": "https://doaj.org/toc/2252-6269",
+      "reader": "",
+      "pdf": "",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "searchable": false,
+      "languages": [
+        "الإندونيسية",
+        "الإنجليزية",
+        "العربية"
+      ],
+      "languageCodes": [
+        "id",
+        "en",
+        "ar"
+      ]
+    },
+    {
+      "id": "scielo-10.47606-acven-ph0457-produccion-cientifica-sostenibilidad",
+      "title": "Producción científica sobre sostenibilidad en español: un análisis bibliométrico en Scopus",
+      "author": "Percy Antonio Vilchez-Olivares; Brandelt Jesús Astorga-De La Cruz",
+      "subject": "الاستدامة؛ الإنتاج العلمي؛ التحليل الببليومتري",
+      "category": "العلوم الاجتماعية والإنسانية",
+      "kind": "ورقة علمية — مقال أصلي بالنص الكامل",
+      "sourceName": "SciELO Venezuela — Prohominum. Revista de Ciencias Sociales y Humanas",
+      "rights": "تعرض صفحة المقال وصولًا مفتوحًا وترخيص Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0). رابطا قراءة وPDF خارجيان رسميان؛ لا إعادة استضافة.",
+      "publicationPlace": "Villa de Cura, Aragua, Venezuela",
+      "publicationYear": "2026",
+      "availability": "external-reading",
+      "completionStatus": "النص الكامل متاح قانونيًا بصفحة SciELO وبـPDF رسمي باللغة الإسبانية؛ العنوان والملخص متاحان بالإسبانية والإنجليزية. السجل يضم المؤلفين وDOI وISSN والمجلد والعدد والسنة؛ لا يُصنف كتابًا.",
+      "recordType": "paper",
+      "publisher": "",
+      "isbn": "",
+      "issn": "2665-0169",
+      "doi": "10.47606/acven/ph0457",
+      "volume": "8",
+      "issue": "1",
+      "pages": "",
+      "source": "https://ve.scielo.org/scielo.php?pid=S2665-01692026000100516&script=sci_arttext",
+      "reader": "https://ve.scielo.org/scielo.php?pid=S2665-01692026000100516&script=sci_arttext",
+      "pdf": "https://ve.scielo.org/pdf/prcsh/v8n1/2665-0169-prcsh-8-01-516.pdf",
+      "rightsUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es",
+      "searchable": true,
+      "languages": [
+        "الإسبانية"
+      ],
+      "languageCodes": [
+        "es"
+      ]
+    },
+    {
+      "id": "paper-frontiers-10-3389-fdgth-2021-615366",
+      "title": "Marketplace and Literature Review of Spanish Language Mental Health Apps",
+      "author": "Alma Oñate Muñoz; Erica Camacho; John Torous",
+      "subject": "الصحة النفسية الرقمية؛ تطبيقات الصحة باللغة الإسبانية",
+      "category": "الصحة الرقمية",
+      "kind": "ورقة علمية مراجعية — نص كامل",
+      "sourceName": "PubMed Central / Frontiers in Digital Health",
+      "rights": "تنص صفحة المقال لدى الناشر على رخصة Creative Commons Attribution 4.0 (CC BY 4.0) مع الإسناد والاستشهاد. القراءة وPDF من المصادر الرسمية فقط، دون إعادة استضافة.",
+      "publicationPlace": "",
+      "publicationYear": "2021",
+      "availability": "external-reading",
+      "completionStatus": "نص المقال الكامل متاح على PubMed Central؛ السجل موثق بالمؤلفين والسنة والمجلد ورقم المقال وDOI وISSN. اللغة الفعلية للنص إنجليزية رغم تناوله تطبيقات إسبانية. ملف PDF مباشر رسمي من الناشر متحقق؛ لا يُصنف كتابًا.",
+      "recordType": "paper",
+      "publisher": "Frontiers Media S.A.",
+      "isbn": "",
+      "issn": "2673-253X",
+      "doi": "10.3389/fdgth.2021.615366",
+      "volume": "3",
+      "issue": "",
+      "pages": "615366",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8521936/",
+      "reader": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8521936/",
+      "pdf": "https://www.frontiersin.org/journals/digital-health/articles/10.3389/fdgth.2021.615366/pdf",
+      "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "searchable": true,
+      "languages": [
+        "الإنجليزية"
+      ],
+      "languageCodes": [
+        "en"
+      ]
+    }
+  ],
+  "verifiedPdfRecords": [
+    {
+      "id": "scielo-10.47606-acven-ph0457-produccion-cientifica-sostenibilidad",
+      "status": 206,
+      "contentType": "application/pdf",
+      "signature": "%PDF-1.5",
+      "url": "https://ve.scielo.org/pdf/prcsh/v8n1/2665-0169-prcsh-8-01-516.pdf"
+    },
+    {
+      "id": "paper-frontiers-10-3389-fdgth-2021-615366",
+      "status": 206,
+      "contentType": "application/pdf",
+      "signature": "%PDF-1.6",
+      "url": "https://www.frontiersin.org/journals/digital-health/articles/10.3389/fdgth.2021.615366/pdf"
+    }
+  ],
+  "notes": [
+    "مسار PDF في PMC لهذا المقال أعاد HTML أثناء الفحص؛ استُخدم بدلًا منه PDF مباشر متحقق لدى الناشر Frontiers، ولم يُحتسب مسار PMC كملف.",
+    "صفحة OpenEdition تتيح قراءة HTML كاملة، لكن ملفات PDF وePub مقصورة على مكتبات اشترت الكتاب؛ لم يُضف PDF.",
+    "لغات الدوريات في DOAJ هي لغات المخطوطات المقبولة وليس إثبات توفر كل عدد بكل تلك اللغات.",
+    "الأوراق العلمية تحتفظ بنوع paper ولا تدخل في عدّ الكتب الكاملة؛ الدوريات تحتفظ بنوع periodical وتبقى سجلات فهرسة فقط.",
+    "لا ملفات PDF أو نصوص محلية أضيفت؛ جميع روابط القراءة والملفات تبقى في مصادرها الرسمية.",
+    "تقدم main أثناء البحث بإضافة portal-upgrade.js فقط؛ تم الدمج السريع والحفاظ على التحديث قبل النشر، دون تغيير بيانات الدفعة أو عداداتها.",
+    "لغة النص الكامل للمقال الببليومتري هي الإسبانية فقط؛ الإنجليزية للعنوان والملخص ولا تدخل في حصر لغة النص الكامل لهذه المادة."
+  ],
+  "addedIds": [
+    "storyweaver-61355-mahapran",
+    "openedition-etnograficapress-3996-o-povo-portugues-ii",
+    "arabi-journal-arabic-studies-2548-6624",
+    "periodical-lisan-al-arab-2252-6269",
+    "scielo-10.47606-acven-ph0457-produccion-cientifica-sostenibilidad",
+    "paper-frontiers-10-3389-fdgth-2021-615366"
+  ],
+  "readingAddedIds": [
+    "storyweaver-61355-mahapran",
+    "openedition-etnograficapress-3996-o-povo-portugues-ii",
+    "scielo-10.47606-acven-ph0457-produccion-cientifica-sostenibilidad",
+    "paper-frontiers-10-3389-fdgth-2021-615366"
+  ],
+  "catalogAddedIds": [
+    "arabi-journal-arabic-studies-2548-6624",
+    "periodical-lisan-al-arab-2252-6269"
+  ],
+  "before": {
+    "indexedRecords": 3212,
+    "readingTitles": 2532,
+    "completeBooks": 1349,
+    "periodicals": 529,
+    "catalogOnly": 680,
+    "total": 2532,
+    "online": 2532,
+    "pdf": 2406
+  },
+  "after": {
+    "indexedRecords": 3218,
+    "readingTitles": 2536,
+    "completeBooks": 1351,
+    "periodicals": 531,
+    "catalogOnly": 682,
+    "total": 2536,
+    "online": 2536,
+    "pdf": 2408
+  },
+  "pdfLocations": {
+    "localPdfFiles": 3,
+    "externalPdf": 2405
+  },
+  "pdfLocationsBefore": {
+    "localPdfFiles": 3,
+    "externalPdf": 2403
+  },
+  "readingSummaryBefore": {
+    "total": 2532,
+    "online": 2532,
+    "pdf": 2406
+  },
+  "readingSummaryAfter": {
+    "total": 2536,
+    "online": 2536,
+    "pdf": 2408
+  },
+  "additionsByType": {
+    "books": 2,
+    "papers": 2,
+    "periodicals": 2,
+    "fullTextRead": 4,
+    "completeBooks": 2,
+    "pdfLinksVerified": 2,
+    "catalogOnly": 2
+  },
+  "duplicateCheck": {
+    "existingIndexedRecords": 3212,
+    "existingExternalRecords": 3209,
+    "newTitleCollisions": 0,
+    "newIdentifierCollisions": 0,
+    "uniqueNewIds": 6
+  },
+  "languageCounts": [
+    {
+      "language": "العربية",
+      "count": 1579
+    },
+    {
+      "language": "الإنجليزية",
+      "count": 1261
+    },
+    {
+      "language": "الألمانية",
+      "count": 179
+    },
+    {
+      "language": "الروسية",
+      "count": 167
+    },
+    {
+      "language": "البرتغالية",
+      "count": 73
+    },
+    {
+      "language": "المجرية",
+      "count": 67
+    },
+    {
+      "language": "الإيطالية",
+      "count": 32
+    },
+    {
+      "language": "الإسبانية",
+      "count": 30
+    },
+    {
+      "language": "الفرنسية",
+      "count": 25
+    },
+    {
+      "language": "الفارسية",
+      "count": 12
+    },
+    {
+      "language": "Ottoman Turkish (1500-1928)",
+      "count": 10
+    },
+    {
+      "language": "اليونانية القديمة",
+      "count": 7
+    },
+    {
+      "language": "اللاتينية",
+      "count": 5
+    },
+    {
+      "language": "السلوفينية",
+      "count": 4
+    },
+    {
+      "language": "العبرية",
+      "count": 4
+    },
+    {
+      "language": "الليتوانية",
+      "count": 4
+    },
+    {
+      "language": "الأفريكانية",
+      "count": 3
+    },
+    {
+      "language": "السنسكريتية",
+      "count": 3
+    },
+    {
+      "language": "الصينية",
+      "count": 3
+    },
+    {
+      "language": "الهولندية",
+      "count": 3
+    },
+    {
+      "language": "الإندونيسية",
+      "count": 2
+    },
+    {
+      "language": "التركية",
+      "count": 2
+    },
+    {
+      "language": "الكورية",
+      "count": 2
+    },
+    {
+      "language": "البنغالية",
+      "count": 1
+    },
+    {
+      "language": "البولندية",
+      "count": 1
+    },
+    {
+      "language": "التشيكية",
+      "count": 1
+    },
+    {
+      "language": "السويدية",
+      "count": 1
+    },
+    {
+      "language": "الصربية",
+      "count": 1
+    },
+    {
+      "language": "الفنلندية",
+      "count": 1
+    },
+    {
+      "language": "اليابانية",
+      "count": 1
+    },
+    {
+      "language": "غير معروفة",
+      "count": 1
+    },
+    {
+      "language": "Estonian",
+      "count": 1
+    },
+    {
+      "language": "Hittite",
+      "count": 1
+    }
+  ],
+  "languageIncrements": [
+    {
+      "language": "الإنجليزية",
+      "count": 3
+    },
+    {
+      "language": "الإندونيسية",
+      "count": 2
+    },
+    {
+      "language": "العربية",
+      "count": 2
+    },
+    {
+      "language": "الإسبانية",
+      "count": 1
+    },
+    {
+      "language": "البرتغالية",
+      "count": 1
+    },
+    {
+      "language": "البنغالية",
+      "count": 1
+    }
+  ],
+  "hostedFilesAdded": 0,
+  "databaseChanges": false,
+  "apkChanges": false
+}
