@@ -3299,14 +3299,14 @@ async function assistantErrorMessage(error) {
   }
   if (reason === 'server_configuration_missing' || status === 503) return 'إعداد الخادم ناقص: تحقّق من GEMINI_API_KEY وAPP_ORIGIN وأسرار Supabase، ثم أعد المحاولة.';
   if (reason === 'origin_not_allowed') return 'نطاق الموقع غير مسموح به في APP_ORIGIN.';
-  if (reason === 'not_authorized' || status === 403) return 'هذا الحساب لا يملك صلاحية استخدام مساعد المكتبة.';
+  if (reason === 'not_authorized' || status === 403) return 'هذا الحساب لا يملك صلاحية استخدام المساعد الذكي.';
   if (reason === 'authentication_required' || status === 401) return 'انتهت جلسة الدخول؛ سجّل الخروج ثم ادخل مجددًا.';
   if (reason === 'consent_required') return 'أكّد موافقتك على إرسال السؤال بعد التأكد من خلوه من بيانات الأشخاص.';
   if (reason === 'personal_data_not_allowed') return 'رُفض السؤال لأنه يبدو أنه يتضمن بيانات اتصال أو معرّفاً أو تفاصيل سجل؛ احذف بيانات الأشخاص وأعد صياغته كسؤال عام.';
   if (reason === 'invalid_request') return 'اختيار النموذج أو نوع الملخص غير مدعوم؛ اختر نموذجًا من القائمة ثم أعد المحاولة.';
   if (reason === 'metrics_unavailable') return 'تعذّر قراءة العدادات بصلاحيات هذا الحساب؛ لم تُرسل بيانات إلى Gemini.';
   if (reason === 'assistant_provider_failed' || status === 502) return 'رفض Gemini الطلب أو النموذج؛ تحقّق من المفتاح الخادمي وإتاحة النموذج في حساب Google.';
-  return 'تعذّر الاتصال بالمساعد. راجع نشر Edge Function وأسرار الخادم والاتصال، دون إدخال المفتاح في الموقع.';
+  return 'تعذّر الاتصال بالمساعد الذكي. راجع نشر Edge Function وأسرار الخادم والاتصال، دون إدخال المفتاح في الموقع.';
 }
 function appendAssistantChatMessage(kind, text) {
   const log = $('#assistantChatLog');
@@ -3315,7 +3315,7 @@ function appendAssistantChatMessage(kind, text) {
   const item = document.createElement('article');
   item.className = `assistant-chat-message ${kind}`;
   const label = document.createElement('strong');
-  label.textContent = kind === 'user' ? 'أنت' : 'مساعد المكتبة';
+  label.textContent = kind === 'user' ? 'أنت' : 'المساعد الذكي';
   const body = document.createElement('p');
   body.textContent = text;
   item.append(label, body);
@@ -3383,7 +3383,7 @@ $('#managerAssistantForm').addEventListener('submit', async event => {
     output.hidden = false;
     setMessage($('#managerAssistantMessage'), 'ملخص استرشادي يعتمد على أعداد وإعدادات مجمعة فقط. لا يرسل تنبيهاً ولا يغيّر بيانات المكتبة.', 'success');
   } catch {
-    setMessage($('#managerAssistantMessage'), 'تعذّر الاتصال بمساعد المدير؛ لم يتغير أي سجل.', 'error');
+    setMessage($('#managerAssistantMessage'), 'تعذّر الاتصال بالمساعد الذكي؛ لم يتغير أي سجل.', 'error');
   } finally {
     button.disabled = false;
   }
@@ -3410,7 +3410,7 @@ $('#assistantChatForm').addEventListener('submit', async event => {
     form.reset();
     setMessage($('#assistantChatMessage'), 'تمت الإجابة. راجع الإرشاد ولا تعتبره إجراءً منفّذاً.', 'success');
   } catch {
-    setMessage($('#assistantChatMessage'), 'تعذّر الاتصال بالمساعد؛ لم تُحفظ الرسائل في قاعدة البيانات.', 'error');
+    setMessage($('#assistantChatMessage'), 'تعذّر الاتصال بالمساعد الذكي؛ لم تُحفظ الرسائل في قاعدة البيانات.', 'error');
   } finally {
     button.disabled = false;
     form.elements.message.disabled = false;

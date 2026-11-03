@@ -22,11 +22,11 @@ test('شريط المساعدة يحافظ على الروابط الثلاثة 
   assert.deepEqual(links, [
     { href: '#visitorAssistant', label: 'م المساعد الذكي' },
     { href: '#visitorQuestions', label: '؟ أرسل سؤالًا للمساعد الذكي' },
-    { href: 'https://t.me/PortSaidSchoolLibrariesBot', label: '↗ بوت Telegram' },
+    { href: 'https://t.me/PortSaidSchoolLibrariesBot', label: '↗ المساعد الذكي عبر Telegram' },
   ]);
   assert.match(pathways, /<details class="assistant-pathway-details">/);
   assert.match(pathways, /الفرق بين المسارات وسياسة الخصوصية/);
-  for (const text of ['إجابة عن الموقع والكتب المنشورة', 'حفظ هذه الموافقة على هذا الجهاز', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'قد يستخدم البوت Qwen عبر Groq']) {
+  for (const text of ['إجابة عن الموقع والكتب المنشورة', 'حفظ هذه الموافقة على هذا الجهاز', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'يجيب تلقائيًا من المعلومات المنشورة', 'Qwen عبر Groq على الخطة المجانية']) {
     assert.match(pathways, new RegExp(text));
   }
   assert.doesNotMatch(pathways, /Gemini|DeepSeek/);

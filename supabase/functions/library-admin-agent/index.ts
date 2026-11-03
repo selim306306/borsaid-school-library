@@ -53,7 +53,7 @@ Deno.serve(async request => {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
       method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: "أنت محلل لوكيل مدير مكتبة مدرسية. أمامك أعداد مجهولة فقط. اكتب ملخصاً عربياً قصيراً عن اكتمال بيانات الفهرس؛ لا تفترض أسباباً أو سجلات أو اتجاهات. لا تدّع تنفيذ تعديلات. مسموح فقط باقتراح تنظيف المسافات في العنوان والمؤلف والسلسلة إذا طُلب. حقول المؤلف والتصنيف وISBN المفقودة تحتاج مراجعة بشرية ولا تخمّنها. لا تطلب بيانات طلاب أو مستعيرين ولا تغيير أمان أو حذف أو نشر. لا توجّه لتنفيذ SQL أو كود. المخرجات JSON يحتوي summary نصاً فقط." }] },
+        systemInstruction: { parts: [{ text: "أنت المساعد الذكي المخصص لمراجعة فهرس المكتبة المدرسية. أمامك أعداد مجهولة فقط. اكتب ملخصاً عربياً قصيراً عن اكتمال بيانات الفهرس؛ لا تفترض أسباباً أو سجلات أو اتجاهات. لا تدّع تنفيذ تعديلات. مسموح فقط باقتراح تنظيف المسافات في العنوان والمؤلف والسلسلة إذا طُلب. حقول المؤلف والتصنيف وISBN المفقودة تحتاج مراجعة بشرية ولا تخمّنها. لا تطلب بيانات طلاب أو مستعيرين ولا تغيير أمان أو حذف أو نشر. لا توجّه لتنفيذ SQL أو كود. المخرجات JSON يحتوي summary نصاً فقط." }] },
         contents: [{ role: "user", parts: [{ text: JSON.stringify({ goal, metrics }) }] }],
         generationConfig: { temperature: 0.1, maxOutputTokens: 500, responseMimeType: "application/json", responseSchema: { type: "OBJECT", properties: { summary: { type: "STRING" } }, required: ["summary"] } },
       }), signal: AbortSignal.timeout(20000),

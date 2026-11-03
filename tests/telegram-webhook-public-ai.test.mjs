@@ -102,8 +102,8 @@ test('provider failure gives a safe website fallback and accurately reports whet
   assert.equal(result.action, 'assistant_unavailable');
   assert.equal(result.stored, false);
   assert.equal(result.sentToExternalModel, false);
-  assert.match(calls.send[0].text, /اسأل أمين المكتبة/);
-  assert.match(calls.send[0].text, /قد يصل السؤال إلى المدير عبر Telegram/);
+  assert.match(calls.send[0].text, /نموذج «المساعد الذكي»/);
+  assert.match(calls.send[0].text, /تذكرة المتابعة.*المدير عبر Telegram/);
 });
 
 test('the public disclosure is provider-neutral about failures and never mentions Gemini', () => {

@@ -6,10 +6,11 @@ import { buildTelegramMessage, cleanMetrics, isValidMonitorKey } from '../supaba
 const sql = readFileSync(new URL('../supabase/migrations/20261017224858_admin_agent_monitor.sql', import.meta.url), 'utf8');
 const edge = readFileSync(new URL('../supabase/functions/library-admin-monitor/index.ts', import.meta.url), 'utf8');
 
- test('metrics are anonymous, bounded aggregates and the message is fixed-template', () => {
+test('metrics are anonymous, bounded aggregates and the message is fixed-template', () => {
   assert.deepEqual(cleanMetrics({ titles: 4.9, missing_author: -1, missing_isbn: '2', raw: 'secret' }), { titles: 0, missing_author: 0, missing_classification: 0, missing_isbn: 2, whitespace_candidates: 0 });
   const message = buildTelegramMessage({ titles: 2, missing_author: 1, missing_classification: 0, missing_isbn: 3, whitespace_candidates: 1 });
-  assert.match(message, /وكيل مدير المكتبة/);
+  assert.match(message, /المساعد الذكي/);
+  assert.match(message, /افتح قسم المساعد الذكي/);
   assert.match(message, /لا تعدّل من Telegram/);
   assert.doesNotMatch(message, /a70f6fa4|c5d10456|owner_chat_id|token/i);
 });

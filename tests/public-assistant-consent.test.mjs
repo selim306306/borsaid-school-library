@@ -42,19 +42,24 @@ test('all public assistant paths share one transparent, revocable device prefere
   assert.ok(!portal.includes('موافقة مستقلة لكل سؤال'), 'the dialog should no longer describe repeated consent');
 });
 
-test('visitor chat and follow-up use the single public name without changing staff-only assistant labels', () => {
+test('visitor, staff, and manager surfaces use one name while retaining separate consent and access boundaries', () => {
   assert.ok(html.includes('id="visitorChatDialogTitle">المساعد الذكي'), 'the dialog should use the unified title');
   assert.ok(html.includes('id="visitorQuestionTitle">أرسل سؤالًا للمساعد الذكي'), 'the follow-up action should use the same assistant name');
   assert.ok(portal.includes("title.textContent = 'المساعد الذكي'"), 'the runtime title should match the static title');
   assert.ok(!/مساعد أمين المكتبة|مساعد زوار/.test(html + portal), 'old public visitor-assistant names should be removed');
-  assert.ok(html.includes('مساعد الموظفين'), 'staff-only assistant wording should remain distinct');
+  assert.ok(html.includes('id="assistantChatTitle">المساعد الذكي'), 'the staff assistant should use the common name');
+  assert.ok(html.includes('للموظفين المخولين فقط'), 'staff access should remain explicit');
+  assert.ok(html.includes('للمالك والمسؤول فقط'), 'manager access should remain explicit');
+  assert.ok(html.includes('أوافق على إرسال نصه إلى Gemini'), 'staff consent should remain a separate per-question control');
 });
 
-test('README and privacy guide describe the saved browser preference rather than per-question prompts', () => {
+test('current guides distinguish the visitor browser preference from internal and Telegram consent', () => {
   assert.ok(readme.includes('حفظ موافقته محليًا على هذا المتصفح'), 'README should explain the persistent device choice');
   assert.ok(!/مساعد أمين المكتبة|مساعد الزوار|مساعد زوار/.test(readme), 'README should use the unified public assistant name');
   assert.ok(privacyGuide.includes('حفظ الموافقة محليًا على هذا المتصفح'), 'privacy guide should document the shared setting');
-  assert.ok(!/موافقة منفصلة على السؤال|موافقة .*لكل سؤال|خيار Qwen اختياري لكل سؤال/.test(readme + privacyGuide), 'current documentation should not promise repeated per-question consent');
+  assert.ok(privacyGuide.includes('موافقة مستقلة لكل سؤال'), 'staff chat should retain its separate per-question consent');
+  assert.ok(privacyGuide.includes('لا يطلب موافقة لكل رسالة'), 'Telegram should answer automatically without per-message consent');
+  assert.ok(privacyGuide.includes('موافقة الزائر المحفوظة محليًا تخص متصفح الموقع'), 'the visitor preference should remain browser-specific');
 });
 
 test('browser-facing portal module can be imported in Node without a document global', () => {

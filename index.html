@@ -36,7 +36,7 @@
   <script type="module" src="school-branding-bootstrap.mjs?v=aa669c7d4430fade"></script>
   <script type="module" src="site-media-public.js?v=32e20cc432e340e7"></script>
   <script type="module" src="header-photo-carousel.js?v=7c4d773d0678a0be"></script>
-  <script type="module" src="app.js?v=2070b043610e4793"></script>
+  <script type="module" src="app.js?v=f7e71bb3967d0f79"></script>
   <script type="module" src="book-catalog-assistant.js?v=da14aa037db0a967"></script>
   <script type="module" src="global-reading.js?v=5d64ca08e2de5f20"></script>
   <script type="module" src="education-research.js?v=e1dbe97e4e150c92"></script>
@@ -133,7 +133,7 @@
           <nav class="assistant-shortcuts" aria-label="طرق المساعدة الثلاث">
             <a class="assistant-shortcut assistant-shortcut-ai" href="#visitorAssistant"><span aria-hidden="true">م</span> المساعد الذكي</a>
             <a class="assistant-shortcut assistant-shortcut-librarian" href="#visitorQuestions"><span aria-hidden="true">؟</span> أرسل سؤالًا للمساعد الذكي</a>
-            <a class="assistant-shortcut assistant-shortcut-telegram" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> بوت <bdi>Telegram</bdi></a>
+            <a class="assistant-shortcut assistant-shortcut-telegram" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> المساعد الذكي عبر <bdi>Telegram</bdi></a>
           </nav>
         </div>
         <details class="assistant-pathway-details">
@@ -153,9 +153,9 @@
           </article>
           <article class="visitor-pathway-card visitor-pathway-telegram">
             <span class="visitor-pathway-icon" aria-hidden="true">↗</span>
-            <h3>بوت Telegram</h3>
-            <p>محادثة مستقلة عن المعلومات العامة فقط. قد يستخدم البوت Qwen عبر Groq ضمن الخطة المجانية للمشروع إذا كانت مهيأة؛ وإلا يقدّم إرشادًا بديلًا. لا يحفظ موقع المكتبة نص المحادثة؛ لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا.</p>
-            <a class="visitor-pathway-action" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">افتح بوت Telegram <span aria-hidden="true">↗</span></a>
+            <h3>المساعد الذكي عبر Telegram</h3>
+            <p>محادثة مستقلة للمعلومات العامة؛ يجيب تلقائيًا من المعلومات المنشورة عند توافر Qwen عبر Groq على الخطة المجانية، ويعرض إفصاح الخصوصية عند بدء المحادثة. إذا تعذر الإعداد، يوجّه للمتابعة الخاصة عبر الموقع. لا يحفظ الموقع نص المحادثة؛ لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا.</p>
+            <a class="visitor-pathway-action" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">افتح المساعد الذكي عبر Telegram <span aria-hidden="true">↗</span></a>
           </article>
         </div>
         </details>
@@ -582,7 +582,7 @@
           <button class="staff-tab" data-panel="reportsPanel" type="button">التقارير</button>
           <button class="staff-tab" data-panel="automationPanel" type="button">مركز الفحص الآلي</button>
           <button class="staff-tab" data-panel="membersPanel" type="button">المستخدمون والصلاحيات</button>
-          <button class="staff-tab" data-panel="assistantPanel" type="button">وكيل الإدارة وGemini</button>
+          <button class="staff-tab" data-panel="assistantPanel" type="button">المساعد الذكي</button>
           <button class="staff-tab" id="staffLibraryExperimentTab" data-panel="staffLibraryExperimentPanel" type="button" hidden>تجربة المكتبة</button>
         </nav>
         <section class="staff-panel" id="staffLibraryExperimentPanel" aria-labelledby="staffLibraryExperimentTab" hidden>
@@ -890,15 +890,15 @@
         </section>
 	        <section class="staff-panel" id="automationPanel" hidden>
 	          <div class="panel-heading"><div><h3>مدير التشغيل ومركز الفحص</h3><p>مراجعة تشغيلية عند الطلب؛ التوصيات لا تنفذ عمليات نيابةً عن الموظف.</p></div><button class="button button-soft" id="runAutomationAudit" type="button">إعادة الفحص الآن</button></div>
-	          <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
-	          <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
-	          <ol id="automationTasks" class="automation-task-list"></ol>
+                  <div class="privacy-banner">هذا الفحص لا يستخدم Gemini، ولا يرسل بيانات إلى خدمة خارجية، ولا يغيّر أو ينشر أي سجل. كل نتيجة توصية قابلة للمراجعة؛ الإجراءات تبقى بيد الموظف.</div>
+                  <div id="automationSummary" class="inline-alert" role="status" aria-live="polite">سجّل الدخول لتحليل حالة المكتبة.</div>
+                  <ol id="automationTasks" class="automation-task-list"></ol>
           <section class="manager-assistant-card" id="managerAssistantCard" hidden aria-labelledby="managerAssistantTitle">
-	            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط</span><h3 id="managerAssistantTitle">مساعد مدير المكتبة</h3><p>ملخص ذكي للأعداد والإعدادات المجمعة، يُنشأ عند الطلب ولا يقرأ أسماء أو سجلات أفراد.</p></div></div>
-	            <form id="managerAssistantForm"><button class="button button-primary" type="submit">أنشئ ملخص المدير الآن</button></form>
-	            <p class="form-message" id="managerAssistantMessage" role="status" aria-live="polite">يحتاج إلى نشر وظيفة Gemini وضبط أسرارها خادمياً قبل أن يعمل.</p>
-	            <div id="managerAssistantOutput" class="assistant-output" hidden></div>
-	            <section class="telegram-setup-note" id="ownerTelegramReportCard" hidden aria-labelledby="ownerTelegramReportTitle"><h4 id="ownerTelegramReportTitle">تقارير Telegram — إرسال يدوي للمالك</h4><p>البوت الموجود مخصص لاستقبال تقرير شامل لكل مكتبة والإجمالي الكلي في حساب المالك المحفوظ. لا يوجد إرسال يومي أو تلقائي. تُرسل أعداد مجمعة فقط؛ بلا أسماء أشخاص أو معرّفات أو تفاصيل إعارات وحجوزات فردية. مسار مستقل عن أسئلة الزوار.</p><button class="button button-primary" id="previewOwnerReport" type="button">إرسال التقرير الآن</button><p class="form-message" id="ownerReportDeliveryStatus" role="status" aria-live="polite">يفتح الزر معاينة أولًا؛ لا يُرسل شيء قبل تأكيدك.</p></section>
+            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط · ملخص إجمالي</span><h3 id="managerAssistantTitle">المساعد الذكي</h3><p>ملخص للأعداد والإعدادات المجمعة، يُنشأ عند الطلب ولا يقرأ أسماء أو سجلات أفراد.</p></div></div>
+            <form id="managerAssistantForm"><button class="button button-primary" type="submit">أنشئ ملخص المدير عبر المساعد الذكي</button></form>
+            <p class="form-message" id="managerAssistantMessage" role="status" aria-live="polite">يحتاج إلى نشر وظيفة Gemini وضبط أسرارها خادمياً قبل أن يعمل.</p>
+            <div id="managerAssistantOutput" class="assistant-output" hidden></div>
+            <section class="telegram-setup-note" id="ownerTelegramReportCard" hidden aria-labelledby="ownerTelegramReportTitle"><h4 id="ownerTelegramReportTitle">تقارير Telegram — إرسال يدوي للمالك</h4><p>البوت الموجود مخصص لاستقبال تقرير شامل لكل مكتبة والإجمالي الكلي في حساب المالك المحفوظ. لا يوجد إرسال يومي أو تلقائي. تُرسل أعداد مجمعة فقط؛ بلا أسماء أشخاص أو معرّفات أو تفاصيل إعارات وحجوزات فردية. مسار مستقل عن أسئلة الزوار.</p><button class="button button-primary" id="previewOwnerReport" type="button">إرسال التقرير الآن</button><p class="form-message" id="ownerReportDeliveryStatus" role="status" aria-live="polite">يفتح الزر معاينة أولًا؛ لا يُرسل شيء قبل تأكيدك.</p></section>
                 <dialog class="owner-report-dialog" id="ownerReportDialog" aria-labelledby="ownerReportDialogTitle"><h3 id="ownerReportDialogTitle">معاينة التقرير قبل إرساله</h3><p id="ownerReportPreviewDestination"></p><p>هذه هي الرسائل التي ستُرسل كما هي. راجع ملخص Gemini الإرشادي إن وُجد. المعاينة صالحة لعشر دقائق.</p><div id="ownerReportPreviewText"></div><div class="platform-report-actions"><button class="button button-primary" id="confirmOwnerReportSend" type="button">تأكيد وإرسال التقرير إلى Telegram</button><button class="button button-outline" id="cancelOwnerReportSend" type="button">إلغاء</button></div><p class="form-message" id="ownerReportDialogStatus" role="status" aria-live="polite"></p></dialog>
 	          </section>
 	        </section>
@@ -910,12 +910,12 @@
         </section>
         <section class="staff-panel" id="assistantPanel" hidden>
           <section class="admin-agent-section" id="adminAgentSection" hidden aria-labelledby="adminAgentTitle">
-            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط</span><h3 id="adminAgentTitle">وكيل مدير المكتبة</h3><p class="admin-agent-lead">يراجع جودة الفهرس ويقترح تنظيف المسافات. لا يختلق بيانات المؤلف أو ISBN أو ديوي، ولا يحذف أو ينشر أو يغيّر الصلاحيات أو كود الموقع.</p></div></div>
+            <div class="panel-heading"><div><span class="eyebrow">للمالك والمسؤول فقط · مراجعة الفهرس</span><h3 id="adminAgentTitle">المساعد الذكي</h3><p class="admin-agent-lead">أداة مراجعة لجودة الفهرس واقتراح تنظيف المسافات. لا تختلق بيانات المؤلف أو ISBN أو ديوي، ولا تحذف أو تنشر أو تغيّر الصلاحيات أو كود الموقع.</p></div></div>
             <div class="admin-agent-actions">
               <button class="button button-outline" id="adminAgentLocalReview" type="button">مراجعة الفهرس عبر الخادم</button>
               <label for="adminAgentGoal">هدف تحليل Gemini<select id="adminAgentGoal"><option value="review">مراجعة الأعداد</option><option value="normalize_catalog">اقتراح تنظيف الفهرس</option></select></label>
               <label class="admin-agent-consent"><input id="adminAgentConsent" type="checkbox"> أوافق على إرسال أعداد مجمعة فقط إلى Gemini (لا نصوص خام ولا أي سجلات).</label>
-              <button class="button button-primary" id="adminAgentGemini" type="button">تحليل Gemini</button>
+              <button class="button button-primary" id="adminAgentGemini" type="button">تحليل بالمساعد الذكي (Gemini)</button>
             </div>
             <p class="admin-agent-note">التنفيذ من اللوحة متاح عند الطلب، والمتابعة الخلفية مجدولة يوميًا 09:00 بتوقيت مصر. هذا ليس وكيلًا متصلًا لحظيًا طوال اليوم، ولا يحتاج إبقاء الصفحة مفتوحة.</p>
             <p class="admin-agent-monitor-status" id="adminAgentMonitorStatus" role="status" aria-live="polite">المتابعة الخادمية يوميًا 09:00 بتوقيت مصر؛ تُقرأ الحالة عند فتح السياق فقط، بلا polling. التنبيه عند نقص بيانات الفهرس؛ لا تنفيذ حذف أو تغييرات حساسة عبر Telegram.</p>
@@ -931,15 +931,15 @@
               <div id="adminAgentDesignReport" class="admin-design-report" aria-live="polite"></div>
             </section>
           </section>
-          <div class="panel-heading"><div><h3>مساعد المكتبة الذكي</h3><p>ملخصات للعدادات ودردشة إرشادية لأعضاء المكتبة المصرّح لهم.</p></div><button class="button button-outline" id="assistantTestButton" type="button">اختبار اتصال Gemini</button></div>
-          <div class="privacy-banner">اختبار الاتصال يرسل طلباً ثابتاً بلا بيانات مكتبة. الدردشة الإرشادية خاصة بوظائف الموقع والعمل المكتبي ولا تُرفق سجلات المكتبة؛ يُرسل نص السؤال إلى Gemini فقط بعد موافقتك. لا تكتب أسماء طلاب أو مستعيرين أو أرقام عضوية أو هاتفاً أو بريداً أو سجلات إعارة. لا تُحفظ المحادثة في قاعدة البيانات.</div>
+          <div class="panel-heading"><div><h3>المساعد الذكي</h3><p>إرشاد للموظفين وملخصات للمدير ومراجعة الفهرس، مع بقاء الصلاحيات ومسارات البيانات منفصلة.</p></div><button class="button button-outline" id="assistantTestButton" type="button">اختبار اتصال المساعد الذكي</button></div>
+          <div class="privacy-banner">اختبار الاتصال يرسل طلباً ثابتاً بلا بيانات مكتبة. دردشة المساعد الذكي الإرشادية خاصة بوظائف الموقع والعمل المكتبي ولا تُرفق سجلات المكتبة؛ يُرسل نص السؤال إلى Gemini فقط بعد موافقتك. لا تكتب أسماء طلاب أو مستعيرين أو أرقام عضوية أو هاتفاً أو بريداً أو سجلات إعارة. لا تُحفظ المحادثة في قاعدة البيانات.</div>
           <p class="form-message" id="assistantTestMessage" role="status" aria-live="polite">لم يُجر اختبار الاتصال بعد.</p>
           <details class="assistant-settings"><summary>إعدادات النموذج</summary><p>اختيار النموذج يُحفظ على هذا المتصفح فقط. مفتاح Gemini لا يُدخل هنا ولا يصل إلى الواجهة؛ يُضبط كسِرّ خادمي في Supabase.</p><label>النموذج<select id="assistantModel" name="model"><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite — أخف وأسرع</option><option value="gemini-3.8-flash">Gemini 3.8 Flash — أكثر قدرة</option></select></label></details>
           <form id="assistantForm" class="staff-form-grid compact-form"><label>نوع الملخص<select name="intent"><option value="inventory_summary">الجرد والمفقود والصيانة</option><option value="circulation_summary">الإعارات والاستحقاقات</option><option value="reservation_summary">الحجوزات والانتظار</option></select></label><button class="button button-primary form-action" type="submit">إنشاء ملخص</button></form>
           <p class="form-message" id="assistantMessage" role="status" aria-live="polite">لا يعمل Gemini حتى تُنشر الوظيفة الخلفية وتُضبط أسرارها على Supabase.</p><div id="assistantOutput" class="assistant-output" hidden></div>
-	          <section class="assistant-chat" aria-labelledby="assistantChatTitle"><div class="panel-heading"><div><h4 id="assistantChatTitle">مساعد الموظفين</h4><p>إرشاد لمهام الموقع والسياسات؛ لا يرى السجلات ولا ينفذ إجراءً.</p></div></div>
+          <section class="assistant-chat" aria-labelledby="assistantChatTitle"><div class="panel-heading"><div><h4 id="assistantChatTitle">المساعد الذكي</h4><p>إرشاد للموظفين المخولين فقط في مهام الموقع والسياسات؛ لا يرى السجلات ولا ينفذ إجراءً.</p></div></div>
 	            <div class="assistant-prompt-chips" aria-label="أسئلة سريعة"><button type="button" data-staff-prompt="اشرح خطوات إضافة عنوان ونسخة ونشرها للعامة، مع التنبيه إلى ما يحتاج مراجعة.">إضافة كتاب ونشره</button><button type="button" data-staff-prompt="اشرح سير الإعارة والإرجاع والحجز للموظفين دون التعامل مع بيانات مستعير بعينه.">الإعارة والحجوزات</button><button type="button" data-staff-prompt="اشرح صلاحيات أدوار الموظفين وكيف أحافظ على خصوصية السجلات.">الأدوار والخصوصية</button></div>
-            <div class="assistant-chat-log" id="assistantChatLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="رسائل مساعد المكتبة"><p class="assistant-chat-empty">اسأل عن خطوات تنظيم العمل أو استخدام وظائف الموقع.</p></div>
+            <div class="assistant-chat-log" id="assistantChatLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة المساعد الذكي"><p class="assistant-chat-empty">اسأل عن خطوات تنظيم العمل أو استخدام وظائف الموقع.</p></div>
             <form id="assistantChatForm" class="assistant-chat-form"><label for="assistantChatInput">اكتب سؤالك (حتى 800 حرف)</label><textarea id="assistantChatInput" name="message" rows="3" maxlength="800" required placeholder="مثال: ما أفضل طريقة لمراجعة الجرد؟"></textarea>
               <label class="assistant-chat-consent"><input name="consent" type="checkbox" required><span>أؤكد أن السؤال لا يتضمن بيانات أشخاص، وأوافق على إرسال نصه إلى Gemini للإجابة.</span></label>
               <button class="button button-primary" type="submit">إرسال السؤال</button>
