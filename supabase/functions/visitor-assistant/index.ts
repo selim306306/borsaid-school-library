@@ -5,6 +5,10 @@ const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
 const configuredModel = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash-lite";
+const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY") ?? "";
+const QWEN_API_KEY = Deno.env.get("QWEN_API_KEY") ?? "";
+const DEEPSEEK_MODEL = Deno.env.get("DEEPSEEK_MODEL") ?? "deepseek-flash";
+const QWEN_MODEL = Deno.env.get("QWEN_MODEL") ?? "qwen-plus";
 const PUBLISHABLE_KEY = (() => {
   try {
     const keys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}") as Record<string, string>;
@@ -82,7 +86,7 @@ Deno.serve(async (request: Request) => {
   if (containsSensitivePersonalData(question)) {
     return jsonResponse({ ok: true, privacy_blocked: true, stored: false, text: PERSONAL_DATA_REPLY }, 200, origin);
   }
-  if (!SUPABASE_URL || !GEMINI_API_KEY) return jsonResponse({ error: "assistant_unavailable", reason: "server_configuration_missing" }, 503, origin);
+  if (!SUPABASE_URL || (!DEEPSEEK_API_KEY && !QWEN_API_KEY && !GEMINI_API_KEY)) return jsonResponse({ error: "assistant_unavailable", reason: "server_configuration_missing" }, 503, origin);
   const rateKey = await hashedRateKey(request);
   if (!allowRate(rateKey)) return jsonResponse({ error: "rate_limited" }, 429, origin);
 
@@ -101,14 +105,16 @@ Deno.serve(async (request: Request) => {
     }
     return response;
   };
-  const result = await answerPublicQuestion({
-    question,
-    apiKey: GEMINI_API_KEY,
-    model: configuredModel,
-    supabaseUrl: SUPABASE_URL,
-    publishableKey: PUBLISHABLE_KEY,
-    fetchImpl: providerFetch,
-  });
+  const providers = [
+    DEEPSEEK_API_KEY && { provider: "deepseek", apiKey: DEEPSEEK_API_KEY, model: DEEPSEEK_MODEL },
+    QWEN_API_KEY && { provider: "qwen", apiKey: QWEN_API_KEY, model: QWEN_MODEL },
+    GEMINI_API_KEY && { provider: "gemini", apiKey: GEMINI_API_KEY, model: configuredModel },
+  ].filter(Boolean) as Array<{ provider: string; apiKey: string; model: string }>;
+  let result = { ok: false, reason: "provider_unavailable" } as any;
+  for (const provider of providers) {
+    result = await answerPublicQuestion({ question, ...provider, supabaseUrl: SUPABASE_URL, publishableKey: PUBLISHABLE_KEY, fetchImpl: providerFetch });
+    if (result.ok) break;
+  }
   if (!result.ok) return jsonResponse({ error: "assistant_unavailable", reason: result.reason, provider_status: providerStatus, provider_code: providerCode }, 502, origin);
   return jsonResponse({ ok: true, stored: false, ...result }, 200, origin);
 });

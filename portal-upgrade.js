@@ -15,6 +15,11 @@
     .portal-upgrade-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}.portal-upgrade-head h2{margin:4px 0 0;font-size:clamp(20px,2.2vw,28px);color:#182744}.portal-upgrade-head p{margin:0;color:#66758f;font-size:13px}.portal-upgrade-badge{display:inline-flex;align-items:center;gap:7px;color:#23845a;font-size:12px;font-weight:700}.portal-upgrade-badge i{width:8px;height:8px;border-radius:50%;background:#55b782;box-shadow:0 0 0 4px rgba(85,183,130,.14)}
     .portal-upgrade-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.portal-upgrade-card{border:1px solid #e5e9f1;background:#fff;border-radius:15px;padding:14px 12px;text-align:right;min-height:138px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .18s,box-shadow .18s,border-color .18s}.portal-upgrade-card:hover{transform:translateY(-3px);border-color:#b9c8ef;box-shadow:0 12px 24px rgba(36,73,173,.11)}.portal-upgrade-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#edf2ff;color:#385dcc;font-size:18px;font-weight:700;margin-bottom:10px}.portal-upgrade-card:nth-child(2n) .portal-upgrade-icon{background:#fff0f0;color:#db5864}.portal-upgrade-card:nth-child(3n) .portal-upgrade-icon{background:#fff9e7;color:#b88412}.portal-upgrade-card strong{font-size:13px;color:#263858}.portal-upgrade-card span{display:block;margin-top:4px;color:#78859a;font-size:10px;line-height:1.65}.portal-upgrade-card button{margin-top:auto;border:0;background:transparent;color:#385dcc;padding:6px 0 0;font-size:11px;font-weight:700}.portal-upgrade-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid #e8edf4;color:#6d7b91;font-size:11px}.portal-upgrade-foot strong{color:#182744}.portal-upgrade-security{color:#23845a}
     .portal-programs{width:min(1180px,calc(100% - 48px));margin:30px auto 0;display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.portal-program-card{border-radius:20px;padding:22px;background:#182744;color:#fff;position:relative;overflow:hidden}.portal-program-card:after{content:'✦';position:absolute;left:25px;bottom:-18px;font-size:100px;color:rgba(255,255,255,.06)}.portal-program-card.alt{background:#fff9e7;color:#4d3b10;border:1px solid #f2df9c}.portal-program-card h3{margin:0 0 5px;font-size:19px}.portal-program-card p{margin:0;color:rgba(255,255,255,.75);font-size:12px;max-width:620px}.portal-program-card.alt p{color:#79632c}.portal-program-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.portal-program-links button{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);color:#fff;border-radius:9px;padding:8px 11px;font-size:11px;font-weight:700}.portal-program-card.alt .portal-program-links button{border-color:#dfc66f;background:#fff;color:#6c5310}.portal-upgrade-dialog-note{margin-top:12px;padding:10px 12px;border-radius:10px;background:#f7f9fd;color:#66758f;font-size:11px}
+    #visitorChatDialog .visitor-support{margin:0;border:0;border-top:1px solid #e5eaf2;border-radius:0;background:transparent;box-shadow:none;padding:22px 0 0;display:block}
+    #visitorChatDialog .visitor-support-copy{margin-bottom:14px}
+    #visitorChatDialog .visitor-support-copy h2{font-size:20px}
+    #visitorChatDialog .visitor-question-form{margin-top:14px}
+    .portal-provider-strip{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}.portal-provider-strip span{border:1px solid #dce5f3;border-radius:999px;padding:5px 9px;background:#fff;color:#566783;font-size:10px}.portal-provider-strip span:first-child{border-color:#b9d8c6;color:#28734c;background:#f1fbf4}
     @media(max-width:1000px){.portal-upgrade-grid{grid-template-columns:repeat(3,1fr)}.portal-programs{grid-template-columns:1fr 1fr}}
     @media(max-width:620px){.portal-upgrade-dock,.portal-programs{width:calc(100% - 28px)}.portal-upgrade-head{display:block}.portal-upgrade-badge{margin-top:8px}.portal-upgrade-grid{grid-template-columns:repeat(2,1fr)}.portal-programs{grid-template-columns:1fr}.portal-upgrade-card{min-height:130px}.portal-upgrade-foot{display:block}.portal-upgrade-foot span{display:block;margin-top:5px}}
   `;
@@ -59,6 +64,30 @@
       <article class="portal-program-card alt"><span class="eyebrow">ترحيب بالزائر</span><h3>اسأل المساعد الذكي</h3><p>اكتب سؤالك عن البحث أو القراءة أو استخدام الموقع، وسيقودك المساعد إلى القسم المناسب.</p><div class="portal-program-links"><button type="button" data-upgrade-target="headerVisitorChatShortcut">ابدأ الحوار</button></div></article>
     `;
     document.getElementById('homeView')?.querySelector('.portal-hero')?.insertAdjacentElement('afterend', programs);
+
+    const dialog = document.getElementById('visitorChatDialog');
+    const questions = document.getElementById('visitorQuestions');
+    const assistant = document.getElementById('visitorAssistant');
+    if (dialog && questions && assistant && !dialog.contains(questions)) {
+      const strip = document.createElement('div');
+      strip.className = 'portal-provider-strip';
+      strip.innerHTML = '<span>DeepSeek · أساسي</span><span>Qwen · احتياطي</span><span>Telegram · متابعة المالك</span><span>رد محلي · عند انقطاع الخدمة</span>';
+      assistant.insertAdjacentElement('afterend', strip);
+      dialog.appendChild(questions);
+      const title = dialog.querySelector('#visitorChatDialogTitle');
+      if (title) title.textContent = 'المساعد الموحد للمكتبة';
+      const eyebrow = assistant.querySelector('.visitor-assistant-copy .eyebrow');
+      if (eyebrow) eyebrow.textContent = 'مساعد المكتبة الموحد · DeepSeek / Qwen';
+      const assistantTitle = assistant.querySelector('.visitor-assistant-copy h2');
+      if (assistantTitle) assistantTitle.textContent = 'اسأل عن الموقع أو الكتب أو أرسل سؤالًا للمتابعة';
+      const assistantCopy = assistant.querySelector('.visitor-assistant-copy > p');
+      if (assistantCopy) assistantCopy.textContent = 'إجابة واحدة من المساعد الموحد، مع متابعة Telegram عند الحاجة، واعتماد بيانات الموقع العامة فقط.';
+      const assistantNotice = assistant.querySelector('#visitorAssistantPrivacy');
+      if (assistantNotice) assistantNotice.textContent = 'تُرسل الأسئلة العامة إلى DeepSeek ثم Qwen عند الحاجة، وتُحجب البيانات الشخصية محليًا. استخدم نموذج المتابعة إذا أردت أن يصل السؤال إلى فريق المكتبة عبر Telegram.';
+      const questionTitle = questions.querySelector('.visitor-support-copy h2');
+      if (questionTitle) questionTitle.textContent = 'تواصل مع مساعد المكتبة أو أرسل للمتابعة';
+      questions.querySelector('.visitor-telegram-link')?.setAttribute('aria-label', 'فتح قناة Telegram للمساعد الموحد');
+    }
 
     document.addEventListener('click', (event) => {
       const button = event.target.closest('[data-upgrade-target]');

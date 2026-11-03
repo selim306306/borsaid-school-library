@@ -24,7 +24,7 @@ test('ordinary private-chat questions are answered automatically without storing
   const result = await handleTelegramMessage(deps);
   assert.equal(result.action, 'answered');
   assert.deepEqual(calls.gemini, [deps.text]);
-  assert.match(calls.send[0].text, /عولج السؤال العام آليًا عبر Gemini/);
+  assert.match(calls.send[0].text, /عولج السؤال العام آليًا عبر المساعد الموحد/);
   assert.match(calls.send[0].text, /إجابة عامة من بيانات الموقع المنشورة/);
   assert.equal(calls.reply.length, 0);
   assert.equal(calls.link.length, 0);
@@ -51,7 +51,7 @@ test('/start gives a nonblocking AI and Telegram disclosure to public users', as
   const result = await handleTelegramMessage(deps);
   assert.equal(result.action, 'public_start');
   assert.equal(calls.gemini.length, 0);
-  assert.match(calls.send[0].text, /تُعالج الأسئلة العامة آليًا عبر Gemini/);
+  assert.match(calls.send[0].text, /تُعالج الأسئلة العامة آليًا عبر المساعد الموحد/);
   assert.match(calls.send[0].text, /قد يصل السؤال والرد الآلي إلى المدير عبر Telegram/);
 });
 
@@ -103,5 +103,5 @@ test('the disclosure is available without blocking normal automatic replies', as
   await handleTelegramMessage(deps);
   assert.equal(calls.gemini.length, 1);
   assert.equal(calls.send.length, 1);
-  assert.ok(TELEGRAM_PUBLIC_DISCLOSURE.includes('Gemini'));
+  assert.ok(TELEGRAM_PUBLIC_DISCLOSURE.includes('المساعد الموحد'));
 });
