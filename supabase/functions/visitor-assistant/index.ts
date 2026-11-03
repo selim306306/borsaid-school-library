@@ -4,7 +4,7 @@ import { answerPublicQuestion, PERSONAL_DATA_REPLY } from "./assistant.js";
 const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
-const configuredModel = "gemini-3.5-flash-lite";
+const configuredModel = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash-lite";
 const PUBLISHABLE_KEY = (() => {
   try {
     const keys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}") as Record<string, string>;
@@ -82,7 +82,7 @@ Deno.serve(async (request: Request) => {
   if (containsSensitivePersonalData(question)) {
     return jsonResponse({ ok: true, privacy_blocked: true, stored: false, text: PERSONAL_DATA_REPLY }, 200, origin);
   }
-  if (!SUPABASE_URL || !GEMINI_API_KEY) return jsonResponse({ error: "assistant_unavailable" }, 503, origin);
+  if (!SUPABASE_URL || !GEMINI_API_KEY) return jsonResponse({ error: "assistant_unavailable", reason: "server_configuration_missing" }, 503, origin);
   const rateKey = await hashedRateKey(request);
   if (!allowRate(rateKey)) return jsonResponse({ error: "rate_limited" }, 429, origin);
 

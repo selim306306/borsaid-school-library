@@ -1,3 +1,5 @@
+import './portal-upgrade.js?v=20261102';
+
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
 import { renderSchoolPrincipalCards } from './school-principal-photos.mjs?v=0b9096ade1029b20';
@@ -561,7 +563,7 @@ async function answerVisitorQuestion(question) {
     return { text: 'هل تريد معلومات عن هذا الكتاب أو مؤلفه، أم تريد البحث عن نسخة منشورة منه في فهرس المكتبة؟ اكتب مثلاً: «ابحث عن حي بن يقظان».' };
   }
   if (catalogIntent.kind !== 'search') {
-    return { text: 'تعذّر الاتصال بـGemini الآن، لذلك لن أحوّل سؤالك العام إلى بحث في الفهرس. أعد المحاولة لاحقًا، أو استخدم قسم «اسأل أمين المكتبة».' };
+    return { text: 'أهلاً بك في المكتبة المدرسية الرقمية. يمكنك البحث عن الكتب من تبويب «الكتب»، وقراءة الكتب الرقمية من تبويب «القراءة»، ومتابعة الإعلانات والمسابقات من تبويب «الإعلانات». المساعد الذكي الخارجي غير متاح الآن، لكن أقسام الموقع والبحث تعمل بدون انتظار.' };
   }
   const query = extractVisitorCatalogQuery(question);
   if (!query) return { text: 'اسألني عن طريقة البحث أو الإعارة أو مصادر القراءة الخارجية أو الفروع، أو اكتب عنوان كتاب لأبحث في الفهرس المنشور.' };
