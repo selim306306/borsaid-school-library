@@ -227,3 +227,53 @@ test('processNews returns no news when all sources fail or verification is inval
     assert.equal(invalid.items.length, 0);
   } finally { _internal.DISCOVERY.splice(0, _internal.DISCOVERY.length, ...original); }
  });
+
+test('the official MPL and AFLI news listings and their article paths are allowlisted narrowly', () => {
+  const mplListing = 'https://mpl.org.eg/feed/';
+  const mplArticle = 'https://mpl.org.eg/mpl-announces-library-conference';
+  const afliListing = 'https://arab-afli.org/wp-json/wp/v2/posts?categories=35&per_page=10&_fields=date%2Clink';
+  assert.equal(allowedUrl(mplListing), true);
+  assert.equal(allowedUrl(mplArticle), true);
+  assert.equal(allowedUrl('https://mpl.org.eg/category/new-books-in-the-main-library/'), false);
+  const afliArticle = 'https://arab-afli.org/%D9%81%D8%AA%D8%AD-%D8%A8%D8%A7%D8%A8-%D8%AC%D8%A7%D8%A6%D8%B2%D8%A9-%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8%D8%A7%D8%AA';
+  assert.equal(allowedUrl(afliListing), true);
+  assert.equal(allowedUrl(afliArticle), true);
+  assert.equal(allowedUrl('https://arab-afli.org/category/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/'), false);
+  assert.equal(allowedUrl('https://arab-afli.org/wp-json/wp/v2/posts?categories=1&per_page=10&_fields=date%2Clink'), false);
+  assert.equal(allowedUrl('https://mpl.org.eg/category/unrelated/'), false);
+  assert.equal(allowedUrl('https://arab-afli.org/category/unrelated/'), false);
+  assert.equal(allowedUrl('https://evil.example/mpl-announces-library-conference/'), false);
+});
+
+test('processNews discovers, attributes, and summarizes library articles from MPL and AFLI official sites', async () => {
+  const mplListing = 'https://mpl.org.eg/feed/';
+  const mplArticle = 'https://mpl.org.eg/mpl-announces-library-conference';
+  const afliListing = 'https://arab-afli.org/wp-json/wp/v2/posts?categories=35&per_page=10&_fields=date%2Clink';
+  const mplBody = 'The public library announced a new library science conference on digital inclusion and public library services.';
+  const afliBody = 'The Arab Federation for Libraries announced a professional conference about library and information science services.';
+  const afliArticle = 'https://arab-afli.org/%D9%81%D8%AA%D8%AD-%D8%A8%D8%A7%D8%A8-%D8%AC%D8%A7%D8%A6%D8%B2%D8%A9-%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8%D8%A7%D8%AA';
+  const verify = JSON.stringify({ faithful: true, directly_library_related: true, dates_match: true, no_unsupported_claims: true });
+  const modelResponses = [validSummary(mplBody), verify, validSummary(afliBody), verify];
+  const original = [..._internal.DISCOVERY];
+  let generation = 0;
+  try {
+    _internal.DISCOVERY.splice(0, _internal.DISCOVERY.length, mplListing, afliListing);
+    const fetcher = async url => {
+      if (url.includes('generativelanguage')) return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: modelResponses[generation++] }] } }] }), { status: 200, headers: { 'content-type': 'application/json' } });
+      if (url === mplListing) return new Response(`<rss><channel><item><title>MPL library conference</title><link>${mplArticle}</link></item></channel></rss>`, { status: 200, headers: { 'content-type': 'application/rss+xml; charset=UTF-8' } });
+      if (url === afliListing) return new Response(JSON.stringify([{ date: `${dateISO}T10:00:00`, link: afliArticle }]), { status: 200, headers: { 'content-type': 'application/json; charset=UTF-8' } });
+      if (url === mplArticle) return response(html(url, 'MPL announces a public library science conference', dateISO, mplBody));
+      if (url === afliArticle) return response(`<html><head><meta property="og:title" content="AFLI announces a library award"></head><body><main>${afliBody}</main></body></html>`);
+      throw new Error('unexpected source URL');
+    };
+    const payload = { schema_version: 1, repository: 'selim306306/borsaid-school-library', repository_id: 1416862821, ref: 'refs/heads/main', workflow: '.github/workflows/news-only.yml', run_id: '1', run_attempt: '1', timestamp: new Date().toISOString(), nonce: crypto.randomUUID(), mode: 'collect', known_urls: [] };
+    const result = await processNews(payload, { fetcher, geminiKey: 'k' });
+    const items = validateResponse(result, today).items;
+    assert.equal(items.length, 2);
+    assert.deepEqual(items.map(item => item.source_name), ['مكتبة مصر العامة', 'الاتحاد العربي للمكتبات والمعلومات (أعلم)']);
+    assert.equal(items.every(item => item.scope === 'libraries' && !Object.hasOwn(item, 'image_url')), true);
+    assert.deepEqual(items.map(item => item.source_url), [mplArticle, afliArticle]);
+  } finally {
+    _internal.DISCOVERY.splice(0, _internal.DISCOVERY.length, ...original);
+  }
+});

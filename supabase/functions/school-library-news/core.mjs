@@ -1,13 +1,15 @@
 const te = new TextEncoder();
 const DISCOVERY = [
+  'https://mpl.org.eg/feed/',
   'https://www.darelkotob.gov.eg/ar-eg/Pages/News.aspx',
-  'https://www.ala.org/news',
   'https://www.bibalex.org/en/news/',
-  'https://www.unesco.org/en/tags/libraries',
-  'https://www.eifl.net/news',
+  'https://arab-afli.org/wp-json/wp/v2/posts?categories=35&per_page=10&_fields=date%2Clink',
   'https://www.ifla.org/news/',
+  'https://www.ala.org/news',
+  'https://www.eifl.net/news',
+  'https://www.unesco.org/en/tags/libraries',
 ];
-const ALLOWED = new Set(['www.ifla.org', 'www.ala.org', 'www.unesco.org', 'www.bibalex.org', 'www.darelkotob.gov.eg', 'www.eifl.net', 'knowledgequest.aasl.org']);
+const ALLOWED = new Set(['www.ifla.org', 'www.ala.org', 'www.unesco.org', 'www.bibalex.org', 'www.darelkotob.gov.eg', 'www.eifl.net', 'knowledgequest.aasl.org', 'mpl.org.eg', 'arab-afli.org']);
 const TRACKING = /^(utm_.+|fbclid|gclid|dclid|msclkid)$/i;
 const replay = new Map();
 function canonicalUrl(raw) {
@@ -16,6 +18,11 @@ function canonicalUrl(raw) {
   u.searchParams.sort(); u.pathname = u.pathname.replace(/\/+$/, '') || '/'; return u.href;
 }
 function singleNumericParameter(u, name) { const entries = [...u.searchParams.entries()]; return entries.length === 1 && entries[0][0].toLowerCase() === name && /^\d+$/.test(entries[0][1]); }
+function isAfliApi(u) {
+  if (u.hostname !== 'arab-afli.org' || u.pathname !== '/wp-json/wp/v2/posts') return false;
+  const params = [...u.searchParams.entries()];
+  return params.length === 3 && u.searchParams.get('categories') === '35' && u.searchParams.get('per_page') === '10' && u.searchParams.get('_fields') === 'date,link';
+}
 function allowedPath(u) {
   const path = u.pathname.replace(/\/+$/, '') || '/';
   if (u.hostname === 'www.ifla.org' || u.hostname === 'www.ala.org') return /^\/news\/(?!view-all-news(?:\/|$)|index(?:\.html)?$)[^/]+(?:\/[^/]+)*$/.test(path);
@@ -23,6 +30,11 @@ function allowedPath(u) {
   if (u.hostname === 'www.bibalex.org') return ['/en/news/details.aspx', '/news/details', '/en/news/details'].includes(path.toLowerCase()) && singleNumericParameter(u, 'documentid');
   if (u.hostname === 'www.darelkotob.gov.eg') return path.toLowerCase() === '/ar-eg/pages/news-details.aspx' && singleNumericParameter(u, 'nid');
   if (u.hostname === 'www.eifl.net') return /^\/news\/[a-z0-9][a-z0-9-]*$/i.test(path);
+  if (u.hostname === 'mpl.org.eg') return path === '/feed' || /^\/[a-z0-9][a-z0-9-]{20,}$/i.test(decodeURIComponent(path));
+  if (u.hostname === 'arab-afli.org') {
+    if (path === '/wp-json/wp/v2/posts') return isAfliApi(u);
+    return /^\/[\p{L}\p{N}][\p{L}\p{N}-]{15,}$/u.test(decodeURIComponent(path));
+  }
   return /^\/[^/]+$/.test(path);
 }
 export function allowedUrl(raw) {
@@ -72,13 +84,18 @@ export function validatePayload(p) {
 }
 async function sourceFetch(raw, fetcher = fetch, depth = 0) {
   if (depth > 3 || (!DISCOVERY.includes(raw) && !allowedUrl(raw))) throw new Error('url');
-  const r = await fetcher(raw, { redirect: 'manual', signal: AbortSignal.timeout(12000), headers: { accept: 'text/html,application/xhtml+xml' } });
+  const r = await fetcher(raw, { redirect: 'manual', signal: AbortSignal.timeout(12000), headers: { accept: 'text/html,application/xhtml+xml,application/rss+xml,application/xml;q=0.9,text/xml;q=0.8', 'user-agent': 'BorsaidSchoolLibraryNews/1.0 (+https://selim306306.github.io/borsaid-school-library/)' } });
   if ([301, 302, 303, 307, 308].includes(r.status)) {
     const loc = r.headers.get('location'); if (!loc) throw new Error('redirect');
     try { await r.body?.cancel(); } catch {}
     return sourceFetch(new URL(loc, raw).href, fetcher, depth + 1);
   }
-  if (!r.ok || !/(text\/html|application\/xhtml\+xml)/i.test(r.headers.get('content-type') || '')) throw new Error('source');
+  const contentType = r.headers.get('content-type') || '';
+  const isHtml = /(text\/html|application\/xhtml\+xml)/i.test(contentType);
+  const feedUrl = new URL(raw);
+  const isMplRss = feedUrl.hostname === 'mpl.org.eg' && feedUrl.pathname.replace(/\/+$/, '') === '/feed' && /^(?:application\/(?:rss\+xml|xml)|text\/xml)(?:;|$)/i.test(contentType);
+  const isAfliJson = isAfliApi(feedUrl) && /^application\/json(?:;|$)/i.test(contentType);
+  if (!r.ok || (!isHtml && !isMplRss && !isAfliJson)) throw new Error('source');
   const pageUrl = new URL(raw); pageUrl.hash = '';
   return { url: canonicalUrl(raw), baseUrl: pageUrl.href, html: await boundedText(r, 1500000, 'source_size') };
 }
@@ -164,7 +181,7 @@ export async function verifySummary(a, x, key, fetcher = fetch) {
   if (v.faithful !== true || v.directly_library_related !== true || v.dates_match !== true || v.no_unsupported_claims !== true) throw new Error('verify');
   return true;
 }
-const labels = { 'www.ifla.org': 'الاتحاد الدولي لجمعيات ومؤسسات المكتبات', 'www.ala.org': 'جمعية المكتبات الأمريكية', 'www.unesco.org': 'منظمة الأمم المتحدة للتربية والعلم والثقافة', 'www.bibalex.org': 'مكتبة الإسكندرية', 'www.darelkotob.gov.eg': 'الهيئة العامة لدار الكتب والوثائق القومية', 'www.eifl.net': 'المعلومات الإلكترونية للمكتبات (EIFL)', 'knowledgequest.aasl.org': 'جمعية أمناء المكتبات المدرسية الأمريكية' };
+const labels = { 'mpl.org.eg': 'مكتبة مصر العامة', 'arab-afli.org': 'الاتحاد العربي للمكتبات والمعلومات (أعلم)', 'www.ifla.org': 'الاتحاد الدولي لجمعيات ومؤسسات المكتبات', 'www.ala.org': 'جمعية المكتبات الأمريكية', 'www.unesco.org': 'منظمة الأمم المتحدة للتربية والعلم والثقافة', 'www.bibalex.org': 'مكتبة الإسكندرية', 'www.darelkotob.gov.eg': 'الهيئة العامة لدار الكتب والوثائق القومية', 'www.eifl.net': 'المعلومات الإلكترونية للمكتبات (EIFL)', 'knowledgequest.aasl.org': 'جمعية أمناء المكتبات المدرسية الأمريكية' };
 export async function processNews(p, { fetcher = fetch, geminiKey } = {}) {
   validatePayload(p);
   const items = [], known = p.known_urls, visited = new Set(known.map(x => { try { return canonicalUrl(x); } catch { return x; } }));
@@ -173,14 +190,37 @@ export async function processNews(p, { fetcher = fetch, geminiKey } = {}) {
     if (items.length >= 3) break;
     let listing; try { listing = await sourceFetch(listingUrl, fetcher); } catch { rejected_count++; diagnostics.source_failed++; continue; }
     const links = [];
+    const listedDates = new Map();
+    const addLink = (value, publishedAt = '') => {
+      try {
+        const href = canonicalUrl(new URL(decode(value), listing.baseUrl || listing.url).href);
+        if (allowedUrl(href) && !visited.has(href) && !links.includes(href)) links.push(href);
+        const publishedDate = dateOnly(publishedAt);
+        if (allowedUrl(href) && publishedDate) listedDates.set(href, publishedDate);
+      } catch {}
+    };
+    if (isAfliApi(new URL(listingUrl))) {
+      let posts;
+      try { posts = JSON.parse(listing.html); } catch { rejected_count++; diagnostics.source_failed++; continue; }
+      if (!Array.isArray(posts)) { rejected_count++; diagnostics.source_failed++; continue; }
+      for (const post of posts.slice(0, 10)) if (post && typeof post.link === 'string') addLink(post.link, post.date);
+    }
     for (const m of listing.html.matchAll(/<a\b[^>]*href\s*=\s*["']([^"']+)["']/gi)) {
-      try { const href = canonicalUrl(new URL(decode(m[1]), listing.baseUrl || listing.url).href); if (allowedUrl(href) && !visited.has(href) && !links.includes(href)) links.push(href); } catch {}
+      addLink(m[1]);
+    }
+    for (const entry of listing.html.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)) {
+      const link = entry[1].match(/<link\b[^>]*>([\s\S]*?)<\/link>/i)?.[1];
+      if (link) addLink(link.replace(/<!\[CDATA\[|\]\]>/g, '').trim());
     }
     // Bound article attempts per listing so stale links cannot consume the run's request budget.
     for (const link of links.slice(0, 6)) {
       if (items.length >= 3) break; visited.add(link);
       let article;
-      try { const source = await sourceFetch(link, fetcher); diagnostics.articles_fetched++; article = extractArticle(source.html, source.url); } catch { rejected_count++; diagnostics.source_failed++; continue; }
+      try {
+        const source = await sourceFetch(link, fetcher); diagnostics.articles_fetched++;
+        article = extractArticle(source.html, source.url);
+        if (!article.published_at && listedDates.has(link)) article = { ...article, published_at: listedDates.get(link) };
+      } catch { rejected_count++; diagnostics.source_failed++; continue; }
       if (!candidateOk(article, known)) { rejected_count++; continue; } diagnostics.eligible++;
       let summary; try { summary = await generateArabicSummary(article, geminiKey, fetcher); diagnostics.generated++; } catch { rejected_count++; diagnostics.summary_failed++; continue; }
       try { await verifySummary(article, summary, geminiKey, fetcher); diagnostics.verified++; } catch { rejected_count++; diagnostics.verifier_failed++; continue; }
