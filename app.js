@@ -1,5 +1,4 @@
 import './portal-upgrade.js?v=935579dff7d8c412';
-import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=f135b25f77f9d29a';
 
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
@@ -448,7 +447,7 @@ const VISITOR_STOP_WORDS = new Set(['هل', 'ممكن', 'عايز', 'عايزة'
 function extractVisitorCatalogQuery(question) {
   return normalizeVisitorText(question).split(/[^\p{L}\p{N}]+/u).filter(word => word && !VISITOR_STOP_WORDS.has(word)).join(' ').slice(0, 100);
 }
-function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [], actionLinks = [], externalModelConsentQuestion = '' } = {}) {
+function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [], actionLinks = [] } = {}) {
   const log = $('#visitorAssistantLog');
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
@@ -508,24 +507,6 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
     button.dataset.visitorSearch = searchQuery;
     button.textContent = 'فتح النتائج في الفهرس العام';
     item.append(button);
-  }
-  if (externalModelConsentQuestion) {
-    const actions = document.createElement('div');
-    actions.className = 'visitor-assistant-consent-actions';
-    const approve = document.createElement('button');
-    approve.type = 'button';
-    approve.className = 'button button-primary';
-    approve.dataset.visitorFreeModelConsent = 'true';
-    approve.dataset.question = externalModelConsentQuestion;
-    approve.textContent = 'أوافق وأحفظ الموافقة على هذا الجهاز';
-    const local = document.createElement('button');
-    local.type = 'button';
-    local.className = 'button button-outline';
-    local.dataset.visitorLocalAnswer = 'true';
-    local.dataset.question = externalModelConsentQuestion;
-    local.textContent = 'لا، أجبني محليًا فقط';
-    actions.append(approve, local);
-    item.append(actions);
   }
   log.append(item);
   log.scrollTop = log.scrollHeight;
@@ -598,7 +579,7 @@ async function answerVisitorQuestion(question) {
     : { text: `لم أجد عنواناً منشوراً يطابق «${query}». جرّب كلمة أقصر أو ابحث مباشرة في الفهرس؛ قد لا تكون كل الكتب مسجلة أو منشورة.`, searchQuery: query };
 }
 let visitorAssistantBusy = false;
-async function sendVisitorQuestion(question, { externalAiConsent = hasPublicAssistantAiConsent(), appendQuestion = true } = {}) {
+async function sendVisitorQuestion(question, { appendQuestion = true } = {}) {
   const text = String(question || '').trim().slice(0, 300);
   if (!text || visitorAssistantBusy) return;
   visitorAssistantBusy = true;
@@ -614,7 +595,6 @@ async function sendVisitorQuestion(question, { externalAiConsent = hasPublicAssi
   submit.disabled = true;
   try {
     const answer = await routeVisitorAssistantQuestion(text, {
-      externalAiConsent,
       askFreeModel: async (publicQuestion, { externalAiConsent: approved = false } = {}) => {
         if (!publicSupabase) return null;
         const { data, error } = await publicSupabase.functions.invoke('visitor-assistant', {
@@ -624,12 +604,6 @@ async function sendVisitorQuestion(question, { externalAiConsent = hasPublicAssi
       },
       answerLocally: answerVisitorQuestion,
     });
-    if (answer.needsExternalModelConsent) {
-      const prompt = appendVisitorAssistantMessage('assistant', answer.text, { externalModelConsentQuestion: text });
-      setMessage($('#visitorAssistantStatus'), 'لم يُرسل السؤال إلى Qwen. وافق مرة واحدة لحفظ الموافقة على هذا الجهاز، أو اختر إجابة محلية.');
-      requestAnimationFrame(() => prompt.querySelector('[data-visitor-free-model-consent]')?.focus({ preventScroll: true }));
-      return;
-    }
     appendVisitorAssistantMessage('assistant', answer.text, answer);
     const providerName = answer.source === 'groq' ? 'Qwen عبر Groq ضمن الخطة المجانية' : '';
     setMessage($('#visitorAssistantStatus'), providerName
@@ -646,24 +620,6 @@ async function sendVisitorQuestion(question, { externalAiConsent = hasPublicAssi
     submit.disabled = false;
   }
 }
-async function answerVisitorQuestionLocally(question) {
-  const text = String(question || '').trim().slice(0, 300);
-  if (!text || visitorAssistantBusy) return;
-  visitorAssistantBusy = true;
-  const submit = $('#visitorAssistantForm button[type="submit"]');
-  submit.disabled = true;
-  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة محلية؛ لن يُرسل السؤال إلى نموذج خارجي…');
-  try {
-    const answer = await answerVisitorQuestion(text);
-    appendVisitorAssistantMessage('assistant', answer.text, answer);
-    setMessage($('#visitorAssistantStatus'), 'إجابة محلية فقط؛ لم يُرسل السؤال إلى نموذج خارجي.');
-  } catch {
-    setMessage($('#visitorAssistantStatus'), 'تعذّر إعداد الإجابة المحلية الآن؛ استخدم البحث والفروع المنشورة مباشرةً.', 'error');
-  } finally {
-    visitorAssistantBusy = false;
-    submit.disabled = false;
-  }
-}
 $('#visitorAssistantForm').addEventListener('submit', event => {
   event.preventDefault();
   const input = $('#visitorAssistantInput');
@@ -675,30 +631,6 @@ $$('[data-visitor-question]').forEach(button => button.addEventListener('click',
 $('#visitorAssistantLog').addEventListener('click', event => {
   if (event.target.closest('[data-visitor-contact]')) {
     visitorChatDialog?.close();
-    return;
-  }
-  const consentButton = event.target.closest('[data-visitor-free-model-consent]');
-  const localButton = event.target.closest('[data-visitor-local-answer]');
-  const decisionButton = consentButton || localButton;
-  if (decisionButton) {
-    const question = decisionButton.dataset.question || '';
-    if (!question || visitorAssistantBusy) return;
-    decisionButton.closest('.visitor-assistant-message')?.querySelectorAll('[data-visitor-free-model-consent], [data-visitor-local-answer]')
-      .forEach(button => { button.disabled = true; });
-    if (consentButton) {
-      const saved = setPublicAssistantAiConsent(true);
-      const consentToggle = $('#visitorAssistantPersistentConsent');
-      if (consentToggle) consentToggle.checked = true;
-      const consentStatus = $('#visitorAssistantConsentStatus');
-      if (consentStatus) consentStatus.textContent = saved.persisted
-        ? 'حُفظت الموافقة على هذا الجهاز؛ يمكنك إلغاؤها بإزالة العلامة.'
-        : 'تعذر حفظ الاختيار في المتصفح؛ ستبقى الموافقة فعّالة حتى إغلاق الصفحة.';
-      appendVisitorAssistantMessage('user', 'أوافق على إرسال هذا السؤال العام والأسئلة العامة التالية إلى Qwen عبر Groq ضمن الخطة المجانية على هذا الجهاز.');
-      sendVisitorQuestion(question, { externalAiConsent: true, appendQuestion: false });
-    } else {
-      appendVisitorAssistantMessage('user', 'أفضل إجابة محلية؛ لا أوافق على إرسال هذا السؤال إلى نموذج خارجي.');
-      answerVisitorQuestionLocally(question);
-    }
     return;
   }
   const button = event.target.closest('[data-visitor-search]');

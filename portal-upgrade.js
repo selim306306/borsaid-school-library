@@ -1,5 +1,3 @@
-import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=f135b25f77f9d29a';
-
 (() => {
   'use strict';
   if (typeof document === 'undefined') return;
@@ -23,7 +21,6 @@ import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visi
     #visitorChatDialog .visitor-support-copy h2{font-size:20px}
     #visitorChatDialog .visitor-question-form{margin-top:14px}
     .portal-provider-strip{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}.portal-provider-strip span{border:1px solid #dce5f3;border-radius:999px;padding:5px 9px;background:#fff;color:#566783;font-size:10px}.portal-provider-strip span:first-child{border-color:#b9d8c6;color:#28734c;background:#f1fbf4}
-    .visitor-assistant-persistent-consent{display:flex;align-items:flex-start;gap:9px;margin:12px 0 4px;padding:11px 12px;border:1px solid #c9d9cc;border-radius:12px;background:#f4fbf5;color:#344b3a;font-size:12px;line-height:1.7}.visitor-assistant-persistent-consent input{flex:0 0 auto;margin-top:4px;accent-color:#28734c}.visitor-assistant-persistent-consent input:focus-visible{outline:3px solid rgba(40,116,76,.35);outline-offset:2px}.visitor-assistant-consent-status{min-height:1.5em;margin:4px 2px;color:#526b5a;font-size:11px;line-height:1.6}
     @media(max-width:1000px){.portal-upgrade-grid{grid-template-columns:repeat(3,1fr)}.portal-programs{grid-template-columns:1fr 1fr}}
     @media(max-width:620px){.portal-upgrade-dock,.portal-programs{width:calc(100% - 28px)}.portal-upgrade-head{display:block}.portal-upgrade-badge{margin-top:8px}.portal-upgrade-grid{grid-template-columns:repeat(2,1fr)}.portal-programs{grid-template-columns:1fr}.portal-upgrade-card{min-height:130px}.portal-upgrade-foot{display:block}.portal-upgrade-foot span{display:block;margin-top:5px}}
   `;
@@ -72,27 +69,10 @@ import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visi
     const dialog = document.getElementById('visitorChatDialog');
     const questions = document.getElementById('visitorQuestions');
     const assistant = document.getElementById('visitorAssistant');
-    const consentToggle = document.getElementById('visitorAssistantPersistentConsent');
-    const consentStatus = document.getElementById('visitorAssistantConsentStatus');
-    if (consentToggle && !consentToggle.dataset.bound) {
-      consentToggle.checked = hasPublicAssistantAiConsent();
-      consentStatus.textContent = consentToggle.checked
-        ? 'الموافقة محفوظة على هذا الجهاز؛ يمكنك إلغاؤها بإزالة العلامة.'
-        : 'الموافقة غير مفعّلة؛ لن يُرسل السؤال إلى نموذج خارجي دون إذنك.';
-      consentToggle.addEventListener('change', () => {
-        const result = setPublicAssistantAiConsent(consentToggle.checked);
-        consentStatus.textContent = consentToggle.checked
-          ? result.persisted
-            ? 'حُفظت الموافقة على هذا الجهاز؛ يمكنك إلغاؤها بإزالة العلامة.'
-            : 'تعذر حفظ الاختيار في المتصفح؛ ستبقى الموافقة فعّالة حتى إغلاق الصفحة.'
-          : 'أُلغيت الموافقة؛ لن تُرسل الأسئلة التالية إلى Qwen عبر Groq إلا بعد موافقة جديدة.';
-      });
-      consentToggle.dataset.bound = 'true';
-    }
     if (dialog && questions && assistant && !dialog.contains(questions)) {
       const strip = document.createElement('div');
       strip.className = 'portal-provider-strip';
-      strip.innerHTML = '<span>Qwen عبر Groq · الخطة المجانية فقط</span><span>موافقة محفوظة لهذا الجهاز وقابلة للإلغاء</span><span>إجابة محلية عند غياب الإعداد أو الموافقة</span><span>Telegram · متابعة المالك في مسار السؤال</span>';
+      strip.innerHTML = '<span>Qwen عبر Groq · الخطة المجانية فقط</span><span>الأسئلة العامة تُرسل تلقائيًا عند توافر الإعداد</span><span>إجابة محلية أو متابعة يدوية عند التعذر</span><span>Telegram · متابعة المالك في مسار السؤال</span>';
       assistant.insertAdjacentElement('afterend', strip);
       dialog.appendChild(questions);
       const title = dialog.querySelector('#visitorChatDialogTitle');
@@ -102,9 +82,9 @@ import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visi
       const assistantTitle = assistant.querySelector('.visitor-assistant-copy h2');
       if (assistantTitle) assistantTitle.textContent = 'اسأل عن الموقع أو كتاب منشور';
       const assistantCopy = assistant.querySelector('.visitor-assistant-copy > p');
-      if (assistantCopy) assistantCopy.textContent = 'يجيب الموقع محليًا من المعلومات العامة المنشورة. يمكنك حفظ موافقتك على هذا الجهاز لإرسال الأسئلة العامة إلى Qwen عبر Groq دون تأكيد منفصل لكل سؤال.';
+      if (assistantCopy) assistantCopy.textContent = 'يجيب المساعد من المعلومات العامة المنشورة، وتُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.';
       const assistantNotice = assistant.querySelector('#visitorAssistantPrivacy');
-      if (assistantNotice) assistantNotice.textContent = 'لا تُدخل بيانات شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. لا يُرسل السؤال إلى Qwen عبر Groq إلا عند تفعيل الموافقة المحفوظة على هذا الجهاز وتوافر إعداد الخطة المجانية. تُحفظ الموافقة محليًا في هذا المتصفح فقط، ويمكن إلغاؤها بإزالة العلامة. لا تُحفظ هذه المحادثة في قاعدة البيانات ولا تُرسل عبر Telegram.';
+      if (assistantNotice) assistantNotice.textContent = 'لا تُدخل بيانات شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط، ويُرسل السؤال العام تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة البيانات ولا تُرسل عبر Telegram.';
       const questionTitle = questions.querySelector('.visitor-support-copy h2');
       if (questionTitle) questionTitle.textContent = 'أرسل سؤالًا للمساعد الذكي أو اطلب متابعة المكتبة';
       questions.querySelector('.visitor-telegram-link')?.setAttribute('aria-label', 'فتح قناة Telegram للمساعد الموحد');

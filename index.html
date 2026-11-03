@@ -138,13 +138,13 @@
           <article class="visitor-pathway-card visitor-pathway-ai">
             <span class="visitor-pathway-icon" aria-hidden="true">م</span>
             <h3>المساعد الذكي</h3>
-            <p>إجابة عن الموقع والكتب المنشورة. عند توافر إعداد Qwen المجاني، لن يُرسل السؤال إلى Groq إلا بعد موافقتك؛ ويمكن حفظ هذه الموافقة على هذا الجهاز لتجنب تأكيدها مع كل سؤال. لا تُحفظ المحادثة ولا تصل إلى المدير عبر Telegram، وتُحجب البيانات الشخصية محليًا.</p>
+            <p>إجابة عامة عن الموقع والكتب المنشورة. عند توافر إعداد الخطة المجانية، تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq دون طلب موافقة منفصلة. لا تُدخل بيانات شخصية أو سرية؛ تُحجب الأنماط الحساسة المعروفة محليًا. لا تُحفظ المحادثة ولا تُرسل عبر Telegram.</p>
             <a class="visitor-pathway-action" href="#visitorAssistant">افتح المساعد الذكي <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-librarian">
             <span class="visitor-pathway-icon" aria-hidden="true">؟</span>
             <h3>متابعة سؤال مع المكتبة</h3>
-            <p>أرسل سؤالًا للمساعد الذكي وتابع الرد الخاص في الصفحة. تُستخدم موافقة Qwen المحفوظة على هذا الجهاز عند توافر إعداد المشروع؛ وقد يصل السؤال والرد إلى مدير الموقع عبر Telegram في مسار المتابعة. لا تكتب بيانات شخصية.</p>
+            <p>أرسل سؤالًا عامًا للمساعد وتابع الرد الخاص في هذه الصفحة. يُرسل السؤال تلقائيًا إلى Qwen عبر Groq عند توافر إعداد الخطة المجانية؛ وإذا تعذر الرد، تتابعه المكتبة يدويًا. قد يصل السؤال والرد إلى مدير الموقع عبر Telegram. لا تكتب بيانات شخصية أو سرية.</p>
             <a class="visitor-pathway-action" href="#visitorQuestions">أرسل سؤالًا للمساعد الذكي <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-telegram">
@@ -448,9 +448,9 @@
       <div class="visitor-support-copy">
         <span class="eyebrow">المساعد الذكي · إجابة عامة أو متابعة خاصة</span>
         <h2 id="visitorQuestionTitle">أرسل سؤالًا للمساعد الذكي</h2>
-        <p>أرسل سؤالًا عن المعلومات العامة للمكتبة، وتابع الرد الخاص في هذه الصفحة. إذا فعّلت موافقة Qwen المحفوظة على هذا الجهاز وكان إعداد Groq المجاني متاحًا، يجيب المساعد آليًا؛ وإلا تبقى المتابعة يدوية.</p>
+        <p>أرسل سؤالًا عامًا عن المعلومات المنشورة للمكتبة وتابع الرد الخاص في هذه الصفحة. تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد؛ وإذا لم يتوفر، تُتابع يدويًا.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">يُحفظ السؤال كتذكرة لمتابعة خاصة. تُستخدم موافقتك المحفوظة على هذا الجهاز لإرسال السؤال العام إلى Qwen عبر Groq عند تهيئة الخطة المجانية؛ وإلا تصل التذكرة للمتابعة اليدوية فقط. قد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram، وهذا منفصل عن موافقة Qwen. إذا اكتشف النظام بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبها محليًا ولا يرسلها إلى النموذج أو Telegram ولا يحفظها.</p>
+        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">يُحفظ السؤال كتذكرة لمتابعة خاصة، ويُرسل السؤال العام تلقائيًا إلى Qwen عبر Groq عند تهيئة الخطة المجانية؛ وإلا تصل التذكرة للمتابعة اليدوية فقط. قد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram. إذا اكتشف النظام بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبها محليًا ولا يرسلها إلى النموذج أو Telegram ولا يحفظها.</p>
         <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لخصوصيتك، لا تكتب أسماء أو أرقامًا أو بريدًا أو بيانات تخص طالبًا أو مستعيرًا أو موظفًا، ولا أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
@@ -469,7 +469,7 @@
     <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
       <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">المساعد الذكي</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق المساعد الذكي">×</button></header>
       <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · معلومات عامة منشورة</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>يجيب المساعد محليًا من معلومات الموقع. يمكن حفظ موافقتك على هذا الجهاز لإرسال الأسئلة العامة إلى Qwen عبر Groq دون تأكيد منفصل كل مرة.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">لا تُدخل أي اسم أو معلومة شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط. لا يُرسل السؤال إلى Qwen عبر Groq إلا عند تفعيل الموافقة المحفوظة على هذا الجهاز وتوافر إعداد الخطة المجانية. تُحفظ الموافقة محليًا في هذا المتصفح فقط؛ ولا يتضمن هذا الاختيار نص السؤال؛ ويمكن إلغاء الموافقة بإزالة العلامة أدناه. لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram.</div><label class="visitor-assistant-persistent-consent" for="visitorAssistantPersistentConsent"><input id="visitorAssistantPersistentConsent" type="checkbox" aria-describedby="visitorAssistantConsentStatus visitorAssistantPrivacy"><span>أوافق على إرسال الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية، وحفظ الموافقة في هذا المتصفح حتى إلغائها.</span></label><p class="visitor-assistant-consent-status" id="visitorAssistantConsentStatus" role="status" aria-live="polite">الموافقة غير مفعّلة؛ ستظل الإجابات محلية ما لم توافق على الإرسال.</p></div>
+        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · معلومات عامة منشورة</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>يجيب المساعد من المعلومات العامة المنشورة، وتُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">لا تُدخل أي اسم أو معلومة شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط، ويُرسل السؤال العام تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram.</div></div>
         <div class="visitor-assistant-box">
           <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة المساعد الذكي"><article class="visitor-assistant-message assistant"><strong>المساعد الذكي</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
           <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>

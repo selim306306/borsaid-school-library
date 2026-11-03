@@ -1,5 +1,4 @@
 import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js?v=7cc123df22c3c45f';
-import { hasPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=f135b25f77f9d29a';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -118,7 +117,6 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
-    const externalAiConsent = hasPublicAssistantAiConsent();
     if (containsSensitivePersonalData(question)) {
       questionField.value = '';
       showLocalPrivacyReply();
@@ -132,7 +130,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
         cache: 'no-store',
-        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '', externalAiConsent }),
+        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '', externalAiConsent: true }),
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) {
