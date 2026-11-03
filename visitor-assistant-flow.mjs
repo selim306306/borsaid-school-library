@@ -11,7 +11,6 @@ export function isVisitorAssistantQuestionSensitive(question) {
 export async function routeVisitorAssistantQuestion(question, {
   askFreeModel = async () => null,
   answerLocally = async () => ({ text: 'تعذّر الاتصال بالمساعد الذكي الآن؛ أعد المحاولة لاحقًا أو استخدم نموذج «أرسل سؤالًا للمساعد الذكي».' }),
-  externalAiConsent = false,
 } = {}) {
   const text = String(question ?? '').normalize('NFKC').trim();
   if (containsSensitivePersonalData(text)) {
@@ -23,20 +22,8 @@ export async function routeVisitorAssistantQuestion(question, {
 
   let sentToExternalModel = false;
   try {
-    const result = await askFreeModel(text, { externalAiConsent: externalAiConsent === true });
+    const result = await askFreeModel(text, { externalAiConsent: true });
     sentToExternalModel = result?.sentToExternalModel === true;
-    const consentRequired = result?.consent_required === true
-      || result?.consentRequired === true
-      || result?.reason === 'external_model_consent_required';
-    if (consentRequired && externalAiConsent !== true) {
-      return {
-        text: 'لم يُرسل سؤالك إلى أي نموذج بعد. إذا وافقت، سيُرسل نص هذا السؤال ومعلومات عامة منشورة من الفهرس إلى نموذج Qwen عبر Groq، على الخطة المجانية للمشروع فقط. لا تُدخل بيانات شخصية أو سرية.',
-        source: 'consent-required',
-        sent: false,
-        sentToExternalModel: false,
-        needsExternalModelConsent: true,
-      };
-    }
     if (result?.ok === true && typeof result.text === 'string' && result.text.trim()) {
       const provider = result.provider || 'groq';
       return { ...result, text: result.text.trim(), source: provider, sent: true, sentToExternalModel: true };

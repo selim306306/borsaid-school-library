@@ -23,31 +23,38 @@ test('a sensitive question is answered locally without calling an external model
   assert.equal(fallbackCalls, 0);
 });
 
-test('a configured free model asks for consent without sending the question to the provider', async () => {
-  let modelCalls = 0;
-  let fallbackCalls = 0;
-  const result = await routeVisitorAssistantQuestion('كيف أستخدم الموقع؟', {
-    askFreeModel: async (question, options) => {
-      assert.equal(question, 'كيف أستخدم الموقع؟');
-      assert.equal(options.externalAiConsent, false);
-      modelCalls += 1;
-      return { ok: false, consent_required: true, sentToExternalModel: false };
-    },
-    answerLocally: async () => { fallbackCalls += 1; return { text: 'local answer' }; },
-  });
-  assert.equal(result.source, 'consent-required');
-  assert.equal(result.needsExternalModelConsent, true);
-  assert.equal(result.sentToExternalModel, false);
-  assert.match(result.text, /Qwen/);
-  assert.match(result.text, /Groq/);
-  assert.equal(modelCalls, 1);
-  assert.equal(fallbackCalls, 0);
-});
-
-test('one-question consent is forwarded and Qwen via Groq is reported as the source', async () => {
+test('public visitor questions automatically authorize the configured free model without saved browser consent', async () => {
   let forwardedConsent;
   const result = await routeVisitorAssistantQuestion('كيف أستخدم الموقع؟', {
-    externalAiConsent: true,
+    askFreeModel: async (_question, options) => {
+      forwardedConsent = options.externalAiConsent;
+      return { ok: true, text: 'استخدم البحث.', provider: 'groq', model: 'qwen/qwen3.8-27b', sentToExternalModel: true };
+    },
+  });
+  assert.equal(forwardedConsent, true);
+  assert.equal(result.source, 'groq');
+  assert.equal(result.sentToExternalModel, true);
+  assert.equal(result.needsExternalModelConsent, undefined);
+});
+
+test('a stale server consent gate falls back locally instead of prompting the visitor', async () => {
+  let forwardedConsent;
+  const result = await routeVisitorAssistantQuestion('كيف أستخدم الموقع؟', {
+    askFreeModel: async (_question, options) => {
+      forwardedConsent = options.externalAiConsent;
+      return { ok: false, consent_required: true, sentToExternalModel: false };
+    },
+    answerLocally: async () => ({ text: 'استخدم مربع البحث.' }),
+  });
+  assert.equal(forwardedConsent, true);
+  assert.equal(result.source, 'local-fallback');
+  assert.equal(result.text, 'استخدم مربع البحث.');
+  assert.equal(result.needsExternalModelConsent, undefined);
+});
+
+test('a successful free-model response is reported as Qwen via Groq', async () => {
+  let forwardedConsent;
+  const result = await routeVisitorAssistantQuestion('كيف أستخدم الموقع؟', {
     askFreeModel: async (_question, options) => {
       forwardedConsent = options.externalAiConsent;
       return { ok: true, text: 'استخدم البحث.', provider: 'groq', model: 'qwen/qwen3.8-27b', sentToExternalModel: true };
