@@ -15,23 +15,31 @@ function sectionBetween(start, end) {
   return html.slice(from, to);
 }
 
-test('شريط المساعدة يحافظ على الروابط الثلاثة وأوصاف سياسة الخصوصية', () => {
+test('شريط المساعدة يعرض مدخلًا واحدًا ويحتفظ بالمسارات البديلة داخل التفاصيل', () => {
   const pathways = sectionBetween('<section class="visitor-pathways', '<section class="home-news-section');
-  const links = [...pathways.matchAll(/<a class="assistant-shortcut[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
+  const shortcuts = sectionBetween('<nav class="assistant-shortcuts"', '</nav>');
+  const links = [...shortcuts.matchAll(/<a class="assistant-shortcut[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
     .map(([, href, label]) => ({ href, label: label.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() }));
   assert.deepEqual(links, [
     { href: '#visitorAssistant', label: 'م المساعد الذكي' },
-    { href: '#visitorQuestions', label: '؟ أرسل سؤالًا للمساعد الذكي' },
-    { href: 'https://t.me/PortSaidSchoolLibrariesBot', label: '↗ المساعد الذكي عبر Telegram' },
   ]);
-  assert.match(pathways, /<details class="assistant-pathway-details">/);
-  assert.match(pathways, /الفرق بين المسارات وسياسة الخصوصية/);
-  for (const text of ['إجابة عن الموقع والكتب المنشورة', 'حفظ هذه الموافقة على هذا الجهاز', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'يجيب تلقائيًا من المعلومات المنشورة', 'Qwen عبر Groq على الخطة المجانية']) {
-    assert.match(pathways, new RegExp(text));
+  const details = sectionBetween('<details class="assistant-pathway-details">', '</details>');
+  assert.match(details, /href="#visitorQuestions"/);
+  assert.match(details, /href="https:\/\/t\.me\/PortSaidSchoolLibrariesBot"/);
+  assert.match(details, /خيارات المساعدة الأخرى وسياسة الخصوصية/);
+  for (const nav of [
+    sectionBetween('<nav class="desktop-nav"', '</nav>'),
+    sectionBetween('<nav class="mobile-nav', '</nav>'),
+  ]) {
+    assert.equal((nav.match(/href="#visitorAssistant"/g) ?? []).length, 1);
+    assert.doesNotMatch(nav, /href="#visitorQuestions"/);
   }
-  assert.doesNotMatch(pathways, /Gemini|DeepSeek/);
-  assert.match(pathways, /لا تُحفظ المحادثة/);
-  assert.match(pathways, /لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا/);
+  for (const text of ['إجابة عن الموقع والكتب المنشورة', 'حفظ هذه الموافقة على هذا الجهاز', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'يجيب تلقائيًا من المعلومات المنشورة', 'Qwen عبر Groq على الخطة المجانية']) {
+    assert.match(details, new RegExp(text));
+  }
+  assert.doesNotMatch(details, /Gemini|DeepSeek/);
+  assert.match(details, /لا تُحفظ المحادثة/);
+  assert.match(details, /لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا/);
 });
 
 test('الأخبار المنزلية تأتي بعد مصادر القراءة وتحافظ على المعرفات وحالات التحميل', () => {
