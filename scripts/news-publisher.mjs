@@ -30,6 +30,8 @@ function sourceAllowed(url) {
   if (u.hostname === 'www.bibalex.org') { const params = [...u.searchParams.entries()]; return ['/en/news/details.aspx', '/news/details', '/en/news/details'].includes(u.pathname.toLowerCase()) && params.length === 1 && params[0][0].toLowerCase() === 'documentid' && /^\d+$/u.test(params[0][1]); }
   if (u.hostname === 'www.darelkotob.gov.eg') { const params = [...u.searchParams.entries()]; return u.pathname.toLowerCase() === '/ar-eg/pages/news-details.aspx' && params.length === 1 && params[0][0].toLowerCase() === 'nid' && /^\d+$/u.test(params[0][1]); }
   if (u.hostname === 'www.eifl.net') return /^\/news\/[a-z0-9][a-z0-9-]*$/iu.test(u.pathname);
+  if (u.hostname === 'mpl.org.eg') { try { return /^\/[a-z0-9][a-z0-9-]{20,}$/iu.test(decodeURIComponent(u.pathname)); } catch { return false; } }
+  if (u.hostname === 'arab-afli.org') { try { return /^\/[\p{L}\p{N}][\p{L}\p{N}-]{15,}$/u.test(decodeURIComponent(u.pathname)); } catch { return false; } }
   if (u.hostname === 'knowledgequest.aasl.org') return u.pathname.startsWith('/') && u.pathname !== '/';
   return false;
 }

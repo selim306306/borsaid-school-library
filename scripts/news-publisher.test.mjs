@@ -138,3 +138,18 @@ test('response overflow and redirect failure never alter the archive', async () 
   }), /response_too_large/);
   assert.equal(await readFile(file, 'utf8'), original);
 });
+
+test('publisher accepts articles from MPL and AFLI official sites but rejects listings and unrelated paths', () => {
+  const accepted = [
+    'https://mpl.org.eg/mpl-announces-library-conference',
+    'https://arab-afli.org/%D9%81%D8%AA%D8%AD-%D8%A8%D8%A7%D8%A8-%D8%AC%D8%A7%D8%A6%D8%B2%D8%A9-%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8%D8%A7%D8%AA',
+  ];
+  for (const source_url of accepted) assert.equal(validateNewsItem(item({ source_url }), NOW).source_url, source_url);
+  for (const source_url of [
+    'https://mpl.org.eg/category/new-books-in-the-main-library/',
+    'https://mpl.org.eg/about/',
+    'https://arab-afli.org/category/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/',
+    'https://arab-afli.org/feed/',
+    'https://www.mpl.org.eg/mpl-announces-library-conference/',
+  ]) assert.throws(() => validateNewsItem(item({ source_url }), NOW));
+});
