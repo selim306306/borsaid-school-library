@@ -2694,9 +2694,16 @@ $('#loginForm').addEventListener('submit', async event => {
   submit.disabled = true;
   setMessage(loginMessage, 'جارٍ التحقق من الحساب...');
   const form = new FormData(event.currentTarget);
-  const { error } = await supabase.auth.signInWithPassword({ email: form.get('email'), password: form.get('password') });
-  submit.disabled = false;
-  if (error) return setMessage(loginMessage, 'تعذّر تسجيل الدخول. تحقق من بيانات الحساب أو تواصل مع مسؤول المكتبة.', 'error');
+  let signInFailed = false;
+  try {
+    const { error } = await supabase.auth.signInWithPassword({ email: form.get('email'), password: form.get('password') });
+    signInFailed = Boolean(error);
+  } catch {
+    signInFailed = true;
+  } finally {
+    submit.disabled = false;
+  }
+  if (signInFailed) return setMessage(loginMessage, 'تعذّر تسجيل الدخول. تحقق من بيانات الحساب أو تواصل مع مسؤول المكتبة.', 'error');
   event.currentTarget.reset();
   setMessage(loginMessage, 'تم تسجيل الدخول.', 'success');
 });
