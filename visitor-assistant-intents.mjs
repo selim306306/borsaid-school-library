@@ -52,8 +52,8 @@ export function resolveVisitorAssistantIntent(question) {
 
   if (isSpecialistContactRequest(normalized)) {
     return {
-      text: 'أكيد. انتقل إلى قسم «اسأل أمين المكتبة» أسفل الصفحة لمراجعة خيارات التواصل المنشورة. رسالتك في هذه الدردشة لا تُرسل تلقائياً إلى نموذج الأسئلة أو Telegram.',
-      actionLinks: [{ href: '#visitorQuestions', label: 'الانتقال إلى قسم «اسأل أمين المكتبة»' }],
+      text: 'أكيد. انتقل إلى نموذج «أرسل سؤالًا للمساعد الذكي» أسفل الصفحة لطلب متابعة المكتبة. رسالتك في هذه الدردشة لا تُرسل تلقائيًا إلى نموذج الأسئلة أو Telegram.',
+      actionLinks: [{ href: '#visitorQuestions', label: 'الانتقال إلى نموذج السؤال للمساعد الذكي' }],
     };
   }
 

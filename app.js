@@ -1,4 +1,5 @@
-import './portal-upgrade.js?v=bd03599b525daa61';
+import './portal-upgrade.js?v=935579dff7d8c412';
+import { hasPublicAssistantAiConsent, setPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=f135b25f77f9d29a';
 
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
@@ -7,8 +8,8 @@ import { SITE_MEDIA_BUCKET, SITE_MEDIA_ITEMS, SITE_MEDIA_MAX_BYTES } from './sit
 import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=579fe6322d9669c6';
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=1854b9ab17d5d96f';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=5401d58c55dcc6a9';
-import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=eb8188fbc2f4c295';
-import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=5559dcc275e0e6ef';
+import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=713da4b8791c3f6b';
+import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=b3248e37e2901e1c';
 import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=931445641eb2e68b';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=922e7c582cfad4ce';
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=c9817f98418e7db3';
@@ -452,7 +453,7 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
   const label = document.createElement('strong');
-  label.textContent = kind === 'user' ? 'أنت' : 'مساعد أمين المكتبة';
+  label.textContent = kind === 'user' ? 'أنت' : 'المساعد الذكي';
   const body = document.createElement('p');
   body.textContent = text;
   item.append(label, body);
@@ -516,7 +517,7 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
     approve.className = 'button button-primary';
     approve.dataset.visitorFreeModelConsent = 'true';
     approve.dataset.question = externalModelConsentQuestion;
-    approve.textContent = 'أوافق على إرسال هذا السؤال إلى Qwen عبر Groq المجاني';
+    approve.textContent = 'أوافق وأحفظ الموافقة على هذا الجهاز';
     const local = document.createElement('button');
     local.type = 'button';
     local.className = 'button button-outline';
@@ -597,7 +598,7 @@ async function answerVisitorQuestion(question) {
     : { text: `لم أجد عنواناً منشوراً يطابق «${query}». جرّب كلمة أقصر أو ابحث مباشرة في الفهرس؛ قد لا تكون كل الكتب مسجلة أو منشورة.`, searchQuery: query };
 }
 let visitorAssistantBusy = false;
-async function sendVisitorQuestion(question, { externalAiConsent = false, appendQuestion = true } = {}) {
+async function sendVisitorQuestion(question, { externalAiConsent = hasPublicAssistantAiConsent(), appendQuestion = true } = {}) {
   const text = String(question || '').trim().slice(0, 300);
   if (!text || visitorAssistantBusy) return;
   visitorAssistantBusy = true;
@@ -625,7 +626,7 @@ async function sendVisitorQuestion(question, { externalAiConsent = false, append
     });
     if (answer.needsExternalModelConsent) {
       const prompt = appendVisitorAssistantMessage('assistant', answer.text, { externalModelConsentQuestion: text });
-      setMessage($('#visitorAssistantStatus'), 'لم يُرسل السؤال إلى Qwen. وافق لمرة واحدة لإرساله إلى Groq أو اختر إجابة محلية.');
+      setMessage($('#visitorAssistantStatus'), 'لم يُرسل السؤال إلى Qwen. وافق مرة واحدة لحفظ الموافقة على هذا الجهاز، أو اختر إجابة محلية.');
       requestAnimationFrame(() => prompt.querySelector('[data-visitor-free-model-consent]')?.focus({ preventScroll: true }));
       return;
     }
@@ -685,7 +686,14 @@ $('#visitorAssistantLog').addEventListener('click', event => {
     decisionButton.closest('.visitor-assistant-message')?.querySelectorAll('[data-visitor-free-model-consent], [data-visitor-local-answer]')
       .forEach(button => { button.disabled = true; });
     if (consentButton) {
-      appendVisitorAssistantMessage('user', 'أوافق على إرسال هذا السؤال العام إلى Qwen عبر Groq ضمن الخطة المجانية لهذا السؤال فقط.');
+      const saved = setPublicAssistantAiConsent(true);
+      const consentToggle = $('#visitorAssistantPersistentConsent');
+      if (consentToggle) consentToggle.checked = true;
+      const consentStatus = $('#visitorAssistantConsentStatus');
+      if (consentStatus) consentStatus.textContent = saved.persisted
+        ? 'حُفظت الموافقة على هذا الجهاز؛ يمكنك إلغاؤها بإزالة العلامة.'
+        : 'تعذر حفظ الاختيار في المتصفح؛ ستبقى الموافقة فعّالة حتى إغلاق الصفحة.';
+      appendVisitorAssistantMessage('user', 'أوافق على إرسال هذا السؤال العام والأسئلة العامة التالية إلى Qwen عبر Groq ضمن الخطة المجانية على هذا الجهاز.');
       sendVisitorQuestion(question, { externalAiConsent: true, appendQuestion: false });
     } else {
       appendVisitorAssistantMessage('user', 'أفضل إجابة محلية؛ لا أوافق على إرسال هذا السؤال إلى نموذج خارجي.');

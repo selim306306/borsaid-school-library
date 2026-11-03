@@ -1,4 +1,5 @@
 import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js?v=7cc123df22c3c45f';
+import { hasPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=f135b25f77f9d29a';
 
 const SUPABASE_URL = 'https://eahptkwvjcnixlzlyznh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MpskNH6FyBeuQmb3Y9V2Aw_7d2L9x00';
@@ -117,9 +118,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
-    const aiConsentField = document.querySelector('#visitorQuestionAiConsent');
-    const externalAiConsent = aiConsentField?.checked === true;
-    if (aiConsentField) aiConsentField.checked = false;
+    const externalAiConsent = hasPublicAssistantAiConsent();
     if (containsSensitivePersonalData(question)) {
       questionField.value = '';
       showLocalPrivacyReply();

@@ -1,5 +1,5 @@
 import { containsSensitivePersonalData } from './supabase/functions/visitor-questions/privacy-guard.js?v=7cc123df22c3c45f';
-import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=eb8188fbc2f4c295';
+import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=713da4b8791c3f6b';
 import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=931445641eb2e68b';
 
 export const VISITOR_PERSONAL_DATA_REPLY = 'حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.';
@@ -10,7 +10,7 @@ export function isVisitorAssistantQuestionSensitive(question) {
 
 export async function routeVisitorAssistantQuestion(question, {
   askFreeModel = async () => null,
-  answerLocally = async () => ({ text: 'تعذّر الاتصال بالمساعد الذكي الآن؛ أعد المحاولة لاحقًا أو استخدم قسم «اسأل أمين المكتبة».' }),
+  answerLocally = async () => ({ text: 'تعذّر الاتصال بالمساعد الذكي الآن؛ أعد المحاولة لاحقًا أو استخدم نموذج «أرسل سؤالًا للمساعد الذكي».' }),
   externalAiConsent = false,
 } = {}) {
   const text = String(question ?? '').normalize('NFKC').trim();

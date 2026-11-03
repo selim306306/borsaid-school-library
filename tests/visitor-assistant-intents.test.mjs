@@ -31,13 +31,13 @@ test('a named self-introduction is answered conversationally, not treated as a c
   assert.match(answer.text, /لا تمنح صلاحية إدارية/);
 });
 
-test('a request to speak with a specialist links to the existing visitor-support section without sending the message', () => {
+test('a request to speak with a specialist links to the unified assistant follow-up form without sending the message', () => {
   const answer = resolveVisitorAssistantIntent('محتاج أتكلم مع مختص');
-  assert.match(answer.text, /قسم «اسأل أمين المكتبة»/);
-  assert.match(answer.text, /لا تُرسل تلقائياً إلى نموذج الأسئلة أو Telegram/);
+  assert.match(answer.text, /نموذج «أرسل سؤالًا للمساعد الذكي»/);
+  assert.match(answer.text, /لا تُرسل تلقائيًا إلى نموذج الأسئلة أو Telegram/);
   assert.deepEqual(answer.actionLinks, [{
     href: '#visitorQuestions',
-    label: 'الانتقال إلى قسم «اسأل أمين المكتبة»',
+    label: 'الانتقال إلى نموذج السؤال للمساعد الذكي',
   }]);
 });
 

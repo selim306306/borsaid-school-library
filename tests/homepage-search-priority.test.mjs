@@ -33,7 +33,7 @@ test('الأخبار تأتي بعد مصادر القراءة مع بقاء م�
     assert.match(html, new RegExp(`href="${href.replace('#', '\\#')}"`));
   }
   assert.match(html, /مكتبات/);
-  assert.match(html, /مساعد أمين المكتبة/);
+  assert.match(html, /المساعد الذكي/);
   assert.match(html, /أخبار المكتبات في مصر والعالم/);
 });
 
