@@ -67,14 +67,20 @@ function validNewsImageUrl(value) {
   return url.username || url.password ? '' : url.href;
 }
 
+const TRACKING_QUERY_PARAMETER = /^(?:utm(?:_.+)?|fbclid|gclid|dclid|msclkid|yclid|mc_cid|mc_eid)$/i;
+
 function canonicalSourceUrl(value) {
   const safeUrl = validHttpsUrl(value);
   if (!safeUrl) return '';
   const url = new URL(safeUrl);
-  url.search = '';
+  const queryParameters = [...url.searchParams.entries()]
+    .filter(([key]) => !TRACKING_QUERY_PARAMETER.test(key))
+    .map(([key, parameterValue]) => [key.toLowerCase(), parameterValue])
+    .sort(([left], [right]) => left.localeCompare(right));
+  url.search = new URLSearchParams(queryParameters).toString();
   url.hash = '';
   url.pathname = url.pathname.replace(/\/+$/, '') || '/';
-  return `${url.origin}${url.pathname}`;
+  return url.href;
 }
 
 function deduplicateItems(items) {
