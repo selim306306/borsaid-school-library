@@ -80,10 +80,12 @@ test('published news archive is loaded for visitor-assistant questions but never
   assert.equal(visitorRequests.filter(request => request.url.startsWith('https://selim306306.github.io/borsaid-school-library/news.json')).length, 1);
   assert.match(visitorMessages[1].content, /خبر عام خاص باختبار مسار الزوار/);
   assert.match(visitorMessages[0].content, /أرشيف الأخبار المنشور/);
+  assert.match(visitorMessages[0].content, /بالكلمات العربية لا بالأرقام/);
   assert.equal(telegramResult.ok, true);
   assert.equal(telegramRequests.length, 1);
   assert.doesNotMatch(telegramMessages[1].content, /خبر عام خاص باختبار مسار الزوار/);
   assert.doesNotMatch(telegramMessages[0].content, /لا تدّع أنك تحتاج إلى تصفح الويب/);
+  assert.doesNotMatch(telegramMessages[0].content, /بالكلمات العربية لا بالأرقام/);
 });
 
 test('Telegram wiring reads only the project-specific Groq Free variables', async () => {

@@ -91,7 +91,7 @@ test('latest-news answers include the published archive details and do not claim
       if (url.startsWith('https://selim306306.github.io/borsaid-school-library/news.json')) return fakeResponse(publishedNewsArchive);
       if (url === 'https://api.groq.com/openai/v1/chat/completions') {
         modelRequest = JSON.parse(init.body);
-        return fakeResponse({ choices: [{ message: { content: 'أحدث خبر موثق منشور.' } }] });
+        return fakeResponse({ choices: [{ message: { content: 'خبر برنامج المكتبة منشور في الثاني من نوفمبر عام ألفين وستة وعشرين، وخبر المكتبة الأقدم في الأول من نوفمبر عام ألفين وستة وعشرين. المصدر: مكتبة الإسكندرية.' } }] });
       }
       throw new Error(`unexpected public request: ${url}`);
     },
@@ -102,6 +102,8 @@ test('latest-news answers include the published archive details and do not claim
   assert.match(modelRequest.messages[1].content, /مكتبة الإسكندرية/);
   assert.match(modelRequest.messages[1].content, /ملخص عربي منشور يشرح الخبر الأحدث/);
   assert.match(modelRequest.messages[0].content, /لا تدّع أنك تحتاج إلى تصفح الويب/);
+  assert.match(modelRequest.messages[0].content, /بالكلمات العربية لا بالأرقام/);
+  assert.match(modelRequest.messages[0].content, /اسم المصدر دون روابط أو معرّفات رقمية/);
   assert.doesNotMatch(JSON.stringify(modelRequest), /tracking-marker|private-test-token|private(?:%40|@)example|private-fragment|unneeded-/);
 });
 
