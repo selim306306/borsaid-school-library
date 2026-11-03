@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { answerPublicQuestionWithFreeProvider } from '../supabase/functions/visitor-assistant/assistant.js';
+import { answerPublicQuestionWithFreeProvider as answerTelegramQuestion } from '../supabase/functions/telegram-webhook/assistant.js';
+import { answerPublicQuestionWithFreeProvider as answerVisitorQuestion } from '../supabase/functions/visitor-assistant/assistant.js';
 
 function fakeResponse(data, status = 200) {
   return { ok: status >= 200 && status < 300, status, json: async () => data };
@@ -9,7 +10,7 @@ function fakeResponse(data, status = 200) {
 
 test('Telegram assistant does not touch legacy paid or unverified provider credentials', async () => {
   const requests = [];
-  const result = await answerPublicQuestionWithFreeProvider({
+  const result = await answerTelegramQuestion({
     question: 'ما الخدمات التي يقدمها الموقع؟',
     deepseekApiKey: 'legacy-paid-key',
     qwenApiKey: 'legacy-unverified-key',
@@ -26,7 +27,7 @@ test('Telegram assistant does not touch legacy paid or unverified provider crede
 
 test('Telegram provider uses only Groq-hosted Qwen after the free-plan gate', async () => {
   const requests = [];
-  const result = await answerPublicQuestionWithFreeProvider({
+  const result = await answerTelegramQuestion({
     question: 'ما الخدمات التي يقدمها الموقع؟',
     groqApiKey: 'test-only-free-key',
     groqFreePlanConfirmed: true,
@@ -44,6 +45,45 @@ test('Telegram provider uses only Groq-hosted Qwen after the free-plan gate', as
   assert.equal(result.provider, 'groq');
   assert.equal(result.model, 'qwen/qwen3.8-27b');
   assert.equal(result.text, 'يعرض الموقع الفهرس والقراءة الرقمية.');
+});
+
+test('published news archive is loaded for visitor-assistant questions but never for Telegram', async () => {
+  const archive = { items: [{
+    title_ar: 'خبر عام خاص باختبار مسار الزوار',
+    summary_ar: 'ملخص عام منشور للاختبار يثبت تمرير الأرشيف للمساعد المقصود.',
+    source_name: 'مكتبة الإسكندرية',
+    source_url: 'https://www.bibalex.org/en/news/details?documentid=46381',
+    published_at: '2026-11-02',
+  }] };
+  const run = async (answer, requests) => answer({
+    question: 'ما أحدث أخبار مكتبة الإسكندرية؟',
+    groqApiKey: 'test-only-free-key',
+    groqFreePlanConfirmed: true,
+    externalAiConsent: true,
+    fetchImpl: async (url, init) => {
+      requests.push({ url, init });
+      if (url.startsWith('https://selim306306.github.io/borsaid-school-library/news.json')) return fakeResponse(archive);
+      if (url === 'https://api.groq.com/openai/v1/chat/completions') return fakeResponse({ choices: [{ message: { content: 'إجابة اختبار.' } }] });
+      throw new Error(`unexpected request: ${url}`);
+    },
+  });
+  const visitorRequests = [];
+  const telegramRequests = [];
+  const visitorResult = await run(answerVisitorQuestion, visitorRequests);
+  const telegramResult = await run(answerTelegramQuestion, telegramRequests);
+  const visitorModelRequest = visitorRequests.find(request => request.url === 'https://api.groq.com/openai/v1/chat/completions');
+  const telegramModelRequest = telegramRequests.find(request => request.url === 'https://api.groq.com/openai/v1/chat/completions');
+  const visitorMessages = JSON.parse(visitorModelRequest.init.body).messages;
+  const telegramMessages = JSON.parse(telegramModelRequest.init.body).messages;
+
+  assert.equal(visitorResult.ok, true);
+  assert.equal(visitorRequests.filter(request => request.url.startsWith('https://selim306306.github.io/borsaid-school-library/news.json')).length, 1);
+  assert.match(visitorMessages[1].content, /خبر عام خاص باختبار مسار الزوار/);
+  assert.match(visitorMessages[0].content, /أرشيف الأخبار المنشور/);
+  assert.equal(telegramResult.ok, true);
+  assert.equal(telegramRequests.length, 1);
+  assert.doesNotMatch(telegramMessages[1].content, /خبر عام خاص باختبار مسار الزوار/);
+  assert.doesNotMatch(telegramMessages[0].content, /لا تدّع أنك تحتاج إلى تصفح الويب/);
 });
 
 test('Telegram wiring reads only the project-specific Groq Free variables', async () => {

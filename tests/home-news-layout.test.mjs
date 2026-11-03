@@ -123,6 +123,7 @@ async function runNews(payload, { fetchError = false, httpError = false } = {}) 
   const context = vm.createContext({
     document: fixture.document,
     URL,
+    URLSearchParams,
     Intl,
     Date,
     Number,
@@ -170,6 +171,18 @@ test('site-news.js يرشح ويزيل التكرار ويرتب أحدث ثلا
   assert.equal(nodes.homeNewsGrid.getAttribute('aria-busy'), 'false');
   assert.equal(nodes.educationNewsGrid.getAttribute('aria-busy'), 'false');
   assert.equal(nodes.homeNewsStatus.textContent, '');
+});
+
+test('site-news.js keeps distinct Bibliotheca Alexandrina DocumentID articles and removes tracking aliases', async () => {
+  const nodes = await runNews({ items: [
+    item('bibalex-46369', 0, { source_url: 'https://www.bibalex.org/en/news/Details.aspx?DocumentID=46369' }),
+    item('bibalex-46370', 1, { source_url: 'https://www.bibalex.org/en/news/Details.aspx?documentid=46370' }),
+    item('bibalex-46369-tracked', 2, { source_url: 'https://www.bibalex.org/en/news/Details.aspx?documentid=46369&utm_source=archive#top' }),
+  ] });
+  assert.deepEqual(nodes.educationNewsGrid.children.map(card => card.getAttribute('data-news-id')), [
+    'bibalex-46369',
+    'bibalex-46370',
+  ]);
 });
 
 test('site-news.js يتعامل مع فشل HTTP وفشل الشبكة دون خبر مصطنع', async () => {
