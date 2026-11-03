@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-02T12:28:34.838Z",
+  "updated_at": "2026-11-03T11:57:30.370Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -326,6 +326,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46379",
       "published_at": "2026-11-01",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-d47494cb94cb26af1aed59b379c562e8c1bd06251fcf75ec05b41a38b7bb95ee",
+      "title_ar": "مكتبة الإسكندرية تواصل تنفيذ برنامج التوعية المدرسية للعام الدراسي 2026-2027",
+      "summary_ar": "أعلنت مكتبة الإسكندرية عبر متحف الآثار استمرار برنامج التوعية المدرسية للعام الدراسي 2026-2027 بهدف تعزيز الوعي الأثري والتاريخي لدى طلاب المراحل الابتدائية والإعدادية والثانوية. ويعتمد البرنامج على تقنيات تفاعلية وورش عمل عملية تقدمها وحدة المرشدين السياحيين لدمج التراث بالتكنولوجيا.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46381",
+      "published_at": "2026-11-02",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
