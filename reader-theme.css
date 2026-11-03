@@ -495,3 +495,6 @@ body, #homeView { background-color: var(--library-canvas); }
 /* Soft relief applies only to existing cards and controls. */
 /* Content, layout, dimensions, spacing and order remain unchanged. */
 /* Existing transitions and hover motion remain unchanged. */
+
+/* Keep the announcement-card eyebrow readable against its dark surface. */
+#homeView .portal-program-card .eyebrow-light { color: #dbe6ff; }
