@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { answerPublicQuestionWithFreeProvider as answerSharedQuestion } from '../supabase/functions/_shared/public-assistant.js';
 import { answerPublicQuestionWithFreeProvider as answerTelegramQuestion } from '../supabase/functions/telegram-webhook/assistant.js';
 import { answerPublicQuestionWithFreeProvider as answerVisitorQuestion } from '../supabase/functions/visitor-assistant/assistant.js';
 
@@ -45,6 +46,32 @@ test('Telegram provider uses only Groq-hosted Qwen after the free-plan gate', as
   assert.equal(result.provider, 'groq');
   assert.equal(result.model, 'qwen/qwen3.8-27b');
   assert.equal(result.text, 'يعرض الموقع الفهرس والقراءة الرقمية.');
+});
+
+test('general knowledge is enabled only for the public website chat, not shared ticket or Telegram paths', async () => {
+  const run = async answer => {
+    let payload;
+    const result = await answer({
+      question: 'لماذا تبدو السماء زرقاء؟',
+      groqApiKey: 'test-only-free-key',
+      groqFreePlanConfirmed: true,
+      externalAiConsent: true,
+      fetchImpl: async (url, init) => {
+        assert.equal(url, 'https://api.groq.com/openai/v1/chat/completions');
+        payload = JSON.parse(init.body);
+        return fakeResponse({ choices: [{ message: { content: 'بسبب تشتت الضوء في الغلاف الجوي.' } }] });
+      },
+    });
+    assert.equal(result.ok, true);
+    return payload.messages[0].content;
+  };
+  const visitorInstruction = await run(answerVisitorQuestion);
+  const sharedInstruction = await run(answerSharedQuestion);
+  const telegramInstruction = await run(answerTelegramQuestion);
+
+  assert.match(visitorInstruction, /اعتمادًا على معرفتك العامة/);
+  assert.match(sharedInstruction, /دليل الموقع والبيانات العامة المنشورة المرفقة فقط/);
+  assert.match(telegramInstruction, /دليل الموقع والبيانات العامة المنشورة المرفقة فقط/);
 });
 
 test('published news archive is loaded for visitor-assistant questions but never for Telegram', async () => {

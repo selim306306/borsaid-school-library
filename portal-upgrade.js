@@ -62,7 +62,7 @@
     programs.className = 'portal-programs';
     programs.innerHTML = `
       <article class="portal-program-card"><span class="eyebrow eyebrow-light">إعلانات ومسابقات المدرسة</span><h3>شارك، اقرأ، واكتشف موهبتك</h3><p>مساحة جاهزة لإعلانات المكتبة والمسابقات والأنشطة الورقية والرقمية. تُربط لاحقًا ببيانات الإعلانات من لوحة التحكم.</p><div class="portal-program-links"><button type="button" data-upgrade-target="announcementsTab">مشاهدة الإعلانات</button><button type="button" data-upgrade-target="educationResearchTab">أخبار وأبحاث</button></div></article>
-      <article class="portal-program-card alt"><span class="eyebrow">ترحيب بالزائر</span><h3>اسأل المساعد الذكي</h3><p>اكتب سؤالك عن البحث أو القراءة أو استخدام الموقع، وسيقودك المساعد إلى القسم المناسب.</p><div class="portal-program-links"><button type="button" data-upgrade-target="headerVisitorChatShortcut">ابدأ الحوار</button></div></article>
+      <article class="portal-program-card alt"><span class="eyebrow">ترحيب بالزائر</span><h3>اسأل المساعد الذكي</h3><p>اسأل عن أي موضوع عام أو عن البحث والقراءة والموقع؛ وتبقى معلومات المكتبة من المصادر المنشورة.</p><div class="portal-program-links"><button type="button" data-upgrade-target="headerVisitorChatShortcut">ابدأ الحوار</button></div></article>
     `;
     document.getElementById('homeView')?.querySelector('.portal-hero')?.insertAdjacentElement('afterend', programs);
 
@@ -78,13 +78,13 @@
       const title = dialog.querySelector('#visitorChatDialogTitle');
       if (title) title.textContent = 'المساعد الذكي';
       const eyebrow = assistant.querySelector('.visitor-assistant-copy .eyebrow');
-      if (eyebrow) eyebrow.textContent = 'المساعد الذكي · معلومات عامة منشورة';
+      if (eyebrow) eyebrow.textContent = 'المساعد الذكي · معرفة عامة ومعلومات مكتبة موثقة';
       const assistantTitle = assistant.querySelector('.visitor-assistant-copy h2');
-      if (assistantTitle) assistantTitle.textContent = 'اسأل عن الموقع أو كتاب منشور';
+      if (assistantTitle) assistantTitle.textContent = 'اسأل عن أي موضوع أو عن الموقع والكتب المنشورة';
       const assistantCopy = assistant.querySelector('.visitor-assistant-copy > p');
-      if (assistantCopy) assistantCopy.textContent = 'يجيب المساعد من المعلومات العامة المنشورة، وتُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.';
+      if (assistantCopy) assistantCopy.textContent = 'يجيب المساعد عن أسئلة المعرفة العامة بالعربية. أما معلومات المكتبة وكتبها وخدماتها، فيعتمد فيها على المعلومات المنشورة فقط. تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.';
       const assistantNotice = assistant.querySelector('#visitorAssistantPrivacy');
-      if (assistantNotice) assistantNotice.textContent = 'لا تُدخل بيانات شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط، ويُرسل السؤال العام تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة البيانات ولا تُرسل عبر Telegram.';
+      if (assistantNotice) assistantNotice.textContent = 'لا تُدخل بيانات شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يجيب المساعد عن المعرفة العامة من معرفته، لكنه لا يتصفح الإنترنت ولا يتحقق لحظيًا. يستخدم معلومات الموقع والفهرس المنشورة فقط عند السؤال عن المكتبة. تُرسل الأسئلة العامة إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة البيانات ولا تُرسل عبر Telegram.';
       const questionTitle = questions.querySelector('.visitor-support-copy h2');
       if (questionTitle) questionTitle.textContent = 'أرسل سؤالًا للمساعد الذكي أو اطلب متابعة المكتبة';
       questions.querySelector('.visitor-telegram-link')?.setAttribute('aria-label', 'فتح قناة Telegram للمساعد الموحد');

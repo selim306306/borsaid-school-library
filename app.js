@@ -1,4 +1,4 @@
-import './portal-upgrade.js?v=618fc8ff94a8177b';
+import './portal-upgrade.js?v=10d73d8fe6cf2d6e';
 import { clearLegacyPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=7d0f2ad1d3efefc5';
 clearLegacyPublicAssistantAiConsent();
 
@@ -559,7 +559,7 @@ async function answerVisitorQuestion(question) {
     return { text: 'هذه المكتبة المدرسية الرقمية، بوابة اكتشاف مشتركة لمكتبات المدارس المشاركة في بورسعيد. تساعدك على البحث عن الكتب المنشورة والتحقق من الفرع والإتاحة ومكان النسخة؛ ولا تعرض إلا المعلومات التي نشرتها المكتبة.' };
   }
   if (/^(?:اهلا|أهلا|مرحبا|مرحباً|السلام عليكم|صباح الخير|مساء الخير)(?:\s+بكم?)?[.!،؟]*$/u.test(String(question).trim())) {
-    return { text: 'أهلاً بك. يمكنني مساعدتك في معلومات الموقع العامة، أو الإجابة عن كتاب/مؤلف، أو البحث عن عنوان منشور عند طلب ذلك بوضوح.' };
+    return { text: 'أهلاً بك. أستطيع الإجابة عن أسئلة المعرفة العامة، أو عن استخدام الموقع وكتبه المنشورة.' };
   }
   const catalogIntent = classifyVisitorCatalogIntent(question);
   if (catalogIntent.kind === 'clarify') {
@@ -592,7 +592,7 @@ async function sendVisitorQuestion(question, { appendQuestion = true } = {}) {
     return;
   }
   if (appendQuestion) appendVisitorAssistantMessage('user', text);
-  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة من المعلومات العامة المنشورة…');
+  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة عن سؤالك العام أو معلومات المكتبة المنشورة…');
   const submit = $('#visitorAssistantForm button[type="submit"]');
   submit.disabled = true;
   try {
@@ -609,7 +609,7 @@ async function sendVisitorQuestion(question, { appendQuestion = true } = {}) {
     appendVisitorAssistantMessage('assistant', answer.text, answer);
     const providerName = answer.source === 'groq' ? 'Qwen عبر Groq ضمن الخطة المجانية' : '';
     setMessage($('#visitorAssistantStatus'), providerName
-      ? `أجاب ${providerName} اعتمادًا على معلومات الموقع والفهرس المنشور. لا تُعد الإتاحة اللحظية مؤكدة إلا بعد مراجعة الفرع.`
+      ? `أجاب ${providerName}. لا يتصفح الإنترنت؛ ومعلومات المكتبة من المصادر المنشورة فقط.`
       : answer.source === 'local-fallback'
         ? answer.sentToExternalModel
           ? 'لم يتمكن Qwen من إعداد رد؛ عرض المساعد إجابة محلية بديلة من الموقع والفهرس المنشور.'

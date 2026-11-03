@@ -114,3 +114,51 @@ test('the public Edge function has only the gated free Groq credential and no le
   assert.doesNotMatch(backend, /GEMINI_API_KEY|DEEPSEEK_API_KEY|QWEN_API_KEY/);
   assert.doesNotMatch(backend, /generativelanguage\.googleapis\.com|api\.deepseek\.com|dashscope\.aliyuncs\.com/);
 });
+
+test('general-knowledge questions reach free Qwen without being limited to site data or claiming live browsing', async () => {
+  const calls = [];
+  let modelRequest;
+  const result = await answerPublicQuestionWithFreeProvider({
+    question: 'لماذا تبدو السماء زرقاء؟',
+    groqApiKey: 'mock-only',
+    groqFreePlanConfirmed: true,
+    externalAiConsent: true,
+    fetchImpl: async (url, init) => {
+      calls.push(url);
+      if (url !== 'https://api.groq.com/openai/v1/chat/completions') throw new Error(`unexpected public lookup: ${url}`);
+      modelRequest = JSON.parse(init.body);
+      return fakeResponse({ choices: [{ message: { content: 'تبدو السماء زرقاء لأن جزيئات الهواء تشتت الضوء الأزرق أكثر من غيره.' } }] });
+    },
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(result.text, 'تبدو السماء زرقاء لأن جزيئات الهواء تشتت الضوء الأزرق أكثر من غيره.');
+  assert.deepEqual(calls, ['https://api.groq.com/openai/v1/chat/completions']);
+  assert.match(modelRequest.messages[0].content, /المعرفة العامة/);
+  assert.doesNotMatch(modelRequest.messages[0].content, /من دليل الموقع والبيانات العامة المنشورة المرفقة فقط/);
+  assert.match(modelRequest.messages[0].content, /لا تتصفح الإنترنت|لا تدّع.{0,30}تصفح الإنترنت/u);
+  assert.match(modelRequest.messages[0].content, /لحظي|متغيرة/);
+});
+
+test('missing published news never allows general-knowledge guesses about library news', async () => {
+  let modelRequest;
+  const result = await answerPublicQuestionWithFreeProvider({
+    question: 'ما آخر أخبار مكتبات بورسعيد؟',
+    groqApiKey: 'mock-only',
+    groqFreePlanConfirmed: true,
+    externalAiConsent: true,
+    fetchImpl: async (url, init) => {
+      if (url.startsWith('https://selim306306.github.io/borsaid-school-library/news.json')) return fakeResponse({ items: [] });
+      if (url === 'https://api.groq.com/openai/v1/chat/completions') {
+        modelRequest = JSON.parse(init.body);
+        return fakeResponse({ choices: [{ message: { content: 'لا توجد أخبار موثقة في الأرشيف المنشور المتاح الآن.' } }] });
+      }
+      throw new Error(`unexpected public lookup: ${url}`);
+    },
+  });
+
+  assert.equal(result.ok, true);
+  assert.match(modelRequest.messages[1].content, /أرشيف الأخبار المنشور لا يحتوي حاليًا على سجلات أخبار موثقة/);
+  assert.match(modelRequest.messages[0].content, /سجلات أرشيف الأخبار المنشور المرفقة/);
+  assert.match(modelRequest.messages[0].content, /لا تخترع خبرًا أو مصدرًا/);
+});

@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const portal = readFileSync(new URL('../portal-upgrade.js', import.meta.url), 'utf8');
 
 function sectionBetween(startMarker, endMarker) {
   const start = html.indexOf(startMarker);
@@ -17,7 +18,7 @@ test('homepage assistant entry points lead to the unified public assistant', () 
   assert.match(html, /id="headerVisitorChatShortcut"[^>]*aria-controls="visitorChatDialog"/);
   assert.match(html, /id="visitorChatDialog"/);
   assert.match(html, /id="visitorAssistant"[^>]*aria-labelledby="visitorAssistantTitle"/);
-  assert.match(html, /id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور<\/h2>/);
+  assert.match(html, /id="visitorAssistantTitle">اسأل عن أي موضوع أو عن الموقع والكتب المنشورة<\/h2>/);
   assert.match(html, /id="visitorChatDialogTitle">المساعد الذكي/);
 
   const aiPathway = sectionBetween('<article class="visitor-pathway-card visitor-pathway-ai">', '</article>');
@@ -41,6 +42,15 @@ test('public assistant explains automatic free-Qwen processing separately from p
   assert.match(assistant, /لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram/);
   assert.match(assistant, /لا تُدخل أي اسم أو معلومة شخصية أو سرية/);
   assert.doesNotMatch(assistant, /Gemini|DeepSeek/i);
+});
+
+test('public assistant invites general questions but anchors library facts to published sources', () => {
+  const assistant = sectionBetween('<section class="visitor-assistant section-wrap"', '</section>\n    </dialog>');
+  assert.match(assistant, /أسئلة المعرفة العامة/);
+  assert.match(assistant, /معلومات الموقع والفهرس المنشورة فقط عند السؤال عن المكتبة/);
+  assert.match(assistant, /لا يتصفح الإنترنت ولا يتحقق لحظيًا/);
+  assert.match(portal, /أسئلة المعرفة العامة/);
+  assert.match(portal, /معلومات الموقع والفهرس المنشورة فقط عند السؤال عن المكتبة/);
 });
 
 test('public follow-up explains automatic free-Qwen processing and separate Telegram handling', () => {

@@ -1,5 +1,5 @@
 <!doctype html>
-<script type="module" src="portal-upgrade.js?v=618fc8ff94a8177b"></script>
+<script type="module" src="portal-upgrade.js?v=10d73d8fe6cf2d6e"></script>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -36,7 +36,7 @@
   <script type="module" src="school-branding-bootstrap.mjs?v=aa669c7d4430fade"></script>
   <script type="module" src="site-media-public.js?v=32e20cc432e340e7"></script>
   <script type="module" src="header-photo-carousel.js?v=7c4d773d0678a0be"></script>
-  <script type="module" src="app.js?v=dc670656d1088ac8"></script>
+  <script type="module" src="app.js?v=936c9b41babd8fec"></script>
   <script type="module" src="book-catalog-assistant.js?v=da14aa037db0a967"></script>
   <script type="module" src="global-reading.js?v=5d64ca08e2de5f20"></script>
   <script type="module" src="education-research.js?v=e1dbe97e4e150c92"></script>
@@ -46,7 +46,7 @@
   <script type="module" src="book-updates-ticker.js?v=5f6e54226ae352e1"></script>
   <script type="module" src="visitor-questions.js?v=a9191663c22c413c"></script>
   <script defer src="image-viewer.js?v=5ee695f637142162"></script>
-  <script type="module" src="header-reading-summary.js?v=4fae09fe6905bdf0"></script>
+  <script type="module" src="header-reading-summary.js?v=f1543f00975e75e0"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -121,7 +121,7 @@
         <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
         <nav class="portal-side-links">
           <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-          <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>المساعد الذكي</strong><small>إرشاد من المعلومات العامة المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+          <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>المساعد الذكي</strong><small>معرفة عامة ومعلومات مكتبة منشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
           <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات في مصر والعالم</strong><small>موجز عربي ومصادر موثوقة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
         </nav>
       </aside>
@@ -138,7 +138,7 @@
           <article class="visitor-pathway-card visitor-pathway-ai">
             <span class="visitor-pathway-icon" aria-hidden="true">م</span>
             <h3>المساعد الذكي</h3>
-            <p>إجابة عامة عن الموقع والكتب المنشورة. عند توافر إعداد الخطة المجانية، تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq دون طلب موافقة منفصلة. لا تُدخل بيانات شخصية أو سرية؛ تُحجب الأنماط الحساسة المعروفة محليًا. لا تُحفظ المحادثة ولا تُرسل عبر Telegram.</p>
+            <p>إجابة عن المعرفة العامة أو معلومات الموقع والكتب المنشورة. يعتمد في معلومات المكتبة على المصادر المنشورة فقط، ولا يتصفح الإنترنت أو يتحقق لحظيًا. عند توافر إعداد الخطة المجانية، تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq دون طلب موافقة منفصلة. لا تُدخل بيانات شخصية أو سرية؛ تُحجب الأنماط الحساسة المعروفة محليًا. لا تُحفظ المحادثة ولا تُرسل عبر Telegram.</p>
             <a class="visitor-pathway-action" href="#visitorAssistant">افتح المساعد الذكي <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-librarian">
@@ -469,11 +469,11 @@
     <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
       <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">المساعد الذكي</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق المساعد الذكي">×</button></header>
       <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · معلومات عامة منشورة</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>يجيب المساعد من المعلومات العامة المنشورة، وتُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">لا تُدخل أي اسم أو معلومة شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط، ويُرسل السؤال العام تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram.</div></div>
+        <div class="visitor-assistant-copy"><span class="eyebrow">المساعد الذكي · معرفة عامة ومعلومات مكتبة موثقة</span><h2 id="visitorAssistantTitle">اسأل عن أي موضوع أو عن الموقع والكتب المنشورة</h2><p>يجيب المساعد عن أسئلة المعرفة العامة بالعربية. أما معلومات المكتبة وكتبها وخدماتها، فيعتمد فيها على المعلومات المنشورة فقط. تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية عند توافر الإعداد.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">لا تُدخل أي اسم أو معلومة شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يجيب المساعد عن المعرفة العامة من معرفته، لكنه لا يتصفح الإنترنت ولا يتحقق لحظيًا. يستخدم معلومات الموقع والفهرس المنشورة فقط عند السؤال عن المكتبة. إذا احتوى السؤال على معلومات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبه النظام محليًا. لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram.</div></div>
         <div class="visitor-assistant-box">
-          <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة المساعد الذكي"><article class="visitor-assistant-message assistant"><strong>المساعد الذكي</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
+          <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة المساعد الذكي"><article class="visitor-assistant-message assistant"><strong>المساعد الذكي</strong><p>أهلاً بك. اسألني عن أي موضوع عام أو عن الموقع والكتب المنشورة.</p></article></div>
           <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
-          <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالك عن الموقع أو كتاب منشور</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب سؤالك أو عنوان كتاب…"><button class="button button-primary" type="submit">اسأل</button></form>
+          <form id="visitorAssistantForm" class="visitor-assistant-form"><label class="sr-only" for="visitorAssistantInput">اكتب سؤالًا عامًا أو عن المكتبة والكتب المنشورة</label><input id="visitorAssistantInput" name="question" maxlength="300" required autocomplete="off" placeholder="اكتب أي سؤال…"><button class="button button-primary" type="submit">اسأل</button></form>
           <p class="form-message" id="visitorAssistantStatus" role="status" aria-live="polite"></p>
         </div>
       </section>

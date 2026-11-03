@@ -16,5 +16,5 @@ export function buildPublicContext(question, options = {}) {
 }
 
 export function answerPublicQuestionWithFreeProvider(options = {}) {
-  return answerSharedPublicQuestion({ ...options, includeNewsArchive: true });
+  return answerSharedPublicQuestion({ ...options, includeNewsArchive: true, allowGeneralKnowledge: true });
 }

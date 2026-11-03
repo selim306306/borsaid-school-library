@@ -34,7 +34,7 @@ test('شريط المساعدة يعرض مدخلًا واحدًا ويحتفظ 
     assert.equal((nav.match(/href="#visitorAssistant"/g) ?? []).length, 1);
     assert.doesNotMatch(nav, /href="#visitorQuestions"/);
   }
-  for (const text of ['إجابة عامة عن الموقع والكتب المنشورة', 'تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'يجيب تلقائيًا من المعلومات المنشورة', 'Qwen عبر Groq على الخطة المجانية']) {
+  for (const text of ['إجابة عن المعرفة العامة أو معلومات الموقع والكتب المنشورة', 'تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq', 'قد يصل السؤال والرد إلى مدير الموقع عبر Telegram', 'يجيب تلقائيًا من المعلومات المنشورة', 'Qwen عبر Groq على الخطة المجانية']) {
     assert.match(details, new RegExp(text));
   }
   assert.doesNotMatch(details, /Gemini|DeepSeek/);
