@@ -1,7 +1,0 @@
-project_id = "eahptkwvjcnixlzlyznh"
-
-[functions.library-assistant]
-verify_jwt = true
-
-[functions.invite-library-member]
-verify_jwt = true

@@ -1,15 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 const match = (text, pattern, message) => assert.ok(pattern.test(text), message);
 const notMatch = (text, pattern, message) => assert.ok(!pattern.test(text), message);
+const deployedStaffAssistantPath = new URL('../supabase/functions/library-assistant/index.ts', import.meta.url);
+const legacyStaffAssistantPath = new URL('../supabase/library-assistant/functions%20/library-assistant/index.ts', import.meta.url);
 const html = read('index.html');
 const app = read('app.js');
 const publicAssistant = read('supabase/functions/_shared/public-assistant.js');
 const adminAgent = read('supabase/functions/library-admin-agent/index.ts');
-const staffAndManagerAssistant = read('supabase/library-assistant/functions /library-assistant/index.ts');
+const staffAndManagerAssistant = existsSync(deployedStaffAssistantPath)
+  ? readFileSync(deployedStaffAssistantPath, 'utf8')
+  : '';
+
+test('library-assistant source uses the canonical Supabase deployment path', () => {
+  assert.ok(existsSync(deployedStaffAssistantPath), 'library-assistant must live in supabase/functions/library-assistant/index.ts');
+  assert.ok(!existsSync(legacyStaffAssistantPath), 'the nonstandard duplicate source path must be removed');
+});
 
 test('staff, manager, and library-review tools use one assistant brand while keeping role boundaries visible', () => {
   match(html, /data-panel="assistantPanel" type="button">المساعد الذكي<\/button>/, 'staff navigation should use the common assistant name');
