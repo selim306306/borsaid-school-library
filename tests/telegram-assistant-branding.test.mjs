@@ -72,7 +72,8 @@ test('site Telegram entry point and current guides use one name and preserve cha
     match(document, /المساعد الذكي/, 'each current guide should use the common name');
     notMatch(document, /مساعد الموظفين|مساعد المدير|مساعد الزوار|مساعد زوار|مساعد أمين المكتبة|اسأل أمين المكتبة|وكيل مدير المكتبة|مساعدا Gemini/, 'current guides should not retain old assistant names');
   }
-  match(setupGuide, /Telegram[^\n]*لا يطلب موافقة لكل رسالة/, 'the guide should distinguish Telegram from browser consent');
-  match(setupGuide, /موافقة الزائر المحفوظة[^\n]*متصفح/, 'visitor consent should remain browser-specific');
+  match(setupGuide, /Telegram[^\n]*لا يطلب موافقة لكل رسالة/, 'Telegram retains its own disclosed, automatic public-question flow');
+  match(setupGuide, /الأسئلة العامة[^\n]*تلقائيًا[^\n]*Qwen عبر Groq/, 'public visitor questions should use the disclosed automatic free-model path');
+  notMatch(setupGuide, /موافقة الزائر المحفوظة[^\n]*متصفح/, 'public visitor approval should no longer be stored per browser');
   match(setupGuide, /صلاحية الموظف[^\n]*منفصل/, 'internal permissions and data paths should remain separate');
 });

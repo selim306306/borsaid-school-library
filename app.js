@@ -1,4 +1,6 @@
-import './portal-upgrade.js?v=935579dff7d8c412';
+import './portal-upgrade.js?v=618fc8ff94a8177b';
+import { clearLegacyPublicAssistantAiConsent } from './visitor-public-ai-consent.mjs?v=7d0f2ad1d3efefc5';
+clearLegacyPublicAssistantAiConsent();
 
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
@@ -8,7 +10,7 @@ import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=579fe6322d96
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=1854b9ab17d5d96f';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=713da4b8791c3f6b';
-import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=b3248e37e2901e1c';
+import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=6036576d9dbf61d5';
 import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=931445641eb2e68b';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=922e7c582cfad4ce';
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=c9817f98418e7db3';

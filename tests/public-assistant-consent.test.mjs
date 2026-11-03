@@ -1,68 +1,68 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-const consentModule = new URL('../visitor-public-ai-consent.mjs', import.meta.url);
-const portalModule = new URL('../portal-upgrade.js', import.meta.url);
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const portal = readFileSync(portalModule, 'utf8');
+const portal = readFileSync(new URL('../portal-upgrade.js', import.meta.url), 'utf8');
 const app = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
 const ticketForm = readFileSync(new URL('../visitor-questions.js', import.meta.url), 'utf8');
 const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8');
 const privacyGuide = readFileSync(new URL('../docs/GEMINI_SETUP_AR.md', import.meta.url), 'utf8');
 
-test('public AI consent is opt-in, stored on this browser, reusable, and revocable', async () => {
-  assert.ok(existsSync(consentModule), 'a shared browser-only consent helper should exist');
-  const consent = await import(consentModule.href);
-  const values = new Map();
+function sectionBetween(source, startMarker, endMarker) {
+  const start = source.indexOf(startMarker);
+  const end = source.indexOf(endMarker, start);
+  assert.ok(start >= 0 && end > start, `missing section ${startMarker}`);
+  return source.slice(start, end);
+}
+
+test('the new visitor flow clears the obsolete browser-saved approval', async () => {
+  const migration = await import(new URL('../visitor-public-ai-consent.mjs?cleanup-test=1', import.meta.url).href);
+  const key = 'borsaid-public-assistant-ai-consent-v1';
+  const values = new Map([[key, 'granted']]);
   const storage = {
-    getItem: key => values.get(key) ?? null,
-    setItem: (key, value) => values.set(key, String(value)),
-    removeItem: key => values.delete(key),
+    getItem: name => values.get(name) ?? null,
+    setItem: (name, value) => values.set(name, String(value)),
+    removeItem: name => values.delete(name),
   };
-
-  assert.equal(consent.hasPublicAssistantAiConsent(storage), false);
-  consent.setPublicAssistantAiConsent(true, storage);
-  const reloadedConsent = await import(new URL('../visitor-public-ai-consent.mjs?fresh=1', import.meta.url).href);
-  assert.equal(reloadedConsent.hasPublicAssistantAiConsent(storage), true, 'the saved choice should survive a page reload');
-  consent.setPublicAssistantAiConsent(false, storage);
-  assert.equal(consent.hasPublicAssistantAiConsent(storage), false, 'revoking consent should take effect immediately');
-  assert.equal(values.size, 0, 'revocation should remove the stored preference');
+  assert.equal(typeof migration.clearLegacyPublicAssistantAiConsent, 'function');
+  assert.equal(migration.clearLegacyPublicAssistantAiConsent(storage), true);
+  assert.equal(values.has(key), false);
 });
 
-test('all public assistant paths share one transparent, revocable device preference', () => {
-  assert.ok(html.includes('id="visitorAssistantPersistentConsent"'), 'a shared consent toggle should be visible');
-  assert.ok(html.includes('إرسال الأسئلة العامة تلقائيًا'), 'the toggle should explain the automatic processing');
-  assert.ok(html.includes('تُحفظ الموافقة محليًا في هذا المتصفح فقط'), 'the page should explain where the preference is stored');
-  assert.ok(!html.includes('visitorQuestionAiConsent'), 'the question form should not ask for duplicate per-question consent');
-  assert.ok(portal.includes('setPublicAssistantAiConsent') && portal.includes('hasPublicAssistantAiConsent'), 'the shared control should load and update the saved choice');
-  assert.ok(app.includes('hasPublicAssistantAiConsent') && app.includes('setPublicAssistantAiConsent'), 'the chat should reuse and save the same choice');
-  assert.ok(ticketForm.includes('hasPublicAssistantAiConsent'), 'the follow-up form should reuse the same choice');
-  assert.ok(!portal.includes('موافقة مستقلة لكل سؤال'), 'the dialog should no longer describe repeated consent');
+test('public assistant discloses automatic free-Qwen processing without a consent control', () => {
+  const assistant = sectionBetween(html, '<section class="visitor-assistant section-wrap"', '</section>\n    </dialog>');
+  assert.match(assistant, /تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية/);
+  assert.match(assistant, /لا تُدخل أي اسم أو معلومة شخصية أو سرية/);
+  assert.match(assistant, /قد لا تلتقط حواجز الخصوصية كل الحالات/);
+  assert.match(assistant, /لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram/);
+  assert.doesNotMatch(assistant, /visitorAssistantPersistentConsent|visitorAssistantConsentStatus|الموافقة المحفوظة|أوافق على إرسال/);
 });
 
-test('visitor, staff, and manager surfaces use one name while retaining separate consent and access boundaries', () => {
-  assert.ok(html.includes('id="visitorChatDialogTitle">المساعد الذكي'), 'the dialog should use the unified title');
-  assert.ok(html.includes('id="visitorQuestionTitle">أرسل سؤالًا للمساعد الذكي'), 'the follow-up action should use the same assistant name');
-  assert.ok(portal.includes("title.textContent = 'المساعد الذكي'"), 'the runtime title should match the static title');
-  assert.ok(!/مساعد أمين المكتبة|مساعد زوار/.test(html + portal), 'old public visitor-assistant names should be removed');
-  assert.ok(html.includes('id="assistantChatTitle">المساعد الذكي'), 'the staff assistant should use the common name');
-  assert.ok(html.includes('للموظفين المخولين فقط'), 'staff access should remain explicit');
-  assert.ok(html.includes('للمالك والمسؤول فقط'), 'manager access should remain explicit');
-  assert.ok(html.includes('أوافق على إرسال نصه إلى Gemini'), 'staff consent should remain a separate per-question control');
+test('public chat and private visitor follow-up no longer depend on browser-saved approval', () => {
+  assert.doesNotMatch(app, /hasPublicAssistantAiConsent|setPublicAssistantAiConsent|needsExternalModelConsent|data-visitor-free-model-consent/);
+  assert.match(app, /clearLegacyPublicAssistantAiConsent\(\)/);
+  assert.doesNotMatch(portal, /hasPublicAssistantAiConsent|setPublicAssistantAiConsent|visitorAssistantPersistentConsent/);
+  assert.doesNotMatch(ticketForm, /hasPublicAssistantAiConsent/);
+  assert.match(ticketForm, /externalAiConsent:\s*true/);
+
+  const tickets = sectionBetween(html, '<section class="visitor-support section-wrap"', '<footer class="site-footer');
+  assert.match(tickets, /تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq ضمن الخطة المجانية/);
+  assert.match(tickets, /قد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram/);
+  assert.doesNotMatch(tickets, /الموافقة المحفوظة على هذا الجهاز|فعّلت موافقة Qwen/);
 });
 
-test('current guides distinguish the visitor browser preference from internal and Telegram consent', () => {
-  assert.ok(readme.includes('حفظ موافقته محليًا على هذا المتصفح'), 'README should explain the persistent device choice');
-  assert.ok(!/مساعد أمين المكتبة|مساعد الزوار|مساعد زوار/.test(readme), 'README should use the unified public assistant name');
-  assert.ok(privacyGuide.includes('حفظ الموافقة محليًا على هذا المتصفح'), 'privacy guide should document the shared setting');
-  assert.ok(privacyGuide.includes('موافقة مستقلة لكل سؤال'), 'staff chat should retain its separate per-question consent');
-  assert.ok(privacyGuide.includes('لا يطلب موافقة لكل رسالة'), 'Telegram should answer automatically without per-message consent');
-  assert.ok(privacyGuide.includes('موافقة الزائر المحفوظة محليًا تخص متصفح الموقع'), 'the visitor preference should remain browser-specific');
+test('automatic visitor approval stays separate from staff and manager consent boundaries', () => {
+  assert.match(html, /id="adminAgentConsent"/);
+  assert.match(html, /أوافق على إرسال أعداد مجمعة فقط إلى Gemini/);
+  assert.match(html, /name="consent" type="checkbox" required/);
+  assert.match(privacyGuide, /إرسال نص سؤال دردشة الموظفين إلى Gemini يتطلب موافقة مستقلة لكل سؤال/);
+  assert.match(privacyGuide, /Telegram.*لا يطلب موافقة لكل رسالة/);
+  assert.match(readme, /لا تُرسل بيانات الطلاب أو المستعيرين أو الإعارات الفردية إلى أي نموذج/);
 });
 
-test('browser-facing portal module can be imported in Node without a document global', () => {
-  const result = spawnSync(process.execPath, ['--input-type=module', '-e', `await import(${JSON.stringify(portalModule.href)})`], { encoding: 'utf8' });
-  assert.equal(result.status, 0, `the import should not assume a browser DOM: ${result.stderr}`);
+test('current guides describe automatic public processing without browser-persisted consent', () => {
+  assert.match(readme, /الأسئلة العامة.*تلقائيًا.*Qwen عبر Groq/);
+  assert.match(privacyGuide, /تُرسل الأسئلة العامة تلقائيًا/);
+  assert.doesNotMatch(privacyGuide, /موافقة الزائر المحفوظة محليًا|موافقة الزائر المحفوظة على هذا المتصفح/);
 });

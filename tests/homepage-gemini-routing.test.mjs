@@ -32,19 +32,22 @@ test('a clear book-search request uses only the published catalog RPC', async ()
   assert.ok(context.searchQuery);
 });
 
-test('the browser asks for one-question consent before using the configured free model', async () => {
+test('the public browser auto-approves the configured free model and falls back locally if a stale consent gate remains', async () => {
   let sent = false;
   const result = await routeVisitorAssistantQuestion('أهلا', {
     askFreeModel: async (text, options) => {
       assert.equal(text, 'أهلا');
-      assert.equal(options.externalAiConsent, false);
+      assert.equal(options.externalAiConsent, true);
+      sent = options.externalAiConsent;
       return { ok: false, consent_required: true, sentToExternalModel: false };
     },
-    answerLocally: async () => { throw new Error('not expected'); },
+    answerLocally: async () => ({ text: 'إجابة محلية.' }),
   });
-  assert.equal(result.needsExternalModelConsent, true);
+  assert.equal(result.source, 'local-fallback');
+  assert.equal(result.text, 'إجابة محلية.');
+  assert.equal(result.needsExternalModelConsent, undefined);
   assert.equal(result.sentToExternalModel, false);
-  assert.equal(sent, false);
+  assert.equal(sent, true);
 });
 
 test('a consented response uses only the Groq Qwen model and contains no ticket token', async () => {

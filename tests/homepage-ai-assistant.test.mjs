@@ -43,7 +43,7 @@ test('public assistant explains automatic free-Qwen processing separately from p
   assert.doesNotMatch(assistant, /Gemini|DeepSeek/i);
 });
 
-test('public follow-up explains the saved Qwen choice and its separate Telegram handling', () => {
+test('public follow-up explains automatic free-Qwen processing and separate Telegram handling', () => {
   const tickets = sectionBetween('<section class="visitor-support section-wrap"', '<footer class="site-footer');
   assert.doesNotMatch(tickets, /visitorQuestionAiConsent/);
   assert.match(tickets, /تُرسل الأسئلة العامة تلقائيًا إلى Qwen عبر Groq/);
