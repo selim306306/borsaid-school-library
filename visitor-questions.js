@@ -117,10 +117,13 @@ if (form && questionField && statusField && ticketList && submitButton) {
       questionField.focus();
       return;
     }
+    const aiConsentField = document.querySelector('#visitorQuestionAiConsent');
+    const externalAiConsent = aiConsentField?.checked === true;
+    if (aiConsentField) aiConsentField.checked = false;
     if (containsSensitivePersonalData(question)) {
       questionField.value = '';
       showLocalPrivacyReply();
-      statusField.textContent = 'حُجب السؤال محليًا قبل الإرسال؛ لم يُرسل إلى Gemini أو Telegram ولم يُحفظ في قاعدة الموقع.';
+      statusField.textContent = 'حُجب السؤال محليًا قبل الإرسال؛ لم يُرسل إلى نموذج خارجي أو Telegram ولم يُحفظ في قاعدة الموقع.';
       return;
     }
     submitButton.disabled = true;
@@ -130,7 +133,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
         cache: 'no-store',
-        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '' }),
+        body: JSON.stringify({ action: 'submit', question, website: honeypotField?.value || '', externalAiConsent }),
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) {
@@ -144,7 +147,7 @@ if (form && questionField && statusField && ticketList && submitButton) {
       if (result.privacy_blocked === true) {
         questionField.value = '';
         showLocalPrivacyReply();
-        statusField.textContent = 'حُجب السؤال قبل الحفظ؛ لم يُرسل إلى Gemini أو Telegram ولم يُحفظ في قاعدة الموقع.';
+        statusField.textContent = 'حُجب السؤال قبل الحفظ؛ لم يُرسل إلى نموذج خارجي أو Telegram ولم يُحفظ في قاعدة الموقع.';
         return;
       }
       if (!result.question_id || !result.access_token) {
@@ -166,17 +169,27 @@ if (form && questionField && statusField && ticketList && submitButton) {
       renderTickets();
       questionField.value = '';
       const wasRedacted = typeof result.question_display === 'string' && result.question_display.includes('تم حجب السؤال تلقائيًا');
-      statusField.textContent = wasRedacted
-        ? 'حُجب السؤال تلقائيًا؛ لم يُرسل نصه إلى Gemini أو Telegram، وقدّمنا ردًا إرشاديًا عامًا.'
-        : result.auto_answered
-          ? result.owner_notification === 'sent'
-            ? 'أجابك المساعد تلقائيًا؛ وصل إلى مدير الموقع إشعار بالسؤال والرد عبر Telegram، وتظهر الإجابة لك وحدك هنا.'
-            : 'أجابك المساعد تلقائيًا؛ الرد محفوظ ويظهر لك وحدك هنا.'
-          : result.owner_notification === 'sent'
-            ? 'تعذّر الرد الآلي؛ وصل سؤالك لفريق المكتبة عبر Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.'
-            : result.owner_notification === 'not_linked'
-              ? 'تعذّر الرد الآلي؛ حُفظ السؤال للمتابعة في لوحة المالك، وسيظهر الرد هنا فقط لصاحبه.'
-              : 'تعذّر الرد الآلي؛ حُفظ السؤال، لكن تعذّر تأكيد إشعار Telegram. احتفظ بعلامة التبويب نفسها، فالرد سيظهر لك وحدك هنا.';
+      let statusMessage;
+      if (wasRedacted) {
+        statusMessage = 'حُجب السؤال تلقائيًا؛ لم يُرسل نصه إلى نموذج خارجي أو Telegram، وقدّمنا ردًا إرشاديًا عامًا.';
+      } else if (result.auto_answered === true && result.answer_provider === 'groq_qwen') {
+        statusMessage = result.owner_notification === 'sent'
+          ? 'أجاب Qwen عبر Groq ضمن الخطة المجانية؛ وصل إلى مدير الموقع إشعار بالسؤال والرد، وتظهر الإجابة لك وحدك هنا.'
+          : 'أجاب Qwen عبر Groq ضمن الخطة المجانية؛ الرد محفوظ ويظهر لك وحدك هنا.';
+      } else if (result.external_model_consented !== true) {
+        statusMessage = result.owner_notification === 'sent'
+          ? 'لم يُرسل السؤال إلى نموذج خارجي؛ وصل للمتابعة اليدوية عبر Telegram. احتفظ بعلامة التبويب نفسها لظهور الرد الخاص.'
+          : 'لم يُرسل السؤال إلى نموذج خارجي؛ حُفظ للمتابعة اليدوية، وسيظهر الرد هنا فقط لصاحبه.';
+      } else if (result.external_model_attempted !== true) {
+        statusMessage = result.owner_notification === 'sent'
+          ? 'خدمة Qwen المجانية غير مهيأة في المشروع الآن؛ وصل السؤال للمتابعة اليدوية عبر Telegram.'
+          : 'خدمة Qwen المجانية غير مهيأة الآن؛ حُفظ السؤال للمتابعة اليدوية.';
+      } else {
+        statusMessage = result.owner_notification === 'sent'
+          ? 'لم يصل رد من Qwen؛ وصل السؤال للمتابعة اليدوية عبر Telegram. لا ننتقل إلى نموذج آخر.'
+          : 'لم يصل رد من Qwen؛ حُفظ السؤال للمتابعة اليدوية. لا ننتقل إلى نموذج آخر.';
+      }
+      statusField.textContent = statusMessage;
       const newest = tickets[0];
       if (newest) void pollTicket(newest);
     } catch {

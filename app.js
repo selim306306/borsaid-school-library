@@ -1,4 +1,4 @@
-import './portal-upgrade.js?v=20261102';
+import './portal-upgrade.js?v=bd03599b525daa61';
 
 let ownerReportPreview = null;
 let ownerReportDeliveryBusy = false;
@@ -8,7 +8,7 @@ import { mapCoverAnalysisNumbers } from './book-cover-numbers.mjs?v=579fe6322d96
 import { initializeBookImportControls } from './staff-import-controller.mjs?v=1854b9ab17d5d96f';
 import { PUBLIC_READABLE_BOOKS, findPublicReadableBooks, hasSpecificUnknownPublicReading } from './public-reading-books.js?v=5401d58c55dcc6a9';
 import { resolveVisitorAssistantIntent } from './visitor-assistant-intents.mjs?v=eb8188fbc2f4c295';
-import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=d2cfff3fe6fa84cb';
+import { isVisitorAssistantQuestionSensitive, routeVisitorAssistantQuestion, VISITOR_PERSONAL_DATA_REPLY } from './visitor-assistant-flow.mjs?v=5559dcc275e0e6ef';
 import { classifyVisitorCatalogIntent } from './visitor-catalog-intent.mjs?v=931445641eb2e68b';
 import { SITE_OWNER_LIBRARY_IDS, canDeleteOwnedSchool, schoolDeletionErrorMessage } from './owner-school-deletion.mjs?v=922e7c582cfad4ce';
 import { hasPlatformOwnerAccess, libraryHasOperationalData } from './platform-library-report.mjs?v=c9817f98418e7db3';
@@ -447,7 +447,7 @@ const VISITOR_STOP_WORDS = new Set(['هل', 'ممكن', 'عايز', 'عايزة'
 function extractVisitorCatalogQuery(question) {
   return normalizeVisitorText(question).split(/[^\p{L}\p{N}]+/u).filter(word => word && !VISITOR_STOP_WORDS.has(word)).join(' ').slice(0, 100);
 }
-function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [], actionLinks = [] } = {}) {
+function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '', readingLinks = [], actionLinks = [], externalModelConsentQuestion = '' } = {}) {
   const log = $('#visitorAssistantLog');
   const item = document.createElement('article');
   item.className = `visitor-assistant-message ${kind}`;
@@ -508,8 +508,27 @@ function appendVisitorAssistantMessage(kind, text, { books = [], searchQuery = '
     button.textContent = 'فتح النتائج في الفهرس العام';
     item.append(button);
   }
+  if (externalModelConsentQuestion) {
+    const actions = document.createElement('div');
+    actions.className = 'visitor-assistant-consent-actions';
+    const approve = document.createElement('button');
+    approve.type = 'button';
+    approve.className = 'button button-primary';
+    approve.dataset.visitorFreeModelConsent = 'true';
+    approve.dataset.question = externalModelConsentQuestion;
+    approve.textContent = 'أوافق على إرسال هذا السؤال إلى Qwen عبر Groq المجاني';
+    const local = document.createElement('button');
+    local.type = 'button';
+    local.className = 'button button-outline';
+    local.dataset.visitorLocalAnswer = 'true';
+    local.dataset.question = externalModelConsentQuestion;
+    local.textContent = 'لا، أجبني محليًا فقط';
+    actions.append(approve, local);
+    item.append(actions);
+  }
   log.append(item);
   log.scrollTop = log.scrollHeight;
+  return item;
 }
 function publicBranchAnswer(question) {
   const normalized = normalizeVisitorText(question);
@@ -578,39 +597,67 @@ async function answerVisitorQuestion(question) {
     : { text: `لم أجد عنواناً منشوراً يطابق «${query}». جرّب كلمة أقصر أو ابحث مباشرة في الفهرس؛ قد لا تكون كل الكتب مسجلة أو منشورة.`, searchQuery: query };
 }
 let visitorAssistantBusy = false;
-async function sendVisitorQuestion(question) {
+async function sendVisitorQuestion(question, { externalAiConsent = false, appendQuestion = true } = {}) {
   const text = String(question || '').trim().slice(0, 300);
   if (!text || visitorAssistantBusy) return;
   visitorAssistantBusy = true;
   if (isVisitorAssistantQuestionSensitive(text)) {
     appendVisitorAssistantMessage('assistant', VISITOR_PERSONAL_DATA_REPLY);
-    setMessage($('#visitorAssistantStatus'), 'حُجب هذا السؤال محليًا؛ لم يُرسل إلى Gemini أو Telegram ولم تُحفظ المحادثة.');
+    setMessage($('#visitorAssistantStatus'), 'حُجب هذا السؤال محليًا؛ لم يُرسل إلى نموذج خارجي أو Telegram ولم تُحفظ المحادثة.');
     visitorAssistantBusy = false;
     return;
   }
-  appendVisitorAssistantMessage('user', text);
+  if (appendQuestion) appendVisitorAssistantMessage('user', text);
   setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة من المعلومات العامة المنشورة…');
   const submit = $('#visitorAssistantForm button[type="submit"]');
   submit.disabled = true;
   try {
     const answer = await routeVisitorAssistantQuestion(text, {
-      askGemini: async publicQuestion => {
+      externalAiConsent,
+      askFreeModel: async (publicQuestion, { externalAiConsent: approved = false } = {}) => {
         if (!publicSupabase) return null;
         const { data, error } = await publicSupabase.functions.invoke('visitor-assistant', {
-          body: { question: publicQuestion },
+          body: { question: publicQuestion, externalAiConsent: approved === true },
         });
-        return error || data?.ok !== true ? null : data;
+        return error ? null : data;
       },
       answerLocally: answerVisitorQuestion,
     });
+    if (answer.needsExternalModelConsent) {
+      const prompt = appendVisitorAssistantMessage('assistant', answer.text, { externalModelConsentQuestion: text });
+      setMessage($('#visitorAssistantStatus'), 'لم يُرسل السؤال إلى Qwen. وافق لمرة واحدة لإرساله إلى Groq أو اختر إجابة محلية.');
+      requestAnimationFrame(() => prompt.querySelector('[data-visitor-free-model-consent]')?.focus({ preventScroll: true }));
+      return;
+    }
     appendVisitorAssistantMessage('assistant', answer.text, answer);
-    setMessage($('#visitorAssistantStatus'), answer.source === 'gemini'
-      ? 'أجاب Gemini اعتمادًا على دليل الموقع والفهرس المنشور. لا تُعد الإتاحة اللحظية مؤكدة إلا بعد مراجعة الفرع.'
+    const providerName = answer.source === 'groq' ? 'Qwen عبر Groq ضمن الخطة المجانية' : '';
+    setMessage($('#visitorAssistantStatus'), providerName
+      ? `أجاب ${providerName} اعتمادًا على معلومات الموقع والفهرس المنشور. لا تُعد الإتاحة اللحظية مؤكدة إلا بعد مراجعة الفرع.`
       : answer.source === 'local-fallback'
-        ? 'Gemini غير متاح الآن؛ استخدم المساعد إجابة محلية من الموقع والفهرس المنشور.'
+        ? answer.sentToExternalModel
+          ? 'لم يتمكن Qwen من إعداد رد؛ عرض المساعد إجابة محلية بديلة من الموقع والفهرس المنشور.'
+          : 'النموذج المجاني غير مهيأ الآن؛ استخدم المساعد إجابة محلية من الموقع والفهرس المنشور.'
         : 'إجابة محلية من معلومات الموقع العامة؛ لا تُعد تأكيدًا للإتاحة اللحظية إلا بعد مراجعة الفرع.');
   } catch {
     setMessage($('#visitorAssistantStatus'), 'تعذّر إكمال الإجابة الآن؛ يمكنك استخدام البحث والفروع المنشورة مباشرةً.', 'error');
+  } finally {
+    visitorAssistantBusy = false;
+    submit.disabled = false;
+  }
+}
+async function answerVisitorQuestionLocally(question) {
+  const text = String(question || '').trim().slice(0, 300);
+  if (!text || visitorAssistantBusy) return;
+  visitorAssistantBusy = true;
+  const submit = $('#visitorAssistantForm button[type="submit"]');
+  submit.disabled = true;
+  setMessage($('#visitorAssistantStatus'), 'جارٍ إعداد إجابة محلية؛ لن يُرسل السؤال إلى نموذج خارجي…');
+  try {
+    const answer = await answerVisitorQuestion(text);
+    appendVisitorAssistantMessage('assistant', answer.text, answer);
+    setMessage($('#visitorAssistantStatus'), 'إجابة محلية فقط؛ لم يُرسل السؤال إلى نموذج خارجي.');
+  } catch {
+    setMessage($('#visitorAssistantStatus'), 'تعذّر إعداد الإجابة المحلية الآن؛ استخدم البحث والفروع المنشورة مباشرةً.', 'error');
   } finally {
     visitorAssistantBusy = false;
     submit.disabled = false;
@@ -627,6 +674,23 @@ $$('[data-visitor-question]').forEach(button => button.addEventListener('click',
 $('#visitorAssistantLog').addEventListener('click', event => {
   if (event.target.closest('[data-visitor-contact]')) {
     visitorChatDialog?.close();
+    return;
+  }
+  const consentButton = event.target.closest('[data-visitor-free-model-consent]');
+  const localButton = event.target.closest('[data-visitor-local-answer]');
+  const decisionButton = consentButton || localButton;
+  if (decisionButton) {
+    const question = decisionButton.dataset.question || '';
+    if (!question || visitorAssistantBusy) return;
+    decisionButton.closest('.visitor-assistant-message')?.querySelectorAll('[data-visitor-free-model-consent], [data-visitor-local-answer]')
+      .forEach(button => { button.disabled = true; });
+    if (consentButton) {
+      appendVisitorAssistantMessage('user', 'أوافق على إرسال هذا السؤال العام إلى Qwen عبر Groq ضمن الخطة المجانية لهذا السؤال فقط.');
+      sendVisitorQuestion(question, { externalAiConsent: true, appendQuestion: false });
+    } else {
+      appendVisitorAssistantMessage('user', 'أفضل إجابة محلية؛ لا أوافق على إرسال هذا السؤال إلى نموذج خارجي.');
+      answerVisitorQuestionLocally(question);
+    }
     return;
   }
   const button = event.target.closest('[data-visitor-search]');
@@ -828,7 +892,7 @@ function hasSiteMediaOwnership() {
     && ['owner', 'admin'].includes(membership.role) && SITE_OWNER_LIBRARY_IDS.has(membership.library_id));
 }
 function visitorQuestionSourceLabel(source) {
-  return ({ gemini: 'Gemini', telegram: 'متابعة عبر Telegram', local: 'رد تلقائي محلي' })[source] || 'غير مسجل';
+  return ({ groq_qwen: 'Qwen عبر Groq (الخطة المجانية)', gemini: 'Gemini (سجل سابق)', telegram: 'متابعة عبر Telegram', local: 'رد تلقائي محلي' })[source] || 'غير مسجل';
 }
 async function loadOwnerVisitorQuestions() {
   const status = $('#visitorQuestionsStatus');

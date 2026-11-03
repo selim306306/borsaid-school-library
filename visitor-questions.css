@@ -73,6 +73,24 @@
   font-weight: 700;
 }
 
+.visitor-question-form .visitor-question-ai-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  color: #315d68;
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.visitor-question-ai-consent input {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-block-start: .2rem;
+  accent-color: #14566b;
+}
+
 .visitor-question-form textarea {
   width: 100%;
   min-height: 8rem;
@@ -87,7 +105,8 @@
 }
 
 .visitor-question-form textarea:focus-visible,
-.visitor-telegram-link:focus-visible {
+.visitor-telegram-link:focus-visible,
+.visitor-question-ai-consent input:focus-visible {
   outline: 3px solid #57a2ad;
   outline-offset: 2px;
 }

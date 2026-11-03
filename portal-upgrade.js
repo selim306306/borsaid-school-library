@@ -71,21 +71,21 @@
     if (dialog && questions && assistant && !dialog.contains(questions)) {
       const strip = document.createElement('div');
       strip.className = 'portal-provider-strip';
-      strip.innerHTML = '<span>DeepSeek · أساسي</span><span>Qwen · احتياطي</span><span>Telegram · متابعة المالك</span><span>رد محلي · عند انقطاع الخدمة</span>';
+      strip.innerHTML = '<span>Qwen عبر Groq · الخطة المجانية فقط</span><span>موافقة مستقلة لكل سؤال</span><span>إجابة محلية عند غياب الإعداد</span><span>Telegram · متابعة المالك</span>';
       assistant.insertAdjacentElement('afterend', strip);
       dialog.appendChild(questions);
       const title = dialog.querySelector('#visitorChatDialogTitle');
-      if (title) title.textContent = 'المساعد الموحد للمكتبة';
+      if (title) title.textContent = 'مساعد أمين المكتبة';
       const eyebrow = assistant.querySelector('.visitor-assistant-copy .eyebrow');
-      if (eyebrow) eyebrow.textContent = 'مساعد المكتبة الموحد · DeepSeek / Qwen';
+      if (eyebrow) eyebrow.textContent = 'Qwen عبر Groq المجاني بعد موافقتك';
       const assistantTitle = assistant.querySelector('.visitor-assistant-copy h2');
-      if (assistantTitle) assistantTitle.textContent = 'اسأل عن الموقع أو الكتب أو أرسل سؤالًا للمتابعة';
+      if (assistantTitle) assistantTitle.textContent = 'اسأل عن الموقع أو كتاب منشور';
       const assistantCopy = assistant.querySelector('.visitor-assistant-copy > p');
-      if (assistantCopy) assistantCopy.textContent = 'إجابة واحدة من المساعد الموحد، مع متابعة Telegram عند الحاجة، واعتماد بيانات الموقع العامة فقط.';
+      if (assistantCopy) assistantCopy.textContent = 'يجيب الموقع محليًا من المعلومات العامة المنشورة. إذا توفر مفتاح مشروع على خطة Groq المجانية، سيطلب موافقتك قبل إرسال السؤال إلى Qwen عبر Groq.';
       const assistantNotice = assistant.querySelector('#visitorAssistantPrivacy');
-      if (assistantNotice) assistantNotice.textContent = 'تُرسل الأسئلة العامة إلى DeepSeek ثم Qwen عند الحاجة، وتُحجب البيانات الشخصية محليًا. استخدم نموذج المتابعة إذا أردت أن يصل السؤال إلى فريق المكتبة عبر Telegram.';
+      if (assistantNotice) assistantNotice.textContent = 'لا تُدخل بيانات شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. لا يُرسل السؤال إلى Groq إلا بعد موافقتك الصريحة لهذا السؤال وعند تهيئة مفتاح المشروع على الخطة المجانية فقط. وإلا يجيب الموقع محليًا. لا تُحفظ هذه المحادثة في قاعدة البيانات ولا تُرسل عبر Telegram.';
       const questionTitle = questions.querySelector('.visitor-support-copy h2');
-      if (questionTitle) questionTitle.textContent = 'تواصل مع مساعد المكتبة أو أرسل للمتابعة';
+      if (questionTitle) questionTitle.textContent = 'اسأل أمين المكتبة أو أرسل للمتابعة';
       questions.querySelector('.visitor-telegram-link')?.setAttribute('aria-label', 'فتح قناة Telegram للمساعد الموحد');
     }
 

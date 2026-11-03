@@ -26,9 +26,10 @@ test('شريط المساعدة يحافظ على الروابط الثلاثة 
   ]);
   assert.match(pathways, /<details class="assistant-pathway-details">/);
   assert.match(pathways, /الفرق بين المسارات وسياسة الخصوصية/);
-  for (const text of ['إجابة فورية عن الموقع والكتب المنشورة', 'لإرسال سؤال عام ومتابعة رد خاص في الصفحة', 'محادثة مستقلة ترد تلقائيًا']) {
+  for (const text of ['إجابة عن الموقع والكتب المنشورة', 'يبقى السؤال للمتابعة اليدوية ما لم توافق اختياريًا', 'قد يستخدم البوت Qwen عبر Groq']) {
     assert.match(pathways, new RegExp(text));
   }
+  assert.doesNotMatch(pathways, /Gemini|DeepSeek/);
   assert.match(pathways, /لا تُحفظ المحادثة/);
   assert.match(pathways, /لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا/);
 });

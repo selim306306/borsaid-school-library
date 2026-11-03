@@ -12,27 +12,42 @@ function sectionBetween(startMarker, endMarker) {
   return html.slice(start, end);
 }
 
-test('homepage AI entry points open the Gemini-powered librarian assistant, not Telegram', () => {
+test('homepage assistant entry points lead to a provider-neutral librarian assistant', () => {
   assert.match(html, /href="#visitorAssistant">مساعد أمين المكتبة<\/a>/);
   assert.match(html, /id="headerVisitorChatShortcut"[^>]*aria-controls="visitorChatDialog"/);
   assert.match(html, /id="visitorChatDialog"/);
   assert.match(html, /id="visitorAssistant"[^>]*aria-labelledby="visitorAssistantTitle"/);
-  assert.match(html, /id="visitorAssistantTitle">اسأل مساعد أمين المكتبة عن الموقع أو كتاب منشور<\/h2>/);
-  assert.match(html, /id="visitorChatDialogTitle">مساعد أمين المكتبة المدعوم بـGemini<\/h2>/);
+  assert.match(html, /id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور<\/h2>/);
+  assert.match(html, /id="visitorChatDialogTitle">مساعد أمين المكتبة/);
 
   const aiPathway = sectionBetween('<article class="visitor-pathway-card visitor-pathway-ai">', '</article>');
   assert.match(aiPathway, /href="#visitorAssistant"/);
-  assert.match(aiPathway, /Gemini/);
-  assert.doesNotMatch(aiPathway, /t\.me\//);
+  assert.match(aiPathway, /Qwen/);
+  assert.match(aiPathway, /Groq/);
+  assert.doesNotMatch(aiPathway, /Gemini|DeepSeek|t\.me\//i);
 
   const telegramPathway = sectionBetween('<article class="visitor-pathway-card visitor-pathway-telegram">', '</article>');
   assert.match(telegramPathway, /t\.me\/PortSaidSchoolLibrariesBot/);
+  assert.doesNotMatch(telegramPathway, /Gemini|DeepSeek/i);
 });
 
-test('the public assistant privacy disclosure remains local and distinct from the librarian question path', () => {
+test('public assistant explains optional free-model consent and local fallback separately from the ticket form', () => {
   const assistant = sectionBetween('<section class="visitor-assistant section-wrap"', '</section>\n    </dialog>');
-  assert.match(assistant, /تُرسل الأسئلة العامة تلقائيًا إلى Gemini/);
-  assert.match(assistant, /لا تُحفظ في قاعدة بيانات موقع المكتبة أو تُرسل لمديره عبر Telegram/);
-  assert.match(assistant, /يُحجب السؤال الذي يتضمن بيانات شخصية أو سرية محليًا/);
-  assert.match(assistant, /استخدم النموذج المخصص/);
+  assert.match(assistant, /Qwen/);
+  assert.match(assistant, /Groq/);
+  assert.match(assistant, /خطة Groq المجانية/);
+  assert.match(assistant, /محلي/);
+  assert.match(assistant, /لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram/);
+  assert.match(assistant, /لا تُدخل أي اسم أو معلومة شخصية أو سرية/);
+  assert.doesNotMatch(assistant, /Gemini|DeepSeek/i);
+});
+
+test('public ticket form makes free-model processing an explicit optional choice', () => {
+  const tickets = sectionBetween('<section class="visitor-support section-wrap"', '<footer class="site-footer');
+  assert.match(tickets, /visitorQuestionAiConsent/);
+  assert.match(tickets, /أوافق/);
+  assert.match(tickets, /Qwen/);
+  assert.match(tickets, /Groq/);
+  assert.match(tickets, /متابعة يدوية/);
+  assert.doesNotMatch(tickets, /Gemini|DeepSeek/i);
 });

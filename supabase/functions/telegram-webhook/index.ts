@@ -1,4 +1,4 @@
-import { answerPublicQuestion } from "./assistant.js";
+import { answerPublicQuestionWithFreeProvider } from "./assistant.js";
 import { handleTelegramMessage } from "./bot-handler.js";
 import { isSetupOwner } from "./setup-auth.js";
 
@@ -7,12 +7,8 @@ const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
 const OWNER_SETUP_CODE = Deno.env.get("TELEGRAM_OWNER_SETUP_CODE") ?? "";
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
-const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
-const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY") ?? "";
-const QWEN_API_KEY = Deno.env.get("QWEN_API_KEY") ?? "";
-const configuredModel = Deno.env.get("VISITOR_ASSISTANT_GEMINI_MODEL") ?? "gemini-2.5-flash-lite";
-const DEEPSEEK_MODEL = Deno.env.get("DEEPSEEK_MODEL") ?? "deepseek-flash";
-const QWEN_MODEL = Deno.env.get("QWEN_MODEL") ?? "qwen-plus";
+const GROQ_API_KEY = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_API_KEY") ?? "";
+const GROQ_FREE_PLAN_CONFIRMED = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_CONFIRMED") === "true";
 const PUBLISHABLE_KEYS = (() => {
   try {
     const value = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}");
@@ -199,18 +195,16 @@ Deno.serve(async (request: Request) => {
     linkOwner,
     saveOwnerReply,
     sendText,
-    answerWithGemini: async (question) => {
-      if (!SUPABASE_URL || !PUBLISHABLE_KEY) return { ok: false };
-      const providers = [
-        DEEPSEEK_API_KEY && { provider: "deepseek", apiKey: DEEPSEEK_API_KEY, model: DEEPSEEK_MODEL },
-        QWEN_API_KEY && { provider: "qwen", apiKey: QWEN_API_KEY, model: QWEN_MODEL },
-        GEMINI_API_KEY && { provider: "gemini", apiKey: GEMINI_API_KEY, model: configuredModel },
-      ].filter(Boolean) as Array<{ provider: string; apiKey: string; model: string }>;
-      for (const provider of providers) {
-        const result = await answerPublicQuestion({ question, ...provider, supabaseUrl: SUPABASE_URL, publishableKey: PUBLISHABLE_KEY });
-        if (result.ok) return result;
-      }
-      return { ok: false };
+    answerWithFreeProvider: async (question) => {
+      if (!GROQ_API_KEY || !GROQ_FREE_PLAN_CONFIRMED) return { ok: false, reason: "provider_unavailable", sentToExternalModel: false };
+      return await answerPublicQuestionWithFreeProvider({
+        question,
+        groqApiKey: GROQ_API_KEY,
+        groqFreePlanConfirmed: GROQ_FREE_PLAN_CONFIRMED,
+        externalAiConsent: true,
+        supabaseUrl: SUPABASE_URL,
+        publishableKey: PUBLISHABLE_KEY,
+      });
     },
   });
   return new Response("ok", { status: 200 });

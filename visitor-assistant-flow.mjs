@@ -9,25 +9,41 @@ export function isVisitorAssistantQuestionSensitive(question) {
 }
 
 export async function routeVisitorAssistantQuestion(question, {
-  askGemini = async () => null,
+  askFreeModel = async () => null,
   answerLocally = async () => ({ text: 'تعذّر الاتصال بالمساعد الذكي الآن؛ أعد المحاولة لاحقًا أو استخدم قسم «اسأل أمين المكتبة».' }),
+  externalAiConsent = false,
 } = {}) {
   const text = String(question ?? '').normalize('NFKC').trim();
   if (containsSensitivePersonalData(text)) {
-    return { text: VISITOR_PERSONAL_DATA_REPLY, source: 'local', privacyBlocked: true, sent: false };
+    return { text: VISITOR_PERSONAL_DATA_REPLY, source: 'local', privacyBlocked: true, sent: false, sentToExternalModel: false };
   }
   const localIntent = resolveVisitorAssistantIntent(text);
-  if (localIntent) return { ...localIntent, source: 'local', sent: false };
+  if (localIntent) return { ...localIntent, source: 'local', sent: false, sentToExternalModel: false };
   const catalogIntent = classifyVisitorCatalogIntent(text);
 
+  let sentToExternalModel = false;
   try {
-    const result = await askGemini(text);
+    const result = await askFreeModel(text, { externalAiConsent: externalAiConsent === true });
+    sentToExternalModel = result?.sentToExternalModel === true;
+    const consentRequired = result?.consent_required === true
+      || result?.consentRequired === true
+      || result?.reason === 'external_model_consent_required';
+    if (consentRequired && externalAiConsent !== true) {
+      return {
+        text: 'لم يُرسل سؤالك إلى أي نموذج بعد. إذا وافقت، سيُرسل نص هذا السؤال ومعلومات عامة منشورة من الفهرس إلى نموذج Qwen عبر Groq، على الخطة المجانية للمشروع فقط. لا تُدخل بيانات شخصية أو سرية.',
+        source: 'consent-required',
+        sent: false,
+        sentToExternalModel: false,
+        needsExternalModelConsent: true,
+      };
+    }
     if (result?.ok === true && typeof result.text === 'string' && result.text.trim()) {
-      return { ...result, text: result.text.trim(), source: 'gemini', sent: true };
+      const provider = result.provider || 'groq';
+      return { ...result, text: result.text.trim(), source: provider, sent: true, sentToExternalModel: true };
     }
   } catch {
-    // The local public-guide answer is used when Gemini is unavailable.
+    // Continue with local public information; never try a different or paid provider.
   }
   const fallback = await answerLocally(text, { catalogIntent });
-  return { ...fallback, source: 'local-fallback', sent: false, geminiUnavailable: true };
+  return { ...fallback, source: 'local-fallback', sent: false, sentToExternalModel, freeModelUnavailable: true };
 }

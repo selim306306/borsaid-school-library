@@ -1,14 +1,10 @@
 import { containsSensitivePersonalData } from "./privacy-guard.js";
-import { answerPublicQuestion, PERSONAL_DATA_REPLY } from "./assistant.js";
+import { answerPublicQuestionWithFreeProvider, PERSONAL_DATA_REPLY } from "./assistant.js";
 
 const ALLOWED_ORIGIN = "https://selim306306.github.io";
 const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
-const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") ?? "";
-const configuredModel = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash-lite";
-const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY") ?? "";
-const QWEN_API_KEY = Deno.env.get("QWEN_API_KEY") ?? "";
-const DEEPSEEK_MODEL = Deno.env.get("DEEPSEEK_MODEL") ?? "deepseek-flash";
-const QWEN_MODEL = Deno.env.get("QWEN_MODEL") ?? "qwen-plus";
+const GROQ_API_KEY = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_API_KEY") ?? "";
+const GROQ_FREE_PLAN_CONFIRMED = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_CONFIRMED") === "true";
 const PUBLISHABLE_KEY = (() => {
   try {
     const keys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}") as Record<string, string>;
@@ -86,35 +82,28 @@ Deno.serve(async (request: Request) => {
   if (containsSensitivePersonalData(question)) {
     return jsonResponse({ ok: true, privacy_blocked: true, stored: false, text: PERSONAL_DATA_REPLY }, 200, origin);
   }
-  if (!SUPABASE_URL || (!DEEPSEEK_API_KEY && !QWEN_API_KEY && !GEMINI_API_KEY)) return jsonResponse({ error: "assistant_unavailable", reason: "server_configuration_missing" }, 503, origin);
+  if (!SUPABASE_URL || !GROQ_API_KEY || !GROQ_FREE_PLAN_CONFIRMED) return jsonResponse({ error: "assistant_unavailable", reason: "free_provider_not_configured" }, 503, origin);
   const rateKey = await hashedRateKey(request);
   if (!allowRate(rateKey)) return jsonResponse({ error: "rate_limited" }, 429, origin);
 
   let providerStatus = 0;
-  let providerCode = "";
   const providerFetch: typeof fetch = async (input, init) => {
-    let response: Response;
-    try { response = await fetch(input, init); }
-    catch (error) { providerCode = error instanceof Error ? error.name.replace(/[^A-Za-z]/g, "").slice(0, 40) : "NetworkError"; throw error; }
-    if (String(input).startsWith("https://generativelanguage.googleapis.com/")) {
-      providerStatus = response.status;
-      if (!response.ok) {
-        const error = await response.clone().json().catch(() => null);
-        providerCode = String(error?.error?.status ?? "").replace(/[^A-Z_]/g, "").slice(0, 60);
-      }
-    }
+    const response = await fetch(input, init);
+    if (String(input).startsWith("https://api.groq.com/openai/v1/")) providerStatus = response.status;
     return response;
   };
-  const providers = [
-    DEEPSEEK_API_KEY && { provider: "deepseek", apiKey: DEEPSEEK_API_KEY, model: DEEPSEEK_MODEL },
-    QWEN_API_KEY && { provider: "qwen", apiKey: QWEN_API_KEY, model: QWEN_MODEL },
-    GEMINI_API_KEY && { provider: "gemini", apiKey: GEMINI_API_KEY, model: configuredModel },
-  ].filter(Boolean) as Array<{ provider: string; apiKey: string; model: string }>;
-  let result = { ok: false, reason: "provider_unavailable" } as any;
-  for (const provider of providers) {
-    result = await answerPublicQuestion({ question, ...provider, supabaseUrl: SUPABASE_URL, publishableKey: PUBLISHABLE_KEY, fetchImpl: providerFetch });
-    if (result.ok) break;
+  const result = await answerPublicQuestionWithFreeProvider({
+    question,
+    groqApiKey: GROQ_API_KEY,
+    groqFreePlanConfirmed: GROQ_FREE_PLAN_CONFIRMED,
+    externalAiConsent: body.externalAiConsent === true,
+    supabaseUrl: SUPABASE_URL,
+    publishableKey: PUBLISHABLE_KEY,
+    fetchImpl: providerFetch,
+  });
+  if (result.consentRequired) {
+    return jsonResponse({ ok: false, consent_required: true, reason: "external_model_consent_required", sentToExternalModel: false, stored: false }, 200, origin);
   }
-  if (!result.ok) return jsonResponse({ error: "assistant_unavailable", reason: result.reason, provider_status: providerStatus, provider_code: providerCode }, 502, origin);
+  if (!result.ok) return jsonResponse({ ok: false, reason: result.reason, provider_status: providerStatus, sentToExternalModel: result.sentToExternalModel === true, stored: false }, 200, origin);
   return jsonResponse({ ok: true, stored: false, ...result }, 200, origin);
 });

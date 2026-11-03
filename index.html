@@ -1,5 +1,5 @@
 <!doctype html>
-<script type="module" src="portal-upgrade.js?v=20261103"></script>
+<script type="module" src="portal-upgrade.js?v=bd03599b525daa61"></script>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -32,11 +32,11 @@
   <link rel="preconnect" href="https://esm.sh">
   <link rel="preconnect" href="https://eahptkwvjcnixlzlyznh.supabase.co" crossorigin>
   <link rel="preload" as="image" href="assets/header-feature-image-initial-ffd841114ce7dbe1.webp" fetchpriority="high">
-  <link rel="stylesheet" href="site-bundle.css?v=d3f1e8e728f307d3">
+  <link rel="stylesheet" href="site-bundle.css?v=4c4b52fe78ff7c58">
   <script type="module" src="school-branding-bootstrap.mjs?v=aa669c7d4430fade"></script>
   <script type="module" src="site-media-public.js?v=32e20cc432e340e7"></script>
   <script type="module" src="header-photo-carousel.js?v=7c4d773d0678a0be"></script>
-  <script type="module" src="app.js?v=ed9107359912ceea"></script>
+  <script type="module" src="app.js?v=5c01b50544a49334"></script>
   <script type="module" src="book-catalog-assistant.js?v=da14aa037db0a967"></script>
   <script type="module" src="global-reading.js?v=5d64ca08e2de5f20"></script>
   <script type="module" src="education-research.js?v=e1dbe97e4e150c92"></script>
@@ -44,9 +44,9 @@
   <script type="module" src="open-books-live.js?v=6ca36f074c417c7b"></script>
   <script type="module" src="external-reading.js?v=75ce395ccdb7335a"></script>
   <script type="module" src="book-updates-ticker.js?v=5f6e54226ae352e1"></script>
-  <script type="module" src="visitor-questions.js?v=a3613ce125bd7cdb"></script>
+  <script type="module" src="visitor-questions.js?v=b4e0166e42b51efd"></script>
   <script defer src="image-viewer.js?v=5ee695f637142162"></script>
-  <script type="module" src="header-reading-summary.js?v=3ad7cc5d78228119"></script>
+  <script type="module" src="header-reading-summary.js?v=2ac5c794a0a61338"></script>
 </head>
 <body>
   <a class="skip-link" href="#top">تجاوز إلى المحتوى</a>
@@ -123,7 +123,7 @@
         <div class="portal-side-heading"><span class="eyebrow">خطوتك التالية</span><strong>استكشف ما تحتاجه</strong></div>
         <nav class="portal-side-links">
           <a class="portal-side-link portal-side-library" href="#branches"><span class="portal-side-icon" aria-hidden="true">⌂</span><span class="portal-side-copy"><strong>المكتبات</strong><small>تعرّف على الفروع المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
-          <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد سريع بالاستناد إلى Gemini</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
+          <a class="portal-side-link portal-side-assistant" href="#visitorAssistant"><span class="portal-side-icon" aria-hidden="true">؟</span><span class="portal-side-copy"><strong>مساعد أمين المكتبة</strong><small>إرشاد من المعلومات العامة المنشورة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
           <a class="portal-side-link portal-side-news" href="#educationResearch"><span class="portal-side-icon" aria-hidden="true">✳</span><span class="portal-side-copy"><strong>أخبار المكتبات في مصر والعالم</strong><small>موجز عربي ومصادر موثوقة</small></span><span class="portal-side-arrow" aria-hidden="true">←</span></a>
         </nav>
       </aside>
@@ -142,19 +142,19 @@
           <article class="visitor-pathway-card visitor-pathway-ai">
             <span class="visitor-pathway-icon" aria-hidden="true">م</span>
             <h3>مساعد أمين المكتبة</h3>
-            <p>إجابة فورية عن الموقع والكتب المنشورة. يرسل الأسئلة العامة تلقائيًا إلى Gemini، ولا تُحفظ المحادثة في قاعدة الموقع ولا تصل إلى المدير عبر Telegram. تُحجب البيانات الشخصية محليًا.</p>
+            <p>إجابة عن الموقع والكتب المنشورة. عند توافر إعداد Qwen المجاني، لن يُرسل السؤال إلى Groq إلا بعد موافقتك؛ وإلا يجيب الموقع محليًا. لا تُحفظ المحادثة ولا تصل إلى المدير عبر Telegram، وتُحجب البيانات الشخصية محليًا.</p>
             <a class="visitor-pathway-action" href="#visitorAssistant">افتح مساعد أمين المكتبة <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-librarian">
             <span class="visitor-pathway-icon" aria-hidden="true">؟</span>
             <h3>اسأل أمين المكتبة</h3>
-            <p>لإرسال سؤال عام ومتابعة رد خاص في الصفحة. يُعالَج السؤال آليًا عبر Gemini وقد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram؛ لذلك لا تكتب بيانات شخصية.</p>
+            <p>لإرسال سؤال ومتابعة رد خاص في الصفحة. يبقى السؤال للمتابعة اليدوية ما لم توافق اختياريًا على معالجة Qwen عبر Groq المجاني عند توافر إعداد المشروع. قد يصل السؤال والرد إلى مدير الموقع عبر Telegram؛ لا تكتب بيانات شخصية.</p>
             <a class="visitor-pathway-action" href="#visitorQuestions">اسأل أمين المكتبة <span aria-hidden="true">←</span></a>
           </article>
           <article class="visitor-pathway-card visitor-pathway-telegram">
             <span class="visitor-pathway-icon" aria-hidden="true">↗</span>
             <h3>بوت Telegram</h3>
-            <p>محادثة مستقلة ترد تلقائيًا عبر Gemini عن المعلومات العامة المنشورة فقط. موقع المكتبة لا يحفظ نصها؛ لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا.</p>
+            <p>محادثة مستقلة عن المعلومات العامة فقط. قد يستخدم البوت Qwen عبر Groq ضمن الخطة المجانية للمشروع إذا كانت مهيأة؛ وإلا يقدّم إرشادًا بديلًا. لا يحفظ موقع المكتبة نص المحادثة؛ لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا.</p>
             <a class="visitor-pathway-action" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">افتح بوت Telegram <span aria-hidden="true">↗</span></a>
           </article>
         </div>
@@ -318,7 +318,7 @@
           <div class="catalog-search-details-body">
           <h2 class="catalog-search-heading">بحث في بيانات فهرس مكتبة الإسكندرية ومكتبة الكونجرس</h2>
           <p class="catalog-search-description">يمكنك البحث في السجلات ثم فتح الكتاب لدى المصدر إذا كان متاحاً بحقوق تسمح بذلك.</p>
-        <aside class="global-reading-source-note"><span class="global-reading-source-icon" aria-hidden="true">i</span><span><strong>مصادر مستقلة:</strong> فهرس الإسكندرية ببليوجرافي، وبحث الكونجرس يعرض بياناته وموارده الرقمية عند تسجيلها. لا تُدمج النتائج مع فهرس بورسعيد؛ عبارة البحث تُرسل فقط إلى المصدر الذي تختاره ولا تُرسل إلى Gemini أو تُخزّن على هذا الموقع.</span></aside>
+        <aside class="global-reading-source-note"><span class="global-reading-source-icon" aria-hidden="true">i</span><span><strong>مصادر مستقلة:</strong> فهرس الإسكندرية ببليوجرافي، وبحث الكونجرس يعرض بياناته وموارده الرقمية عند تسجيلها. لا تُدمج النتائج مع فهرس بورسعيد؛ عبارة البحث تُرسل فقط إلى المصدر الذي تختاره ولا تُرسل إلى نموذج ذكاء اصطناعي أو تُخزّن على هذا الموقع.</span></aside>
         <form id="globalReadingForm" class="global-reading-form" role="search">
           <div class="global-reading-field"><label for="globalReadingInput">عنوان أو مؤلف أو موضوع</label><input id="globalReadingInput" type="search" maxlength="100" placeholder="مثال: نجيب محفوظ، الفضاء، The Hobbit" autocomplete="off" aria-describedby="globalReadingPrivacy" required></div>
           <div class="global-reading-field"><label for="globalReadingSource">مصدر البحث</label><select id="globalReadingSource"><option value="alexandria" selected>فهرس مكتبة الإسكندرية</option><option value="loc">مكتبة الكونجرس</option></select></div>
@@ -452,28 +452,29 @@
       <div class="visitor-support-copy">
         <span class="eyebrow">مساعد زوار آلي · خصوصية لكل سؤال</span>
         <h2 id="visitorQuestionTitle">اسأل أمين المكتبة</h2>
-        <p>سيجيب مساعد المكتبة تلقائيًا عن الأسئلة العامة بالاستناد إلى معلومات الموقع والفهرس المنشور. يظهر رد كل سؤال لصاحبه فقط في هذه الصفحة.</p>
+        <p>يمكنك إرسال السؤال لمتابعة أمين المكتبة. وإذا فُعّل Qwen بمفتاح خاص بالمشروع على الخطة المجانية، يمكنك اختيار إجابته الآلية؛ وإلا تبقى المتابعة يدوية. يظهر الرد لصاحبه فقط في هذه الصفحة.</p>
         <a class="visitor-telegram-link" id="visitorTelegramLink" href="https://t.me/PortSaidSchoolLibrariesBot" target="_blank" rel="noopener noreferrer">فتح بوت الاستفسارات على Telegram ↗</a>
-        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">تُعالج الأسئلة العامة تلقائيًا عبر Gemini اعتمادًا على معلومات الموقع والفهرس المنشورين. قد يصل نص السؤال والرد الآلي إلى مدير الموقع عبر Telegram، وتُحفظ التذكرة لمتابعة الرد الذي يظهر لصاحبها فقط. إذا اكتشف النظام بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يعتذر محليًا ولا يرسل السؤال إلى Gemini أو Telegram ولا يحفظه في قاعدة الموقع.</p>
+        <p class="visitor-privacy-note visitor-ai-notice" id="visitorAIProcessingNotice">إرسال السؤال يحفظ تذكرة لمتابعة خاصة. خيار الإجابة الآلية اختياري: لا يُرسل السؤال إلى Qwen عبر Groq إلا إذا وافقت على ذلك وكان مفتاح المشروع على خطة Groq المجانية مهيأً؛ وإلا تصل التذكرة للمتابعة اليدوية فقط. قد يصل نص السؤال والرد إلى مدير الموقع عبر Telegram. إذا اكتشف النظام بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة فردية، يحجبها محليًا ولا يرسلها للنموذج أو Telegram ولا يحفظها.</p>
         <p class="visitor-privacy-note" id="visitorQuestionPrivacy">لخصوصيتك، لا تكتب أسماء أو أرقامًا أو بريدًا أو بيانات تخص طالبًا أو مستعيرًا أو موظفًا، ولا أي معلومة سرية. اترك علامة التبويب نفسها مفتوحة للاحتفاظ بالرد.</p>
       </div>
       <form class="visitor-question-form" id="visitorQuestionForm">
         <label for="visitorQuestionText">نص السؤال</label>
         <textarea id="visitorQuestionText" name="question" maxlength="1500" rows="5" required aria-describedby="visitorAIProcessingNotice visitorQuestionPrivacy" placeholder="اكتب سؤالك هنا…"></textarea>
+        <label class="visitor-question-ai-consent" for="visitorQuestionAiConsent"><input id="visitorQuestionAiConsent" name="external_ai_consent" type="checkbox" value="true" aria-describedby="visitorAIProcessingNotice"><span>أوافق على إرسال السؤال العام إلى Qwen عبر Groq على الخطة المجانية فقط للحصول على رد آلي لهذا السؤال. لا أرسل بيانات شخصية أو سرية.</span></label>
         <div class="visitor-question-honeypot" aria-hidden="true">
           <label for="visitorQuestionWebsite">اترك هذا الحقل فارغًا</label>
           <input id="visitorQuestionWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
-        <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">اسأل المساعد</button>
+        <button class="button button-primary visitor-question-submit" id="visitorQuestionSubmit" type="submit">أرسل السؤال</button>
         <p class="visitor-question-status" id="visitorQuestionStatus" role="status" aria-live="polite"></p>
         <div class="visitor-question-tickets" id="visitorQuestionTickets" aria-live="polite"></div>
       </form>
     </section>
     </section>
     <dialog class="visitor-chat-dialog" id="visitorChatDialog" aria-labelledby="visitorChatDialogTitle">
-      <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">مساعد أمين المكتبة المدعوم بـGemini</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق مساعد أمين المكتبة">×</button></header>
+      <header class="visitor-chat-dialog-header"><h2 id="visitorChatDialogTitle">مساعد أمين المكتبة</h2><button class="visitor-chat-dialog-close" id="closeVisitorChat" type="button" aria-label="إغلاق مساعد أمين المكتبة">×</button></header>
       <section class="visitor-assistant section-wrap" id="visitorAssistant" aria-labelledby="visitorAssistantTitle">
-        <div class="visitor-assistant-copy"><span class="eyebrow">مساعد أمين المكتبة · Gemini</span><h2 id="visitorAssistantTitle">اسأل مساعد أمين المكتبة عن الموقع أو كتاب منشور</h2><p>إجابة تلقائية من Gemini مدعومة بدليل الموقع والفهرس العام؛ تحقّق من الفرع قبل الاعتماد على الإتاحة.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">تُرسل الأسئلة العامة تلقائيًا إلى Gemini ولا تُحفظ في قاعدة بيانات موقع المكتبة أو تُرسل لمديره عبر Telegram. تبقى المحادثة في الصفحة المفتوحة فقط. يُحجب السؤال الذي يتضمن بيانات شخصية أو سرية محليًا قبل أي إرسال. لمتابعة سؤال لدى أمين المكتبة استخدم النموذج المخصص، مع العلم أنه قد يصل للمدير.</div></div>
+        <div class="visitor-assistant-copy"><span class="eyebrow">مساعد المكتبة العام</span><h2 id="visitorAssistantTitle">اسأل عن الموقع أو كتاب منشور</h2><p>يجيب المساعد محليًا من معلومات الموقع. إذا توفر إعداد Qwen المجاني للمشروع، سيطلب موافقتك قبل إرسال نص هذا السؤال ومعلومات عامة منشورة إلى Groq.</p><div class="assistant-privacy-note" id="visitorAssistantPrivacy">لا تُدخل أي اسم أو معلومة شخصية أو سرية؛ قد لا تلتقط حواجز الخصوصية كل الحالات. يستخدم المساعد معلومات الموقع والفهرس المنشورة فقط. لا يُرسل السؤال إلى نموذج خارجي إلا بعد موافقتك الصريحة لهذا السؤال وعند تهيئة مفتاح المشروع على خطة Groq المجانية. إذا لم يتوفر ذلك، يجيب الموقع محليًا. لا تُحفظ هذه المحادثة في قاعدة بيانات الموقع ولا تُرسل عبر Telegram.</div></div>
         <div class="visitor-assistant-box">
           <div class="visitor-assistant-log" id="visitorAssistantLog" role="log" aria-live="polite" aria-relevant="additions text" aria-label="محادثة مساعد أمين المكتبة"><article class="visitor-assistant-message assistant"><strong>مساعد أمين المكتبة</strong><p>أهلاً بك. أستطيع شرح طريقة استخدام الموقع أو البحث عن عنوان منشور.</p></article></div>
           <div class="visitor-question-chips" aria-label="أسئلة مقترحة"><button type="button" data-visitor-question="كيف أستعير كتاباً؟">كيف أستعير كتاباً؟</button><button type="button" data-visitor-question="هل أستطيع قراءة كتاب أونلاين؟">القراءة أونلاين</button><button type="button" data-visitor-question="من يعمل في المكتبة؟">العاملون في المكتبة</button></div>
@@ -498,7 +499,7 @@
             <span class="sr-only" id="headerPhotoStatus" role="status" aria-live="polite"></span>
           </div>
           <div class="header-photo-attribution is-empty" id="headerPhotoAttribution" role="note" aria-label="مصدر الصورة" aria-hidden="true"></div>
-          <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح مساعد أمين المكتبة المدعوم بـGemini" aria-haspopup="dialog" aria-controls="visitorChatDialog">
+          <button class="header-chat-shortcut" id="headerVisitorChatShortcut" type="button" aria-label="افتح مساعد أمين المكتبة" aria-haspopup="dialog" aria-controls="visitorChatDialog">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.75A2.75 2.75 0 0 1 6.75 2h10.5A2.75 2.75 0 0 1 20 4.75v8.5A2.75 2.75 0 0 1 17.25 16H10l-5 4v-4.35a2.74 2.74 0 0 1-1-2.1z"></path><path d="M8 7.5h8M8 11h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>
             <span>مساعد أمين المكتبة</span>
           </button>

@@ -1,8 +1,8 @@
 import { containsSensitivePersonalData } from "./privacy-guard.js";
 
-export const TELEGRAM_PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. لن يُرسل هذا السؤال إلى Gemini أو مدير الموقع، ولن يحفظه موقع المكتبة. أعد صياغته كسؤال عام بلا بيانات شخصية.";
-export const TELEGRAM_PUBLIC_DISCLOSURE = "تنبيه: تُعالج الأسئلة العامة آليًا عبر المساعد الموحد اعتمادًا على المعلومات المنشورة فقط، ولا يحفظ موقع المكتبة نص المحادثة في قاعدة بياناته. لا ترسل أسماء أو أرقامًا أو بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة. إذا استخدمت نموذج «اسأل أمين المكتبة» على الموقع فقد يصل السؤال والرد الآلي إلى المدير عبر Telegram.";
-const TELEGRAM_ANSWER_NOTICE = "تنبيه: عولج السؤال العام آليًا عبر المساعد الموحد. لا تحفظه قاعدة موقع المكتبة؛ وأسئلة نموذج «اسأل أمين المكتبة» قد تصل إلى المدير عبر Telegram.";
+export const TELEGRAM_PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. لن يُرسل هذا السؤال إلى نموذج خارجي أو مدير الموقع، ولن يحفظه موقع المكتبة. أعد صياغته كسؤال عام بلا بيانات شخصية.";
+export const TELEGRAM_PUBLIC_DISCLOSURE = "تنبيه: قد تُرسل الأسئلة العامة إلى نموذج Qwen عبر Groq فقط إذا كان مفتاح المشروع مهيأً على الخطة المجانية. عند غياب هذا الإعداد لا يُستدعى نموذج آخر. يعتمد الرد على المعلومات العامة المنشورة، ولا يحفظ موقع المكتبة نص محادثة Telegram في قاعدة بياناته. لا ترسل بيانات تخص طالبًا أو موظفًا أو مستعيرًا أو إعارة. إذا استخدمت نموذج «اسأل أمين المكتبة» على الموقع فقد يصل السؤال والرد إلى المدير عبر Telegram.";
+const TELEGRAM_ANSWER_NOTICE = "تنبيه: أُعدّت الإجابة من معلومات الموقع العامة. إذا استُخدم Qwen عبر Groq فذلك عبر إعداد الخطة المجانية للمشروع فقط. لا يحفظ موقع المكتبة نص محادثة Telegram؛ وأسئلة نموذج «اسأل أمين المكتبة» قد تصل إلى المدير عبر Telegram.";
 const OWNER_REPLY_HELP = "للرد على سؤال محفوظ في نموذج الموقع، أرسل:\n/reply رمز_السؤال نص_الرد\nمثال: /reply ABC2345678 شكرًا على سؤالك. يظهر الرد لصاحب السؤال فقط.";
 const OWNER_CLAIM_REPLY = "لا يثبت ادعاء الهوية في رسالة الدردشة صلاحية المالك. ربط حساب المالك محصور برمز الإعداد المؤقت من جلسة المالك؛ لا أستطيع منح صلاحيات أو تجاوز هذا التحقق.";
 const FORM_URL_FALLBACK = "https://selim306306.github.io/borsaid-school-library/#visitorQuestions";
@@ -46,7 +46,7 @@ export async function handleTelegramMessage({
   linkOwner = async () => false,
   saveOwnerReply = async () => false,
   sendText = async () => false,
-  answerWithGemini = async () => ({ ok: false }),
+  answerWithFreeProvider = async () => ({ ok: false, sentToExternalModel: false }),
   now = Date.now(),
 } = {}) {
   if (chatType !== "private" || !chatId || typeof text !== "string") return { handled: false, reason: "ignored" };
@@ -64,7 +64,7 @@ export async function handleTelegramMessage({
         : "تعذر إكمال ربط الحساب. أعد المحاولة من جلسة المالك.");
       return { handled: true, action: linked ? "owner_linked" : "owner_link_failed" };
     }
-    await sendText(chat, `مرحبًا بك في بوت مكتبات بورسعيد المدرسية.\n\n${TELEGRAM_PUBLIC_DISCLOSURE}\n\nأرسل سؤالك العام للحصول على إجابة آلية.\n\nلإرسال سؤال خاص لأمين المكتبة ومتابعة رده، استخدم نموذج الموقع:\n${websiteFormUrl}`);
+    await sendText(chat, `مرحبًا بك في بوت مكتبات بورسعيد المدرسية.\n\n${TELEGRAM_PUBLIC_DISCLOSURE}\n\nأرسل سؤالًا عامًا عن المعلومات المنشورة؛ وإذا لم تتوفر تهيئة Qwen المجانية فسيُوجّهك البوت للمتابعة اليدوية.\n\nلإرسال سؤال خاص لأمين المكتبة ومتابعة رده، استخدم نموذج الموقع:\n${websiteFormUrl}`);
     return { handled: true, action: "public_start" };
   }
 
@@ -88,7 +88,7 @@ export async function handleTelegramMessage({
       return { handled: true, action: "owner_help" };
     }
   } else if (/^\/(?:start|help)(?:@[A-Za-z0-9_]+)?(?:\s|$)/.test(message)) {
-    await sendText(chat, `مرحبًا بك في بوت مكتبات بورسعيد المدرسية.\n\n${TELEGRAM_PUBLIC_DISCLOSURE}\n\nأرسل سؤالك العام للحصول على إجابة آلية.`);
+    await sendText(chat, `مرحبًا بك في بوت مكتبات بورسعيد المدرسية.\n\n${TELEGRAM_PUBLIC_DISCLOSURE}\n\nأرسل سؤالًا عامًا عن المعلومات المنشورة؛ وإذا لم تتوفر تهيئة Qwen المجانية فسيُوجّهك البوت للمتابعة اليدوية.`);
     return { handled: true, action: "public_help" };
   } else if (message.startsWith("/")) {
     await sendText(chat, ownerChatId ? "اكتب سؤالًا عامًا عن معلومات الموقع المنشورة، أو استخدم /start لعرض التنبيه." : `استخدم /start لعرض طريقة عمل البوت.\n${websiteFormUrl}`);
@@ -97,27 +97,28 @@ export async function handleTelegramMessage({
 
   if (isOwnerClaim(message)) {
     await sendText(chat, OWNER_CLAIM_REPLY);
-    return { handled: true, action: "owner_claim_blocked", sentToGemini: false, stored: false };
+    return { handled: true, action: "owner_claim_blocked", sentToExternalModel: false, stored: false };
   }
   if (containsSensitivePersonalData(message)) {
     await sendText(chat, TELEGRAM_PERSONAL_DATA_REPLY);
-    return { handled: true, action: "private_blocked", sentToGemini: false, stored: false };
+    return { handled: true, action: "private_blocked", sentToExternalModel: false, stored: false };
   }
   if (!allowChatRate(chat, now)) {
     await sendText(chat, "وصلت إلى الحد المؤقت للأسئلة. انتظر دقيقة ثم حاول مجددًا.");
-    return { handled: true, action: "rate_limited", sentToGemini: false };
+    return { handled: true, action: "rate_limited", sentToExternalModel: false };
   }
 
   let result;
   try {
-    result = await answerWithGemini(message);
+    result = await answerWithFreeProvider(message);
   } catch {
     result = { ok: false };
   }
+  const sentToExternalModel = result?.sentToExternalModel === true;
   if (result?.ok === true && typeof result.text === "string" && result.text.trim()) {
     await sendText(chat, `${TELEGRAM_ANSWER_NOTICE}\n\n${result.text.trim()}`.slice(0, 3800));
-    return { handled: true, action: "answered", sentToGemini: true, stored: false };
+    return { handled: true, action: "answered", sentToExternalModel, stored: false };
   }
-  await sendText(chat, `تعذر إعداد إجابة آلية الآن. يمكنك استخدام نموذج «اسأل أمين المكتبة»؛ قد يصل السؤال والرد الآلي إلى المدير عبر Telegram:\n${websiteFormUrl}`);
-  return { handled: true, action: "assistant_unavailable", sentToGemini: true, stored: false };
+  await sendText(chat, `تعذر إعداد إجابة آلية مجانية الآن. لا ننتقل إلى نموذج آخر. يمكنك إرسال سؤال للمتابعة اليدوية عبر نموذج «اسأل أمين المكتبة»؛ وقد يصل السؤال إلى المدير عبر Telegram:\n${websiteFormUrl}`);
+  return { handled: true, action: "assistant_unavailable", sentToExternalModel, stored: false };
 }

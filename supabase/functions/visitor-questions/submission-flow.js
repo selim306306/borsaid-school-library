@@ -3,7 +3,7 @@ import { containsSensitivePersonalData } from "./privacy-guard.js";
 export const REDACTED_QUESTION = "تم حجب السؤال تلقائيًا لاحتوائه على بيانات شخصية أو سرية.";
 export const PERSONAL_DATA_REPLY = "حرصًا على الخصوصية، لا يمكن معالجة أسماء أو أرقام أو معلومات عن طالب أو مستعير أو موظف أو تفاصيل إعارة فردية. أعد صياغة السؤال ليكون عامًا عن خدمات المكتبة أو كتاب منشور، من دون بيانات شخصية أو معلومات سرية.";
 
-const REDACTED_OWNER_ALERT = "تنبيه خصوصية: حُجب سؤال زائر تلقائيًا لاحتوائه على بيانات شخصية أو سرية. لم يُرسل نص السؤال إلى Gemini أو Telegram، ولم يُدرج في هذا الإشعار.";
+const REDACTED_OWNER_ALERT = "تنبيه خصوصية: حُجب سؤال زائر تلقائيًا لاحتوائه على بيانات شخصية أو سرية. لم يُرسل نص السؤال إلى أي نموذج أو Telegram، ولم يُدرج في هذا الإشعار.";
 
 function clip(value, maximum) {
   const text = String(value ?? "").trim();
@@ -16,7 +16,7 @@ export function buildOwnerNotification({ sensitive = false, question = "", autoA
   if (autoAnswered) {
     const safeReply = clip(reply, 2200);
     return [
-      "سؤال جديد من نموذج الموقع — أجاب Gemini تلقائيًا.",
+      "سؤال جديد من نموذج الموقع — أجاب Qwen عبر Groq بالخطة المجانية.",
       "",
       "السؤال:",
       safeQuestion,
@@ -56,7 +56,8 @@ export async function processVisitorQuestion({
   question,
   visitorToken,
   visitorTokenHash,
-  answerWithGemini,
+  answerWithFreeProvider,
+  externalAiConsent = false,
   saveQuestion,
   getOwnerChatId,
   sendTelegramMessage,
@@ -77,11 +78,13 @@ export async function processVisitorQuestion({
     };
   }
 
-  let automaticAnswer = { ok: false };
-  try {
-    automaticAnswer = await answerWithGemini(question);
-  } catch {
-    // A provider exception is handled like any other unavailable automatic answer.
+  let automaticAnswer = { ok: false, sentToExternalModel: false };
+  if (externalAiConsent === true && typeof answerWithFreeProvider === "function") {
+    try {
+      automaticAnswer = await answerWithFreeProvider(question);
+    } catch {
+      // A provider exception is handled like any other unavailable free automatic answer.
+    }
   }
   const safeAnswer = automaticAnswer?.ok === true && typeof automaticAnswer.text === "string" &&
     automaticAnswer.text.trim().length > 0 && automaticAnswer.text.trim().length <= 4000 &&
@@ -105,6 +108,9 @@ export async function processVisitorQuestion({
         question_id: created.id,
         access_token: visitorToken,
         auto_answered: true,
+        answer_provider: automaticAnswer.provider === "groq" ? "groq_qwen" : null,
+        external_model_consented: true,
+        external_model_attempted: automaticAnswer.sentToExternalModel === true,
         question_display: question,
         reply,
         answered_at: created.answeredAt,
@@ -129,6 +135,8 @@ export async function processVisitorQuestion({
       question_id: created.id,
       access_token: visitorToken,
       auto_answered: false,
+      external_model_consented: externalAiConsent === true,
+      external_model_attempted: automaticAnswer.sentToExternalModel === true,
       question_display: question,
       owner_notification: ownerNotification,
     },
