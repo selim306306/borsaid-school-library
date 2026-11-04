@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-03T11:57:30.370Z",
+  "updated_at": "2026-11-04T12:11:34.245Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -339,6 +339,39 @@
       "published_at": "2026-11-02",
       "scope": "libraries",
       "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-ec566891f9aed32007eee99e925ecf08c71d9706c33e009df860f66e16ad48d6",
+      "title_ar": "مكتبة مصر العامة تعلن عن تنظيم مؤتمرها الرابع بعنوان العدالة المعرفية في أبريل 2027",
+      "summary_ar": "أعلنت مكتبة مصر العامة عن تنظيم مؤتمرها الرابع تحت عنوان \"العدالة المعرفية.. المكتبات العامة وسد الفجوة الرقمية في المجتمع المصري\"، وذلك يومي 11 و12 أبريل 2027 بالتزامن مع الاحتفال بمرور 32 عامًا على تأسيس منظومة مكتبات مصر العامة التي تضم حاليًا 62 مكتبة، منها 36 مكتبة ثابتة و26 مكتبة متنقلة. يهدف المؤتمر إلى فتح حوار علمي وثقافي حول دور المكتبات في تضييق الفجوة الرقمية، ويتناول ثمانية محاور علمية تناقش مستقبل العدالة المعرفية.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/the-egyptian-public-library-announces-that-it-will-hold-its-fourth-conference-titled-knowledge-justice-public-libraries-and-bridging-the-digital-divide-in-egyptian-society-in-april-2027",
+      "published_at": "2026-11-02",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-0a7945a904eabc918e17d89318e2f12823ade6d85bc2c777c656fd381668106d",
+      "title_ar": "مكتبة مصر العامة بالدقي تنظم نندوة \"صباح النصر يا بلادي\" احتفاءً بذكرى أكتوبر المجيد",
+      "summary_ar": "أعلنت مكتبة مصر العامة الرئيسية بالدقي عن تنظيم نندوة تحت عنوان \"صباح النصر يا بلادي\"، وذلك لاستعادة بطولات الجنود المصريين وتضحياتهم في ذكرى نصر أكتوبر المجيد. ومن المقرر أن تقام الندوة في قاعة الندوات بالدور الثالث من المكتبة يوم الجمعة 30 أكتوبر 2026 في تمام الساعة الثانية ظهرًا، بمشاركة الشاعر أحمد مرسي ومشرفة المواهب هدى محمد، بهدف تعزيز الوعي الوطني.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/good-morning-victory-my-country-the-egyptian-public-library-commemorates-the-glorious-october-victory",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-c32e6bb24ea52520fecdcd3234e9a70fc146fb39f84060361eed11a39d951d26",
+      "title_ar": "مكتبة مصر العامة بالدقي تنظم ندوة ثقافية حول تاريخ وتراث شارع باب الوزير الإسلامي",
+      "summary_ar": "تستضيف مكتبة مصر العامة الرئيسية بالدقي ندوة ثقافية تحت عنوان شارع باب الوزير. يهدف اللقاء إلى التعرف على أحد شوارع القاهرة التاريخية وما يرتبط به من شواهد معمارية وحكايات تراثية. يحاضر في الندوة شيخ الآثاريين عماد عثمان مهران ويديرها عماد أبو العلا. تسلط الفعالية الضوء على أهمية قراءة الأماكن التاريخية ودراسة تراث القاهرة الإسلامية والعناصر المعمارية لفهم تطور المدينة وذاكرتها الوطنية.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/bab-al-wazir-street-the-egyptian-public-library-opens-a-window-into-the-history-of-islamic-cairo-and-its-architectural-heritage",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
       "category": "أخبار المكتبات"
     }
   ],
