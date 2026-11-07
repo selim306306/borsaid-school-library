@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T12:08:55.909Z",
+  "updated_at": "2026-11-07T11:05:59.289Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -405,6 +405,28 @@
       "published_at": "2026-11-03",
       "scope": "libraries",
       "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-c9391936710e79db3bb025040adbd8d6f7a803eb5b0ee7997598bf87fbd688d3",
+      "title_ar": "مكتبة مصر العامة تستضيف مناقشة كتاب الذكاء الاصطناعي وعبادة التكنولوجيا",
+      "summary_ar": "تستضيف مكتبة مصر العامة الرئيسية بالدقي مناقشة كتاب الذكاء الاصطناعي وعبادة التكنولوجيا للمهندس عيسى بيومي، ويدير اللقاء الكاتب الصحفي مصطفى عبد الله بمشاركة الدكتور محمد عفيفي والسفير رضا الطايفي، وذلك يوم الأربعاء الحادي عشر من نوفمبر لعام ستة وعشرين والفين في قاعة الندوات بمقر المكتبة.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/artificial-intelligence-and-the-cult-of-technology-the-egyptian-public-library-hosts-a-discussion-on-a-book-by-engineer-eissa-bayoumi",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-9b1f56dbab9b1ddb984210c6a1ee3b89d7bf91a5e0852e8e22b8322350c16129",
+      "title_ar": "مكتبة مصر العامة الرئيسية تنظم ندوة حرب أكتوبر بعيون الشباب لاستحضار بطولات النصر",
+      "summary_ar": "تنظم مكتبة مصر العامة الرئيسية بالدقي ندوة ثقافية بعنوان حرب أكتوبر بعيون الشباب يحاضر فيها الدكتور محمود خليل استشاري التدريب وتطوير الذات وذلك لاستعادة صفحات مضيئة من تاريخ مصر الوطني والتأمل في الدروس التي يحملها نصر أكتوبر للأجيال الجديدة بهدف تعريف الشباب بتاريخ وطنهم وإبراز معاني الإرادة والتضحية ومن المقرر عقد الندوة في قاعة الندوات بالدور الثالث يوم الأربعاء 28 أكتوبر 2026 في تمام العاشرة صباحا.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/the-october-war-through-the-eyes-of-youth-the-egyptian-public-library-highlights-the-heroism-of-the-victory-and-connects-generations-to-their-homeland",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
       "category": "أخبار المكتبات"
     }
   ],
