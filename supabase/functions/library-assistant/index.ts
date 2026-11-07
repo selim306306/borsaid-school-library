@@ -2,9 +2,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.0";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
 const anonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
-const geminiApiKey = Deno.env.get("GEMINI_API_KEY") ?? "";
-const configuredModel = Deno.env.get("GEMINI_MODEL") ?? "gemini-3.5-flash-lite";
-const allowedModels = new Set(["gemini-3.5-flash-lite", "gemini-3.8-flash"]);
+const groqApiKey = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_API_KEY") ?? Deno.env.get("GROQ_API_KEY") ?? "";
+const groqFreePlanConfirmed = Deno.env.get("LIBRARY_GROQ_FREE_PLAN_CONFIRMED") === "true";
+const configuredModel = Deno.env.get("GROQ_QWEN_MODEL") ?? "qwen/qwen3.8-27b";
+const allowedModels = new Set(["qwen/qwen3.8-27b"]);
 const allowedIntents = new Set(["inventory_summary", "circulation_summary", "reservation_summary", "manager_summary"]);
 const allowedOrigin = Deno.env.get("APP_ORIGIN") ?? "";
 
@@ -20,32 +21,26 @@ function json(body: unknown, status: number, origin: string | null) {
   return new Response(JSON.stringify(body), { status, headers: { ...cors(origin), "Content-Type": "application/json" } });
 }
 
-type GeminiResult = { ok: true; text: string } | { ok: false; error: "assistant_provider_failed" | "assistant_output_invalid" };
+type AssistantResult = { ok: true; text: string } | { ok: false; error: "assistant_provider_failed" | "assistant_output_invalid" };
 
-async function generateText(model: string, systemInstruction: string, prompt: string, structured = false) {
+async function generateText(model: string, systemInstruction: string, prompt: string, structured = false): Promise<AssistantResult> {
+  if (!groqApiKey || !groqFreePlanConfirmed) return { ok: false, error: "assistant_provider_failed" };
   try {
-    const generationConfig: Record<string, unknown> = { temperature: 0.2, maxOutputTokens: 700 };
-    if (structured) {
-      generationConfig.responseMimeType = "application/json";
-      generationConfig.responseSchema = {
-        type: "OBJECT",
-        properties: { summary: { type: "STRING" }, actions: { type: "ARRAY", items: { type: "STRING" } } },
-        required: ["summary", "actions"],
-      };
-    }
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": geminiApiKey },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${groqApiKey}` },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemInstruction }] },
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig,
+        model,
+        messages: [{ role: "system", content: systemInstruction }, { role: "user", content: prompt }],
+        temperature: 0.2,
+        max_tokens: 700,
+        ...(structured ? { response_format: { type: "json_object" } } : {}),
       }),
       signal: AbortSignal.timeout(20000),
     });
     if (!response.ok) return { ok: false, error: "assistant_provider_failed" };
     const result = await response.json();
-    const text = result?.candidates?.[0]?.content?.parts?.map((part: { text?: string }) => part.text ?? "").join("") ?? "";
+    const text = result?.choices?.[0]?.message?.content ?? "";
     if (!text.trim()) return { ok: false, error: "assistant_output_invalid" };
     return { ok: true, text };
   } catch {
@@ -58,7 +53,7 @@ Deno.serve(async (request) => {
   if (request.method === "OPTIONS") return new Response("ok", { headers: cors(origin) });
   if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405, origin);
   if (!allowedOrigin || origin !== allowedOrigin) return json({ error: "origin_not_allowed" }, 403, origin);
-  if (!supabaseUrl || !anonKey || !geminiApiKey) return json({ error: "server_configuration_missing" }, 503, origin);
+  if (!supabaseUrl || !anonKey || !groqApiKey || !groqFreePlanConfirmed) return json({ error: "server_configuration_missing" }, 503, origin);
 
   const authorization = request.headers.get("authorization") ?? "";
   if (!authorization.startsWith("Bearer ")) return json({ error: "authentication_required" }, 401, origin);

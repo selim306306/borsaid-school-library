@@ -25,6 +25,7 @@ const CACHE_KEY = 'borsaid-library-public-cache-v1';
 const INVITATIONS_ENABLED = true;
 const ASSISTANT_MODELS = new Set(['gemini-3.5-flash-lite', 'gemini-3.8-flash']);
 const DEFAULT_ASSISTANT_MODEL = 'gemini-3.5-flash-lite';
+const LIBRARY_ASSISTANT_MODEL = 'qwen/qwen3.8-27b';
 const DEFAULT_FOOTER_DESCRIPTION = 'بوابة رقمية مستقلة لدعم وصول المجتمع المدرسي إلى الكتب.';
 const SITE_FOOTER_SETTING_KEY = 'global_footer';
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -3238,15 +3239,15 @@ async function assistantErrorMessage(error) {
     status = response.status;
     try { reason = (await response.clone().json())?.error || ''; } catch { /* Use status-only guidance. */ }
   }
-  if (reason === 'server_configuration_missing' || status === 503) return 'إعداد الخادم ناقص: تحقّق من GEMINI_API_KEY وAPP_ORIGIN وأسرار Supabase، ثم أعد المحاولة.';
+  if (reason === 'server_configuration_missing' || status === 503) return 'إعداد الخادم ناقص: تحقّق من مفتاح Groq وسر LIBRARY_GROQ_FREE_PLAN_CONFIRMED في Supabase، ثم أعد المحاولة.';
   if (reason === 'origin_not_allowed') return 'نطاق الموقع غير مسموح به في APP_ORIGIN.';
   if (reason === 'not_authorized' || status === 403) return 'هذا الحساب لا يملك صلاحية استخدام المساعد الذكي.';
   if (reason === 'authentication_required' || status === 401) return 'انتهت جلسة الدخول؛ سجّل الخروج ثم ادخل مجددًا.';
   if (reason === 'consent_required') return 'أكّد موافقتك على إرسال السؤال بعد التأكد من خلوه من بيانات الأشخاص.';
   if (reason === 'personal_data_not_allowed') return 'رُفض السؤال لأنه يبدو أنه يتضمن بيانات اتصال أو معرّفاً أو تفاصيل سجل؛ احذف بيانات الأشخاص وأعد صياغته كسؤال عام.';
   if (reason === 'invalid_request') return 'اختيار النموذج أو نوع الملخص غير مدعوم؛ اختر نموذجًا من القائمة ثم أعد المحاولة.';
-  if (reason === 'metrics_unavailable') return 'تعذّر قراءة العدادات بصلاحيات هذا الحساب؛ لم تُرسل بيانات إلى Gemini.';
-  if (reason === 'assistant_provider_failed' || status === 502) return 'رفض Gemini الطلب أو النموذج؛ تحقّق من المفتاح الخادمي وإتاحة النموذج في حساب Google.';
+  if (reason === 'metrics_unavailable') return 'تعذّر قراءة العدادات بصلاحيات هذا الحساب؛ لم تُرسل بيانات إلى Qwen.';
+  if (reason === 'assistant_provider_failed' || status === 502) return 'رفض Groq الطلب أو النموذج؛ تحقّق من المفتاح الخادمي وحدود الخطة المجانية.';
   return 'تعذّر الاتصال بالمساعد الذكي. راجع نشر Edge Function وأسرار الخادم والاتصال، دون إدخال المفتاح في الموقع.';
 }
 function appendAssistantChatMessage(kind, text) {
@@ -3282,7 +3283,7 @@ $('#assistantTestButton').addEventListener('click', async event => {
   setMessage($('#assistantTestMessage'), 'جارٍ اختبار الاتصال بطلب ثابت بلا بيانات مكتبة…');
   try {
     const { data, error } = await supabase.functions.invoke('library-assistant', {
-      body: { library_id: currentLibraryId, mode: 'test', model: $('#assistantModel').value },
+      body: { library_id: currentLibraryId, mode: 'test', model: LIBRARY_ASSISTANT_MODEL },
     });
     if (error) return setMessage($('#assistantTestMessage'), await assistantErrorMessage(error), 'error');
     if (!data?.ok) return setMessage($('#assistantTestMessage'), 'لم يؤكد الخادم نجاح الاتصال؛ تحقق من نشر الوظيفة والإعدادات.', 'error');
@@ -3294,7 +3295,7 @@ $('#assistantTestButton').addEventListener('click', async event => {
 $('#assistantForm').addEventListener('submit', async event => {
   event.preventDefault();
   const intent = new FormData(event.currentTarget).get('intent');
-  const model = $('#assistantModel').value;
+  const model = LIBRARY_ASSISTANT_MODEL;
   const button = $('.form-action', event.currentTarget);
   button.disabled = true;
   setMessage($('#assistantMessage'), 'جارٍ طلب ملخص من الوظيفة الخلفية…');
@@ -3316,7 +3317,7 @@ $('#managerAssistantForm').addEventListener('submit', async event => {
   setMessage($('#managerAssistantMessage'), 'جارٍ طلب ملخص إجمالي من الوظيفة الخلفية…');
   try {
     const { data, error } = await supabase.functions.invoke('library-assistant', {
-      body: { library_id: currentLibraryId, mode: 'summary', intent: 'manager_summary', model: $('#assistantModel').value },
+      body: { library_id: currentLibraryId, mode: 'summary', intent: 'manager_summary', model: LIBRARY_ASSISTANT_MODEL },
     });
     if (error) return setMessage($('#managerAssistantMessage'), await assistantErrorMessage(error), 'error');
     const output = $('#managerAssistantOutput');
@@ -3340,13 +3341,13 @@ $('#assistantChatForm').addEventListener('submit', async event => {
   button.disabled = true;
   form.elements.message.disabled = true;
   appendAssistantChatMessage('user', message);
-  setMessage($('#assistantChatMessage'), 'جارٍ إرسال السؤال إلى Gemini…');
+  setMessage($('#assistantChatMessage'), 'جارٍ إرسال السؤال إلى Qwen عبر Groq…');
   try {
     const { data, error } = await supabase.functions.invoke('library-assistant', {
-      body: { library_id: currentLibraryId, mode: 'chat', model: $('#assistantModel').value, message, consent: true },
+      body: { library_id: currentLibraryId, mode: 'chat', model: LIBRARY_ASSISTANT_MODEL, message, consent: true },
     });
     if (error) return setMessage($('#assistantChatMessage'), await assistantErrorMessage(error), 'error');
-    if (typeof data?.text !== 'string' || !data.text.trim()) return setMessage($('#assistantChatMessage'), 'لم تصل إجابة صالحة من Gemini؛ حاول مرة أخرى.', 'error');
+    if (typeof data?.text !== 'string' || !data.text.trim()) return setMessage($('#assistantChatMessage'), 'لم تصل إجابة صالحة من Qwen؛ حاول مرة أخرى.', 'error');
     appendAssistantChatMessage('assistant', data.text);
     form.reset();
     setMessage($('#assistantChatMessage'), 'تمت الإجابة. راجع الإرشاد ولا تعتبره إجراءً منفّذاً.', 'success');
