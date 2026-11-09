@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-07T11:05:59.289Z",
+  "updated_at": "2026-11-09T12:55:41.627Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -427,6 +427,39 @@
       "published_at": "2026-10-23",
       "scope": "libraries",
       "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-e97df03c36ef8f2f7acfb6c773e922d4a082d65c4738b38e7faa9a59b20d10d7",
+      "title_ar": "مكتبة مصر العامة الرئيسية بالدقي تنظم حفلاً غنائياً للفنان ياسين منصور",
+      "summary_ar": "دعت مكتبة مصر العامة الرئيسية بالدقي جمهورها إلى حضور حفل غنائي للفنان ياسين منصور، ومن المقرر إقامة الفعالية يوم الخميس 12 نوفمبر 2026 في تمام الساعة الخامسة مساءً، وذلك في إطار الأنشطة الثقافية والفنية التي تسعى المكتبة من خلالها إلى توسيع دورها الثقافي ليمتد إلى الفنون المختلفة.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/an-evening-of-music-and-song-with-artist-yassin-mansour-at-the-misr-public-library",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-f3a6bdbcf3de3344f1420892c5359eb51de1f6a241b63ad1d96665b82ed51382",
+      "title_ar": "مكتبة مصر العامة الرئيسية بالدقي تنظم ندوة لتعزيز الوعي بالذات والتصالح معها",
+      "summary_ar": "تنظم مكتبة مصر العامة الرئيسية بالدقي ندوة ثقافية بعنوان \"كيف أعتذر لنفسي؟\" يحاضر فيها الدكتور أحمد فرج. تهدف الندوة إلى تعزيز الوعي بالذات ومناقشة أهمية التصالح مع النفس والتعامل مع الأخطاء بوعي ورحمة. وتُعقد الندوة في قاعة الندوات بالدور الثالث في المكتبة يوم الخميس 29 أكتوبر 2026 في تمام الساعة الرابعة عصرًا.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/how-do-i-apologize-to-myself-a-seminar-at-the-misr-public-library-in-collaboration-with-commitment-and-well-being-with-us-al-iltizam-wa-al-salih-maana",
+      "published_at": "2026-10-23",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-8abec7eb7a8cd6b7438525924fb73b6ecd3eb7f90e2a2d7e8b4bee1ea0477e11",
+      "title_ar": "مكتبة الإسكندرية تشارك في فعاليات الدورة الخامسة والأربعين لمعرض الشارقة الدولي للكتاب 2026",
+      "summary_ar": "تشارك مكتبة الإسكندرية في فعاليات الدورة الخامسة والأربعين لمعرض الشارقة الدولي للكتاب 2026، والذي تقام فعالياته خلال الفترة من 4 إلى 15 نوفمبر 2026. ويضم جناح المكتبة هذا العام مجموعة استثنائية من أحدث الإصدارات، بالإضافة إلى دراسات تتناول التراث والفكر الإنساني.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46388",
+      "published_at": "2026-11-08",
+      "scope": "libraries",
+      "source_language": "en",
       "category": "أخبار المكتبات"
     }
   ],
