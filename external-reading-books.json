@@ -74282,5 +74282,110 @@
     "pdf": "https://www.frontiersin.org/journals/digital-health/articles/10.3389/fdgth.2021.615366/pdf",
     "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
     "searchable": true
+  },
+  {
+    "id": "openedition-oep-1600",
+    "title": "Qu’est-ce que l’accès ouvert ?",
+    "author": "Peter Suber",
+    "subject": "الوصول المفتوح للمعرفة والبحث العلمي",
+    "category": "العلوم والمعرفة الرقمية",
+    "language": "الفرنسية",
+    "languages": [
+      "الفرنسية"
+    ],
+    "languageCodes": [
+      "fr"
+    ],
+    "languageUnknown": false,
+    "kind": "كتاب كامل متاح للقراءة الإلكترونية",
+    "sourceName": "OpenEdition Books — OpenEdition Press",
+    "source": "https://books.openedition.org/oep/1600",
+    "reader": "https://books.openedition.org/oep/1600",
+    "pdf": "",
+    "rights": "CC BY-NC-ND 4.0؛ القراءة الإلكترونية متاحة على المنصة، بينما PDF وePub للمكتبات المقتنية. لم يُنسخ المحتوى أو يُستضف.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "availability": "external-reading",
+    "completionStatus": "الكتاب الكامل متاح للقراءة على OpenEdition؛ PDF وePub غير متاحين تنزيلًا عامًا في الصفحة. المؤلف Peter Suber؛ الترجمة الفرنسية Marie Lebert. بيانات الناشر تشمل ISBN وDOI والسنة والمكان وعدد الصفحات.",
+    "recordType": "book",
+    "publisher": "OpenEdition Press",
+    "isbn": "9782821869806",
+    "issn": "",
+    "doi": "10.4000/books.oep.1600",
+    "volume": "",
+    "issue": "",
+    "pages": "194",
+    "publicationPlace": "Marseille",
+    "publicationYear": "2016",
+    "searchable": true
+  },
+  {
+    "id": "openedition-oep-1548",
+    "title": "Livre blanc — Une Science ouverte dans une République numérique",
+    "author": "Direction de l’Information Scientifique et Technique - CNRS",
+    "subject": "العلوم المفتوحة وسياسات النشر العلمي",
+    "category": "العلوم والمعرفة الرقمية",
+    "language": "الفرنسية",
+    "languages": [
+      "الفرنسية"
+    ],
+    "languageCodes": [
+      "fr"
+    ],
+    "languageUnknown": false,
+    "kind": "كتاب كامل متاح للقراءة وPDF مفتوح الوصول",
+    "sourceName": "OpenEdition Books — OpenEdition Press",
+    "source": "https://books.openedition.org/oep/1548",
+    "reader": "https://books.openedition.org/oep/1548",
+    "pdf": "https://books.openedition.org/oep/pdf/1548",
+    "rights": "CC BY-NC-ND 4.0 بحسب بيان الناشر؛ رابط القراءة وملف PDF من OpenEdition الرسميين. لم يُنسخ الكتاب أو يُستضف.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "availability": "external-reading",
+    "completionStatus": "النص الكامل للكتاب متاح بالفرنسية للقراءة والتنزيل PDF من المصدر الرسمي. السجل يثبت الجهة المؤلفة والناشر والسنة والمكان وISBN وDOI؛ لم تُثبت صفحات الكتاب في المصدر المستعمل.",
+    "recordType": "book",
+    "publisher": "OpenEdition Press",
+    "isbn": "9782821868694",
+    "issn": "",
+    "doi": "10.4000/books.oep.1548",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publicationPlace": "Marseille",
+    "publicationYear": "2016",
+    "searchable": true
+  },
+  {
+    "id": "paper-invecom-10-5281-zenodo-17238020",
+    "title": "La inteligencia artificial en la investigación científica: una revisión sistemática trienal",
+    "author": "Grimaldo Heredia Pérez; Vilma Celia Chávez Aguilar; Leydy Torres Mendoza; Ricardo Rafael Díaz Calderón",
+    "subject": "الذكاء الاصطناعي؛ البحث العلمي؛ المراجعات المنهجية وأخلاقيات البحث",
+    "category": "العلوم الاجتماعية والإنسانية",
+    "language": "الإسبانية",
+    "languages": [
+      "الإسبانية"
+    ],
+    "languageCodes": [
+      "es"
+    ],
+    "languageUnknown": false,
+    "kind": "ورقة علمية — مراجعة منهجية",
+    "sourceName": "Revista InveCom — SciELO Venezuela",
+    "source": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632026000303010",
+    "reader": "https://ve.scielo.org/scielo.php?script=sci_arttext&pid=S2739-00632026000303010",
+    "pdf": "https://ve.scielo.org/pdf/ric/v6n3/2739-0063-ric-6-03-e603010.pdf",
+    "rights": "Creative Commons Attribution 4.0 International (CC BY 4.0) بحسب صفحة SciELO؛ يفتح النص وPDF لدى المصدر الرسمي، دون إعادة استضافة.",
+    "rightsUrl": "https://creativecommons.org/licenses/by/4.0/deed.es",
+    "availability": "external-reading",
+    "completionStatus": "النص الكامل الإسباني متاح قانونيًا عبر SciELO وPDF رسمي؛ الإنجليزية تقتصر على عنوان/ملخص موازي ولا تُحسب لغة النص الكامل. السجل يضم المؤلفين وDOI وISSN والمجلد والعدد والسنة؛ لا يُصنف كتابًا. لم يذكر المصدر نطاق الصفحات.",
+    "recordType": "paper",
+    "publisher": "Editorial InveCom",
+    "isbn": "",
+    "issn": "2739-0063",
+    "doi": "10.5281/zenodo.17238020",
+    "volume": "6",
+    "issue": "3",
+    "pages": "",
+    "publicationPlace": "Maracaibo, Venezuela",
+    "publicationYear": "2026",
+    "searchable": true
   }
 ]

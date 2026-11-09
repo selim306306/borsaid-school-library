@@ -7,8 +7,8 @@ import { sanitizeBooks } from '../external-reading-model.mjs';
 const external = sanitizeBooks(JSON.parse(readFileSync(new URL('../external-reading-books.json', import.meta.url))));
 test('PDF hosting is counted from real reviewed local files, not external metadata', () => {
   const counts = countPdfLocations(PUBLIC_READABLE_BOOKS, external);
-  assert.deepEqual(counts, { localPdfFiles: 3, externalPdf: 2405 });
-  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS, external).pdf, 2408);
+  assert.deepEqual(counts, { localPdfFiles: 3, externalPdf: 2407 });
+  assert.equal(countReadingTitles(PUBLIC_READABLE_BOOKS, external).pdf, 2410);
   for (const book of PUBLIC_READABLE_BOOKS) assert.ok(existsSync(new URL('../' + book.pdf, import.meta.url)));
   assert.equal(readdirSync(new URL('../', import.meta.url)).filter(name => name.endsWith('.pdf')).length, 3);
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');

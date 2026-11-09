@@ -22138,5 +22138,46 @@
     "pdf": "",
     "rightsUrl": "https://creativecommons.org/licenses/by/4.0/",
     "searchable": false
+  },
+  {
+    "id": "doaj-revista-portuguesa-educacao-2183-0452",
+    "title": "Revista Portuguesa de Educação",
+    "author": "",
+    "subject": "التربية والتعليم",
+    "category": "التربية والتعليم",
+    "language": "البرتغالية، الإسبانية، الإنجليزية، الفرنسية",
+    "languages": [
+      "البرتغالية",
+      "الإسبانية",
+      "الإنجليزية",
+      "الفرنسية"
+    ],
+    "languageCodes": [
+      "pt",
+      "es",
+      "en",
+      "fr"
+    ],
+    "languageUnknown": false,
+    "kind": "دورية محكّمة مفتوحة الوصول — سجل فهرسة فقط",
+    "sourceName": "DOAJ — Revista Portuguesa de Educação",
+    "source": "https://doaj.org/toc/2183-0452",
+    "reader": "",
+    "pdf": "",
+    "rights": "دورية مفتوحة الوصول؛ صفحة الناشر تثبت سياسة CC BY-SA 4.0 واحتفاظ المؤلف بحقوقه. لغات القبول ليست ضمانًا لوجود كل لغة في كل عدد، وهذا السجل لا يعيد نشر عدد أو مقال.",
+    "rightsUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "availability": "catalog-only",
+    "completionStatus": "سجل دورية ببليوغرافي متحقق من DOAJ والناشر. اللغات المذكورة هي لغات النشر المقبولة: البرتغالية والإسبانية والإنجليزية والفرنسية. ليس كتابًا كاملًا ولا عددًا أو مقالًا؛ لم تُضف روابط قراءة أو PDF.",
+    "recordType": "periodical",
+    "publisher": "Universidade do Minho",
+    "isbn": "",
+    "issn": "2183-0452",
+    "doi": "",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publicationPlace": "",
+    "publicationYear": "",
+    "searchable": false
   }
 ]

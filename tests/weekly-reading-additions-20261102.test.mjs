@@ -44,11 +44,11 @@ test('adds only unique weekly records and keeps full books, research papers and 
   assert.ok(newCatalog.every(record => record.recordType === 'periodical' && record.availability === 'catalog-only' && !record.reader && !record.pdf));
   assert.equal(newReading.find(record => record.id === 'paper-frontiers-10-3389-fdgth-2021-615366').pdf, 'https://www.frontiersin.org/journals/digital-health/articles/10.3389/fdgth.2021.615366/pdf');
   assert.deepEqual(countIndexedMaterials(PUBLIC_READABLE_BOOKS, reading, catalog), {
-    indexedRecords: 3218, readingTitles: 2536, completeBooks: 1351,
-    periodicals: 531, catalogOnly: 682, total: 2536, online: 2536, pdf: 2408,
+    indexedRecords: 3222, readingTitles: 2539, completeBooks: 1353,
+    periodicals: 532, catalogOnly: 683, total: 2539, online: 2539, pdf: 2410,
   });
-  assert.deepEqual(countPdfLocations(PUBLIC_READABLE_BOOKS, reading), { localPdfFiles: 3, externalPdf: 2405 });
-  assert.deepEqual(countReadingTitles(PUBLIC_READABLE_BOOKS, reading), { total: 2536, online: 2536, pdf: 2408 });
+  assert.deepEqual(countPdfLocations(PUBLIC_READABLE_BOOKS, reading), { localPdfFiles: 3, externalPdf: 2407 });
+  assert.deepEqual(countReadingTitles(PUBLIC_READABLE_BOOKS, reading), { total: 2539, online: 2539, pdf: 2410 });
   const languages = Object.fromEntries(languageDistribution(added, { deduplicateBy: 'id' }).map(({ language, count }) => [language, count]));
   assert.deepEqual(languages, {
     'البنغالية': 1, 'البرتغالية': 1, 'العربية': 2,
