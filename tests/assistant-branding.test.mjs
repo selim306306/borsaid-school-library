@@ -28,7 +28,7 @@ test('staff, manager, and library-review tools use one assistant brand while kee
   match(html, /للمالك والمسؤول فقط/, 'manager-only scope should remain visible');
   match(html, /للموظفين المخولين فقط/, 'staff-only scope should remain visible');
   match(html, /لا يرى السجلات ولا ينفذ إجراءً/, 'staff chat must remain informational only');
-  match(html, /أوافق على إرسال نصه إلى Gemini/, 'staff question consent must remain separate');
+  match(html, /أؤكد أن السؤال لا يتضمن بيانات أشخاص، وأوافق على إرسال نصه إلى Qwen عبر Groq/, 'staff question consent must remain separate');
   match(html, /أوافق على إرسال أعداد مجمعة فقط إلى Gemini/, 'library review aggregate consent must remain separate');
   match(app, /label\.textContent = kind === 'user' \? 'أنت' : 'المساعد الذكي'/, 'dynamic staff replies should use the common name');
   match(app, /لا يملك صلاحية استخدام المساعد الذكي/, 'authorization errors should use the common name');
