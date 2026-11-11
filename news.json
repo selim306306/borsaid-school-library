@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09T12:55:41.627Z",
+  "updated_at": "2026-11-11T11:53:57.662Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -458,6 +458,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46388",
       "published_at": "2026-11-08",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-02b23fcb3681d3120270cfd21379a8b349f403419bb06a4d0f3533463d6273fe",
+      "title_ar": "مكتبة الإسكندرية تستضيف حفلاً موسيقياً استثنائياً للموسيقار راجح داود",
+      "summary_ar": "تستضيف مكتبة الإسكندرية حفلاً موسيقياً استثنائياً للموسيقار راجح داود يعيد اكتشاف موسيقى أفلام المخرج داود عبد السيد. يُقام الحفل يوم الجمعة 13 نوفمبر في القاعة الكبرى، وتؤديه أوركسترا المكتبة بقيادة المايسترو ناير ناجي.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46393",
+      "published_at": "2026-11-11",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
