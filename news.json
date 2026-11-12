@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-11T11:53:57.662Z",
+  "updated_at": "2026-11-12T12:45:56.052Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -469,6 +469,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46393",
       "published_at": "2026-11-11",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-bbe352b00ecebb9754c99ba27c36872e2ab12506d42cb874e3b4d8dfff1f8a34",
+      "title_ar": "منظمة إيفل تطالب بتوضيح قواعد حقوق الملكية الفكرية والذكاء الاصطناعي في الاتحاد الأوروبي ودعم الوصول المفتوح",
+      "summary_ar": "دعت منظمة إيفل إلى توضيح قواعد حقوق النشر في الاتحاد الأوروبي وإقرار التزامات بالشفافية لمزودي الذكاء الاصطناعي وحق النشر الثانوي للباحثين. وبحسب إيفل، تستجيب هذه المطالبات لتحديات تراجع رؤية المصادر الأصلية ودعم استدامة النشر المفتوح، بالتزامن مع دراسة المفوضية الأوروبية تعديلات مستهدفة على إطار حقوق النشر.",
+      "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
+      "source_url": "https://www.eifl.net/news/way-forward-copyright-research-and-ai-europe",
+      "published_at": "2026-11-12",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
