@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-12T12:45:56.052Z",
+  "updated_at": "2026-11-14T11:31:29.245Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -482,6 +482,28 @@
       "published_at": "2026-11-12",
       "scope": "libraries",
       "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-6ed6de7519fa01cb4a9b26f79adc3402004c7246f0f87862718769475881d791",
+      "title_ar": "استعراض فعاليات وأنشطة مكتبة مصر العامة الثقافية لشهر نوفمبر 2026",
+      "summary_ar": "نظمت مكتبة مصر العامة فعاليات ثقافية متنوعة خلال شهر نوفمبر 2026 تضمنت ملتقى الإبداع العربي بالتعاون مع مؤسسة إبداع للثقافة والفنون. وشملت الأجندة لقاءات حول الذكاء الاصطناعي والتراث المصري وقضايا المجتمع وشعر الأطفال والاحتفال باليوم السنغافوري المصري وإحياء ذكرى الدكتور طه حسين.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/calendar-of-cultural-events-and-seminars-november-2026",
+      "published_at": "2026-11-12",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-9bc4b23ed408fc8c2bbfdc1cc3f5b23bf8ff4456f3225e666f8e05270649d1ec",
+      "title_ar": "مكتبة مصر العامة وصندوق المكتبات يستعرضان حصاد الإنجازات وخطط التوسع بالمحافظات",
+      "summary_ar": "عقد مجلس إدارة مكتبة مصر العامة وصندوق مكتبات مصر العامة اجتماعه السنوي برئاسة السفير عبد الرؤوف الريدي وبحضور السفير رضا الطايفي. استعرض الاجتماع حصاد الإنجازات وخطط التوسع بالمحافظات واعتمد الحساب الختامي. وقدمت الدكتورة رانيا شرعان عرضاً لمؤشرات أداء المكتبة ومشروعاتها خلال العام المالي، بينما استعرض السفير رضا الطايفي افتتاح مكتبتي قاطية بشمال سيناء والقنطرة شرق والاستعداد لافتتاح فرع شرم الشيخ.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/the-misr-public-library-and-the-misr-public-libraries-fund-review-their-achievements-and-plans-for-expansion-across-the-governorates",
+      "published_at": "2026-11-12",
+      "scope": "libraries",
+      "source_language": "ar",
       "category": "أخبار المكتبات"
     }
   ],
