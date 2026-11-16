@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T11:31:29.245Z",
+  "updated_at": "2026-11-16T12:48:24.023Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -504,6 +504,39 @@
       "published_at": "2026-11-12",
       "scope": "libraries",
       "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-d1d835115ede4bbcb18a93e7b66612527a7f9ab60b96122f0095b6884755c0fe",
+      "title_ar": "مكتبة مصر العامة تطلق مبادرة إبداعية بعنوان المكتبات وأمناء المكتبات لنشر مقولات وقصص القراء في كتاب",
+      "summary_ar": "أعلنت مكتبة مصر العامة عن مبادرة إبداعية تحت شعار عبّر عن شغفك بالمعرفة في مقولة تُلهم الآخرين لجمع مقولات وقصص وقرارات القراء ونشرها ضمن كتاب ولنا في المكتبة حكايات وتستقبل المكتبة المشاركات من 10 نوفمبر حتى 10 ديسمبر 2026",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/express-your-passion-for-knowledge-through-a-statement-that-inspires-others",
+      "published_at": "2026-11-15",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-4c1e6e33177e3d8e73b6031abed0db3108ce8f983406bb6a65c0effe0b34c298",
+      "title_ar": "مكتبة الإسكندرية تشارك في فعاليات الدورة التاسعة والاربعين لمعرض الكويت الدولي للكتاب",
+      "summary_ar": "تشارك مكتبة الإسكندرية في الدورة التاسعة والأربعين لمعرض الكويت الدولي للكتاب خلال الفترة من 18 إلى 28 نوفمبر 2026. ويضم جناح المكتبة هذا العام مجموعة استثنائية من أحدث الإصدارات والدراسات المتعلقة بالتراث والفكر والثقافة.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46396",
+      "published_at": "2026-11-12",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-590553f67a48919b46f8ebfe62f37395358f024dff4bd76a471f6afa50211631",
+      "title_ar": "مكتبة الإسكندرية تطلق فصولاً لتعليم القراءة والكتابة ضمن برنامج كتاب وشاشة",
+      "summary_ar": "أعلنت مكتبة الإسكندرية عن فتح باب التسجيل لفصول محو الأمية الصباحية والمسائية. يأتي هذا النشاط ضمن برنامج كتاب وشاشة لتعليم المشاركين القراءة والكتابة وأساسيات الرياضيات واستخدام الهواتف المحمولة.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46397",
+      "published_at": "2026-11-12",
+      "scope": "libraries",
+      "source_language": "en",
       "category": "أخبار المكتبات"
     }
   ],
