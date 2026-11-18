@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-16T12:48:24.023Z",
+  "updated_at": "2026-11-18T13:06:02.021Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -535,6 +535,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46397",
       "published_at": "2026-11-12",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-aa6a80f406d3b15f1d5bd9d43654493f5abc3718271f3c4c554d127b8aa46d9b",
+      "title_ar": "مكتبة الإسكندرية تفتتح مؤتمر تجديد الفكر طريق بناء الوعي",
+      "summary_ar": "افتتحت مكتبة الإسكندرية مؤتمر تجديد الفكر طريق بناء الوعي بالتعاون مع الهيئة القبطية الإنجيلية للخدمات الاجتماعية، وشهدت الجلسة الأولى حضور شخصيات بارزة مثل مفتي مصر ومدير المكتبة ورئيس الطائفة الإنجيلية ومحافظ الإسكندرية، ومن المقرر أن يستمر المؤتمر حتى يوم الثلاثاء ليتناول قضايا التعليم والتفكير النقدي وصناعة الترفيه.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46405",
+      "published_at": "2026-11-17",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
