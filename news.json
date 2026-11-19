@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-18T13:06:02.021Z",
+  "updated_at": "2026-11-19T13:14:10.519Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -546,6 +546,39 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46405",
       "published_at": "2026-11-17",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-9cfc1045e517dba206d24c294b1270f3535a7a5d9b12ac8100660e2ea225f954",
+      "title_ar": "محافظ جنوب سيناء يفتتح فرع مكتبات مصر العامة بشرم الشيخ ويدشن مكتبة متنقلة للوديان",
+      "summary_ar": "افتتح محافظ جنوب سيناء فرع مكتبات مصر العامة بمدينة شرم الشيخ ودشن مكتبة متنقلة للوصول إلى الوديان والتجمعات البدوية. وتضم قاعة القراءة نحو 2000 كتاب موزعة على 10 مجالات معرفية، إلى جانب قاعات للأنشطة والأطفال والموسيقى ومعمل للكمبيوتر ومؤتمرات.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/the-governor-of-south-sinai-inaugurates-a-branch-of-the-egypt-public-libraries-network-and-launches-a-mobile-library-designed-to-bring-knowledge-into-the-heart-of-the-valleys-in-south-sinai",
+      "published_at": "2026-11-18",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-386487dc0d2a815b9a18d67c1776f481597e4e80a54f3c397d8725127a3cdc52",
+      "title_ar": "منظومة مكتبات مصر العامة تسجل أداءً بارزًا وزيارات وإعارات قياسية خلال شهر أكتوبر 2026",
+      "summary_ar": "حققت منظومة مكتبات مصر العامة أداءً لافتًا خلال شهر أكتوبر 2026، حيث استقبلت 131 ألفًا و956 زائرًا ماديًا وافتراضيًا، وسجلت 54 ألفًا و213 إعارة. وأعلنت الدكتورة رانيا شرعان، مدير مكتبة مصر العامة، نتائج التقرير الإحصائي التي شملت المكتبة الرئيسية بالجيزة وفرعي الزيتون والزاوية الحمراء، موضحة تسجيل 2658 اشتراكًا جديدًا ووصول المستفيدين النشطين إلى 50 ألفًا و907 مستفيدين.",
+      "source_name": "مكتبة مصر العامة",
+      "source_url": "https://mpl.org.eg/the-misr-public-libraries-system-achieved-remarkable-performance-during-the-month-of-october-2026",
+      "published_at": "2026-11-15",
+      "scope": "libraries",
+      "source_language": "ar",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-5416687785464a14a822c46b55ac65eb6ee944927decc1e7905bfe7147c5e700",
+      "title_ar": "مكتبة الإسكندرية تستضيف كرنفال الأجهزة الهاردوير لدعم صناعة الإلكترونيات وأشباه الموصلات",
+      "summary_ar": "تستضيف مكتبة الإسكندرية فعالية كرنفال الأجهزة الهاردوير للسنة الثانية على التوالي بالتعاون مع جمعية دوائر الحالة الصلبة التابعة لمعهد مهندسي الكهرباء والإلكترونيات، وذلك في مقر مركز مؤتمرات المكتبة والمعرض الغربي. ويجمع الحدث مختلف الأطراف المعنية بمنظومة أشباه الموصلات من طلاب وباحثين وأكاديميين بهدف تعزيز وتطوير قطاعات الإلكترونيات وتصميم الدوائر المتكاملة وأشباه الموصلات في مصر.",
+      "source_name": "مكتبة الإسكندرية",
+      "source_url": "https://www.bibalex.org/en/news/details?documentid=46412",
+      "published_at": "2026-11-18",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
