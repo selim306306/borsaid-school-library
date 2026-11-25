@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-19T13:14:10.519Z",
+  "updated_at": "2026-11-25T14:26:40.420Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -579,6 +579,17 @@
       "source_name": "مكتبة الإسكندرية",
       "source_url": "https://www.bibalex.org/en/news/details?documentid=46412",
       "published_at": "2026-11-18",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-8aa4fc1d77dba59eecd94bd449cc0dffbc8f216d47ae14431815a79fa43729fc",
+      "title_ar": "إطلاق مشروع جديد لتعزيز التعلم الرقمي في مكتبات غانا العامة بالشراكة مع منظمة إيفل",
+      "summary_ar": "أعلنت منظمة إيفل وهية مكتبات غانا عن استمرار الشراكة بينهما وتلقي منحة لتنفيذ مشروع جديد للتعلم الرقمي يستهدف طلاب المدارس. يهدف المشروع الجديد، الذي يحمل عنوان «Digital Learning @ Ghana Public Libraries 2.0»، إلى توسيع فرص التعلم الرقمي في المكتبات العامة وتدريب الطلاب على المهارات الرقمية ومعلومات الإنترنت.",
+      "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
+      "source_url": "https://www.eifl.net/news/powering-digital-learning-through-ghana-libraries",
+      "published_at": "2026-11-24",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
