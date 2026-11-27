@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-26T13:56:04.740Z",
+  "updated_at": "2026-11-27T13:55:03.827Z",
   "schedule_interval_hours": 24,
   "schedule_interval_seconds": 86400,
   "items": [
@@ -623,6 +623,17 @@
       "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
       "source_url": "https://www.eifl.net/news/financial-sustainability-planning-toolkit-diamond-oa-journals",
       "published_at": "2026-11-11",
+      "scope": "libraries",
+      "source_language": "en",
+      "category": "أخبار المكتبات"
+    },
+    {
+      "id": "auto-8b51b6ac7236a6a5cc5039c802eb4c8fcff63415b57d51e23270e9b46b481cca",
+      "title_ar": "تجديد اتفاقية تعاون بين منظمة إيفل ودار نشر دي غرويتر بريل لتوفير الوصول الحر والمخفض للمجلات",
+      "summary_ar": "أعلنت منظمة إيفل عن تجديد اتفاقيتها مع دار نشر دي غرويتر بريل لضمان توفير وصول مجاني ومخفض لقراءة مجموعة مجلات دي غرويتر بريل التي تضم سعمائة وأربعين عنواناً خلف جدار الحماية، بالإضافة إلى تقديم تخفيضات على رسوم نشر المقالات وتوفير النشر المجاني للعديد من البلدان الشريكة في المبادرة.",
+      "source_name": "المعلومات الإلكترونية للمكتبات (EIFL)",
+      "source_url": "https://www.eifl.net/news/eifl-renews-agreement-de-gruyter-brill",
+      "published_at": "2026-11-25",
       "scope": "libraries",
       "source_language": "en",
       "category": "أخبار المكتبات"
